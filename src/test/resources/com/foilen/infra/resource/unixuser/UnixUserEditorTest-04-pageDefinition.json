@@ -1,0 +1,40 @@
+{
+  "pageTitle" : "Unix User",
+  "pageItems" : [ {
+    "text" : "Id: 70,000"
+  }, {
+    "fieldName" : "name",
+    "fieldValue" : "the_user",
+    "label" : "Name",
+    "placeholder" : null,
+    "password" : false
+  }, {
+    "text" : "If you want to keep the same password, do not enter anything in the two following fields. If you want to remove the password, set the password to \"*\" and do not fill the confirmation password."
+  }, {
+    "fieldName" : "password",
+    "fieldValue" : null,
+    "label" : "Password",
+    "placeholder" : null,
+    "password" : true
+  }, {
+    "fieldName" : "passwordConf",
+    "fieldValue" : null,
+    "label" : "Retype the same Password",
+    "placeholder" : null,
+    "password" : true
+  }, {
+    "fieldName" : "keepClearPassword",
+    "fieldValue" : "true",
+    "label" : "Keep the password in clear text to be able to retrieve it later",
+    "placeholder" : null,
+    "password" : false
+  }, {
+    "fieldName" : "machines",
+    "fieldValue" : null,
+    "resourceType" : "com.foilen.infra.resource.machine.Machine",
+    "values" : [ ],
+    "label" : "Install on"
+  }, {
+    "text" : "Visible Password: qwerty"
+  } ]
+}

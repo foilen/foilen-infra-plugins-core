@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<smtpservers>
+
+  <smtpserver enabled="true">
+
+    <jmxName>smtpserver</jmxName>
+
+    <bind>0.0.0.0:10025</bind>
+
+    <connectionBacklog>200</connectionBacklog>
+
+    <tls socketTLS="false" startTLS="true">
+      <keystore>file://conf/keystore-smtps</keystore>
+      <secret>james</secret>
+      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
+      <algorithm>SunX509</algorithm>
+    </tls>
+
+    <connectiontimeout>360</connectiontimeout>
+    <connectionLimit>0</connectionLimit>
+    <connectionLimitPerIP>50</connectionLimitPerIP>
+    <verifyIdentity>true</verifyIdentity>
+    <maxmessagesize>75000</maxmessagesize><!-- 75MB -->
+    <addressBracketsEnforcement>true</addressBracketsEnforcement>
+
+    <handlerchain>
+      <handler class="com.foilen.james.components.handler.fastfail.ValidRcptHandler" />
+      <handler class="org.apache.james.smtpserver.CoreCmdHandlerLoader" />
+    </handlerchain>
+  </smtpserver>
+
+
+  <smtpserver enabled="true">
+
+    <jmxName>smtpserver-authenticated</jmxName>
+
+    <bind>0.0.0.0:10587</bind>
+
+    <connectionBacklog>200</connectionBacklog>
+
+    <tls socketTLS="false" startTLS="true">
+      <keystore>file://conf/keystore-smtps</keystore>
+      <secret>james</secret>
+      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
+      <algorithm>SunX509</algorithm>
+    </tls>
+    <connectiontimeout>360</connectiontimeout>
+    <connectionLimit>0</connectionLimit>
+    <connectionLimitPerIP>50</connectionLimitPerIP>
+
+    <authRequired>true</authRequired>
+    <authorizedAddresses>127.0.0.0/8</authorizedAddresses>
+
+    <verifyIdentity>true</verifyIdentity>
+    <maxmessagesize>75000</maxmessagesize><!-- 75MB -->
+    <addressBracketsEnforcement>true</addressBracketsEnforcement>
+
+    <handlerchain>
+      <handler class="com.foilen.james.components.handler.fastfail.ValidRcptHandler" />
+      <handler class="org.apache.james.smtpserver.CoreCmdHandlerLoader" />
+    </handlerchain>
+  </smtpserver>
+
+</smtpservers>
+
+

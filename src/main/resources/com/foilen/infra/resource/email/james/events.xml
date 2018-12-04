@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<events>
+  <type>default</type>
+  <delivery>synchronous</delivery>
+</events>

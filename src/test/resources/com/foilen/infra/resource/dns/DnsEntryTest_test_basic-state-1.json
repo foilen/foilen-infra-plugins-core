@@ -1,0 +1,68 @@
+{
+  "resources" : [ {
+    "resource" : "DnsEntry | d0.example.com / TXT | hello",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "d0.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "d0.example.com / TXT",
+      "type" : "TXT"
+    }
+  }, {
+    "resource" : "DnsEntry | d1.example.com / TXT | hello",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "d1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "d1.example.com / TXT",
+      "type" : "TXT"
+    }
+  }, {
+    "resource" : "DnsEntry | d2.example.com / TXT | hello",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "d2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "d2.example.com / TXT",
+      "type" : "TXT"
+    }
+  }, {
+    "resource" : "DnsEntry | d3.example.com / TXT | hello",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "d3.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "d3.example.com / TXT",
+      "type" : "TXT"
+    }
+  }, {
+    "resource" : "DnsEntry | d4.example.com / TXT | hello",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "d4.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "d4.example.com / TXT",
+      "type" : "TXT"
+    }
+  } ]
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<dnsservice>
+  <servers>
+  </servers>
+
+  <autodiscover>true</autodiscover>
+  <authoritative>false</authoritative>
+
+  <maxcachesize>50000</maxcachesize>
+
+</dnsservice>

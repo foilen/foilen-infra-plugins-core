@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<recipientrewritetable class="org.apache.james.rrt.jpa.JPARecipientRewriteTable">
+   <recursiveMapping>true</recursiveMapping>
+   <mappingLimit>10</mappingLimit>
+</recipientrewritetable>
+

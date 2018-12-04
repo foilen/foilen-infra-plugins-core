@@ -1,0 +1,586 @@
+{
+  "resources" : [ {
+    "resource" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/etc/apache2/ports.conf",
+            "b" : "Listen 8080
+"
+          }, {
+            "a" : "/apache-start.sh",
+            "b" : "#!/bin/bash
+
+set -e
+source /etc/apache2/envvars
+/usr/sbin/apache2ctl start
+
+until [ -f /var/run/apache2/apache2.pid ]
+do
+	echo Waiting for /var/run/apache2/apache2.pid
+	sleep 1
+done
+
+APP_PID=$(cat /var/run/apache2/apache2.pid)
+while [ -e /proc/$APP_PID ]; do sleep 5; done
+
+echo Apache service is down
+"
+          }, {
+            "a" : "/etc/apache2/sites-enabled/000-default.conf",
+            "b" : "<VirtualHost *>
+    ServerName redir.example.com
+    ServerAlias redir.example.com
+    
+    ErrorLog /var/log/apache2/redir.example.com-error.log
+    CustomLog /var/log/apache2/redir.example.com-access.log combined
+    
+    RewriteEngine On
+    RewriteRule /(.*) https://www.example.com/$1 [R=301,L]
+</VirtualHost>
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "chmod 644 /etc/apache2/ports.conf ; chmod 755 /apache-start.sh",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chmod -R 777 /var/log",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chown www-data:www-data /var/run/apache2",
+          "type" : "COMMAND"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "www-data",
+          "b" : 70000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "8080" : "HTTP_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 70000,
+        "services" : [ {
+          "command" : "/apache-start.sh",
+          "name" : "apache"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lock/apache2",
+          "groupId" : 70000,
+          "ownerId" : 70000,
+          "permissions" : "755"
+        }, {
+          "containerFsFolder" : "/var/log/apache2",
+          "groupId" : 70000,
+          "ownerId" : 70000,
+          "permissions" : "755"
+        } ]
+      },
+      "description" : "Apache HTTP URL redirections for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_url_redirection_http-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Apache HTTP URL redirections for h1.example.com",
+      "resourceName" : "infra_url_redirection_http-h1_example_com"
+    }
+  }, {
+    "resource" : "Application | infra_url_redirection_https-h1_example_com | Apache HTTPS URL redirections for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/etc/apache2/ports.conf",
+            "b" : "Listen 8080
+"
+          }, {
+            "a" : "/apache-start.sh",
+            "b" : "#!/bin/bash
+
+set -e
+source /etc/apache2/envvars
+/usr/sbin/apache2ctl start
+
+until [ -f /var/run/apache2/apache2.pid ]
+do
+	echo Waiting for /var/run/apache2/apache2.pid
+	sleep 1
+done
+
+APP_PID=$(cat /var/run/apache2/apache2.pid)
+while [ -e /proc/$APP_PID ]; do sleep 5; done
+
+echo Apache service is down
+"
+          }, {
+            "a" : "/etc/apache2/sites-enabled/000-default.conf",
+            "b" : "<VirtualHost *>
+    ServerName redir.example.com
+    ServerAlias redir.example.com
+    
+    ErrorLog /var/log/apache2/redir.example.com-error.log
+    CustomLog /var/log/apache2/redir.example.com-access.log combined
+    
+    RewriteEngine On
+    RewriteRule /(.*) https://www.example.com/$1 [R=301,L]
+</VirtualHost>
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "chmod 644 /etc/apache2/ports.conf ; chmod 755 /apache-start.sh",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chmod -R 777 /var/log",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chown www-data:www-data /var/run/apache2",
+          "type" : "COMMAND"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "www-data",
+          "b" : 70000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "8080" : "HTTP_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 70000,
+        "services" : [ {
+          "command" : "/apache-start.sh",
+          "name" : "apache"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lock/apache2",
+          "groupId" : 70000,
+          "ownerId" : 70000,
+          "permissions" : "755"
+        }, {
+          "containerFsFolder" : "/var/log/apache2",
+          "groupId" : 70000,
+          "ownerId" : 70000,
+          "permissions" : "755"
+        } ]
+      },
+      "description" : "Apache HTTPS URL redirections for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_url_redirection_https-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Apache HTTPS URL redirections for h1.example.com",
+      "resourceName" : "infra_url_redirection_https-h1_example_com"
+    }
+  }, {
+    "resource" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/certs/redir.example.com.pem",
+            "b" : "-----BEGIN CERTIFICATE-----
+MIIBrDCCARWgAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFyZWRp
+ci5leGFtcGxlLmNvbTAeFw0xODA4MTMwMTQyMDdaFw0xOTA4MTMwMTQyMDdaMBwx
+GjAYBgNVBAMMEXJlZGlyLmV4YW1wbGUuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GN
+ADCBiQKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+GjdsG1b6Pl+58ZMsoYZizJOMgztw
+gFNtVn91k4CFll1s9oH2pHWWW8k077LhboXwKgNGrMiDiY6+Itx/8JZp/5ajR/em
+5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9JkM4V9aurGnU3ngqbnwIDAQABMA0G
+CSqGSIb3DQEBCwUAA4GBAEmRlfg2saONC/YgYe9yK8ZwVhpBJ9QnZvttH4HEdt07
+/eN/L9nTBPeppWIfEZS2N2uG1ixQl4TVac2PLwFeRhzyn8ksl9j9Rjcli64Yawb4
+dCDHsURJ4EwPujnW00zcc1pF043SSd8LUdgG74wcWdLQLTJtWEH4IgVSndc0cLHJ
+-----END CERTIFICATE-----
+
+-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+GjdsG1b6Pl+58ZMsoYZizJOM
+gztwgFNtVn91k4CFll1s9oH2pHWWW8k077LhboXwKgNGrMiDiY6+Itx/8JZp/5aj
+R/em5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9JkM4V9aurGnU3ngqbnwIDAQAB
+AoGAXjZI5uFopJ5AzRE7x4+P3lria08fNTw9Clz9C0YUWG5m2sxfxGcvejud6de/
+Wkn+E8nfTJ0L1kUt/nRanfWP7NKGAZKgqclMErJhWE4wFUVU2g75diWvOkvn/m46
+MGqPXJV9T/zIu2Hh2fOdSMz5ttqUCmvlFBucDaEcirPC2skCQQD6frGoOjz4waRx
+9fyFcZJlXxGUEH2NN9K6gD00QgklxiKA3VmDrIOfzLOhhb3H4AwoJPjubk1hBLaB
+jWXXDHSjAkEA1V9klxzsxf2KLRucgiM2juTn3n7o0h5m2BD+mDcwUzSoTyJ5ETn9
+uRKk9lzCHXE1ibkC1qWOJJ4mUa2SN+Uw1QJBAIhlFg1Y8LwujIE1BPQQXDtwYZzy
+wbp0S/0bOLhMwLhdw4nRfR1SgTUw/BqWPTkpSNVPFHCXhPCv5URznqFS+esCQGWM
+5BwDeTD17UhwprlNNw8lJLHBJt+x9nKJDBK32XkQS7Z2CrbHKdlmZTqXhQ9sLPXi
+JtavrooA9u3StQ+DNg0CQCjKbBC3dCjnUwJUQ3tGrscfnGA+Vs68D7V2I3Q0KKZk
+/kD6sRpqJAXHsPS7I2OVWH2vi6QRF6ZLoK1rmMRQ1o4=
+-----END RSA PRIVATE KEY-----
+
+"
+          }, {
+            "a" : "/haproxy.cfg",
+            "b" : "global
+  user haproxy
+  group haproxy
+  tune.ssl.default-dh-param 1024
+
+defaults
+  timeout connect 5000
+  timeout client 600000
+  timeout server 600000
+  timeout tunnel 600000
+
+frontend port_4433
+  mode http
+  option forwardfor
+  option http-server-close
+  bind *:4433 ssl crt /certs
+  reqadd X-Forwarded-Proto:\\ https
+
+  use_backend https_4433_redir.example.com if { ssl_fc_sni redir.example.com }
+
+frontend port_8080
+  mode http
+  option forwardfor
+  option http-server-close
+  bind *:8080
+  reqadd X-Forwarded-Proto:\\ http
+
+  acl http_8080_redir.example.com hdr(host) -i redir.example.com
+
+  use_backend http_8080_redir.example.com if http_8080_redir.example.com
+
+backend https_4433_redir.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server https_4433_redir.example.com_1 127.0.0.1:10001 check
+
+backend http_8080_redir.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server http_8080_redir.example.com_1 127.0.0.1:10000 check
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "haproxy",
+          "b" : 70001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-haproxy:1.6.3-002",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "80" : 8080,
+          "443" : 4433
+        },
+        "portsRedirect" : [ {
+          "localPort" : 10000,
+          "machineContainerEndpoint" : "localhost/infra_url_redirection_http-h1_example_com/HTTP_TCP",
+          "toContainerName" : "infra_url_redirection_http-h1_example_com",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        }, {
+          "localPort" : 10001,
+          "machineContainerEndpoint" : "localhost/infra_url_redirection_https-h1_example_com/HTTP_TCP",
+          "toContainerName" : "infra_url_redirection_https-h1_example_com",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        } ],
+        "runAs" : 70001,
+        "services" : [ {
+          "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
+          "name" : "haproxy"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Web HA Proxy for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_web-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Web HA Proxy for h1.example.com",
+      "resourceName" : "infra_web-h1_example_com"
+    }
+  }, {
+    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "h1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | redir.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "redir.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "redir.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | redir.example.com | redir.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | redir.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "redir.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "redir.example.com",
+      "resourceName" : "redir.example.com"
+    }
+  }, {
+    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | infra_url_redirection_https-h1_example_com | Apache HTTPS URL redirections for h1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "publicIp" : "192.168.0.200",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h1.example.com (192.168.0.200)",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UrlRedirection | redir.example.com | Redirection to https://www.example.com, https://www.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Website | HTTP Redirection of redir.example.com | redir.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Website | HTTPS Redirection of redir.example.com | redir.example.com"
+    }, {
+      "type" : "USES",
+      "to" : "WebsiteCertificate |  | 861ce6de0487aadfd1befbf21057719a8bd0c8db, 2018-08-12, 2019-08-12"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "domainName" : "redir.example.com",
+      "httpIsPermanent" : true,
+      "httpRedirectToUrl" : "https://www.example.com",
+      "httpsIsPermanent" : true,
+      "httpsRedirectToUrl" : "https://www.example.com",
+      "meta" : { },
+      "resourceCategory" : "NET",
+      "resourceDescription" : "Redirection to https://www.example.com, https://www.example.com",
+      "resourceName" : "redir.example.com"
+    }
+  }, {
+    "resource" : "Website | HTTP Redirection of redir.example.com | redir.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | redir.example.com | redir.example.com"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "redir.example.com" ],
+      "https" : false,
+      "meta" : { },
+      "name" : "HTTP Redirection of redir.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "redir.example.com",
+      "resourceName" : "HTTP Redirection of redir.example.com"
+    }
+  }, {
+    "resource" : "Website | HTTPS Redirection of redir.example.com | redir.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | redir.example.com | redir.example.com"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | infra_url_redirection_https-h1_example_com | Apache HTTPS URL redirections for h1.example.com"
+    }, {
+      "type" : "USES",
+      "to" : "WebsiteCertificate |  | 861ce6de0487aadfd1befbf21057719a8bd0c8db, 2018-08-12, 2019-08-12"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "redir.example.com" ],
+      "https" : true,
+      "meta" : { },
+      "name" : "HTTPS Redirection of redir.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "redir.example.com",
+      "resourceName" : "HTTPS Redirection of redir.example.com"
+    }
+  }, {
+    "resource" : "WebsiteCertificate |  | 861ce6de0487aadfd1befbf21057719a8bd0c8db, 2018-08-12, 2019-08-12",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "certificate" : "-----BEGIN CERTIFICATE-----
+MIIBrDCCARWgAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFyZWRp
+ci5leGFtcGxlLmNvbTAeFw0xODA4MTMwMTQyMDdaFw0xOTA4MTMwMTQyMDdaMBwx
+GjAYBgNVBAMMEXJlZGlyLmV4YW1wbGUuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GN
+ADCBiQKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+GjdsG1b6Pl+58ZMsoYZizJOMgztw
+gFNtVn91k4CFll1s9oH2pHWWW8k077LhboXwKgNGrMiDiY6+Itx/8JZp/5ajR/em
+5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9JkM4V9aurGnU3ngqbnwIDAQABMA0G
+CSqGSIb3DQEBCwUAA4GBAEmRlfg2saONC/YgYe9yK8ZwVhpBJ9QnZvttH4HEdt07
+/eN/L9nTBPeppWIfEZS2N2uG1ixQl4TVac2PLwFeRhzyn8ksl9j9Rjcli64Yawb4
+dCDHsURJ4EwPujnW00zcc1pF043SSd8LUdgG74wcWdLQLTJtWEH4IgVSndc0cLHJ
+-----END CERTIFICATE-----
+",
+      "domainNames" : [ ],
+      "end" : 1565660527000,
+      "meta" : { },
+      "privateKey" : "-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+GjdsG1b6Pl+58ZMsoYZizJOM
+gztwgFNtVn91k4CFll1s9oH2pHWWW8k077LhboXwKgNGrMiDiY6+Itx/8JZp/5aj
+R/em5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9JkM4V9aurGnU3ngqbnwIDAQAB
+AoGAXjZI5uFopJ5AzRE7x4+P3lria08fNTw9Clz9C0YUWG5m2sxfxGcvejud6de/
+Wkn+E8nfTJ0L1kUt/nRanfWP7NKGAZKgqclMErJhWE4wFUVU2g75diWvOkvn/m46
+MGqPXJV9T/zIu2Hh2fOdSMz5ttqUCmvlFBucDaEcirPC2skCQQD6frGoOjz4waRx
+9fyFcZJlXxGUEH2NN9K6gD00QgklxiKA3VmDrIOfzLOhhb3H4AwoJPjubk1hBLaB
+jWXXDHSjAkEA1V9klxzsxf2KLRucgiM2juTn3n7o0h5m2BD+mDcwUzSoTyJ5ETn9
+uRKk9lzCHXE1ibkC1qWOJJ4mUa2SN+Uw1QJBAIhlFg1Y8LwujIE1BPQQXDtwYZzy
+wbp0S/0bOLhMwLhdw4nRfR1SgTUw/BqWPTkpSNVPFHCXhPCv5URznqFS+esCQGWM
+5BwDeTD17UhwprlNNw8lJLHBJt+x9nKJDBK32XkQS7Z2CrbHKdlmZTqXhQ9sLPXi
+JtavrooA9u3StQ+DNg0CQCjKbBC3dCjnUwJUQ3tGrscfnGA+Vs68D7V2I3Q0KKZk
+/kD6sRpqJAXHsPS7I2OVWH2vi6QRF6ZLoK1rmMRQ1o4=
+-----END RSA PRIVATE KEY-----
+",
+      "publicKey" : "-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+
+GjdsG1b6Pl+58ZMsoYZizJOMgztwgFNtVn91k4CFll1s9oH2pHWWW8k077LhboXw
+KgNGrMiDiY6+Itx/8JZp/5ajR/em5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9J
+kM4V9aurGnU3ngqbnwIDAQAB
+-----END PUBLIC KEY-----
+",
+      "resourceCategory" : "NET",
+      "start" : 1534124527000,
+      "thumbprint" : "861ce6de0487aadfd1befbf21057719a8bd0c8db"
+    }
+  } ]
+}

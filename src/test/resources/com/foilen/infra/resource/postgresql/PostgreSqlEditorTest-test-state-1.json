@@ -1,0 +1,150 @@
+{
+  "resources" : [ {
+    "resource" : "Application | user_db | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/newPass",
+            "b" : "abc"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "postgres",
+          "b" : 70001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : {
+          "AUTH_METHOD" : "md5"
+        },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-postgresql:11.1-2",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "5432" : "POSTGRESQL_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 70001,
+        "services" : [ {
+          "command" : "/postgresql-start.sh",
+          "name" : "app"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lib/postgresql/data",
+          "groupId" : 70001,
+          "hostFolder" : "/home/user1/postgresql/user_db/data",
+          "ownerId" : 70001,
+          "permissions" : "770"
+        } ]
+      },
+      "description" : "null",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "user_db",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "null",
+      "resourceName" : "user_db"
+    }
+  }, {
+    "resource" : "DnsEntry | test1.node.example.com / A | 192.168.0.11",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.11",
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.11",
+      "resourceName" : "test1.node.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | test1.node.example.com / A | 192.168.0.11"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "publicIp" : "192.168.0.11",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "test1.node.example.com (192.168.0.11)",
+      "resourceName" : "test1.node.example.com"
+    }
+  }, {
+    "resource" : "PostgreSqlServer | user_db | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | user_db | null"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "authMethod" : "md5",
+      "description" : "null",
+      "meta" : { },
+      "name" : "user_db",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "null",
+      "resourceName" : "user_db",
+      "rootPassword" : "abc",
+      "version" : "11.1-2"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | user1 | /home/user1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/user1",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "user1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/user1",
+      "resourceName" : "user1",
+      "shell" : "/bin/bash"
+    }
+  } ]
+}

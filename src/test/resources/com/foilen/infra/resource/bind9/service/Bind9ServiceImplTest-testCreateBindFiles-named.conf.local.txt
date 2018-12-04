@@ -1,0 +1,10 @@
+zone "example.com" {
+  type master;
+  allow-transfer {none;};
+  file "/etc/bind/pri.example.com";
+};
+zone "example.org" {
+  type master;
+  allow-transfer {none;};
+  file "/etc/bind/pri.example.org";
+};

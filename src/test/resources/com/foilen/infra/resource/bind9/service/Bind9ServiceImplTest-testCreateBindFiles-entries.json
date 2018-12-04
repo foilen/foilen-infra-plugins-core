@@ -1,0 +1,198 @@
+[
+ {
+	  "zone" : "example.com",
+	  "subDomain" : "analytics",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "cdn",
+	  "type" : "A",
+	  "details" : "104.131.93.210"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "cdn",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "example.com.",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "ispconfig",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "www",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "chef",
+	  "type" : "CNAME",
+	  "details" : "h1.node.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "ci",
+	  "type" : "CNAME",
+	  "details" : "dev1.node.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "gitlab",
+	  "type" : "CNAME",
+	  "details" : "dev1.node.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "r",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "shinken",
+	  "type" : "CNAME",
+	  "details" : "h1.node.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "vent",
+	  "type" : "CNAME",
+	  "details" : "p003.node.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "example.com.",
+	  "type" : "MX",
+	  "details" : "example.com"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "example.com.",
+	  "type" : "NS",
+	  "details" : "ns1.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "example.com.",
+	  "type" : "NS",
+	  "details" : "ns2.example.org"
+	}, {
+	  "zone" : "example.com",
+	  "subDomain" : "example.com.",
+	  "type" : "TXT",
+	  "details" : "v=spf1 +a +mx +ip4:104.131.186.38 ?all"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "dev1.node",
+	  "type" : "A",
+	  "details" : "104.131.93.210"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "example.org.",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "hvm1.node",
+	  "type" : "A",
+	  "details" : "192.168.2.33"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "hvm2.node",
+	  "type" : "A",
+	  "details" : "192.168.2.36"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "ns1",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "ns2",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p002.node",
+	  "type" : "A",
+	  "details" : "104.131.186.38"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p003.node",
+	  "type" : "A",
+	  "details" : "104.131.93.210"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "tmp1.node",
+	  "type" : "A",
+	  "details" : "104.236.67.210"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "clicsoumission.user",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "csphplist.user",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "dev1-btsync.node",
+	  "type" : "CNAME",
+	  "details" : "p003.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "dev1-phpmyadmin.node",
+	  "type" : "CNAME",
+	  "details" : "p003.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "h1.node",
+	  "type" : "CNAME",
+	  "details" : "pv-home.ddns.net"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p002-btsync.node",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p002-phpmyadmin.node",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p002-roundcube.node",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p002-webhook.node",
+	  "type" : "CNAME",
+	  "details" : "p002.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p003-btsync.node",
+	  "type" : "CNAME",
+	  "details" : "p003.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "p003-phpmyadmin.node",
+	  "type" : "CNAME",
+	  "details" : "p003.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "tmp1-phpmyadmin.node",
+	  "type" : "CNAME",
+	  "details" : "tmp1.node.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "example.org.",
+	  "type" : "NS",
+	  "details" : "ns1.example.org"
+	}, {
+	  "zone" : "example.org",
+	  "subDomain" : "example.org.",
+	  "type" : "NS",
+	  "details" : "ns2.example.org"
+	} 
+]

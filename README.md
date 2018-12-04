@@ -1,4 +1,4 @@
-Foilen Infra Plugins Core Resources
+Foilen Infra Plugins Core
 ==============
 
 The basics resources with their validations.

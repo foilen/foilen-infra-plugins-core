@@ -1,0 +1,428 @@
+{
+  "resources" : [ {
+    "resource" : "ApachePhp | myphp | Apache and PHP application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | myphp | Apache and PHP application"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | myphp | /home/myphp"
+    }, {
+      "type" : "USES",
+      "to" : "ApachePhpFolder | the_uid | /home/myphp/otherphp : inside -> /other"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "basePath" : "/home/myphp/php",
+      "mainSiteRelativePath" : "/www/",
+      "meta" : { },
+      "name" : "myphp",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "Apache and PHP application",
+      "resourceEditorName" : "Apache PHP",
+      "resourceName" : "myphp",
+      "version" : "5.5.9-1"
+    }
+  }, {
+    "resource" : "ApachePhpFolder | the_uid | /home/myphp/otherphp : inside -> /other",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "alias" : "/other",
+      "basePath" : "/home/myphp/otherphp",
+      "meta" : { },
+      "relativePath" : "inside",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "/home/myphp/otherphp : inside -> /other",
+      "resourceName" : "the_uid",
+      "uid" : "the_uid"
+    }
+  }, {
+    "resource" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/haproxy.cfg",
+            "b" : "global
+  user haproxy
+  group haproxy
+  tune.ssl.default-dh-param 1024
+
+defaults
+  timeout connect 5000
+  timeout client 600000
+  timeout server 600000
+  timeout tunnel 600000
+
+frontend port_8080
+  mode http
+  option forwardfor
+  option http-server-close
+  bind *:8080
+  reqadd X-Forwarded-Proto:\\ http
+
+  acl http_8080_myphp.example.com hdr(host) -i myphp.example.com
+
+  use_backend http_8080_myphp.example.com if http_8080_myphp.example.com
+
+backend http_8080_myphp.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server http_8080_myphp.example.com_1 127.0.0.1:10000 check
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "haproxy",
+          "b" : 70000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-haproxy:1.6.3-002",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "80" : 8080,
+          "443" : 4433
+        },
+        "portsRedirect" : [ {
+          "localPort" : 10000,
+          "machineContainerEndpoint" : "localhost/myphp/HTTP_TCP",
+          "toContainerName" : "myphp",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        } ],
+        "runAs" : 70000,
+        "services" : [ {
+          "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
+          "name" : "haproxy"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Web HA Proxy for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_web-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Web HA Proxy for h1.example.com",
+      "resourceName" : "infra_web-h1_example_com"
+    }
+  }, {
+    "resource" : "Application | myphp | Apache and PHP application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | myphp | /home/myphp"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/etc/apache2/ports.conf",
+            "b" : "Listen 8080
+"
+          }, {
+            "a" : "/apache-start.sh",
+            "b" : "#!/bin/bash
+
+set -e
+source /etc/apache2/envvars
+/usr/sbin/apache2ctl start
+
+until [ -f /var/run/apache2/apache2.pid ]
+do
+	echo Waiting for /var/run/apache2/apache2.pid
+	sleep 1
+done
+
+APP_PID=$(cat /var/run/apache2/apache2.pid)
+while [ -e /proc/$APP_PID ]; do sleep 5; done
+
+echo Apache service is down
+"
+          }, {
+            "a" : "/copy-php-conf.sh",
+            "b" : "#!/bin/bash
+
+set -e
+
+if [ -d /etc/php5 ]; then
+	cd /etc/php5
+	for SUB in $(ls); do
+		if [ -d $SUB/conf.d/ ]; then
+			cp /99-fcloud.ini $SUB/conf.d/
+		fi
+	done
+fi
+
+if [ -d /etc/php ]; then
+	cd /etc/php
+	for VER in $(ls); do
+		cd $VER
+		for SUB in $(ls); do
+			if [ -d $SUB/conf.d/ ]; then
+				cp /99-fcloud.ini $SUB/conf.d/
+			fi
+		done
+	done
+fi
+"
+          }, {
+            "a" : "/99-fcloud.ini",
+            "b" : "[PHP]
+sendmail_path = \"/usr/bin/msmtp -t --read-envelope-from\"
+
+max_execution_time = 300
+
+upload_max_filesize = 64M
+post_max_size = 128M
+memory_limit = 256M
+"
+          }, {
+            "a" : "/etc/apache2/sites-enabled/000-default.conf",
+            "b" : "<VirtualHost *>
+  DocumentRoot /base/www/
+  
+  SetEnvIf x-forwarded-proto https HTTPS=on
+  
+  ErrorLog /var/log/apache2/error.log
+  CustomLog /var/log/apache2/access.log combined
+  
+  <Directory /base/www/>
+    AllowOverride All
+    Require all granted
+  </Directory>
+  
+  Alias /other /folders/home_myphp_otherphp/inside
+  
+  <Directory /folders/home_myphp_otherphp/inside>
+    AllowOverride All
+    Require all granted
+  </Directory>
+
+</VirtualHost>
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && /copy-php-conf.sh",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chmod -R 777 /var/log",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chown www-data:www-data /var/run/apache2",
+          "type" : "COMMAND"
+        }, {
+          "step" : "/usr/sbin/a2enmod rewrite",
+          "type" : "COMMAND"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "www-data",
+          "b" : 72000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-apache_php:5.5.9-1",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "8080" : "HTTP_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 72000,
+        "services" : [ {
+          "command" : "/apache-start.sh",
+          "name" : "apache"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/base",
+          "hostFolder" : "/home/myphp/php"
+        }, {
+          "containerFsFolder" : "/folders/home_myphp_otherphp",
+          "hostFolder" : "/home/myphp/otherphp/"
+        }, {
+          "containerFsFolder" : "/var/lock/apache2",
+          "groupId" : 72000,
+          "ownerId" : 72000,
+          "permissions" : "755"
+        } ]
+      },
+      "description" : "Apache and PHP application",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "myphp",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Apache and PHP application",
+      "resourceName" : "myphp"
+    }
+  }, {
+    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "h1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | myphp.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "myphp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "myphp.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | myphp.example.com | myphp.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | myphp.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myphp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myphp.example.com",
+      "resourceName" : "myphp.example.com"
+    }
+  }, {
+    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "publicIp" : "192.168.0.200",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h1.example.com (192.168.0.200)",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | myphp | /home/myphp",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/myphp",
+      "id" : 72000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "myphp",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/myphp",
+      "resourceName" : "myphp",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "Website | myphp | myphp.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | myphp.example.com | myphp.example.com"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "ApachePhp | myphp | Apache and PHP application"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | myphp | Apache and PHP application"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "myphp.example.com" ],
+      "https" : false,
+      "meta" : { },
+      "name" : "myphp",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myphp.example.com",
+      "resourceName" : "myphp"
+    }
+  } ]
+}

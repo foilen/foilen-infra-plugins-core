@@ -1,0 +1,136 @@
+{
+  "resources" : [ {
+    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "h1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | h2.example.com / A | 192.168.0.202",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.202",
+      "meta" : { },
+      "name" : "h2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.202",
+      "resourceName" : "h2.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "publicIp" : "192.168.0.200",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h1.example.com (192.168.0.200)",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Machine | h2.example.com | h2.example.com (192.168.0.202)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h2.example.com / A | 192.168.0.202"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h2.example.com",
+      "publicIp" : "192.168.0.202",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h2.example.com (192.168.0.202)",
+      "resourceName" : "h2.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "WebsiteCertificate |  | 861ce6de0487aadfd1befbf21057719a8bd0c8db, 2018-08-12, 2019-08-12",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "certificate" : "-----BEGIN CERTIFICATE-----
+MIIBrDCCARWgAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFyZWRp
+ci5leGFtcGxlLmNvbTAeFw0xODA4MTMwMTQyMDdaFw0xOTA4MTMwMTQyMDdaMBwx
+GjAYBgNVBAMMEXJlZGlyLmV4YW1wbGUuY29tMIGfMA0GCSqGSIb3DQEBAQUAA4GN
+ADCBiQKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+GjdsG1b6Pl+58ZMsoYZizJOMgztw
+gFNtVn91k4CFll1s9oH2pHWWW8k077LhboXwKgNGrMiDiY6+Itx/8JZp/5ajR/em
+5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9JkM4V9aurGnU3ngqbnwIDAQABMA0G
+CSqGSIb3DQEBCwUAA4GBAEmRlfg2saONC/YgYe9yK8ZwVhpBJ9QnZvttH4HEdt07
+/eN/L9nTBPeppWIfEZS2N2uG1ixQl4TVac2PLwFeRhzyn8ksl9j9Rjcli64Yawb4
+dCDHsURJ4EwPujnW00zcc1pF043SSd8LUdgG74wcWdLQLTJtWEH4IgVSndc0cLHJ
+-----END CERTIFICATE-----
+",
+      "domainNames" : [ ],
+      "end" : 1565660527000,
+      "meta" : { },
+      "privateKey" : "-----BEGIN RSA PRIVATE KEY-----
+MIICXAIBAAKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+GjdsG1b6Pl+58ZMsoYZizJOM
+gztwgFNtVn91k4CFll1s9oH2pHWWW8k077LhboXwKgNGrMiDiY6+Itx/8JZp/5aj
+R/em5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9JkM4V9aurGnU3ngqbnwIDAQAB
+AoGAXjZI5uFopJ5AzRE7x4+P3lria08fNTw9Clz9C0YUWG5m2sxfxGcvejud6de/
+Wkn+E8nfTJ0L1kUt/nRanfWP7NKGAZKgqclMErJhWE4wFUVU2g75diWvOkvn/m46
+MGqPXJV9T/zIu2Hh2fOdSMz5ttqUCmvlFBucDaEcirPC2skCQQD6frGoOjz4waRx
+9fyFcZJlXxGUEH2NN9K6gD00QgklxiKA3VmDrIOfzLOhhb3H4AwoJPjubk1hBLaB
+jWXXDHSjAkEA1V9klxzsxf2KLRucgiM2juTn3n7o0h5m2BD+mDcwUzSoTyJ5ETn9
+uRKk9lzCHXE1ibkC1qWOJJ4mUa2SN+Uw1QJBAIhlFg1Y8LwujIE1BPQQXDtwYZzy
+wbp0S/0bOLhMwLhdw4nRfR1SgTUw/BqWPTkpSNVPFHCXhPCv5URznqFS+esCQGWM
+5BwDeTD17UhwprlNNw8lJLHBJt+x9nKJDBK32XkQS7Z2CrbHKdlmZTqXhQ9sLPXi
+JtavrooA9u3StQ+DNg0CQCjKbBC3dCjnUwJUQ3tGrscfnGA+Vs68D7V2I3Q0KKZk
+/kD6sRpqJAXHsPS7I2OVWH2vi6QRF6ZLoK1rmMRQ1o4=
+-----END RSA PRIVATE KEY-----
+",
+      "publicKey" : "-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDQyMFCQFBiiVtmCPVMeZFMpJW+
+GjdsG1b6Pl+58ZMsoYZizJOMgztwgFNtVn91k4CFll1s9oH2pHWWW8k077LhboXw
+KgNGrMiDiY6+Itx/8JZp/5ajR/em5+W7qGX+x26Xkrf+pPBFcv3Dg6pFMHgmJL9J
+kM4V9aurGnU3ngqbnwIDAQAB
+-----END PUBLIC KEY-----
+",
+      "resourceCategory" : "NET",
+      "start" : 1534124527000,
+      "thumbprint" : "861ce6de0487aadfd1befbf21057719a8bd0c8db"
+    }
+  } ]
+}

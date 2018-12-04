@@ -1,0 +1,26 @@
+$TTL 300
+@ IN SOA ns1.example.org. admin.example.com. (
+  2015022500; serial number
+  3600; refresh [1h]
+  600; retry [10m]
+  86400; expire [1d]
+  300); min TTL
+;
+
+example.com. 300 NS ns1.example.org.
+analytics 300 A 104.131.186.38
+cdn 300 A 104.131.186.38
+cdn 300 A 104.131.93.210
+chef 300 CNAME h1.node.example.org.
+ci 300 CNAME dev1.node.example.org.
+example.com. 300 A 104.131.186.38
+example.com. 300 MX 10 example.com.
+example.com. 300 NS ns1.example.org.
+example.com. 300 NS ns2.example.org.
+example.com. 300 TXT "v=spf1 +a +mx +ip4:104.131.186.38 ?all"
+gitlab 300 CNAME dev1.node.example.org.
+ispconfig 300 A 104.131.186.38
+r 300 CNAME p002.node.example.org.
+shinken 300 CNAME h1.node.example.org.
+vent 300 CNAME p003.node.example.org.
+www 300 A 104.131.186.38

@@ -1,6 +1,0 @@
-dependencies {
-
-  compile project(":foilen-infra-plugins-core-resources")
-  compile "com.foilen:foilen-infra-system-core-system-fake:$foilenInfraSystemVersion"
-
-}

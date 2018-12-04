@@ -1,0 +1,16 @@
+{
+  "pageTitle" : "System Unix User",
+  "pageItems" : [ {
+    "fieldName" : "id",
+    "fieldValue" : null,
+    "label" : "Id",
+    "placeholder" : null,
+    "password" : false
+  }, {
+    "fieldName" : "name",
+    "fieldValue" : null,
+    "label" : "Name",
+    "placeholder" : null,
+    "password" : false
+  } ]
+}

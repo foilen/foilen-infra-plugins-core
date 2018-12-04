@@ -1,0 +1,33 @@
+$TTL 300
+@ IN SOA ns1.example.org. admin.example.com. (
+  2015022500; serial number
+  3600; refresh [1h]
+  600; retry [10m]
+  86400; expire [1d]
+  300); min TTL
+;
+
+example.org. 300 NS ns1.example.org.
+clicsoumission.user 300 CNAME p002.node.example.org.
+csphplist.user 300 CNAME p002.node.example.org.
+dev1-btsync.node 300 CNAME p003.node.example.org.
+dev1-phpmyadmin.node 300 CNAME p003.node.example.org.
+dev1.node 300 A 104.131.93.210
+example.org. 300 A 104.131.186.38
+example.org. 300 NS ns1.example.org.
+example.org. 300 NS ns2.example.org.
+h1.node 300 CNAME pv-home.ddns.net.
+hvm1.node 300 A 192.168.2.33
+hvm2.node 300 A 192.168.2.36
+ns1 300 A 104.131.186.38
+ns2 300 A 104.131.186.38
+p002-btsync.node 300 CNAME p002.node.example.org.
+p002-phpmyadmin.node 300 CNAME p002.node.example.org.
+p002-roundcube.node 300 CNAME p002.node.example.org.
+p002-webhook.node 300 CNAME p002.node.example.org.
+p002.node 300 A 104.131.186.38
+p003-btsync.node 300 CNAME p003.node.example.org.
+p003-phpmyadmin.node 300 CNAME p003.node.example.org.
+p003.node 300 A 104.131.93.210
+tmp1-phpmyadmin.node 300 CNAME tmp1.node.example.org.
+tmp1.node 300 A 104.236.67.210

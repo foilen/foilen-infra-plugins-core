@@ -1,0 +1,229 @@
+{
+  "resources" : [ {
+    "resource" : "Application | user_db | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 3,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/newPass",
+            "b" : "abc"
+          }, {
+            "a" : "/newPass.cnf",
+            "b" : "[client]
+password=abc"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ {
+          "a" : "_assets/2",
+          "b" : "[mysqld]
+max_allowed_packet	= 500M
+"
+        } ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "_assets/2 /etc/mysql/conf.d/zInfra.cnf",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "mysql",
+          "b" : 70001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ {
+          "a" : "/manager-config.json",
+          "b" : "{
+  \"admin\" : {
+    \"name\" : \"root\",
+    \"password\" : \"abc\"
+  },
+  \"databases\" : [ \"wordpress\" ],
+  \"usersToIgnore\" : [ {
+    \"name\" : \"root\",
+    \"host\" : \"%\"
+  } ],
+  \"usersPermissions\" : [ {
+    \"name\" : \"wp_user\",
+    \"host\" : \"%\",
+    \"password\" : \"123\",
+    \"databaseGrants\" : [ {
+      \"databaseName\" : \"wordpress\",
+      \"grants\" : [ \"ALTER\", \"CREATE\", \"CREATE ROUTINE\", \"CREATE TEMPORARY TABLES\", \"CREATE VIEW\", \"DROP\", \"EVENT\", \"INDEX\", \"LOCK TABLES\", \"SHOW VIEW\", \"TRIGGER\", \"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\" ]
+    } ]
+  } ]
+}"
+        } ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ "/mariadb-update-manager.sh" ],
+        "from" : "foilen/fcloud-docker-mariadb:10.3.5-1.1.1-001",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "3306" : "MYSQL_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 70001,
+        "services" : [ {
+          "command" : "/mariadb-start.sh",
+          "name" : "app"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lib/mysql",
+          "groupId" : 70001,
+          "hostFolder" : "/home/user1/mysql/user_db/data",
+          "ownerId" : 70001,
+          "permissions" : "770"
+        }, {
+          "containerFsFolder" : "/var/run/mysqld/",
+          "groupId" : 70001,
+          "hostFolder" : "/home/user1/mysql/user_db/run",
+          "ownerId" : 70001,
+          "permissions" : "770"
+        }, {
+          "containerFsFolder" : "/volumes/config/",
+          "groupId" : 70001,
+          "hostFolder" : "/home/user1/mysql/user_db/config",
+          "ownerId" : 70001,
+          "permissions" : "770"
+        } ]
+      },
+      "description" : "null",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "user_db",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "null",
+      "resourceName" : "user_db"
+    }
+  }, {
+    "resource" : "DnsEntry | test1.node.example.com / A | 192.168.0.11",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.11",
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.11",
+      "resourceName" : "test1.node.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | test1.node.example.com / A | 192.168.0.11"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "publicIp" : "192.168.0.11",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "test1.node.example.com (192.168.0.11)",
+      "resourceName" : "test1.node.example.com"
+    }
+  }, {
+    "resource" : "MariaDBDatabase | wordpress | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "MariaDBServer | user_db | null"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "null",
+      "meta" : { },
+      "name" : "wordpress",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "null",
+      "resourceName" : "wordpress"
+    }
+  }, {
+    "resource" : "MariaDBServer | user_db | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | user_db | null"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "null",
+      "meta" : { },
+      "name" : "user_db",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "null",
+      "resourceName" : "user_db",
+      "rootPassword" : "abc"
+    }
+  }, {
+    "resource" : "MariaDBUser | wp_user | null",
+    "links" : [ {
+      "type" : "CAN_ADMIN",
+      "to" : "MariaDBDatabase | wordpress | null"
+    }, {
+      "type" : "CAN_READ",
+      "to" : "MariaDBDatabase | wordpress | null"
+    }, {
+      "type" : "CAN_WRITE",
+      "to" : "MariaDBDatabase | wordpress | null"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "null",
+      "meta" : { },
+      "name" : "wp_user",
+      "password" : "123",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "null",
+      "resourceName" : "wp_user"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | user1 | /home/user1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/user1",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "user1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/user1",
+      "resourceName" : "user1",
+      "shell" : "/bin/bash"
+    }
+  } ]
+}
