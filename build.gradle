@@ -22,6 +22,9 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
+  maven {
+  	url 'https://dl.bintray.com/foilen/maven'
+  }
 }
 
 sourceCompatibility = 1.8
