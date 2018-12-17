@@ -21,6 +21,8 @@ import com.foilen.infra.resource.composableapplication.parts.AttachableCronJob;
 import com.foilen.infra.resource.composableapplication.parts.AttachableCronJobEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDBEditor;
+import com.foilen.infra.resource.composableapplication.parts.AttachableMongoDB;
+import com.foilen.infra.resource.composableapplication.parts.AttachableMongoDBEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachablePostgreSql;
 import com.foilen.infra.resource.composableapplication.parts.AttachablePostgreSqlEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableService;
@@ -54,6 +56,9 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addCustomResource(AttachableMariaDB.class, AttachableMariaDB.RESOURCE_TYPE, //
                 Arrays.asList(AttachableMariaDB.PROPERTY_NAME), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(AttachableMongoDB.class, AttachableMongoDB.RESOURCE_TYPE, //
+                Arrays.asList(AttachableMongoDB.PROPERTY_NAME), //
+                Collections.emptyList());
         pluginDefinition.addCustomResource(AttachablePostgreSql.class, AttachablePostgreSql.RESOURCE_TYPE, //
                 Arrays.asList(AttachablePostgreSql.PROPERTY_NAME), //
                 Collections.emptyList());
@@ -71,6 +76,7 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addResourceEditor(new AttachableContainerUserToChangeIdEditor(), AttachableContainerUserToChangeIdEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableCronJobEditor(), AttachableCronJobEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableMariaDBEditor(), AttachableMariaDBEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new AttachableMongoDBEditor(), AttachableMongoDBEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachablePostgreSqlEditor(), AttachablePostgreSqlEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableServiceEditor(), AttachableServiceEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableVolumeEditor(), AttachableVolumeEditor.EDITOR_NAME);
