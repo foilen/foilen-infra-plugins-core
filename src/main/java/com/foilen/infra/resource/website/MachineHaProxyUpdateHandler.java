@@ -24,7 +24,9 @@ import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionAssetsBundle;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionPortRedirect;
+import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfig;
+import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigEndpoint;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttp;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttpService;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttps;
@@ -41,7 +43,6 @@ public class MachineHaProxyUpdateHandler extends AbstractCommonMethodUpdateEvent
 
     public static final String UNIX_USER_HA_PROXY_NAME = "infra_web";
 
-    @SuppressWarnings("unchecked")
     protected void addWebsiteConfig(Machine machine, String machineName, IPApplicationDefinition applicationDefinition, AtomicInteger nextLocalPort, Website website,
             List<Tuple2<Application, List<Machine>>> pointsToApplicationOnMachines, HaProxyConfigPortHttp configHttp) {
 
@@ -55,19 +56,19 @@ public class MachineHaProxyUpdateHandler extends AbstractCommonMethodUpdateEvent
         if (installedLocallyApplicationNames.isEmpty()) {
             logger.debug("[{}] {} is not installed locally. Will point to the remote endpoints", machineName, website);
 
-            List<Tuple2<String, Integer>> endpointHostPorts = new ArrayList<>();
+            List<HaProxyConfigEndpoint> endpoints = new ArrayList<>();
             for (Tuple2<Application, List<Machine>> applicationMachines : pointsToApplicationOnMachines) {
                 String remoteApplicationName = applicationMachines.getA().getName();
                 for (Machine remoteMachine : applicationMachines.getB()) {
                     int localPort = nextLocalPort.getAndIncrement();
-                    endpointHostPorts.add(new Tuple2<>("127.0.0.1", localPort));
+                    endpoints.add(new HaProxyConfigEndpoint("127.0.0.1", localPort).setSsl(DockerContainerEndpoints.HTTPS_TCP.equals(website.getApplicationEndpoint())));
                     applicationDefinition.addPortRedirect(localPort, remoteMachine.getName(), remoteApplicationName, website.getApplicationEndpoint());
                 }
             }
             website.getDomainNames().forEach(hostname -> {
                 HaProxyConfigPortHttpService config = new HaProxyConfigPortHttpService();
-                for (Tuple2<String, Integer> endpointHostPort : endpointHostPorts) {
-                    config.getEndpointHostPorts().add(endpointHostPort.getA() + ":" + endpointHostPort.getB());
+                for (HaProxyConfigEndpoint endpoint : endpoints) {
+                    config.getEndpoints().add(endpoint);
                 }
 
                 configHttp.getServiceByHostname().put(hostname, config);
@@ -75,13 +76,13 @@ public class MachineHaProxyUpdateHandler extends AbstractCommonMethodUpdateEvent
         } else {
             logger.debug("[{}] {} is installed locally. Will point locally only on applications {}", machineName, website, installedLocallyApplicationNames);
 
-            List<Tuple2<String, Integer>> endpointHostPorts = new ArrayList<>();
+            List<HaProxyConfigEndpoint> endpoints = new ArrayList<>();
             for (String installedLocallyApplicationName : installedLocallyApplicationNames) {
                 int localPort = nextLocalPort.getAndIncrement();
-                endpointHostPorts.add(new Tuple2<>("127.0.0.1", localPort));
+                endpoints.add(new HaProxyConfigEndpoint("127.0.0.1", localPort).setSsl(DockerContainerEndpoints.HTTPS_TCP.equals(website.getApplicationEndpoint())));
                 applicationDefinition.addPortRedirect(localPort, IPApplicationDefinitionPortRedirect.LOCAL_MACHINE, installedLocallyApplicationName, website.getApplicationEndpoint());
             }
-            configHttp.addService(website.getDomainNames(), endpointHostPorts.toArray(new Tuple2[endpointHostPorts.size()]));
+            configHttp.addService(website.getDomainNames(), endpoints.toArray(new HaProxyConfigEndpoint[endpoints.size()]));
         }
     }
 

@@ -50,7 +50,8 @@ OZolTL9Evfdaqwasfbn/vhol\\\
         "udpPortsExposed" : { },
         "volumes" : [ {
           "containerFsFolder" : "/backupRoot",
-          "hostFolder" : "/home"
+          "hostFolder" : "/home",
+          "readOnly" : false
         } ]
       },
       "description" : "Backup to Google Cloud for f1.example.com",
@@ -114,7 +115,8 @@ OZolTL9Evfdaqwasfbn/vhol\\\
         "udpPortsExposed" : { },
         "volumes" : [ {
           "containerFsFolder" : "/backupRoot",
-          "hostFolder" : "/home"
+          "hostFolder" : "/home",
+          "readOnly" : false
         } ]
       },
       "description" : "Backup to Google Cloud for f2.example.com",

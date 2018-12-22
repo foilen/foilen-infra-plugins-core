@@ -297,18 +297,22 @@ memory_limit = 256M
         "udpPortsExposed" : { },
         "volumes" : [ {
           "containerFsFolder" : "/base",
-          "hostFolder" : "/home/myphp/php"
+          "hostFolder" : "/home/myphp/php",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/folders/home_myphp_otherphp",
-          "hostFolder" : "/home/myphp/otherphp/"
+          "hostFolder" : "/home/myphp/otherphp/",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/folders/home_myphp_otherphp",
-          "hostFolder" : "/home/myphp/otherphp/"
+          "hostFolder" : "/home/myphp/otherphp/",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/var/lock/apache2",
           "groupId" : 72000,
           "ownerId" : 72000,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         } ]
       },
       "description" : "Apache and PHP application",

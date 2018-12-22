@@ -84,19 +84,22 @@ max_allowed_packet	= 500M
           "groupId" : 72002,
           "hostFolder" : "/home/mariadb/mysql/db_server_email/data",
           "ownerId" : 72002,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/var/run/mysqld/",
           "groupId" : 72002,
           "hostFolder" : "/home/mariadb/mysql/db_server_email/run",
           "ownerId" : 72002,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/volumes/config/",
           "groupId" : 72002,
           "hostFolder" : "/home/mariadb/mysql/db_server_email/config",
           "ownerId" : 72002,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         } ]
       },
       "description" : "",

@@ -52,7 +52,8 @@
           "groupId" : 70001,
           "hostFolder" : "/home/user1/postgresql/user_db/data",
           "ownerId" : 70001,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         } ]
       },
       "description" : "null",

@@ -46,11 +46,14 @@
         },
         "volumes" : [ {
           "containerFsFolder" : "/home/user1",
-          "hostFolder" : "/home/user1"
+          "hostFolder" : "/home/user1",
+          "readOnly" : false
         }, {
-          "containerFsFolder" : "/var/lock"
+          "containerFsFolder" : "/var/lock",
+          "readOnly" : false
         }, {
-          "containerFsFolder" : "/var/log"
+          "containerFsFolder" : "/var/log",
+          "readOnly" : false
         } ],
         "workingDirectory" : "/home/user1/main"
       },

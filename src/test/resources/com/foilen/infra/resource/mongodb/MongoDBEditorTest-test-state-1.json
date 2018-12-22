@@ -50,7 +50,8 @@
           "groupId" : 70001,
           "hostFolder" : "/home/user1/mongodb/user_db",
           "ownerId" : 70001,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         } ]
       },
       "description" : "null",

@@ -26,8 +26,6 @@ public class ApachePhpTest extends AbstractCorePluginTest {
     @Test
     public void test_basic() {
 
-        System.out.println("PV test_basic---------------- BEGIN");
-
         // Create resources
         Machine machine = new Machine("h1.example.com", "192.168.0.200");
         UnixUser unixUser = new UnixUser(72000L, "myphp", "/home/myphp", null, null);

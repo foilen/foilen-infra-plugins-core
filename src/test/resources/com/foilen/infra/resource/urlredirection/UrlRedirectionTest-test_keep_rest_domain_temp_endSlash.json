@@ -92,12 +92,14 @@ echo Apache service is down
           "containerFsFolder" : "/var/lock/apache2",
           "groupId" : 70000,
           "ownerId" : 70000,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/var/log/apache2",
           "groupId" : 70000,
           "ownerId" : 70000,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         } ]
       },
       "description" : "Apache HTTP URL redirections for h1.example.com",
@@ -202,12 +204,14 @@ echo Apache service is down
           "containerFsFolder" : "/var/lock/apache2",
           "groupId" : 70000,
           "ownerId" : 70000,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/var/log/apache2",
           "groupId" : 70000,
           "ownerId" : 70000,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         } ]
       },
       "description" : "Apache HTTPS URL redirections for h1.example.com",

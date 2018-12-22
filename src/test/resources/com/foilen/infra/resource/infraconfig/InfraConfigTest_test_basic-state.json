@@ -92,19 +92,22 @@ max_allowed_packet	= 500M
           "groupId" : 72000,
           "hostFolder" : "/home/mariadb/mysql/commonserver/data",
           "ownerId" : 72000,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/var/run/mysqld/",
           "groupId" : 72000,
           "hostFolder" : "/home/mariadb/mysql/commonserver/run",
           "ownerId" : 72000,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/volumes/config/",
           "groupId" : 72000,
           "hostFolder" : "/home/mariadb/mysql/commonserver/config",
           "ownerId" : 72000,
-          "permissions" : "770"
+          "permissions" : "770",
+          "readOnly" : false
         } ]
       },
       "description" : "",
@@ -419,12 +422,14 @@ echo Apache service is down
           "containerFsFolder" : "/var/lock/apache2",
           "groupId" : 72003,
           "ownerId" : 72003,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         }, {
           "containerFsFolder" : "/var/log/apache2",
           "groupId" : 72003,
           "ownerId" : 72003,
-          "permissions" : "755"
+          "permissions" : "755",
+          "readOnly" : false
         } ]
       },
       "description" : "Apache HTTP URL redirections for m1.example.com",
