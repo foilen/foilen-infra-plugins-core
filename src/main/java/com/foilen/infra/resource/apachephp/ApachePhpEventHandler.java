@@ -164,7 +164,7 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
 
             assetsBundle.addAssetContent("/etc/apache2/sites-enabled/000-default.conf", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/apache-http-fs.ftl", model));
 
-            applicationDefinition.addBuildStepCommand("chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && /copy-php-conf.sh");
+            applicationDefinition.addBuildStepCommand("chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && sync && /copy-php-conf.sh");
 
             applicationDefinition.addVolume(new IPApplicationDefinitionVolume(null, "/var/lock/apache2", unixUserId, unixUserId, "755"));
 
