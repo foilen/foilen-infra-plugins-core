@@ -23,7 +23,7 @@
   
   <imapserver enabled="true">
 
-    <jmxName>imapsserver</jmxName>
+    <jmxName>imapsserver-tls</jmxName>
 
     <bind>0.0.0.0:10993</bind>
 

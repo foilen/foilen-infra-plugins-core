@@ -285,10 +285,12 @@ public class JamesEmailServerEventHandler extends AbstractFinalStateManagedResou
             applicationDefinition.addService("james-manager", "/opt/james-manager/bin/james-manager --configFile /emailManagerConfig.json");
 
             applicationDefinition.addPortEndpoint(10025, DockerContainerEndpoints.SMTP_TCP);
-            applicationDefinition.addPortExposed(25, 10025); // SMTP
-            applicationDefinition.addPortExposed(587, 10587); // SMTPS
-            applicationDefinition.addPortExposed(143, 10143); // IMAP
-            applicationDefinition.addPortExposed(110, 10110); // POP3
+            applicationDefinition.addPortExposed(25, 10025); // SMTP with startTLS
+            applicationDefinition.addPortExposed(465, 10465); // SMTP with TLS
+            applicationDefinition.addPortExposed(587, 10587); // Submission with startTLS
+            applicationDefinition.addPortExposed(110, 10110); // POP3 with startTLS
+            applicationDefinition.addPortExposed(143, 10143); // IMAP with startTLS
+            applicationDefinition.addPortExposed(993, 10993); // IMAP with TLS
 
             // Link machines
             applicationFinalStateManagedResource.addManagedLinksToType(LinkTypeConstants.INSTALLED_ON);

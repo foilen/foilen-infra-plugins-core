@@ -218,7 +218,7 @@ echo Service is down
   
   <imapserver enabled=\"true\">
 
-    <jmxName>imapsserver</jmxName>
+    <jmxName>imapsserver-tls</jmxName>
 
     <bind>0.0.0.0:10993</bind>
 
@@ -590,6 +590,37 @@ log4j.logger.etm.core.monitor.EtmMonitor= INFO, CONS, FILE
     <connectionBacklog>200</connectionBacklog>
 
     <tls socketTLS=\"false\" startTLS=\"true\">
+      <keystore>file://conf/keystore-smtps</keystore>
+      <secret>james</secret>
+      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
+      <algorithm>SunX509</algorithm>
+    </tls>
+    <connectiontimeout>360</connectiontimeout>
+    <connectionLimit>0</connectionLimit>
+    <connectionLimitPerIP>50</connectionLimitPerIP>
+
+    <authRequired>true</authRequired>
+    <authorizedAddresses>127.0.0.0/8</authorizedAddresses>
+
+    <verifyIdentity>true</verifyIdentity>
+    <maxmessagesize>75000</maxmessagesize><!-- 75MB -->
+    <addressBracketsEnforcement>true</addressBracketsEnforcement>
+
+    <handlerchain>
+      <handler class=\"com.foilen.james.components.handler.fastfail.ValidRcptHandler\" />
+      <handler class=\"org.apache.james.smtpserver.CoreCmdHandlerLoader\" />
+    </handlerchain>
+  </smtpserver>
+  
+  <smtpserver enabled=\"true\">
+
+    <jmxName>smtpserver-tls-authenticated</jmxName>
+
+    <bind>0.0.0.0:10465</bind>
+
+    <connectionBacklog>200</connectionBacklog>
+
+    <tls socketTLS=\"true\" startTLS=\"false\">
       <keystore>file://conf/keystore-smtps</keystore>
       <secret>james</secret>
       <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
@@ -1071,9 +1102,11 @@ configuration.directory.in.classpath.last=../conf/lib/*
         },
         "portsExposed" : {
           "25" : 10025,
+          "465" : 10465,
           "587" : 10587,
+          "110" : 10110,
           "143" : 10143,
-          "110" : 10110
+          "993" : 10993
         },
         "portsRedirect" : [ {
           "localPort" : 3306,
