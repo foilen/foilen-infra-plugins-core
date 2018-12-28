@@ -45,7 +45,7 @@ public class AttachableAptInstall extends AttachablePart {
         packages.forEach(p -> {
             sb.append(" ").append(p);
         });
-        sb.append(" && apt-get clean && rm-rf/var/lib/apt/lists/*");
+        sb.append(" && apt-get clean && rm -rf /var/lib/apt/lists/*");
 
         context.getApplicationDefinition().addBuildStepCommand(sb.toString());
 
