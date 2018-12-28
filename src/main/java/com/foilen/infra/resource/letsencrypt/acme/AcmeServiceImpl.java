@@ -72,13 +72,13 @@ public class AcmeServiceImpl implements AcmeService {
             challenge.trigger();
         } catch (AcmeException e) {
             LOGGER.error("Problem triggering the challenge", e);
-            throw new LetsencryptException("Problem triggering the challenge", e);
+            throw new LetsencryptException("Problem triggering the challenge: " + challenge.getError().getDetail(), e);
         }
 
         // Wait until completed
         while (challenge.getStatus() != Status.VALID) {
             if (challenge.getStatus() == Status.INVALID) {
-                throw new LetsencryptException("The challenge failed");
+                throw new LetsencryptException("The challenge failed: " + challenge.getError().getDetail());
             }
             ThreadTools.sleep(5 * 1000); // 5 secs
             try {
@@ -86,7 +86,7 @@ public class AcmeServiceImpl implements AcmeService {
                 challenge.update();
             } catch (AcmeException e) {
                 LOGGER.error("Problem updating the challenge status", e);
-                throw new LetsencryptException("Problem updating the challenge status", e);
+                throw new LetsencryptException("Problem updating the challenge status: " + challenge.getError().getDetail(), e);
             }
             LOGGER.info("Current status: {}", challenge.getStatus());
         }

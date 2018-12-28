@@ -101,20 +101,23 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
             logger.info("Complete challenges");
             IPResourceService resourceService = services.getResourceService();
             Iterator<Entry<String, Tuple2<Order, Dns01Challenge>>> it = challengeByDomain.entrySet().iterator();
+            List<String> failures = new ArrayList<>();
             while (it.hasNext()) {
                 Entry<String, Tuple2<Order, Dns01Challenge>> entry = it.next();
+                String domain = entry.getKey();
                 try {
-                    logger.info("Complete the challenge for certificate: {}", entry.getKey());
+                    logger.info("Complete the challenge for certificate: {}", domain);
                     acmeService.challengeComplete(entry.getValue().getB());
                 } catch (LetsencryptException e) {
                     // Challenge failed
-                    logger.info("Failed the challenge for certificate: {}", entry.getKey());
+                    logger.info("Failed the challenge for certificate: {}", domain);
+                    failures.add(domain + " : " + e.getMessage());
 
                     // Update meta as failure
                     resourceService.resourceFindAll( //
                             resourceService.createResourceQuery(WebsiteCertificate.class) //
                                     .addEditorEquals(LetsEncryptWebsiteCertificateEditor.EDITOR_NAME) //
-                                    .propertyEquals(WebsiteCertificate.PROPERTY_DOMAIN_NAMES, Collections.singleton(entry.getKey()))) //
+                                    .propertyEquals(WebsiteCertificate.PROPERTY_DOMAIN_NAMES, Collections.singleton(domain))) //
                             .forEach(websiteCertificate -> {
                                 websiteCertificate.getMeta().put(LetsencryptHelper.LAST_FAILURE, String.valueOf(System.currentTimeMillis()));
                                 changes.resourceUpdate(websiteCertificate);
@@ -142,7 +145,6 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
 
             // Get the certificates for the successful ones
             logger.info("Get all the certificates from Lets Encrypt");
-            List<String> failures = new ArrayList<>();
             List<Tuple2<AsymmetricKeys, RSACertificate>> keysAndCerts = new ArrayList<>();
             for (String domain : challengeByDomain.keySet()) {
                 AsymmetricKeys asymmetricKeys = RSACrypt.RSA_CRYPT.generateKeyPair(4096);
