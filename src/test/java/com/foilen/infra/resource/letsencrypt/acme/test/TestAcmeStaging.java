@@ -55,7 +55,7 @@ public class TestAcmeStaging {
 
         // Request the challenge
         AcmeService acmeService = new AcmeServiceImpl(config);
-        String domainName = "testing.foilen.org";
+        String domainName = "testing.foilen-lab.com";
         Tuple2<Order, Dns01Challenge> orderAndDnsChallenge = acmeService.challengeInit(domainName);
         Dns01Challenge dnsChallenge = orderAndDnsChallenge.getB();
 
