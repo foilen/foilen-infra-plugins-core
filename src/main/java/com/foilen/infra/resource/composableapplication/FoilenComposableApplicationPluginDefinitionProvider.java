@@ -15,6 +15,8 @@ import java.util.Collections;
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
+import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstall;
+import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstallEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeId;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeIdEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableCronJob;
@@ -47,6 +49,9 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addCustomResource(ComposableApplication.class, ComposableApplication.RESOURCE_TYPE, //
                 Arrays.asList(ComposableApplication.PROPERTY_NAME), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(AttachableAptInstall.class, AttachableAptInstall.RESOURCE_TYPE, //
+                Arrays.asList(AttachableAptInstall.PROPERTY_NAME), //
+                Collections.emptyList());
         pluginDefinition.addCustomResource(AttachableContainerUserToChangeId.class, AttachableContainerUserToChangeId.RESOURCE_TYPE, //
                 Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_UID), //
                 Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_USERNAME_IN_CONTAINER));
@@ -73,6 +78,7 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/composableapplication/messages");
         pluginDefinition.addResourceEditor(new ComposableApplicationEditor(), ComposableApplicationEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new AttachableAptInstallEditor(), AttachableAptInstallEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableContainerUserToChangeIdEditor(), AttachableContainerUserToChangeIdEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableCronJobEditor(), AttachableCronJobEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableMariaDBEditor(), AttachableMariaDBEditor.EDITOR_NAME);

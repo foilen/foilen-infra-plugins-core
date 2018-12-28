@@ -14,7 +14,10 @@
         "_nextAssetId" : 1,
         "assetsBundles" : [ ],
         "assetsPathAndContent" : [ ],
-        "buildSteps" : [ ],
+        "buildSteps" : [ {
+          "step" : "export TERM=dumb ; export DEBIAN_FRONTEND=noninteractive ; apt-get update && apt-get install -y cron less vim && apt-get clean && rm-rf/var/lib/apt/lists/*",
+          "type" : "COMMAND"
+        } ],
         "command" : "/usr/bin/java -jar main.jar",
         "containerUsersToChangeId" : [ {
           "a" : "user1",
@@ -65,6 +68,18 @@
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "Composable Application",
       "resourceName" : "my_java_app"
+    }
+  }, {
+    "resource" : "AttachableAptInstall | metrics_extra_packages | Apt Install",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "metrics_extra_packages",
+      "packages" : [ "cron", "less", "vim" ],
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Apt Install",
+      "resourceName" : "metrics_extra_packages"
     }
   }, {
     "resource" : "AttachableContainerUserToChangeId | user1 | 1 : user1",
@@ -134,6 +149,9 @@
   }, {
     "resource" : "ComposableApplication | my_java_app | Composable Application",
     "links" : [ {
+      "type" : "ATTACHED",
+      "to" : "AttachableAptInstall | metrics_extra_packages | Apt Install"
+    }, {
       "type" : "ATTACHED",
       "to" : "AttachableContainerUserToChangeId | user1 | 1 : user1"
     }, {

@@ -24,6 +24,8 @@ import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.core.service.internal.InternalChangeService;
+import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstall;
+import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstallEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeId;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeIdEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableService;
@@ -118,6 +120,15 @@ public class ComposableApplicationEditorTest extends AbstractCorePluginTest {
         attachableServiceEditorForm.put(AttachableService.PROPERTY_WORKING_DIRECTORY, "/home/user1/metrics");
         assertEditorNoErrors(null, new AttachableServiceEditor(), attachableServiceEditorForm);
         attachableParts.add(String.valueOf(findAttachablePart(AttachableService.PROPERTY_NAME, "metrics_java_app", AttachableService.class).getInternalId()));
+
+        // Attachable Apt Install Form
+        Map<String, String> attachableAptInstallEditorForm = new HashMap<>();
+        attachableAptInstallEditorForm.put(AttachableAptInstall.PROPERTY_NAME, "metrics_extra_packages");
+        attachableAptInstallEditorForm.put(AttachableAptInstall.PROPERTY_PACKAGES + "[0]", "cron");
+        attachableAptInstallEditorForm.put(AttachableAptInstall.PROPERTY_PACKAGES + "[1]", "vim");
+        attachableAptInstallEditorForm.put(AttachableAptInstall.PROPERTY_PACKAGES + "[2]", "less");
+        assertEditorNoErrors(null, new AttachableAptInstallEditor(), attachableAptInstallEditorForm);
+        attachableParts.add(String.valueOf(findAttachablePart(AttachableAptInstall.PROPERTY_NAME, "metrics_extra_packages", AttachableAptInstall.class).getInternalId()));
 
         // Add Volumes
         Map<String, String> attachableVolumeEditorForm = new HashMap<>();
