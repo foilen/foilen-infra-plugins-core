@@ -146,6 +146,7 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
             // Get the certificates for the successful ones
             logger.info("Get all the certificates from Lets Encrypt");
             List<Tuple2<AsymmetricKeys, RSACertificate>> keysAndCerts = new ArrayList<>();
+            List<String> successes = new ArrayList<>();
             for (String domain : challengeByDomain.keySet()) {
                 AsymmetricKeys asymmetricKeys = RSACrypt.RSA_CRYPT.generateKeyPair(4096);
 
@@ -161,6 +162,7 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
                     keysAndCerts.add(new Tuple2<>(asymmetricKeys, certificate));
 
                     logger.info("Successfully updated certificate: {}", domain);
+                    successes.add(domain);
                 } catch (Exception e) {
                     // Cert creation failed
                     logger.info("Failed to retrieve the certificate for: {}", domain);
@@ -170,6 +172,9 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
 
             if (!failures.isEmpty()) {
                 services.getMessagingService().alertingWarn("Let's Encrypt - Domains Couldn't get certificate", Joiner.on('\n').join(failures));
+            }
+            if (!successes.isEmpty()) {
+                services.getMessagingService().alertingInfo("Let's Encrypt - Domains that got a new certificate", Joiner.on('\n').join(successes));
             }
 
             // Delete the DNS wait entry
