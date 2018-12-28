@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.application;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
@@ -52,7 +52,7 @@ public class Application extends AbstractIPResource implements Comparable<Applic
     private IPApplicationDefinition applicationDefinition = new IPApplicationDefinition();
 
     // Network
-    private Set<String> domainNames = new HashSet<>();
+    private SortedSet<String> domainNames = new TreeSet<>();
 
     public Application() {
     }
@@ -72,7 +72,7 @@ public class Application extends AbstractIPResource implements Comparable<Applic
         return description;
     }
 
-    public Set<String> getDomainNames() {
+    public SortedSet<String> getDomainNames() {
         return domainNames;
     }
 
@@ -111,7 +111,7 @@ public class Application extends AbstractIPResource implements Comparable<Applic
         this.description = description;
     }
 
-    public void setDomainNames(Set<String> domainNames) {
+    public void setDomainNames(SortedSet<String> domainNames) {
         this.domainNames = domainNames;
     }
 

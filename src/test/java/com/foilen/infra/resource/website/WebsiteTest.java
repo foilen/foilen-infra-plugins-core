@@ -9,8 +9,6 @@
  */
 package com.foilen.infra.resource.website;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
@@ -32,7 +30,7 @@ public class WebsiteTest extends AbstractCorePluginTest {
         UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
         UnixUser unixUser = new UnixUser(72000L, "myapp", "/home/myapp", null, null);
         Website website = new Website("myapp");
-        website.setDomainNames(Collections.singleton("myapp.example.com"));
+        website.getDomainNames().add("myapp.example.com");
         website.setApplicationEndpoint(DockerContainerEndpoints.HTTP_TCP);
 
         Application application = new Application();
@@ -67,7 +65,7 @@ public class WebsiteTest extends AbstractCorePluginTest {
         UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
         UnixUser unixUser = new UnixUser(72000L, "myapp", "/home/myapp", null, null);
         Website website = new Website("myapp");
-        website.setDomainNames(Collections.singleton("myapp.example.com"));
+        website.getDomainNames().add("myapp.example.com");
         website.setApplicationEndpoint(DockerContainerEndpoints.HTTPS_TCP);
 
         Application application = new Application();

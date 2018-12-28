@@ -12,6 +12,7 @@ package com.foilen.infra.resource.bind9;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
@@ -40,7 +41,7 @@ public class Bind9ServerEditor implements ResourceEditor<Bind9Server> {
         editedResource.setName(validFormValues.get(Bind9Server.PROPERTY_NAME));
         editedResource.setAdminEmail(validFormValues.get(Bind9Server.PROPERTY_ADMIN_EMAIL));
         editedResource.setPort(Integer.valueOf(validFormValues.get(Bind9Server.PROPERTY_PORT)));
-        editedResource.setNsDomainNames(CommonFieldHelper.fromFormListToSet(validFormValues, Bind9Server.PROPERTY_NS_DOMAIN_NAMES));
+        editedResource.setNsDomainNames(new TreeSet<>(CommonFieldHelper.fromFormListToSet(validFormValues, Bind9Server.PROPERTY_NS_DOMAIN_NAMES)));
 
         CommonResourceLink.fillResourceLink(servicesCtx, editedResource, LinkTypeConstants.RUN_AS, UnixUser.class, "unixUser", validFormValues, changesContext);
         CommonResourceLink.fillResourcesLink(servicesCtx, editedResource, LinkTypeConstants.INSTALLED_ON, Machine.class, "machines", validFormValues, changesContext);

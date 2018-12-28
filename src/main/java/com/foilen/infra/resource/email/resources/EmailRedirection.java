@@ -9,7 +9,8 @@
  */
 package com.foilen.infra.resource.email.resources;
 
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
@@ -34,7 +35,7 @@ public class EmailRedirection extends AbstractIPResource {
     // Details
     private String uid;
     private String accountName;
-    private Set<String> redirectTos;
+    private SortedSet<String> redirectTos = new TreeSet<>();
 
     public EmailRedirection() {
         uid = SecureRandomTools.randomBase64String(10);
@@ -44,7 +45,7 @@ public class EmailRedirection extends AbstractIPResource {
         return accountName;
     }
 
-    public Set<String> getRedirectTos() {
+    public SortedSet<String> getRedirectTos() {
         return redirectTos;
     }
 
@@ -71,7 +72,7 @@ public class EmailRedirection extends AbstractIPResource {
         this.accountName = accountName;
     }
 
-    public void setRedirectTos(Set<String> redirectTos) {
+    public void setRedirectTos(SortedSet<String> redirectTos) {
         this.redirectTos = redirectTos;
     }
 

@@ -25,8 +25,8 @@
         } ],
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : {
-          "MARIA_PORT" : "3306",
-          "MARIA_HOST" : "127.0.0.1"
+          "MARIA_HOST" : "127.0.0.1",
+          "MARIA_PORT" : "3306"
         },
         "executeWhenStartedCommands" : [ ],
         "from" : "openjdk:8-jre-slim",
@@ -178,7 +178,7 @@
     } ],
     "tags" : [ ],
     "content" : {
-      "environments" : [ "MARIA_PORT=3306", "MARIA_HOST=127.0.0.1" ],
+      "environments" : [ "MARIA_HOST=127.0.0.1", "MARIA_PORT=3306" ],
       "from" : "openjdk:8-jre-slim",
       "mainCommand" : "/usr/bin/java -jar main.jar",
       "mainWorkingDirectory" : "/home/user1/main",

@@ -79,7 +79,7 @@ backend http_8080_myphp.example.com
         } ],
         "containerUsersToChangeId" : [ {
           "a" : "haproxy",
-          "b" : 70000
+          "b" : 70001
         } ],
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
@@ -99,7 +99,7 @@ backend http_8080_myphp.example.com
           "toLocalMachine" : true,
           "toMachine" : "localhost"
         } ],
-        "runAs" : 70000,
+        "runAs" : 70001,
         "services" : [ {
           "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
           "name" : "haproxy"
@@ -336,7 +336,7 @@ memory_limit = 256M
     "tags" : [ ],
     "content" : {
       "homeFolder" : "/home/infra_url_redirection",
-      "id" : 70001,
+      "id" : 70000,
       "keepClearPassword" : false,
       "meta" : { },
       "name" : "infra_url_redirection",
@@ -351,7 +351,7 @@ memory_limit = 256M
     "tags" : [ ],
     "content" : {
       "homeFolder" : "/home/infra_web",
-      "id" : 70000,
+      "id" : 70001,
       "keepClearPassword" : false,
       "meta" : { },
       "name" : "infra_web",

@@ -9,8 +9,6 @@
  */
 package com.foilen.infra.resource.apachephp;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
@@ -28,9 +26,10 @@ public class ApachePhpTest extends AbstractCorePluginTest {
 
         // Create resources
         Machine machine = new Machine("h1.example.com", "192.168.0.200");
+        UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
         UnixUser unixUser = new UnixUser(72000L, "myphp", "/home/myphp", null, null);
         Website website = new Website("myphp");
-        website.setDomainNames(Collections.singleton("myphp.example.com"));
+        website.getDomainNames().add("myphp.example.com");
 
         ApachePhp apachePhp = new ApachePhp();
         apachePhp.setName("myphp");
@@ -40,6 +39,7 @@ public class ApachePhpTest extends AbstractCorePluginTest {
 
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
         changes.resourceAdd(machine);
+        changes.resourceAdd(infraUrlUnixUser);
         changes.resourceAdd(unixUser);
         changes.resourceAdd(apachePhp);
         changes.resourceAdd(website);
@@ -62,9 +62,10 @@ public class ApachePhpTest extends AbstractCorePluginTest {
 
         // Create resources
         Machine machine = new Machine("h1.example.com", "192.168.0.200");
+        UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
         UnixUser unixUser = new UnixUser(72000L, "myphp", "/home/myphp", null, null);
         Website website = new Website("myphp");
-        website.setDomainNames(Collections.singleton("myphp.example.com"));
+        website.getDomainNames().add("myphp.example.com");
 
         ApachePhp apachePhp = new ApachePhp();
         apachePhp.setName("myphp");
@@ -77,6 +78,7 @@ public class ApachePhpTest extends AbstractCorePluginTest {
 
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
         changes.resourceAdd(machine);
+        changes.resourceAdd(infraUrlUnixUser);
         changes.resourceAdd(unixUser);
         changes.resourceAdd(apachePhp);
         changes.resourceAdd(website);
@@ -101,9 +103,10 @@ public class ApachePhpTest extends AbstractCorePluginTest {
 
         // Create resources
         Machine machine = new Machine("h1.example.com", "192.168.0.200");
+        UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
         UnixUser unixUser = new UnixUser(72000L, "myphp", "/home/myphp", null, null);
         Website website = new Website("myphp");
-        website.setDomainNames(Collections.singleton("myphp.example.com"));
+        website.getDomainNames().add("myphp.example.com");
 
         ApachePhp apachePhp = new ApachePhp();
         apachePhp.setName("myphp");
@@ -118,6 +121,7 @@ public class ApachePhpTest extends AbstractCorePluginTest {
 
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
         changes.resourceAdd(machine);
+        changes.resourceAdd(infraUrlUnixUser);
         changes.resourceAdd(unixUser);
         changes.resourceAdd(apachePhp);
         changes.resourceAdd(website);

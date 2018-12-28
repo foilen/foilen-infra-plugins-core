@@ -9,8 +9,6 @@
  */
 package com.foilen.infra.resource.email.handlers;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
@@ -51,12 +49,12 @@ public class EmailDomainManageDomainsEventHandlerTest extends AbstractCorePlugin
         // Create redirections
         EmailRedirection emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r2");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
 
@@ -98,12 +96,12 @@ public class EmailDomainManageDomainsEventHandlerTest extends AbstractCorePlugin
         // Create redirections
         EmailRedirection emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain1);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r2");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain1);
 
@@ -136,17 +134,17 @@ public class EmailDomainManageDomainsEventHandlerTest extends AbstractCorePlugin
         // Create redirections
         EmailRedirection emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r2");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
 
@@ -184,17 +182,17 @@ public class EmailDomainManageDomainsEventHandlerTest extends AbstractCorePlugin
         // Create redirections
         EmailRedirection emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain1);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r2");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain1);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain2);
 
@@ -227,12 +225,12 @@ public class EmailDomainManageDomainsEventHandlerTest extends AbstractCorePlugin
         // Create redirections
         EmailRedirection emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r2");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
 
@@ -265,12 +263,12 @@ public class EmailDomainManageDomainsEventHandlerTest extends AbstractCorePlugin
         // Create redirections
         EmailRedirection emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("a1");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
         emailRedirection = new EmailRedirection();
         emailRedirection.setAccountName("r2");
-        emailRedirection.setRedirectTos(Collections.singleton("a1@example.com"));
+        emailRedirection.getRedirectTos().add("a1@example.com");
         changes.resourceAdd(emailRedirection);
         changes.linkAdd(emailRedirection, LinkTypeConstants.INSTALLED_ON, emailDomain);
 

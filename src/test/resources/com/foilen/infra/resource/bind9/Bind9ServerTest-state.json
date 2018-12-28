@@ -106,7 +106,7 @@ ns2 300 A 192.168.0.200
         "volumes" : [ ]
       },
       "description" : "Bind9 Server",
-      "domainNames" : [ "ns2.example.com", "ns1.example.com" ],
+      "domainNames" : [ "ns1.example.com", "ns2.example.com" ],
       "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "myDns_bind9",
@@ -131,7 +131,7 @@ ns2 300 A 192.168.0.200
       "adminEmail" : "admin@example.com",
       "meta" : { },
       "name" : "myDns",
-      "nsDomainNames" : [ "ns2.example.com", "ns1.example.com" ],
+      "nsDomainNames" : [ "ns1.example.com", "ns2.example.com" ],
       "port" : 53,
       "resourceCategory" : "NET",
       "resourceDescription" : "DNS Server",

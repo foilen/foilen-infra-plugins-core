@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.composableapplication;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
@@ -60,12 +60,12 @@ public class ComposableApplication extends AbstractIPResource {
     private String from = "ubuntu:16.04";
     private String mainCommand;
     private String mainWorkingDirectory;
-    private Set<String> environments = new HashSet<>();
-    private Set<String> portsExposedTcp = new HashSet<>();
-    private Set<String> portsExposedUdp = new HashSet<>();
-    private Set<String> portsEndpoint = new HashSet<>();
+    private SortedSet<String> environments = new TreeSet<>();
+    private SortedSet<String> portsExposedTcp = new TreeSet<>();
+    private SortedSet<String> portsExposedUdp = new TreeSet<>();
+    private SortedSet<String> portsEndpoint = new TreeSet<>();
 
-    public Set<String> getEnvironments() {
+    public SortedSet<String> getEnvironments() {
         return environments;
     }
 
@@ -85,15 +85,15 @@ public class ComposableApplication extends AbstractIPResource {
         return name;
     }
 
-    public Set<String> getPortsEndpoint() {
+    public SortedSet<String> getPortsEndpoint() {
         return portsEndpoint;
     }
 
-    public Set<String> getPortsExposedTcp() {
+    public SortedSet<String> getPortsExposedTcp() {
         return portsExposedTcp;
     }
 
-    public Set<String> getPortsExposedUdp() {
+    public SortedSet<String> getPortsExposedUdp() {
         return portsExposedUdp;
     }
 
@@ -112,7 +112,7 @@ public class ComposableApplication extends AbstractIPResource {
         return name;
     }
 
-    public void setEnvironments(Set<String> environments) {
+    public void setEnvironments(SortedSet<String> environments) {
         this.environments = environments;
     }
 
@@ -132,15 +132,15 @@ public class ComposableApplication extends AbstractIPResource {
         this.name = name;
     }
 
-    public void setPortsEndpoint(Set<String> portsEndpoint) {
+    public void setPortsEndpoint(SortedSet<String> portsEndpoint) {
         this.portsEndpoint = portsEndpoint;
     }
 
-    public void setPortsExposedTcp(Set<String> portsExposedTcp) {
+    public void setPortsExposedTcp(SortedSet<String> portsExposedTcp) {
         this.portsExposedTcp = portsExposedTcp;
     }
 
-    public void setPortsExposedUdp(Set<String> portsExposedUdp) {
+    public void setPortsExposedUdp(SortedSet<String> portsExposedUdp) {
         this.portsExposedUdp = portsExposedUdp;
     }
 

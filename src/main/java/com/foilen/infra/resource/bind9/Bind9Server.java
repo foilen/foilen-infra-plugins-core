@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.bind9;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
@@ -46,7 +46,7 @@ public class Bind9Server extends AbstractIPResource {
     private String adminEmail;
 
     // Network
-    private Set<String> nsDomainNames = new HashSet<>();
+    private SortedSet<String> nsDomainNames = new TreeSet<>();
 
     public String getAdminEmail() {
         return adminEmail;
@@ -56,7 +56,7 @@ public class Bind9Server extends AbstractIPResource {
         return name;
     }
 
-    public Set<String> getNsDomainNames() {
+    public SortedSet<String> getNsDomainNames() {
         return nsDomainNames;
     }
 
@@ -87,7 +87,7 @@ public class Bind9Server extends AbstractIPResource {
         this.name = name;
     }
 
-    public void setNsDomainNames(Set<String> nsDomainNames) {
+    public void setNsDomainNames(SortedSet<String> nsDomainNames) {
         this.nsDomainNames = nsDomainNames;
     }
 

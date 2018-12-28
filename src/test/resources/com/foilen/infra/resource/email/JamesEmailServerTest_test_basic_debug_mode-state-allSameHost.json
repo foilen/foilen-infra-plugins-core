@@ -1307,7 +1307,7 @@ configuration.directory.in.classpath.last=../conf/lib/*
       "uid" : "X9jXEYBc4Q"
     }
   }, {
-    "resource" : "EmailRedirection | r1 | Redirect to: a2@example.com, a1@example.com",
+    "resource" : "EmailRedirection | r1 | Redirect to: a1@example.com, a2@example.com",
     "links" : [ {
       "type" : "INSTALLED_ON",
       "to" : "EmailDomain | example.com | Email Domain"
@@ -1316,9 +1316,9 @@ configuration.directory.in.classpath.last=../conf/lib/*
     "content" : {
       "accountName" : "r1",
       "meta" : { },
-      "redirectTos" : [ "a2@example.com", "a1@example.com" ],
+      "redirectTos" : [ "a1@example.com", "a2@example.com" ],
       "resourceCategory" : "EMAIL",
-      "resourceDescription" : "Redirect to: a2@example.com, a1@example.com",
+      "resourceDescription" : "Redirect to: a1@example.com, a2@example.com",
       "resourceEditorName" : "Email Redirection",
       "resourceName" : "r1",
       "uid" : "rbXfHd5YsA"

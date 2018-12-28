@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.website;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
@@ -46,7 +46,7 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
 
     // Network
     private String name;
-    private Set<String> domainNames = new HashSet<>();
+    private SortedSet<String> domainNames = new TreeSet<>();
 
     private boolean isHttps;
     private String applicationEndpoint = DockerContainerEndpoints.HTTP_TCP; // Default: HTTP_TCP
@@ -69,7 +69,7 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
         return applicationEndpoint;
     }
 
-    public Set<String> getDomainNames() {
+    public SortedSet<String> getDomainNames() {
         return domainNames;
     }
 
@@ -100,7 +100,7 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
         this.applicationEndpoint = applicationEndpoint;
     }
 
-    public void setDomainNames(Set<String> domainNames) {
+    public void setDomainNames(SortedSet<String> domainNames) {
         this.domainNames = domainNames;
     }
 

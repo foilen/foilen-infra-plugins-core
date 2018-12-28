@@ -9,8 +9,6 @@
  */
 package com.foilen.infra.resource.apachephp;
 
-import java.util.Collections;
-
 import com.foilen.infra.plugin.core.system.fake.junits.FakeSystemServicesTests;
 import com.foilen.infra.plugin.core.system.fake.service.FakeSystemServicesImpl;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
@@ -30,7 +28,7 @@ public class ApachePhpPerfTestingApp {
         Machine machine = new Machine("h1.example.com", "192.168.0.200");
         UnixUser unixUser = new UnixUser(72000L, "myphp", "/home/myphp", null, null);
         Website website = new Website("myphp");
-        website.setDomainNames(Collections.singleton("myphp.example.com"));
+        website.getDomainNames().add("myphp.example.com");
 
         ChangesContext changes = new ChangesContext(fakeSystemServices);
         changes.resourceAdd(machine);

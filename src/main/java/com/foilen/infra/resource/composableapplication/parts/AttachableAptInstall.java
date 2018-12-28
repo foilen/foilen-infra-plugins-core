@@ -27,7 +27,7 @@ public class AttachableAptInstall extends AttachablePart {
     public static final String PROPERTY_PACKAGES = "packages";
 
     private String name;
-    private SortedSet<String> packages = new TreeSet<>(String::compareTo);
+    private SortedSet<String> packages = new TreeSet<>();
 
     public AttachableAptInstall() {
     }

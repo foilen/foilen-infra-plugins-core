@@ -11,15 +11,14 @@ package com.foilen.infra.resource.webcertificate;
 
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
-import com.foilen.smalltools.tools.CollectionsTools;
 import com.foilen.smalltools.tools.DateTools;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ComparisonChain;
@@ -51,7 +50,7 @@ public class WebsiteCertificate extends AbstractIPResource implements Comparable
 
     private String thumbprint;
 
-    private Set<String> domainNames = new HashSet<>();
+    private SortedSet<String> domainNames = new TreeSet<>();
 
     private String caCertificate;
     private String certificate;
@@ -73,7 +72,7 @@ public class WebsiteCertificate extends AbstractIPResource implements Comparable
         this.privateKey = privateKey;
         this.start = start;
         this.end = end;
-        this.domainNames = Arrays.asList(domainNames).stream().collect(Collectors.toSet());
+        this.domainNames = Arrays.asList(domainNames).stream().collect(Collectors.toCollection(() -> new TreeSet<>()));
     }
 
     @Override
@@ -108,7 +107,7 @@ public class WebsiteCertificate extends AbstractIPResource implements Comparable
         return certificate;
     }
 
-    public Set<String> getDomainNames() {
+    public SortedSet<String> getDomainNames() {
         return domainNames;
     }
 
@@ -166,14 +165,7 @@ public class WebsiteCertificate extends AbstractIPResource implements Comparable
         this.certificate = certificate;
     }
 
-    @Deprecated
-    public void setCommonNames(Set<String> commonNames) {
-        if (CollectionsTools.isNullOrEmpty(this.domainNames)) {
-            this.domainNames = commonNames;
-        }
-    }
-
-    public void setDomainNames(Set<String> domainNames) {
+    public void setDomainNames(SortedSet<String> domainNames) {
         this.domainNames = domainNames;
     }
 

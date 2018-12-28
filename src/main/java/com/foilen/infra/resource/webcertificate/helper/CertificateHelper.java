@@ -37,7 +37,7 @@ public class CertificateHelper {
         websiteCertificate.setPrivateKey(RSACrypt.RSA_CRYPT.savePrivateKeyPemAsString(rsaCertificate.getKeysForSigning()));
         websiteCertificate.setStart(rsaCertificate.getStartDate());
         websiteCertificate.setEnd(rsaCertificate.getEndDate());
-        websiteCertificate.setDomainNames(rsaCertificate.getSubjectAltNames());
+        websiteCertificate.getDomainNames().addAll(rsaCertificate.getSubjectAltNames());
     }
 
 }

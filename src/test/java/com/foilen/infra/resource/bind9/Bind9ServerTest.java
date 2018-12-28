@@ -12,6 +12,7 @@ package com.foilen.infra.resource.bind9;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.junit.Test;
@@ -38,7 +39,7 @@ public class Bind9ServerTest extends AbstractCorePluginTest {
         Bind9Server bind9Server = new Bind9Server();
         bind9Server.setAdminEmail("admin@example.com");
         bind9Server.setName("myDns");
-        bind9Server.setNsDomainNames(Arrays.asList("ns1.example.com", "ns2.example.com").stream().collect(Collectors.toSet()));
+        bind9Server.setNsDomainNames(Arrays.asList("ns1.example.com", "ns2.example.com").stream().collect(Collectors.toCollection(() -> new TreeSet<>())));
         bind9Server.setResourceEditorName(Bind9ServerEditor.EDITOR_NAME);
 
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
