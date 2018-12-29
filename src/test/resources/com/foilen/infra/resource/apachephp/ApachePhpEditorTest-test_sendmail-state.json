@@ -1,0 +1,239 @@
+{
+  "resources" : [ {
+    "resource" : "ApachePhp | my_php | Apache and PHP application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | my_php | Apache and PHP application"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "basePath" : "/home/user1/php",
+      "emailSenderMsmtp" : false,
+      "mainSiteRelativePath" : "/",
+      "meta" : { },
+      "name" : "my_php",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "Apache and PHP application",
+      "resourceName" : "my_php",
+      "version" : "7.2.10-3"
+    }
+  }, {
+    "resource" : "Application | my_php | Apache and PHP application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/etc/apache2/ports.conf",
+            "b" : "Listen 8080
+"
+          }, {
+            "a" : "/apache-start.sh",
+            "b" : "#!/bin/bash
+
+set -e
+source /etc/apache2/envvars
+/usr/sbin/apache2ctl start
+
+until [ -f /var/run/apache2/apache2.pid ]
+do
+	echo Waiting for /var/run/apache2/apache2.pid
+	sleep 1
+done
+
+APP_PID=$(cat /var/run/apache2/apache2.pid)
+while [ -e /proc/$APP_PID ]; do sleep 5; done
+
+echo Apache service is down
+"
+          }, {
+            "a" : "/copy-php-conf.sh",
+            "b" : "#!/bin/bash
+
+set -e
+
+if [ -d /etc/php5 ]; then
+	cd /etc/php5
+	for SUB in $(ls); do
+		if [ -d $SUB/conf.d/ ]; then
+			cp /99-fcloud.ini $SUB/conf.d/
+		fi
+	done
+fi
+
+if [ -d /etc/php ]; then
+	cd /etc/php
+	for VER in $(ls); do
+		cd $VER
+		for SUB in $(ls); do
+			if [ -d $SUB/conf.d/ ]; then
+				cp /99-fcloud.ini $SUB/conf.d/
+			fi
+		done
+	done
+fi
+"
+          }, {
+            "a" : "/99-fcloud.ini",
+            "b" : "[PHP]
+max_execution_time = 300
+
+upload_max_filesize = 64M
+post_max_size = 128M
+memory_limit = 256M
+"
+          }, {
+            "a" : "/etc/apache2/sites-enabled/000-default.conf",
+            "b" : "<VirtualHost *>
+  DocumentRoot /base/
+  
+  SetEnvIf x-forwarded-proto https HTTPS=on
+  
+  ErrorLog /var/log/apache2/error.log
+  CustomLog /var/log/apache2/access.log combined
+  
+  <Directory /base/>
+    AllowOverride All
+    Require all granted
+  </Directory>
+  
+  
+
+</VirtualHost>
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && sync && /copy-php-conf.sh",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chmod -R 777 /var/log",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chown www-data:www-data /var/run/apache2",
+          "type" : "COMMAND"
+        }, {
+          "step" : "/usr/sbin/a2enmod rewrite",
+          "type" : "COMMAND"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "www-data",
+          "b" : 70001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-apache_php:7.2.10-3",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "8080" : "HTTP_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 70001,
+        "services" : [ {
+          "command" : "/apache-start.sh",
+          "name" : "apache"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/base",
+          "hostFolder" : "/home/user1/php",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/lock/apache2",
+          "groupId" : 70001,
+          "ownerId" : 70001,
+          "permissions" : "755",
+          "readOnly" : false
+        } ]
+      },
+      "description" : "Apache and PHP application",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "my_php",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Apache and PHP application",
+      "resourceName" : "my_php"
+    }
+  }, {
+    "resource" : "DnsEntry | test1.node.example.com / A | 192.168.0.11",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.11",
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.11",
+      "resourceName" : "test1.node.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | test1.node.example.com / A | 192.168.0.11"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "publicIp" : "192.168.0.11",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "test1.node.example.com (192.168.0.11)",
+      "resourceName" : "test1.node.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | user1 | /home/user1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/user1",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "user1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/user1",
+      "resourceName" : "user1",
+      "shell" : "/bin/bash"
+    }
+  } ]
+}

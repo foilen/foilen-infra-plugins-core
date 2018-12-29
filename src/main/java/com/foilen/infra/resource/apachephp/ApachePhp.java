@@ -45,11 +45,13 @@ public class ApachePhp extends AbstractIPResource {
     public static final String PROPERTY_BASE_PATH = "basePath";
     public static final String PROPERTY_MAIN_SITE_RELATIVE_PATH = "mainSiteRelativePath";
     public static final String PROPERTY_VERSION = "version";
+    public static final String PROPERTY_EMAIL_SENDER_MSMTP = "emailSenderMsmtp";
 
     // Details
     private String name;
     private String basePath;
     private String mainSiteRelativePath = "/";
+    private boolean emailSenderMsmtp = true;
 
     // Settings
     private String version = "5.5.9-1";
@@ -85,8 +87,16 @@ public class ApachePhp extends AbstractIPResource {
         return version;
     }
 
+    public boolean isEmailSenderMsmtp() {
+        return emailSenderMsmtp;
+    }
+
     public void setBasePath(String basePath) {
         this.basePath = basePath;
+    }
+
+    public void setEmailSenderMsmtp(boolean emailSenderMsmtp) {
+        this.emailSenderMsmtp = emailSenderMsmtp;
     }
 
     public void setMainSiteRelativePath(String mainSiteRelativePath) {

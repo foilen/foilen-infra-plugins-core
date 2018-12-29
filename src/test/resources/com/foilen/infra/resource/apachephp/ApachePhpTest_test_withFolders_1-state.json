@@ -17,6 +17,7 @@
     "tags" : [ ],
     "content" : {
       "basePath" : "/home/myphp/php",
+      "emailSenderMsmtp" : true,
       "mainSiteRelativePath" : "/www/",
       "meta" : { },
       "name" : "myphp",

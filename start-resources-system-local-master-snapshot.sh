@@ -33,6 +33,6 @@ docker run -ti \
   --volume /usr/bin/docker:/usr/bin/docker \
   --volume /usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1:/usr/lib/x86_64-linux-gnu/libltdl.so.7 \
   --volume /var/run/docker.sock:/var/run/docker.sock \
-  foilen/foilen-infra-system-app-test-docker \
+  foilen-infra-system-app-test-docker:master-SNAPSHOT \
   start-resources --debug \
   /to_import

@@ -138,7 +138,11 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
             assetsBundle.addAssetResource("/etc/apache2/ports.conf", "/com/foilen/infra/resource/apachephp/apache-ports.conf");
             assetsBundle.addAssetResource("/apache-start.sh", "/com/foilen/infra/resource/apachephp/apache-start.sh");
             assetsBundle.addAssetResource("/copy-php-conf.sh", "/com/foilen/infra/resource/apachephp/copy-php-conf.sh");
-            assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php.ini");
+            if (apachePhp.isEmailSenderMsmtp()) {
+                assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php-msmtp.ini");
+            } else {
+                assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php-sendmail.ini");
+            }
 
             // Site configuration
             Map<String, Object> model = new HashMap<>();

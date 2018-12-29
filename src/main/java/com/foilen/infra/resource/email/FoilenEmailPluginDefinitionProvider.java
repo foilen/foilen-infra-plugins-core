@@ -16,6 +16,7 @@ import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.infra.resource.email.editors.AttachableEmailRelayToMsmtpConfigFileEditor;
+import com.foilen.infra.resource.email.editors.AttachableEmailRelayToSendmailEditor;
 import com.foilen.infra.resource.email.editors.EmailAccountEditor;
 import com.foilen.infra.resource.email.editors.EmailDomainEditor;
 import com.foilen.infra.resource.email.editors.EmailRedirectionEditor;
@@ -25,6 +26,7 @@ import com.foilen.infra.resource.email.handlers.EmailDomainManageDnsEntryEventHa
 import com.foilen.infra.resource.email.handlers.EmailDomainManageDomainsEventHandler;
 import com.foilen.infra.resource.email.handlers.JamesEmailServerEventHandler;
 import com.foilen.infra.resource.email.resources.AttachableEmailRelayToMsmtpConfigFile;
+import com.foilen.infra.resource.email.resources.AttachableEmailRelayToSendmail;
 import com.foilen.infra.resource.email.resources.EmailAccount;
 import com.foilen.infra.resource.email.resources.EmailDomain;
 import com.foilen.infra.resource.email.resources.EmailRedirection;
@@ -81,10 +83,14 @@ public class FoilenEmailPluginDefinitionProvider implements IPPluginDefinitionPr
         pluginDefinition.addCustomResource(AttachableEmailRelayToMsmtpConfigFile.class, AttachableEmailRelayToMsmtpConfigFile.RESOURCE_TYPE, //
                 Arrays.asList(AttachableEmailRelayToMsmtpConfigFile.PROPERTY_NAME), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(AttachableEmailRelayToSendmail.class, AttachableEmailRelayToSendmail.RESOURCE_TYPE, //
+                Arrays.asList(AttachableEmailRelayToSendmail.PROPERTY_NAME), //
+                Collections.emptyList());
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/email/messages");
         pluginDefinition.addResourceEditor(new AttachableEmailRelayToMsmtpConfigFileEditor(), AttachableEmailRelayToMsmtpConfigFileEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new AttachableEmailRelayToSendmailEditor(), AttachableEmailRelayToSendmailEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new EmailAccountEditor(), EmailAccountEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new EmailDomainEditor(), EmailDomainEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new EmailRedirectionEditor(), EmailRedirectionEditor.EDITOR_NAME);

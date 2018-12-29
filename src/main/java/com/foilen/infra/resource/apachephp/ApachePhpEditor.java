@@ -9,6 +9,8 @@
  */
 package com.foilen.infra.resource.apachephp;
 
+import java.util.Arrays;
+
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditor;
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditorDefinition;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
@@ -19,6 +21,7 @@ import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.tools.DirectoryTools;
+import com.foilen.smalltools.tools.StringTools;
 import com.google.common.base.Strings;
 
 public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
@@ -37,6 +40,11 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
         simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_VERSION, fieldConfig -> {
             fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
+        });
+
+        simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER_MSMTP, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
 
         simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_BASE_PATH, fieldConfig -> {
