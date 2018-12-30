@@ -117,6 +117,9 @@ public class InfraConfigEditor extends SimpleResourceEditor<InfraConfig> {
             fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfig.addFormator(value -> "true".equalsIgnoreCase(value) ? "true" : "false");
         });
+        simpleResourceEditorDefinition.addInputText(InfraConfig.PROPERTY_UI_INFINITE_LOOP_TIMEOUT_IN_MS, fieldConfig -> {
+            fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
+        });
 
         simpleResourceEditorDefinition.addResource("uiWebsiteCertificate", InfraConfig.LINK_TYPE_UI_USES, WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResources("uiMachines", InfraConfig.LINK_TYPE_UI_INSTALLED_ON, Machine.class);

@@ -69,6 +69,7 @@ public class InfraConfig extends AbstractIPResource {
     public static final String PROPERTY_UI_LOGIN_COOKIE_SIGNATURE_SALT = "uiLoginCookieSignatureSalt";
     public static final String PROPERTY_UI_VERSION = "uiVersion";
     public static final String PROPERTY_UI_DEBUG = "uiDebug";
+    public static final String PROPERTY_UI_INFINITE_LOOP_TIMEOUT_IN_MS = "uiInfiniteLoopTimeoutInMs";
 
     // Common
     private String applicationId;
@@ -93,6 +94,7 @@ public class InfraConfig extends AbstractIPResource {
     private String uiLoginCookieSignatureSalt;
     private String uiVersion;
     private boolean uiDebug;
+    private Long uiInfiniteLoopTimeoutInMs = 120000L;
 
     public InfraConfig() {
     }
@@ -172,6 +174,10 @@ public class InfraConfig extends AbstractIPResource {
         return uiEmailFrom;
     }
 
+    public Long getUiInfiniteLoopTimeoutInMs() {
+        return uiInfiniteLoopTimeoutInMs;
+    }
+
     public String getUiLoginCookieSignatureSalt() {
         return uiLoginCookieSignatureSalt;
     }
@@ -246,6 +252,10 @@ public class InfraConfig extends AbstractIPResource {
 
     public void setUiEmailFrom(String uiEmailFrom) {
         this.uiEmailFrom = uiEmailFrom;
+    }
+
+    public void setUiInfiniteLoopTimeoutInMs(Long uiInfiniteLoopTimeoutInMs) {
+        this.uiInfiniteLoopTimeoutInMs = uiInfiniteLoopTimeoutInMs;
     }
 
     public void setUiLoginCookieSignatureSalt(String uiLoginCookieSignatureSalt) {

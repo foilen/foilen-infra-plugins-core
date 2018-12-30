@@ -241,6 +241,8 @@ public class InfraConfigUpdateHandler extends AbstractFinalStateManagedResources
 
                 infraUiConfig.setLoginCookieSignatureSalt(infraConfig.getUiLoginCookieSignatureSalt());
 
+                infraUiConfig.setInfiniteLoopTimeoutInMs(infraConfig.getUiInfiniteLoopTimeoutInMs());
+
                 InfraLoginConfigDetails loginConfigDetails = infraUiConfig.getLoginConfigDetails();
                 loginConfigDetails.setAppId(infraConfig.getApplicationId());
                 loginConfigDetails.setBaseUrl(infraLoginConfig.getLoginBaseUrl());
