@@ -62,6 +62,27 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
         this.challengeByDomain = challengeByDomain;
     }
 
+    private String getAllMessages(Throwable e) {
+
+        StringBuilder messages = new StringBuilder();
+
+        boolean first = true;
+        while (e != null) {
+            if (first) {
+                first = true;
+            } else {
+                messages.append(" ; ");
+            }
+            if (e.getMessage() != null) {
+                messages.append(messages);
+            }
+
+            e = e.getCause();
+        }
+
+        return messages.toString();
+    }
+
     @Override
     public void timerHandler(CommonServicesContext services, ChangesContext changes, TimerEventContext event) {
 
@@ -111,7 +132,7 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
                 } catch (LetsencryptException e) {
                     // Challenge failed
                     logger.info("Failed the challenge for certificate: {}", domain);
-                    failures.add(domain + " : " + e.getMessage());
+                    failures.add(domain + " : " + getAllMessages(e));
 
                     // Update meta as failure
                     resourceService.resourceFindAll( //
@@ -166,7 +187,7 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics imple
                 } catch (Exception e) {
                     // Cert creation failed
                     logger.info("Failed to retrieve the certificate for: {}", domain);
-                    failures.add(domain + " : " + e.getMessage());
+                    failures.add(domain + " : " + getAllMessages(e));
                 }
             }
 
