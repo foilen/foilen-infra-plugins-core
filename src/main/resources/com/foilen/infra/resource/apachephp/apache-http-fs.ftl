@@ -7,8 +7,15 @@
   CustomLog /var/log/apache2/access.log combined
   
   <Directory ${baseFolder}${mainSiteRelativePath}>
+    <#if useBasicAuth>
+    AuthType Basic
+    AuthName "Restricted Content"
+    AuthUserFile /htpasswd
+    Require valid-user
+    <#else>
     AllowOverride All
     Require all granted
+    </#if>
   </Directory>
   
   <#list aliases as alias>
@@ -17,8 +24,15 @@
   
   <#list aliases as alias>
   <Directory ${alias.folder}>
+    <#if useBasicAuth>
+    AuthType Basic
+    AuthName "Restricted Content"
+    AuthUserFile /htpasswd
+    Require valid-user
+    <#else>
     AllowOverride All
     Require all granted
+    </#if>
   </Directory>
   </#list>
 

@@ -36,11 +36,15 @@ public class FoilenApachePhpPluginDefinitionProvider implements IPPluginDefiniti
         pluginDefinition.addCustomResource(ApachePhpFolder.class, ApachePhpFolder.RESOURCE_TYPE, true, //
                 Arrays.asList(ApachePhpFolder.PROPERTY_UID), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(ApachePhpHtPasswd.class, ApachePhpHtPasswd.RESOURCE_TYPE, true, //
+                Arrays.asList(ApachePhpHtPasswd.PROPERTY_UID), //
+                Collections.emptyList());
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/apachephp/messages");
         pluginDefinition.addResourceEditor(new ApachePhpEditor(), ApachePhpEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new ApachePhpFolderEditor(), ApachePhpFolderEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new ApachePhpHtPasswdEditor(), ApachePhpHtPasswdEditor.EDITOR_NAME);
 
         // Updater Handler
         pluginDefinition.addUpdateHandler(new ApachePhpEventHandler());

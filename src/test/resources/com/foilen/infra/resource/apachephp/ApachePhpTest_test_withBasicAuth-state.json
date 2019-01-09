@@ -13,6 +13,12 @@
     }, {
       "type" : "USES",
       "to" : "ApachePhpFolder | the_uid | /home/myphp/otherphp : inside -> /other"
+    }, {
+      "type" : "USES",
+      "to" : "ApachePhpHtPasswd | the_uid_1 | u1"
+    }, {
+      "type" : "USES",
+      "to" : "ApachePhpHtPasswd | the_uid_2 | u2"
     } ],
     "tags" : [ ],
     "content" : {
@@ -40,6 +46,32 @@
       "resourceDescription" : "/home/myphp/otherphp : inside -> /other",
       "resourceName" : "the_uid",
       "uid" : "the_uid"
+    }
+  }, {
+    "resource" : "ApachePhpHtPasswd | the_uid_1 | u1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "password" : "a",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "u1",
+      "resourceName" : "the_uid_1",
+      "uid" : "the_uid_1",
+      "user" : "u1"
+    }
+  }, {
+    "resource" : "ApachePhpHtPasswd | the_uid_2 | u2",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "password" : "b",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "u2",
+      "resourceName" : "the_uid_2",
+      "uid" : "the_uid_2",
+      "user" : "u2"
     }
   }, {
     "resource" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com",
@@ -212,6 +244,10 @@ post_max_size = 128M
 memory_limit = 256M
 "
           }, {
+            "a" : "/htpasswd",
+            "b" : "u1:{SHA}hvfkN/qlp/zhXR3cuerq6jd2Z7g=
+u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
+          }, {
             "a" : "/etc/apache2/sites-enabled/000-default.conf",
             "b" : "<VirtualHost *>
   DocumentRoot /base/www/
@@ -222,15 +258,19 @@ memory_limit = 256M
   CustomLog /var/log/apache2/access.log combined
   
   <Directory /base/www/>
-    AllowOverride All
-    Require all granted
+    AuthType Basic
+    AuthName \"Restricted Content\"
+    AuthUserFile /htpasswd
+    Require valid-user
   </Directory>
   
   Alias /other /folders/home_myphp_otherphp/inside
   
   <Directory /folders/home_myphp_otherphp/inside>
-    AllowOverride All
-    Require all granted
+    AuthType Basic
+    AuthName \"Restricted Content\"
+    AuthUserFile /htpasswd
+    Require valid-user
   </Directory>
 
 </VirtualHost>
@@ -241,6 +281,9 @@ memory_limit = 256M
         "buildSteps" : [ {
           "step" : "_assets_1/ /",
           "type" : "COPY"
+        }, {
+          "step" : "chown www-data:www-data /htpasswd && chmod 600 /htpasswd",
+          "type" : "COMMAND"
         }, {
           "step" : "chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && sync && /copy-php-conf.sh",
           "type" : "COMMAND"

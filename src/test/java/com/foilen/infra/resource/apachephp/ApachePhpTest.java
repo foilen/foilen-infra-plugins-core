@@ -58,6 +58,56 @@ public class ApachePhpTest extends AbstractCorePluginTest {
     }
 
     @Test
+    public void test_withBasicAuth() {
+
+        // Create resources
+        Machine machine = new Machine("h1.example.com", "192.168.0.200");
+        UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
+        UnixUser unixUser = new UnixUser(72000L, "myphp", "/home/myphp", null, null);
+        Website website = new Website("myphp");
+        website.getDomainNames().add("myphp.example.com");
+
+        ApachePhp apachePhp = new ApachePhp();
+        apachePhp.setName("myphp");
+        apachePhp.setBasePath("/home/myphp/php");
+        apachePhp.setMainSiteRelativePath("/www/");
+        apachePhp.setResourceEditorName(ApachePhpEditor.EDITOR_NAME);
+
+        ApachePhpFolder apachePhpFolder = new ApachePhpFolder("/home/myphp/otherphp", "inside", "/other");
+        apachePhpFolder.setUid("the_uid");
+
+        ApachePhpHtPasswd passwd1 = new ApachePhpHtPasswd("u1", "a");
+        passwd1.setUid("the_uid_1");
+        ApachePhpHtPasswd passwd2 = new ApachePhpHtPasswd("u2", "b");
+        passwd2.setUid("the_uid_2");
+
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(machine);
+        changes.resourceAdd(infraUrlUnixUser);
+        changes.resourceAdd(unixUser);
+        changes.resourceAdd(apachePhp);
+        changes.resourceAdd(website);
+        changes.resourceAdd(apachePhpFolder);
+        changes.resourceAdd(passwd1);
+        changes.resourceAdd(passwd2);
+
+        // Create links
+        changes.linkAdd(apachePhp, LinkTypeConstants.RUN_AS, unixUser);
+        changes.linkAdd(apachePhp, LinkTypeConstants.INSTALLED_ON, machine);
+        changes.linkAdd(apachePhp, LinkTypeConstants.USES, apachePhpFolder);
+        changes.linkAdd(apachePhp, LinkTypeConstants.USES, passwd1);
+        changes.linkAdd(apachePhp, LinkTypeConstants.USES, passwd2);
+        changes.linkAdd(website, LinkTypeConstants.INSTALLED_ON, machine);
+        changes.linkAdd(website, LinkTypeConstants.POINTS_TO, apachePhp);
+
+        // Execute
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ApachePhpTest_test_withBasicAuth-state.json", getClass(), true);
+    }
+
+    @Test
     public void test_withFolders_1() {
 
         // Create resources

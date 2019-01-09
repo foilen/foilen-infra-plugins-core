@@ -9,7 +9,10 @@
  */
 package com.foilen.infra.resource.apachephp;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +40,8 @@ import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.tools.FreemarkerTools;
 import com.foilen.smalltools.tools.StringTools;
+import com.google.common.base.Joiner;
+import com.google.common.base.Strings;
 
 public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEventHandler<ApachePhp> {
 
@@ -58,6 +63,7 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
         List<Machine> machines = new ArrayList<>();
         List<UnixUser> unixUsers = new ArrayList<>();
         List<ApachePhpFolder> folders = new ArrayList<>();
+        List<ApachePhpHtPasswd> htPasswds = new ArrayList<>();
         List<AttachablePart> attachedParts = new ArrayList<>();
 
         resourceService.linkFindAllByFromResource(apachePhp).stream() //
@@ -77,6 +83,9 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
                     case LinkTypeConstants.USES:
                         if (link.getB() instanceof ApachePhpFolder) {
                             folders.add((ApachePhpFolder) link.getB());
+                        }
+                        if (link.getB() instanceof ApachePhpHtPasswd) {
+                            htPasswds.add((ApachePhpHtPasswd) link.getB());
                         }
                         break;
                     case "ATTACHED":
@@ -159,11 +168,23 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
                     }) //
                     .collect(Collectors.toList());
             model.put("aliases", containerFolders);
+            model.put("useBasicAuth", !htPasswds.isEmpty());
             for (int i = 0; i < folders.size(); ++i) {
                 ApachePhpFolder folder = folders.get(i);
                 applicationDefinition.addVolume(new IPApplicationDefinitionVolume( //
                         sanitisePath(folder.getBasePath(), true, true), //
                         "/folders/" + sanitisePath(folder.getBasePath(), false, false).replaceAll("\\/", "_")));
+            }
+
+            // /htpasswd file
+            if (!htPasswds.isEmpty()) {
+                List<String> htpasswdContent = htPasswds.stream() //
+                        .filter(it -> !Strings.isNullOrEmpty(it.getUser()) && !Strings.isNullOrEmpty(it.getPassword())) //
+                        .sorted((a, b) -> a.getUser().compareTo(b.getUser())) //
+                        .map(it -> it.getUser() + ":{SHA}" + Base64.getEncoder().encodeToString(sha1(it.getPassword()))) //
+                        .collect(Collectors.toList());
+                assetsBundle.addAssetContent("/htpasswd", Joiner.on('\n').join(htpasswdContent));
+                applicationDefinition.addBuildStepCommand("chown www-data:www-data /htpasswd && chmod 600 /htpasswd");
             }
 
             assetsBundle.addAssetContent("/etc/apache2/sites-enabled/000-default.conf", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/apache-http-fs.ftl", model));
@@ -174,8 +195,7 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
 
             applicationDefinition.addContainerUserToChangeId("www-data", unixUserId);
 
-            applicationDefinition.addBuildStepCommand("chmod -R 777 /var/log");
-            applicationDefinition.addBuildStepCommand("chown www-data:www-data /var/run/apache2");
+            applicationDefinition.addBuildStepCommand("chmod -R 777 /var/log && chown www-data:www-data /var/run/apache2");
             applicationDefinition.addService("apache", "/apache-start.sh");
 
             // Enable modules
@@ -229,6 +249,14 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
             }
         }
         return path.replaceAll("\\/\\/", "/");
+    }
+
+    private byte[] sha1(String in) {
+        try {
+            return MessageDigest.getInstance("SHA1").digest(in.getBytes());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

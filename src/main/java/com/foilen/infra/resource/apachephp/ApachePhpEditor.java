@@ -69,6 +69,7 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
         simpleResourceEditorDefinition.addResource("unixUser", LinkTypeConstants.RUN_AS, UnixUser.class);
         simpleResourceEditorDefinition.addReverseResources("websitesFrom", Website.class, LinkTypeConstants.POINTS_TO);
         simpleResourceEditorDefinition.addResources("folders", LinkTypeConstants.USES, ApachePhpFolder.class);
+        simpleResourceEditorDefinition.addResources("htPasswds", LinkTypeConstants.USES, ApachePhpHtPasswd.class);
         simpleResourceEditorDefinition.addResources("attachableParts", "ATTACHED", AttachablePart.class);
         simpleResourceEditorDefinition.addResources("machines", LinkTypeConstants.INSTALLED_ON, Machine.class);
 

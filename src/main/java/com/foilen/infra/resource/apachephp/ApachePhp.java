@@ -24,6 +24,7 @@ import com.foilen.infra.resource.website.Website;
  * <li>{@link UnixUser}: (1) RUN_AS - The user that executes the website</li>
  * <li>{@link Machine}: (optional / many) INSTALLED_ON - The machines where to install that service</li>
  * <li>{@link AttachablePart}: (optional / many) ATTACHED - The parts to attach</li>
+ * <li>{@link ApachePhpHtPasswd}: (optional / many) USES - The details for basic auth users</li>
  * <li>{@link ApachePhpFolder}: (optional / many) USES - The folders details</li>
  * </ul>
  *

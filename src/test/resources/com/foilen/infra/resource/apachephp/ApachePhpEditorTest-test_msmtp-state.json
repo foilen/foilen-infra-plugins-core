@@ -129,10 +129,7 @@ memory_limit = 256M
           "step" : "chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && sync && /copy-php-conf.sh",
           "type" : "COMMAND"
         }, {
-          "step" : "chmod -R 777 /var/log",
-          "type" : "COMMAND"
-        }, {
-          "step" : "chown www-data:www-data /var/run/apache2",
+          "step" : "chmod -R 777 /var/log && chown www-data:www-data /var/run/apache2",
           "type" : "COMMAND"
         }, {
           "step" : "/usr/sbin/a2enmod rewrite",
