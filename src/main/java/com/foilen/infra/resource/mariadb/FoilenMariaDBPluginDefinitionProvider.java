@@ -58,6 +58,8 @@ public class FoilenMariaDBPluginDefinitionProvider implements IPPluginDefinition
 
         // Update events
         pluginDefinitionV1.addUpdateHandler(new MariaDBServerUpdateHandler());
+        pluginDefinitionV1.addUpdateHandler(new MariaDBDatabaseUpdateHandler());
+        pluginDefinitionV1.addUpdateHandler(new MariaDBUserUpdateHandler());
 
         return pluginDefinitionV1;
     }
