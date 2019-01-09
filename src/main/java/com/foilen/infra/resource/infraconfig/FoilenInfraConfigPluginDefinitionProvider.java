@@ -43,6 +43,7 @@ public class FoilenInfraConfigPluginDefinitionProvider implements IPPluginDefini
 
         // Updater Handler
         pluginDefinitionV1.addUpdateHandler(new InfraConfigUpdateHandler());
+        pluginDefinitionV1.addUpdateHandler(new InfraConfigPluginUpdateHandler());
 
         return pluginDefinitionV1;
     }
