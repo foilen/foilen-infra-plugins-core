@@ -258,6 +258,7 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
   CustomLog /var/log/apache2/access.log combined
   
   <Directory /base/www/>
+    AllowOverride All
     AuthType Basic
     AuthName \"Restricted Content\"
     AuthUserFile /htpasswd
@@ -267,6 +268,7 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
   Alias /other /folders/home_myphp_otherphp/inside
   
   <Directory /folders/home_myphp_otherphp/inside>
+    AllowOverride All
     AuthType Basic
     AuthName \"Restricted Content\"
     AuthUserFile /htpasswd

@@ -8,6 +8,7 @@
   
   <Directory ${baseFolder}${mainSiteRelativePath}>
     <#if useBasicAuth>
+    AllowOverride All
     AuthType Basic
     AuthName "Restricted Content"
     AuthUserFile /htpasswd
@@ -25,6 +26,7 @@
   <#list aliases as alias>
   <Directory ${alias.folder}>
     <#if useBasicAuth>
+    AllowOverride All
     AuthType Basic
     AuthName "Restricted Content"
     AuthUserFile /htpasswd
