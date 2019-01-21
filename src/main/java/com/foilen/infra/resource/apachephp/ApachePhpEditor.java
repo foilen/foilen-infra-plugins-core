@@ -28,6 +28,13 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
 
     public static final String EDITOR_NAME = "Apache PHP";
 
+    public static String nullIfEmpty(String fieldValue) {
+        if ("".equals(fieldValue)) {
+            return null;
+        }
+        return fieldValue;
+    }
+
     @Override
     protected void getDefinition(SimpleResourceEditorDefinition simpleResourceEditorDefinition) {
 
@@ -45,6 +52,12 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
         simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER_MSMTP, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
             fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
             fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
+        });
+        simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, fieldConfig -> {
+            fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfig.addFormator(ApachePhpEditor::nullIfEmpty);
+            fieldConfig.addValidator(CommonValidation::validateEmail);
+            fieldConfig.setPopulateResource(ctx -> ctx.getEditedResourceBeanWrapper().setPropertyValue(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, ctx.getTextValue()));
         });
 
         simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_BASE_PATH, fieldConfig -> {

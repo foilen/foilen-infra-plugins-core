@@ -150,7 +150,9 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
             if (apachePhp.isEmailSenderMsmtp()) {
                 assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php-msmtp.ini");
             } else {
-                assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php-sendmail.ini");
+                Map<String, Object> model = new HashMap<>();
+                model.put("defaultEmailFrom", apachePhp.getDefaultEmailFrom());
+                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php-sendmail.ini.ftl", model));
             }
 
             // Site configuration

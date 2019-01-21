@@ -14,6 +14,7 @@
     "tags" : [ ],
     "content" : {
       "basePath" : "/home/user1/php",
+      "defaultEmailFrom" : "admin@example.com",
       "emailSenderMsmtp" : false,
       "mainSiteRelativePath" : "/",
       "meta" : { },
@@ -98,6 +99,7 @@ upload_max_filesize = 64M
 post_max_size = 128M
 memory_limit = 256M
 
+mail.force_extra_parameters = -fadmin@example.com
 "
           }, {
             "a" : "/etc/apache2/sites-enabled/000-default.conf",
