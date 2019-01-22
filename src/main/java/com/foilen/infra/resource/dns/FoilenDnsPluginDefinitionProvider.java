@@ -51,6 +51,7 @@ public class FoilenDnsPluginDefinitionProvider implements IPPluginDefinitionProv
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/dns/messages");
         pluginDefinitionV1.addResourceEditor(new ManualDnsEntryEditor(), ManualDnsEntryEditor.EDITOR_NAME);
+        pluginDefinitionV1.addResourceEditor(new DnsPointerEditor(), DnsPointerEditor.EDITOR_NAME);
 
         pluginDefinitionV1.addUpdateHandler(new DnsEntryValidationUpdateHandler());
         pluginDefinitionV1.addUpdateHandler(new DnsPointerUpdateHandler());
