@@ -301,7 +301,9 @@ frontend port_4433
   bind *:4433 ssl crt /certs
   reqadd X-Forwarded-Proto:\\ https
 
-  use_backend https_4433_redir.example.com if { ssl_fc_sni redir.example.com }
+  acl https_4433_redir.example.com hdr(host) -i redir.example.com
+
+  use_backend https_4433_redir.example.com if https_4433_redir.example.com
 
 frontend port_8080
   mode http
