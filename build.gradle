@@ -99,7 +99,7 @@ task outputVersion {
 }
 processResources.dependsOn outputVersion
 
-bintrayUpload.dependsOn shadowJar
+install.dependsOn shadowJar
 
 publishing {
   publications {
