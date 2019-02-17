@@ -21,11 +21,6 @@ public class DnsPointerEditor extends SimpleResourceEditor<DnsPointer> {
     public static final String EDITOR_NAME = "Dns Pointer";
 
     @Override
-    public Class<DnsPointer> getForResourceType() {
-        return DnsPointer.class;
-    }
-
-    @Override
     protected void getDefinition(SimpleResourceEditorDefinition simpleResourceEditorDefinition) {
 
         simpleResourceEditorDefinition.addInputText(DnsPointer.PROPERTY_NAME, fieldConfig -> {
@@ -36,6 +31,11 @@ public class DnsPointerEditor extends SimpleResourceEditor<DnsPointer> {
 
         simpleResourceEditorDefinition.addResources("machines", LinkTypeConstants.POINTS_TO, Machine.class);
 
+    }
+
+    @Override
+    public Class<DnsPointer> getForResourceType() {
+        return DnsPointer.class;
     }
 
 }
