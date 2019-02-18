@@ -445,6 +445,7 @@ memory_limit = 256M
       "applicationEndpoint" : "HTTP_TCP",
       "domainNames" : [ "myphp.example.com" ],
       "https" : false,
+      "httpsOriginToHttp" : false,
       "meta" : { },
       "name" : "myphp",
       "resourceCategory" : "NET",

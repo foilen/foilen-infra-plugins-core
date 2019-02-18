@@ -9,6 +9,8 @@
  */
 package com.foilen.infra.resource.website;
 
+import java.util.Arrays;
+
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditor;
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditorDefinition;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
@@ -18,6 +20,7 @@ import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
+import com.foilen.smalltools.tools.StringTools;
 
 public class WebsiteEditor extends SimpleResourceEditor<Website> {
 
@@ -39,10 +42,13 @@ public class WebsiteEditor extends SimpleResourceEditor<Website> {
             fieldConfigConsumer.addValidator(CommonValidation::validateDomainName);
         });
 
-        simpleResourceEditorDefinition.addInputText(Website.PROPERTY_IS_HTTPS, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::toLowerCase);
-            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
-            fieldConfigConsumer.addFormator(value -> value == null ? "false" : value);
+        simpleResourceEditorDefinition.addSelectOptionsField(Website.PROPERTY_IS_HTTPS, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
+        });
+        simpleResourceEditorDefinition.addSelectOptionsField(Website.PROPERTY_IS_HTTPS_ORIGIN_TO_HTTP, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
 
         simpleResourceEditorDefinition.addSelectOptionsField(Website.PROPERTY_APPLICATION_ENDPOINT, DockerContainerEndpoints.allValues, fieldConfigConsumer -> {

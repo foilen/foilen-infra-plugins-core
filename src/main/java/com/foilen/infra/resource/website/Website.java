@@ -42,6 +42,7 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_DOMAIN_NAMES = "domainNames";
     public static final String PROPERTY_IS_HTTPS = "https";
+    public static final String PROPERTY_IS_HTTPS_ORIGIN_TO_HTTP = "httpsOriginToHttp";
     public static final String PROPERTY_APPLICATION_ENDPOINT = "applicationEndpoint";
 
     // Network
@@ -49,6 +50,7 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
     private SortedSet<String> domainNames = new TreeSet<>();
 
     private boolean isHttps;
+    private boolean isHttpsOriginToHttp;
     private String applicationEndpoint = DockerContainerEndpoints.HTTP_TCP; // Default: HTTP_TCP
 
     public Website() {
@@ -96,6 +98,10 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
         return isHttps;
     }
 
+    public boolean isHttpsOriginToHttp() {
+        return isHttpsOriginToHttp;
+    }
+
     public void setApplicationEndpoint(String applicationEndpoint) {
         this.applicationEndpoint = applicationEndpoint;
     }
@@ -106,6 +112,10 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
 
     public void setHttps(boolean isHttps) {
         this.isHttps = isHttps;
+    }
+
+    public void setHttpsOriginToHttp(boolean isHttpsOriginToHttp) {
+        this.isHttpsOriginToHttp = isHttpsOriginToHttp;
     }
 
     public void setName(String name) {

@@ -249,6 +249,7 @@ backend http_8080_myapp.example.com
       "applicationEndpoint" : "HTTP_TCP",
       "domainNames" : [ "myapp.example.com" ],
       "https" : false,
+      "httpsOriginToHttp" : false,
       "meta" : { },
       "name" : "myapp",
       "resourceCategory" : "NET",

@@ -25,11 +25,13 @@ import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionAssetsBundle;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionPortRedirect;
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
+import com.foilen.infra.plugin.v1.model.haproxy.AbstractHaProxyConfigPortHttp;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfig;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigEndpoint;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttp;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttpService;
 import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttps;
+import com.foilen.infra.plugin.v1.model.haproxy.HaProxyConfigPortHttpsService;
 import com.foilen.infra.plugin.v1.model.outputter.haproxy.HaProxyConfigOutput;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
@@ -43,8 +45,8 @@ public class MachineHaProxyUpdateHandler extends AbstractCommonMethodUpdateEvent
 
     public static final String UNIX_USER_HA_PROXY_NAME = "infra_web";
 
-    protected void addWebsiteConfig(Machine machine, String machineName, IPApplicationDefinition applicationDefinition, AtomicInteger nextLocalPort, Website website,
-            List<Tuple2<Application, List<Machine>>> pointsToApplicationOnMachines, HaProxyConfigPortHttp configHttp) {
+    protected <T extends HaProxyConfigPortHttpService> void addWebsiteConfig(Machine machine, String machineName, IPApplicationDefinition applicationDefinition, AtomicInteger nextLocalPort,
+            Website website, List<Tuple2<Application, List<Machine>>> pointsToApplicationOnMachines, AbstractHaProxyConfigPortHttp<T> configHttp) {
 
         // If is installed locally, just point to that one ; else, redirect to all other places
         List<String> installedLocallyApplicationNames = pointsToApplicationOnMachines.stream() //
@@ -66,9 +68,13 @@ public class MachineHaProxyUpdateHandler extends AbstractCommonMethodUpdateEvent
                 }
             }
             website.getDomainNames().forEach(hostname -> {
-                HaProxyConfigPortHttpService config = new HaProxyConfigPortHttpService();
+                T config = configHttp.createConfig();
                 for (HaProxyConfigEndpoint endpoint : endpoints) {
                     config.getEndpoints().add(endpoint);
+                }
+
+                if (config instanceof HaProxyConfigPortHttpsService) {
+                    ((HaProxyConfigPortHttpsService) config).setOriginToHttp(website.isHttpsOriginToHttp());
                 }
 
                 configHttp.getServiceByHostname().put(hostname, config);
@@ -83,6 +89,14 @@ public class MachineHaProxyUpdateHandler extends AbstractCommonMethodUpdateEvent
                 applicationDefinition.addPortRedirect(localPort, IPApplicationDefinitionPortRedirect.LOCAL_MACHINE, installedLocallyApplicationName, website.getApplicationEndpoint());
             }
             configHttp.addService(website.getDomainNames(), endpoints.toArray(new HaProxyConfigEndpoint[endpoints.size()]));
+
+            website.getDomainNames().forEach(hostname -> {
+                T config = configHttp.getServiceByHostname().get(hostname);
+                if (config instanceof HaProxyConfigPortHttpsService) {
+                    ((HaProxyConfigPortHttpsService) config).setOriginToHttp(website.isHttpsOriginToHttp());
+                }
+            });
+
         }
     }
 
