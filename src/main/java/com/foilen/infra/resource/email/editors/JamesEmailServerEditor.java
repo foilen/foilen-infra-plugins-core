@@ -33,6 +33,10 @@ public class JamesEmailServerEditor extends SimpleResourceEditor<JamesEmailServe
             fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
         });
+        simpleResourceEditorDefinition.addInputText(JamesEmailServer.PROPERTY_VERSION, fieldConfig -> {
+            fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
+        });
         simpleResourceEditorDefinition.addInputText(EmailServer.PROPERTY_POSTMASTER_EMAIL, fieldConfigConsumer -> {
             fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);

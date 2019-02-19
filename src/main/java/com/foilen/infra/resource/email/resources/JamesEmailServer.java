@@ -41,12 +41,16 @@ public class JamesEmailServer extends EmailServer {
 
     public static final String RESOURCE_TYPE = "Apache James Email Server";
 
+    public static final String PROPERTY_VERSION = "version";
+
     public static final String PROPERTY_DISABLE_BOUNCE_NOTIFY_POSTMASTER = "disableBounceNotifyPostmaster";
     public static final String PROPERTY_DISABLE_BOUNCE_NOTIFY_SENDER = "disableBounceNotifySender";
     public static final String PROPERTY_DISABLE_RELAY_DENIED_NOTIFY_SENDER = "disableRelayDeniedNotifyPostmaster";
 
     public static final String PROPERTY_ENABLE_DEBUG_LOGS = "enableDebuglogs";
     public static final String PROPERTY_ENABLE_DEBUG_DUMP_MESSAGES_DETAILS = "enableDebugDumpMessagesDetails";
+
+    private String version = "3.2.0-2";
 
     private boolean disableBounceNotifyPostmaster;
     private boolean disableBounceNotifySender;
@@ -58,6 +62,10 @@ public class JamesEmailServer extends EmailServer {
     @Override
     public String getResourceDescription() {
         return "Apache James email server";
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     public boolean isDisableBounceNotifyPostmaster() {
@@ -98,6 +106,10 @@ public class JamesEmailServer extends EmailServer {
 
     public void setEnableDebuglogs(boolean enableDebuglogs) {
         this.enableDebuglogs = enableDebuglogs;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
 }

@@ -1097,7 +1097,7 @@ configuration.directory.in.classpath.last=../conf/lib/*
         } ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-email:3.2.0-1",
+        "from" : "foilen/fcloud-docker-email:3.2.0-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "10025" : "SMTP_TCP"
@@ -1481,7 +1481,8 @@ configuration.directory.in.classpath.last=../conf/lib/*
       "resourceCategory" : "EMAIL",
       "resourceDescription" : "Apache James email server",
       "resourceEditorName" : "James Email Server",
-      "resourceName" : "james_server"
+      "resourceName" : "james_server",
+      "version" : "3.2.0-2"
     }
   }, {
     "resource" : "Machine | localhost.foilen-lab.com | localhost.foilen-lab.com (127.0.0.1)",
