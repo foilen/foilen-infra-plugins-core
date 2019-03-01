@@ -135,6 +135,21 @@
       <#if enableDebugDumpMessagesDetails >
         <mailet match="All" class="com.foilen.james.components.mailet.DumpAllSystemErr" />
       </#if>
+      
+      <!-- Send redirected emails from the local machine ; never a gateway due to "FROM" not being trusted -->
+      <mailet match="HasMailAttribute=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
+        <text>Remote delivery via the server directly (no gateway since redirection)</text>
+      </mailet>
+      <mailet match="HasMailAttribute=isRedirection" class="RemoteDelivery">
+        <outgoing>outgoing</outgoing>
+
+        <delayTime>5000, 100000, 500000</delayTime>
+        <maxRetries>25</maxRetries>
+        <maxDnsProblemRetries>0</maxDnsProblemRetries>
+        <deliveryThreads>10</deliveryThreads>
+        <sendpartial>true</sendpartial>
+        <bounceProcessor>bounces</bounceProcessor>
+      </mailet>
     
       <!-- Relay emails per domain to different gateways -->
       <#list domainAndRelais as domainAndRelay>
