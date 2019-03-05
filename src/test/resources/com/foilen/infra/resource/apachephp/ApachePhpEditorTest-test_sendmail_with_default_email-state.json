@@ -167,9 +167,16 @@ mail.force_extra_parameters = -fadmin@example.com
           "permissions" : "755",
           "readOnly" : false
         }, {
-          "containerFsFolder" : "/var/log",
+          "containerFsFolder" : "/var/log/apache2",
           "groupId" : 70001,
-          "hostFolder" : "/home/user1/apache_php/my_php/log",
+          "hostFolder" : "/home/user1/apache_php/my_php/log/apache2",
+          "ownerId" : 70001,
+          "permissions" : "770",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/log/supervisor",
+          "groupId" : 70001,
+          "hostFolder" : "/home/user1/apache_php/my_php/log/supervisor",
           "ownerId" : 70001,
           "permissions" : "770",
           "readOnly" : false

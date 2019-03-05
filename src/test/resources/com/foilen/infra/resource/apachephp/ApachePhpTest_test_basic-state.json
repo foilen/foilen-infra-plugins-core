@@ -260,9 +260,16 @@ memory_limit = 256M
           "permissions" : "755",
           "readOnly" : false
         }, {
-          "containerFsFolder" : "/var/log",
+          "containerFsFolder" : "/var/log/apache2",
           "groupId" : 72000,
-          "hostFolder" : "/home/myphp/apache_php/myphp/log",
+          "hostFolder" : "/home/myphp/apache_php/myphp/log/apache2",
+          "ownerId" : 72000,
+          "permissions" : "770",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/log/supervisor",
+          "groupId" : 72000,
+          "hostFolder" : "/home/myphp/apache_php/myphp/log/supervisor",
           "ownerId" : 72000,
           "permissions" : "770",
           "readOnly" : false
