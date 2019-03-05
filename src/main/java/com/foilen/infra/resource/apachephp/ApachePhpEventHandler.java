@@ -200,6 +200,10 @@ public class ApachePhpEventHandler extends AbstractFinalStateManagedResourcesEve
             applicationDefinition.addBuildStepCommand("chmod -R 777 /var/log && chown www-data:www-data /var/run/apache2");
             applicationDefinition.addService("apache", "/apache-start.sh");
 
+            // Log folder
+            String baseFolder = unixUser.getHomeFolder() + "/apache_php/" + apachePhp.getName();
+            applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder + "/log", "/var/log", unixUser.getId(), unixUser.getId(), "770"));
+
             // Enable modules
             applicationDefinition.addBuildStepCommand("/usr/sbin/a2enmod rewrite");
 

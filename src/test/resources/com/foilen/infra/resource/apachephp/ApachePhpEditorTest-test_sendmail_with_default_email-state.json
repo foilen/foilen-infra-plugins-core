@@ -166,6 +166,13 @@ mail.force_extra_parameters = -fadmin@example.com
           "ownerId" : 70001,
           "permissions" : "755",
           "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/log",
+          "groupId" : 70001,
+          "hostFolder" : "/home/user1/apache_php/my_php/log",
+          "ownerId" : 70001,
+          "permissions" : "770",
+          "readOnly" : false
         } ]
       },
       "description" : "Apache and PHP application",

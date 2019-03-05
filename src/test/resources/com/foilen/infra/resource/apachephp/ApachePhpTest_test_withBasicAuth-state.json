@@ -330,6 +330,13 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
           "ownerId" : 72000,
           "permissions" : "755",
           "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/log",
+          "groupId" : 72000,
+          "hostFolder" : "/home/myphp/apache_php/myphp/log",
+          "ownerId" : 72000,
+          "permissions" : "770",
+          "readOnly" : false
         } ]
       },
       "description" : "Apache and PHP application",
