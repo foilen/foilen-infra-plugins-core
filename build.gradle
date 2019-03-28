@@ -7,7 +7,7 @@ buildscript {
 
 plugins {
   id "com.github.johnrengelman.shadow" version "2.0.4"
-  id "com.jfrog.bintray" version "1.7.3"
+  id "com.jfrog.bintray" version "1.8.4"
 }
 
 apply plugin: 'eclipse'
@@ -53,9 +53,9 @@ shadowJar {
   classifier = null
   
   dependencies {
-    exclude(dependency('org.slf4j:slf4j-api:1.7.25'))
-    exclude(dependency('org.bouncycastle:bcprov-jdk15on:1.60'))
-    exclude(dependency('org.bouncycastle:bcpkix-jdk15on:1.60'))
+    exclude(dependency('org.slf4j:slf4j-api:1.7.26'))
+    exclude(dependency('org.bouncycastle:bcprov-jdk15on:1.61'))
+    exclude(dependency('org.bouncycastle:bcpkix-jdk15on:1.61'))
   }
 }
 
@@ -113,5 +113,3 @@ publishing {
     }
   }
 }
-
-task wrapper(type: Wrapper) { gradleVersion = '4.7' }
