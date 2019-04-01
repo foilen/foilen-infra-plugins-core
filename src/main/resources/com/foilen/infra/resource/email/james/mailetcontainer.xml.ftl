@@ -76,7 +76,7 @@
       	<cacheMaxTimeInSeconds>10</cacheMaxTimeInSeconds>
       	<cacheMaxEntries>1000</cacheMaxEntries>
       </mailet>
-      <mailet match="HasHeader=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
+      <mailet match="com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
         <text>Recipient is ExactAndCatchAllRedirections</text>
       </mailet>
       <mailet match="HasMailAttribute=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
@@ -100,13 +100,13 @@
       </mailet>
       
       <!-- Remote delivery when destination was changed by ExactAndCatchAllRedirections -->
-      <mailet match="HasHeader=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
+      <mailet match="com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
         <text>Remote delivery when destination was changed by ExactAndCatchAllRedirections</text>
       </mailet>
       <mailet match="HasMailAttribute=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
         <text>Remote delivery when destination was changed by ExactAndCatchAllRedirections</text>
       </mailet>
-      <mailet match="HasHeader=isRedirection" class="ToProcessor">
+      <mailet match="com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=isRedirection" class="ToProcessor">
         <processor>auth-user-relay</processor>
       </mailet>
       <mailet match="HasMailAttribute=isRedirection" class="ToProcessor">
@@ -146,13 +146,13 @@
       </#if>
       
       <!-- Send redirected emails from the local machine ; never a gateway due to "FROM" not being trusted -->
-      <mailet match="HasHeader=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
+      <mailet match="com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
         <text>Remote delivery via the server directly (no gateway since redirection)</text>
       </mailet>
       <mailet match="HasMailAttribute=isRedirection" class="com.foilen.james.components.mailet.LogInfo">
         <text>Remote delivery via the server directly (no gateway since redirection)</text>
       </mailet>
-      <mailet match="HasHeader=isRedirection" class="RemoteDelivery">
+      <mailet match="com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=isRedirection" class="RemoteDelivery">
         <outgoing>outgoing</outgoing>
 
         <delayTime>5000, 100000, 500000</delayTime>
