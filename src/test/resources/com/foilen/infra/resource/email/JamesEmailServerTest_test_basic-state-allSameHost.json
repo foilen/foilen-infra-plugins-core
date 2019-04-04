@@ -1140,7 +1140,11 @@ configuration.directory.in.classpath.last=../conf/lib/*
           "name" : "james-manager"
         } ],
         "udpPortsExposed" : { },
-        "volumes" : [ ]
+        "volumes" : [ {
+          "containerFsFolder" : "/james-server-app/log",
+          "hostFolder" : "/home/james/_james_server/log",
+          "readOnly" : false
+        } ]
       },
       "description" : "Apache James email server",
       "domainNames" : [ ],

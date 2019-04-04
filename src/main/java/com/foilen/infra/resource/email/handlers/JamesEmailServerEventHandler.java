@@ -31,6 +31,7 @@ import com.foilen.infra.plugin.v1.core.exception.ProblemException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionAssetsBundle;
+import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionVolume;
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
@@ -275,6 +276,11 @@ public class JamesEmailServerEventHandler extends AbstractFinalStateManagedResou
                         logger.debug("Attaching {} with type {}", attachedPart.getResourceName(), attachedPart.getClass().getName());
                         attachedPart.attachTo(new AttachablePartContext().setServices(services).setApplication(application).setApplicationDefinition(applicationDefinition));
                     });
+
+            // Logs
+            applicationDefinition.addVolume(new IPApplicationDefinitionVolume( //
+                    unixUser.getHomeFolder() + "/_" + jamesEmailServer.getName() + "/log", //
+                    "/james-server-app/log"));
 
             // User
             applicationDefinition.addContainerUserToChangeId("james", unixUserId);
