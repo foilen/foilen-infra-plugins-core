@@ -130,7 +130,7 @@ OZolTL9Evfdaqwasfbn/vhol\\\
       "resourceName" : "backup_google-f2_example_com"
     }
   }, {
-    "resource" : "BackupToGoogleCloudConfig | abc | backup@myuser.iam.gserviceaccount.com/my_project/my_bucket",
+    "resource" : "BackupToGoogleCloudConfig | abc | backup@myuser.iam.gserviceaccount.com | my_project | my_bucket",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
@@ -145,7 +145,7 @@ OZolTL9Evfdaqwasfbn/vhol\
       "privateKeyId" : "111aaa1111aaa111aaa",
       "projectId" : "my_project",
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "backup@myuser.iam.gserviceaccount.com/my_project/my_bucket",
+      "resourceDescription" : "backup@myuser.iam.gserviceaccount.com | my_project | my_bucket",
       "resourceName" : "abc",
       "uid" : "abc"
     }

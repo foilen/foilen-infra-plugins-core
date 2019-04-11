@@ -16,9 +16,13 @@ import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.infra.resource.backup.editors.BackupToGoogleCloudConfigEditor;
+import com.foilen.infra.resource.backup.editors.BackupToSftpConfigEditor;
 import com.foilen.infra.resource.backup.handlers.BackupToGoogleCloudEventHandler;
+import com.foilen.infra.resource.backup.handlers.BackupToSftpEventHandler;
 import com.foilen.infra.resource.backup.handlers.MachineBackupToGoogleCloudEventHandler;
+import com.foilen.infra.resource.backup.handlers.MachineBackupToSftpEventHandler;
 import com.foilen.infra.resource.backup.resources.BackupToGoogleCloudConfig;
+import com.foilen.infra.resource.backup.resources.BackupToSftpConfig;
 import com.foilen.smalltools.tools.ResourceTools;
 
 public class FoilenBackupPluginDefinitionProvider implements IPPluginDefinitionProvider {
@@ -37,14 +41,20 @@ public class FoilenBackupPluginDefinitionProvider implements IPPluginDefinitionP
         pluginDefinition.addCustomResource(BackupToGoogleCloudConfig.class, BackupToGoogleCloudConfig.RESOURCE_TYPE, //
                 Arrays.asList(), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(BackupToSftpConfig.class, BackupToSftpConfig.RESOURCE_TYPE, //
+                Arrays.asList(), //
+                Collections.emptyList());
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/backup/messages");
         pluginDefinition.addResourceEditor(new BackupToGoogleCloudConfigEditor(), BackupToGoogleCloudConfigEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new BackupToSftpConfigEditor(), BackupToSftpConfigEditor.EDITOR_NAME);
 
         // Updater Handler
         pluginDefinition.addUpdateHandler(new BackupToGoogleCloudEventHandler());
         pluginDefinition.addUpdateHandler(new MachineBackupToGoogleCloudEventHandler());
+        pluginDefinition.addUpdateHandler(new BackupToSftpEventHandler());
+        pluginDefinition.addUpdateHandler(new MachineBackupToSftpEventHandler());
 
         return pluginDefinition;
     }

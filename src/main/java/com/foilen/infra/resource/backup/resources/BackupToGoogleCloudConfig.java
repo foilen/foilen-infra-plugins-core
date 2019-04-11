@@ -77,7 +77,7 @@ public class BackupToGoogleCloudConfig extends AbstractIPResource {
 
     @Override
     public String getResourceDescription() {
-        return clientEmail + "/" + projectId + "/" + bucketName;
+        return clientEmail + " | " + projectId + " | " + bucketName;
     }
 
     @Override

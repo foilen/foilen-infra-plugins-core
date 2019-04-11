@@ -1,6 +1,6 @@
 {
   "resources" : [ {
-    "resource" : "Application | backup_google-f1_example_com | Backup to Google Cloud for f1.example.com",
+    "resource" : "Application | backup_sftp-f1_example_com | Backup to SFTP for f1.example.com",
     "links" : [ {
       "type" : "INSTALLED_ON",
       "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
@@ -15,32 +15,18 @@
         "assetsBundles" : [ ],
         "assetsPathAndContent" : [ {
           "a" : "_assets/1",
-          "b" : "{
-  \"token_uri\" : \"https://accounts.google.com/o/oauth2/token\",
-  \"private_key_id\" : \"111aaa1111aaa111aaa\",
-  \"client_x509_cert_url\" : \"https%3A%2F%2Fwww.googleapis.com%2Frobot%2Fv1%2Fmetadata%2Fx509%2Fbackup%40myuser.iam.gserviceaccount.com\",
-  \"project_id\" : \"my_project\",
-  \"auth_uri\" : \"https://accounts.google.com/o/oauth2/auth\",
-  \"auth_provider_x509_cert_url\" : \"https://www.googleapis.com/oauth2/v1/certs\",
-  \"client_email\" : \"backup@myuser.iam.gserviceaccount.com\",
-  \"private_key\" : \"-----BEGIN PRIVATE KEY-----\\\
-OZolTL9Evfdaqwasfbn/vhol\\\
------END PRIVATE KEY-----\\\
-\",
-  \"type\" : \"service_account\",
-  \"client_id\" : \"1111111111111\"
-}"
+          "b" : "KEY"
         } ],
         "buildSteps" : [ {
-          "step" : "_assets/1 /google-cloud-key.json",
+          "step" : "_assets/1 /id_rsa",
           "type" : "COPY"
         } ],
-        "command" : "BUCKET=my_bucket HOST_NAME=f1.example.com /backup.sh",
+        "command" : "SSH_HOSTNAME=backup.example.com SSH_PORT=22 SSH_USER=backup REMOTE_PATH=/home/backup HOST_NAME=f1.example.com /backup.sh",
         "containerUsersToChangeId" : [ ],
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-backup-to-google-cloud:1.0.1",
+        "from" : "foilen/fcloud-docker-backup-to-sftp:1.0.0",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : { },
         "portsExposed" : { },
@@ -54,18 +40,18 @@ OZolTL9Evfdaqwasfbn/vhol\\\
           "readOnly" : false
         } ]
       },
-      "description" : "Backup to Google Cloud for f1.example.com",
+      "description" : "Backup to SFTP for f1.example.com",
       "domainNames" : [ ],
       "executionCronDetails" : "22 0 * * *",
       "executionPolicy" : "CRON",
       "meta" : { },
-      "name" : "backup_google-f1_example_com",
+      "name" : "backup_sftp-f1_example_com",
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "Backup to Google Cloud for f1.example.com",
-      "resourceName" : "backup_google-f1_example_com"
+      "resourceDescription" : "Backup to SFTP for f1.example.com",
+      "resourceName" : "backup_sftp-f1_example_com"
     }
   }, {
-    "resource" : "Application | backup_google-f2_example_com | Backup to Google Cloud for f2.example.com",
+    "resource" : "Application | backup_sftp-f2_example_com | Backup to SFTP for f2.example.com",
     "links" : [ {
       "type" : "INSTALLED_ON",
       "to" : "Machine | f2.example.com | f2.example.com (127.0.0.2)"
@@ -80,32 +66,18 @@ OZolTL9Evfdaqwasfbn/vhol\\\
         "assetsBundles" : [ ],
         "assetsPathAndContent" : [ {
           "a" : "_assets/1",
-          "b" : "{
-  \"token_uri\" : \"https://accounts.google.com/o/oauth2/token\",
-  \"private_key_id\" : \"111aaa1111aaa111aaa\",
-  \"client_x509_cert_url\" : \"https%3A%2F%2Fwww.googleapis.com%2Frobot%2Fv1%2Fmetadata%2Fx509%2Fbackup%40myuser.iam.gserviceaccount.com\",
-  \"project_id\" : \"my_project\",
-  \"auth_uri\" : \"https://accounts.google.com/o/oauth2/auth\",
-  \"auth_provider_x509_cert_url\" : \"https://www.googleapis.com/oauth2/v1/certs\",
-  \"client_email\" : \"backup@myuser.iam.gserviceaccount.com\",
-  \"private_key\" : \"-----BEGIN PRIVATE KEY-----\\\
-OZolTL9Evfdaqwasfbn/vhol\\\
------END PRIVATE KEY-----\\\
-\",
-  \"type\" : \"service_account\",
-  \"client_id\" : \"1111111111111\"
-}"
+          "b" : "KEY"
         } ],
         "buildSteps" : [ {
-          "step" : "_assets/1 /google-cloud-key.json",
+          "step" : "_assets/1 /id_rsa",
           "type" : "COPY"
         } ],
-        "command" : "BUCKET=my_bucket HOST_NAME=f2.example.com /backup.sh",
+        "command" : "SSH_HOSTNAME=backup.example.com SSH_PORT=22 SSH_USER=backup REMOTE_PATH=/home/backup HOST_NAME=f2.example.com /backup.sh",
         "containerUsersToChangeId" : [ ],
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-backup-to-google-cloud:1.0.1",
+        "from" : "foilen/fcloud-docker-backup-to-sftp:1.0.0",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : { },
         "portsExposed" : { },
@@ -119,34 +91,30 @@ OZolTL9Evfdaqwasfbn/vhol\\\
           "readOnly" : false
         } ]
       },
-      "description" : "Backup to Google Cloud for f2.example.com",
+      "description" : "Backup to SFTP for f2.example.com",
       "domainNames" : [ ],
       "executionCronDetails" : "22 0 * * *",
       "executionPolicy" : "CRON",
       "meta" : { },
-      "name" : "backup_google-f2_example_com",
+      "name" : "backup_sftp-f2_example_com",
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "Backup to Google Cloud for f2.example.com",
-      "resourceName" : "backup_google-f2_example_com"
+      "resourceDescription" : "Backup to SFTP for f2.example.com",
+      "resourceName" : "backup_sftp-f2_example_com"
     }
   }, {
-    "resource" : "BackupToGoogleCloudConfig | abc | backup@myuser.iam.gserviceaccount.com | my_project | my_bucket",
+    "resource" : "BackupToSftpConfig | abc | backup.example.com | backup | /home/backup",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
-      "bucketName" : "my_bucket",
-      "clientEmail" : "backup@myuser.iam.gserviceaccount.com",
-      "clientId" : "1111111111111",
       "meta" : { },
-      "privateKey" : "-----BEGIN PRIVATE KEY-----\
-OZolTL9Evfdaqwasfbn/vhol\
------END PRIVATE KEY-----\
-",
-      "privateKeyId" : "111aaa1111aaa111aaa",
-      "projectId" : "my_project",
+      "remotePath" : "/home/backup",
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "backup@myuser.iam.gserviceaccount.com | my_project | my_bucket",
+      "resourceDescription" : "backup.example.com | backup | /home/backup",
       "resourceName" : "abc",
+      "sshHostname" : "backup.example.com",
+      "sshPort" : 22,
+      "sshPrivateKey" : "KEY",
+      "sshUser" : "backup",
       "uid" : "abc"
     }
   }, {
