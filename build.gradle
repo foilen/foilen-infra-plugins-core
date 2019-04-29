@@ -27,8 +27,7 @@ repositories {
   }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.11
 
 eclipse {
   classpath {
@@ -45,6 +44,10 @@ dependencies {
   compileOnly "com.foilen:foilen-infra-system-core-system-fake:$foilenInfraSystemVersion"
   compile ("org.shredzone.acme4j:acme4j-client:$acme4jVersion")
   compile ("org.shredzone.acme4j:acme4j-utils:$acme4jVersion")
+}
+
+test {
+  useJUnitPlatform()
 }
 
 shadowJar {
