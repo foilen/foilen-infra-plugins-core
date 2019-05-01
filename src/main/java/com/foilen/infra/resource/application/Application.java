@@ -57,6 +57,16 @@ public class Application extends AbstractIPResource implements Comparable<Applic
     public Application() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public Application(String name) {
+        this.name = name;
+    }
+
     @Override
     public int compareTo(Application o) {
         return ComparisonChain.start() //

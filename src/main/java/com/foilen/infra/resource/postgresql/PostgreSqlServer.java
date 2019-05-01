@@ -48,6 +48,16 @@ public class PostgreSqlServer extends AbstractIPResource implements Comparable<P
     public PostgreSqlServer() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public PostgreSqlServer(String name) {
+        this.name = name;
+    }
+
     public PostgreSqlServer(String name, String description, String version, String rootPassword) {
         this.name = name;
         this.description = description;

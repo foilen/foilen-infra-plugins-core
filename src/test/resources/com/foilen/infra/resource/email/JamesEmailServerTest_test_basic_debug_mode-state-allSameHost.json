@@ -1436,21 +1436,6 @@ configuration.directory.in.classpath.last=../conf/lib/*
       "resourceName" : "db_user_email"
     }
   }, {
-    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "homeFolder" : "/home/infra_url_redirection",
-      "id" : 70000,
-      "keepClearPassword" : false,
-      "meta" : { },
-      "name" : "infra_url_redirection",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/infra_url_redirection",
-      "resourceName" : "infra_url_redirection",
-      "shell" : "/bin/bash"
-    }
-  }, {
     "resource" : "UnixUser | james | /home/james",
     "links" : [ ],
     "tags" : [ ],

@@ -12,6 +12,7 @@ package com.foilen.infra.resource.dns;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -53,15 +54,15 @@ public class FoilenDnsPluginDefinitionProvider implements IPPluginDefinitionProv
         pluginDefinitionV1.addResourceEditor(new ManualDnsEntryEditor(), ManualDnsEntryEditor.EDITOR_NAME);
         pluginDefinitionV1.addResourceEditor(new DnsPointerEditor(), DnsPointerEditor.EDITOR_NAME);
 
-        pluginDefinitionV1.addUpdateHandler(new DnsEntryValidationUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new DnsPointerUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new MachineUpdateHandler());
+        pluginDefinitionV1.addChangesHandler(new DnsEntryValidationChangesEventHandler());
+        pluginDefinitionV1.addChangesHandler(new DnsPointerChangesEventHandler());
+        pluginDefinitionV1.addChangesHandler(new MachineChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

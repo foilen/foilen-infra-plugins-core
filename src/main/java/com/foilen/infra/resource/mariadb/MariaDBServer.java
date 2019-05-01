@@ -17,7 +17,7 @@ import com.google.common.collect.ComparisonChain;
  * This is for a MariaDB Server installation. <br>
  * Links to:
  * <ul>
- * <li>UnixUser: RUN_AS - The user that executes that databse.</li>
+ * <li>UnixUser: RUN_AS - The user that executes that database.</li>
  * <li>Machine: (optional / 1) INSTALLED_ON - The machines where to install that database</li>
  * </ul>
  *

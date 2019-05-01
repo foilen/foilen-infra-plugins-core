@@ -179,6 +179,9 @@ OZolTL9Evfdaqwasfbn/vhol\
     "resource" : "Machine | f1.example.com | f1.example.com (127.0.0.1)",
     "links" : [ {
       "type" : "MANAGES",
+      "to" : "Application | backup_google-f1_example_com | Backup to Google Cloud for f1.example.com"
+    }, {
+      "type" : "MANAGES",
       "to" : "DnsEntry | f1.example.com / A | 127.0.0.1"
     } ],
     "tags" : [ ],
@@ -193,6 +196,9 @@ OZolTL9Evfdaqwasfbn/vhol\
   }, {
     "resource" : "Machine | f2.example.com | f2.example.com (127.0.0.2)",
     "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Application | backup_google-f2_example_com | Backup to Google Cloud for f2.example.com"
+    }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | f2.example.com / A | 127.0.0.2"
     } ],
@@ -218,21 +224,6 @@ OZolTL9Evfdaqwasfbn/vhol\
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "/home/root",
       "resourceName" : "root",
-      "shell" : "/bin/bash"
-    }
-  }, {
-    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "homeFolder" : "/home/infra_url_redirection",
-      "id" : 70000,
-      "keepClearPassword" : false,
-      "meta" : { },
-      "name" : "infra_url_redirection",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/infra_url_redirection",
-      "resourceName" : "infra_url_redirection",
       "shell" : "/bin/bash"
     }
   } ]

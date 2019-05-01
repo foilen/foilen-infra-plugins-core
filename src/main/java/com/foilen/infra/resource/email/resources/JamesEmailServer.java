@@ -59,6 +59,19 @@ public class JamesEmailServer extends EmailServer {
     private boolean enableDebuglogs;
     private boolean enableDebugDumpMessagesDetails;
 
+    public JamesEmailServer() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public JamesEmailServer(String name) {
+        setName(name);
+    }
+
     @Override
     public String getResourceDescription() {
         return "Apache James email server";

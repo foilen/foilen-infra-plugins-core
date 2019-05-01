@@ -12,6 +12,7 @@ package com.foilen.infra.resource.unixuser;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.infra.resource.unixuser.helper.UnixUserAvailableIdHelper;
@@ -49,14 +50,13 @@ public class FoilenUnixUserPluginDefinitionProvider implements IPPluginDefinitio
         pluginDefinitionV1.addResourceEditor(new UnixUserEditor(), UnixUserEditor.EDITOR_NAME);
         pluginDefinitionV1.addResourceEditor(new SystemUnixUserEditor(), SystemUnixUserEditor.EDITOR_NAME);
 
-        pluginDefinitionV1.addUpdateHandler(new UnixUserUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new SystemUnixUserUpdateHandler());
+        pluginDefinitionV1.addChangesHandler(new UnixUserChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
         UnixUserAvailableIdHelper.init(commonServicesContext.getResourceService());
     }
 

@@ -36,6 +36,12 @@ public class DnsPointer extends AbstractIPResource implements Comparable<DnsPoin
     public DnsPointer() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the domaine name
+     */
     public DnsPointer(String name) {
         this.name = name;
     }

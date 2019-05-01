@@ -12,6 +12,7 @@ package com.foilen.infra.resource.postgresql;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -40,14 +41,14 @@ public class FoilenPostgreSqlPluginDefinitionProvider implements IPPluginDefinit
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/postgresql/messages");
         pluginDefinitionV1.addResourceEditor(new PostgreSqlServerEditor(), PostgreSqlServerEditor.EDITOR_NAME);
 
-        // Update events
-        pluginDefinitionV1.addUpdateHandler(new PostgreSqlServerUpdateHandler());
+        // Change Handler
+        pluginDefinitionV1.addChangesHandler(new PostgreSqlServerChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

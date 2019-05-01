@@ -176,6 +176,9 @@ backend http_8080_myapp.example.com
     "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
     "links" : [ {
       "type" : "MANAGES",
+      "to" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com"
+    }, {
+      "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
     } ],
     "tags" : [ ],
@@ -240,6 +243,9 @@ backend http_8080_myapp.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | myapp.example.com | myapp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
       "to" : "Application | myphp | null"

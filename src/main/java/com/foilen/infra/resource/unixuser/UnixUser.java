@@ -48,6 +48,16 @@ public class UnixUser extends AbstractIPResource implements Comparable<UnixUser>
     public UnixUser() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param id
+     *            the id
+     */
+    public UnixUser(Long id) {
+        this.id = id;
+    }
+
     public UnixUser(Long id, String name, String homeFolder, String shell) {
         this.id = id;
         this.name = name;

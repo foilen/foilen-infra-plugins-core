@@ -35,6 +35,16 @@ public class LetsencryptConfig extends AbstractIPResource {
     public LetsencryptConfig() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public LetsencryptConfig(String name) {
+        this.name = name;
+    }
+
     public LetsencryptConfig(String name, String contactEmail, String accountKeypairPem, String dnsUpdatedSubDomain, boolean isStaging, String tagName) {
         this.name = name;
         this.contactEmail = contactEmail;

@@ -31,6 +31,8 @@ public class AbstractCorePluginTest extends AbstractIPPluginTest {
     @Before
     public void init() {
 
+        System.setProperty("PluginUpgrader.disable", "true");
+
         fakeSystemServicesImpl = new FakeSystemServicesImpl();
         TimerService timerService = new TimerService() {
 

@@ -12,6 +12,7 @@ package com.foilen.infra.resource.application;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -36,13 +37,13 @@ public class FoilenApplicationPluginDefinitionProvider implements IPPluginDefini
                         Application.PROPERTY_DOMAIN_NAMES //
                 ));
 
-        pluginDefinitionV1.addUpdateHandler(new ApplicationUpdateHandler());
+        pluginDefinitionV1.addChangesHandler(new ApplicationChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

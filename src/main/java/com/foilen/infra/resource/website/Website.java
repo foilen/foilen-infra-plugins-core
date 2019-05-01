@@ -31,6 +31,7 @@ import com.google.common.collect.ComparisonChain;
  * Manages:
  * <ul>
  * <li>DnsPointer: (optional / many) POINTS_TO - Some domain names that will automatically point to the Machines on which it is INSTALLED_ON</li>
+ * <li>{UnixUser: 1 MANAGES - The infra_web user</li>
  * </ul>
  */
 public class Website extends AbstractIPResource implements Comparable<Website> {
@@ -56,6 +57,12 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
     public Website() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
     public Website(String name) {
         this.name = name;
     }

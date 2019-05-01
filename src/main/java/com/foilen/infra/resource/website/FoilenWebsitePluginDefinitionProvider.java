@@ -12,6 +12,7 @@ package com.foilen.infra.resource.website;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -41,14 +42,13 @@ public class FoilenWebsitePluginDefinitionProvider implements IPPluginDefinition
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/website/messages");
         pluginDefinitionV1.addResourceEditor(new WebsiteEditor(), WebsiteEditor.EDITOR_NAME);
 
-        pluginDefinitionV1.addUpdateHandler(new MachineHaProxyUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new WebsiteUpdateHandler());
+        pluginDefinitionV1.addChangesHandler(new WebsiteChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

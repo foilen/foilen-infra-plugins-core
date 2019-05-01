@@ -39,6 +39,16 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
     public DnsEntry() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     * @param type
+     *            the type
+     * @param details
+     *            the details
+     */
     public DnsEntry(String name, DnsEntryType type, String details) {
         this.name = name;
         this.type = type;

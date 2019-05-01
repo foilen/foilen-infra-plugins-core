@@ -53,13 +53,13 @@ public class MongoDBEditorTest extends AbstractCorePluginTest {
         String unixUserId = String.valueOf(findUnixUserByName("user1").getInternalId());
 
         // MongoDBServerEditor
-        Map<String, String> postgreSqlServerEditorForm = new HashMap<>();
-        postgreSqlServerEditorForm.put(MongoDBServer.PROPERTY_NAME, "user_db");
-        postgreSqlServerEditorForm.put(MongoDBServer.PROPERTY_VERSION, "4.0.4-1");
-        postgreSqlServerEditorForm.put(MongoDBServer.PROPERTY_ROOT_PASSWORD, "abc");
-        postgreSqlServerEditorForm.put("unixUser", unixUserId);
-        postgreSqlServerEditorForm.put("machine", machineId);
-        assertEditorNoErrors(null, new MongoDBServerEditor(), postgreSqlServerEditorForm);
+        Map<String, String> mongoDBServerEditorForm = new HashMap<>();
+        mongoDBServerEditorForm.put(MongoDBServer.PROPERTY_NAME, "user_db");
+        mongoDBServerEditorForm.put(MongoDBServer.PROPERTY_VERSION, "4.0.4-1");
+        mongoDBServerEditorForm.put(MongoDBServer.PROPERTY_ROOT_PASSWORD, "abc");
+        mongoDBServerEditorForm.put("unixUser", unixUserId);
+        mongoDBServerEditorForm.put("machine", machineId);
+        assertEditorNoErrors(null, new MongoDBServerEditor(), mongoDBServerEditorForm);
 
         // Assert
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "MongoDBEditorTest-test-state-1.json", getClass(), true);

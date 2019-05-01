@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -48,13 +49,13 @@ public class FoilenLetsencryptPluginDefinitionProvider implements IPPluginDefini
         pluginDefinition.addResourceEditor(new LetsEncryptWebsiteCertificateEditor(), LetsEncryptWebsiteCertificateEditor.EDITOR_NAME);
 
         // Updater
-        pluginDefinition.addUpdateHandler(new LetsencryptConfigUpdateHandler());
+        pluginDefinition.addChangesHandler(new LetsencryptConfigChangesEventHandler());
 
         return pluginDefinition;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

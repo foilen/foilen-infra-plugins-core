@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstall;
@@ -88,13 +89,13 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addResourceEditor(new AttachableVolumeEditor(), AttachableVolumeEditor.EDITOR_NAME);
 
         // Updater Handler
-        pluginDefinition.addUpdateHandler(new ComposableApplicationEventHandler());
+        pluginDefinition.addChangesHandler(new ComposableApplicationEventHandler());
 
         return pluginDefinition;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

@@ -16,7 +16,7 @@ import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.composableapplication.AttachablePart;
 import com.foilen.infra.resource.composableapplication.AttachablePartContext;
 import com.foilen.infra.resource.composableapplication.ComposableApplication;
-import com.foilen.infra.utils.postfix.PostfixUtils;
+import com.foilen.infra.resource.utils.PostfixUtils;
 
 /**
  * To configure and use sendmail as a relay on a {@link ComposableApplication} that redirects all mails to the {@link EmailRelay}.

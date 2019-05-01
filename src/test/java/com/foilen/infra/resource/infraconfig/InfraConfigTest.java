@@ -25,6 +25,7 @@ public class InfraConfigTest extends AbstractCorePluginTest {
 
     @Test
     public void test_basic() {
+
         // Execute the dump
         ResourcesDump resourcesDump = JsonTools.readFromResource("InfraConfigTest_test_basic-import.json", ResourcesDump.class, getClass());
         JunitsHelper.dumpImport(getCommonServicesContext(), getInternalServicesContext(), resourcesDump);

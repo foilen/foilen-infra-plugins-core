@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -47,13 +48,13 @@ public class FoilenApachePhpPluginDefinitionProvider implements IPPluginDefiniti
         pluginDefinition.addResourceEditor(new ApachePhpHtPasswdEditor(), ApachePhpHtPasswdEditor.EDITOR_NAME);
 
         // Updater Handler
-        pluginDefinition.addUpdateHandler(new ApachePhpEventHandler());
+        pluginDefinition.addChangesHandler(new ApachePhpChangesEventHandler());
 
         return pluginDefinition;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

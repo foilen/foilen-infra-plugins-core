@@ -12,6 +12,7 @@ package com.foilen.infra.resource.urlredirection;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -43,15 +44,13 @@ public class FoilenUrlRedirectionPluginDefinitionProvider implements IPPluginDef
 
         pluginDefinitionV1.addResourceEditor(new UrlRedirectionEditor(), UrlRedirectionEditor.EDITOR_NAME);
 
-        pluginDefinitionV1.addUpdateHandler(new AddRedirectionUnixUserUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new RedirectionWithApacheUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new WebsitesForUrlRedirectionUpdateHandler());
+        pluginDefinitionV1.addChangesHandler(new UrlRedirectionChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

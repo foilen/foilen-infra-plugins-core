@@ -402,6 +402,9 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
     "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
     "links" : [ {
       "type" : "MANAGES",
+      "to" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com"
+    }, {
+      "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
     } ],
     "tags" : [ ],
@@ -466,6 +469,9 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | myphp.example.com | myphp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
       "to" : "ApachePhp | myphp | Apache and PHP application"

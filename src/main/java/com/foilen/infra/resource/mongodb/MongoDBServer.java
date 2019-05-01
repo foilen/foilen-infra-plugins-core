@@ -46,6 +46,16 @@ public class MongoDBServer extends AbstractIPResource implements Comparable<Mong
     public MongoDBServer() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public MongoDBServer(String name) {
+        this.name = name;
+    }
+
     public MongoDBServer(String name, String description, String version, String rootPassword) {
         this.name = name;
         this.description = description;

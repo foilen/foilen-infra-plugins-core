@@ -65,6 +65,19 @@ public class ComposableApplication extends AbstractIPResource {
     private SortedSet<String> portsExposedUdp = new TreeSet<>();
     private SortedSet<String> portsEndpoint = new TreeSet<>();
 
+    public ComposableApplication() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public ComposableApplication(String name) {
+        this.name = name;
+    }
+
     public SortedSet<String> getEnvironments() {
         return environments;
     }

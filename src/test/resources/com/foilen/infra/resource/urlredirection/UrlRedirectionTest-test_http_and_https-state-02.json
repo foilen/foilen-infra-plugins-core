@@ -480,6 +480,9 @@ backend http_8080_redir2.example.com
       "to" : "Application | infra_url_redirection_https-h1_example_com | Apache HTTPS URL redirections for h1.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com"
+    }, {
+      "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
     } ],
     "tags" : [ ],
@@ -528,6 +531,9 @@ backend http_8080_redir2.example.com
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
     }, {
       "type" : "MANAGES",
+      "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
+    }, {
+      "type" : "MANAGES",
       "to" : "Website | HTTP Redirection of redir.example.com | redir.example.com"
     }, {
       "type" : "MANAGES",
@@ -555,6 +561,9 @@ backend http_8080_redir2.example.com
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
     }, {
       "type" : "MANAGES",
+      "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
+    }, {
+      "type" : "MANAGES",
       "to" : "Website | HTTP Redirection of redir2.example.com | redir2.example.com"
     } ],
     "tags" : [ ],
@@ -576,6 +585,9 @@ backend http_8080_redir2.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | redir.example.com | redir.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
       "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
@@ -601,6 +613,9 @@ backend http_8080_redir2.example.com
       "type" : "MANAGES",
       "to" : "DnsPointer | redir2.example.com | redir2.example.com"
     }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    }, {
       "type" : "POINTS_TO",
       "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
     } ],
@@ -624,6 +639,9 @@ backend http_8080_redir2.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | redir.example.com | redir.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
       "to" : "Application | infra_url_redirection_https-h1_example_com | Apache HTTPS URL redirections for h1.example.com"

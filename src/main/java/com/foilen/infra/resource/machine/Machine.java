@@ -36,6 +36,12 @@ public class Machine extends AbstractIPResource implements Comparable<Machine> {
     public Machine() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
     public Machine(String name) {
         this.name = name;
     }

@@ -29,6 +29,19 @@ public class EmailRelay extends AbstractIPResource {
     private String username;
     private String password;
 
+    public EmailRelay() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public EmailRelay(String name) {
+        this.name = name;
+    }
+
     public String getHostname() {
         return hostname;
     }

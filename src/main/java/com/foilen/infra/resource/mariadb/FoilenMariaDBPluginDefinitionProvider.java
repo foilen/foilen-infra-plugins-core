@@ -12,6 +12,7 @@ package com.foilen.infra.resource.mariadb;
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.smalltools.tools.ResourceTools;
@@ -56,16 +57,14 @@ public class FoilenMariaDBPluginDefinitionProvider implements IPPluginDefinition
         pluginDefinitionV1.addResourceEditor(new MariaDBServerEditor(), MariaDBServerEditor.EDITOR_NAME);
         pluginDefinitionV1.addResourceEditor(new MariaDBUserEditor(), MariaDBUserEditor.EDITOR_NAME);
 
-        // Update events
-        pluginDefinitionV1.addUpdateHandler(new MariaDBServerUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new MariaDBDatabaseUpdateHandler());
-        pluginDefinitionV1.addUpdateHandler(new MariaDBUserUpdateHandler());
+        // Change Handler
+        pluginDefinitionV1.addChangesHandler(new MariaDBChangesEventHandler());
 
         return pluginDefinitionV1;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

@@ -39,6 +39,19 @@ public abstract class EmailServer extends AbstractIPResource {
     private String name;
     private String postmasterEmail;
 
+    public EmailServer() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public EmailServer(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

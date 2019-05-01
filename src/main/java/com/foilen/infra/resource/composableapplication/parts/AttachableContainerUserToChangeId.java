@@ -23,7 +23,7 @@ import com.foilen.smalltools.tools.SecureRandomTools;
 /**
  * To add a user id that needs to change inside the container.
  *
- * Links from:
+ * Links to:
  * <ul>
  * <li>{@link UnixUser}: (one) USES - The user id to change to</li>
  * </ul>

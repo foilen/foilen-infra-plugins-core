@@ -47,6 +47,19 @@ public class EmailDomain extends AbstractIPResource {
     private String imapDomainName;
     private String pop3DomainName;
 
+    public EmailDomain() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param domainName
+     *            the domain name
+     */
+    public EmailDomain(String domainName) {
+        this.domainName = domainName;
+    }
+
     public String getDomainName() {
         return domainName;
     }

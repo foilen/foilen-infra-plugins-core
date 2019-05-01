@@ -59,6 +59,19 @@ public class ApachePhp extends AbstractIPResource {
     // Settings
     private String version = "5.5.9-1";
 
+    public ApachePhp() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public ApachePhp(String name) {
+        this.name = name;
+    }
+
     public String getBasePath() {
         return basePath;
     }

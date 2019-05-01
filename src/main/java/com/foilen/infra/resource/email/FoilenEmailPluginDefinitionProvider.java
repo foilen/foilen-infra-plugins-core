@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
+import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.infra.resource.email.editors.AttachableEmailRelayToMsmtpConfigFileEditor;
@@ -22,9 +23,7 @@ import com.foilen.infra.resource.email.editors.EmailDomainEditor;
 import com.foilen.infra.resource.email.editors.EmailRedirectionEditor;
 import com.foilen.infra.resource.email.editors.EmailRelayEditor;
 import com.foilen.infra.resource.email.editors.JamesEmailServerEditor;
-import com.foilen.infra.resource.email.handlers.EmailDomainManageDnsEntryEventHandler;
-import com.foilen.infra.resource.email.handlers.EmailDomainManageDomainsEventHandler;
-import com.foilen.infra.resource.email.handlers.JamesEmailServerEventHandler;
+import com.foilen.infra.resource.email.handlers.JamesEmailServerChangesEventHandler;
 import com.foilen.infra.resource.email.resources.AttachableEmailRelayToMsmtpConfigFile;
 import com.foilen.infra.resource.email.resources.AttachableEmailRelayToSendmail;
 import com.foilen.infra.resource.email.resources.EmailAccount;
@@ -97,16 +96,14 @@ public class FoilenEmailPluginDefinitionProvider implements IPPluginDefinitionPr
         pluginDefinition.addResourceEditor(new EmailRelayEditor(), EmailRelayEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new JamesEmailServerEditor(), JamesEmailServerEditor.EDITOR_NAME);
 
-        // Updater Handler
-        pluginDefinition.addUpdateHandler(new EmailDomainManageDnsEntryEventHandler());
-        pluginDefinition.addUpdateHandler(new EmailDomainManageDomainsEventHandler());
-        pluginDefinition.addUpdateHandler(new JamesEmailServerEventHandler());
+        // Changes Handler
+        pluginDefinition.addChangesHandler(new JamesEmailServerChangesEventHandler());
 
         return pluginDefinition;
     }
 
     @Override
-    public void initialize(CommonServicesContext commonServicesContext) {
+    public void initialize(CommonServicesContext commonServicesContext, InternalServicesContext internalServicesContext) {
     }
 
 }

@@ -56,36 +56,6 @@
       "resourceName" : "h2.example.com"
     }
   }, {
-    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "homeFolder" : "/home/infra_url_redirection",
-      "id" : 70000,
-      "keepClearPassword" : false,
-      "meta" : { },
-      "name" : "infra_url_redirection",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/infra_url_redirection",
-      "resourceName" : "infra_url_redirection",
-      "shell" : "/bin/bash"
-    }
-  }, {
-    "resource" : "UnixUser | infra_web | /home/infra_web",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "homeFolder" : "/home/infra_web",
-      "id" : 70001,
-      "keepClearPassword" : false,
-      "meta" : { },
-      "name" : "infra_web",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/infra_web",
-      "resourceName" : "infra_web",
-      "shell" : "/bin/bash"
-    }
-  }, {
     "resource" : "WebsiteCertificate |  | 861ce6de0487aadfd1befbf21057719a8bd0c8db, 2018-08-12, 2019-08-12",
     "links" : [ ],
     "tags" : [ ],

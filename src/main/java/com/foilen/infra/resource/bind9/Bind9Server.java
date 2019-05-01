@@ -48,6 +48,19 @@ public class Bind9Server extends AbstractIPResource {
     // Network
     private SortedSet<String> nsDomainNames = new TreeSet<>();
 
+    public Bind9Server() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public Bind9Server(String name) {
+        this.name = name;
+    }
+
     public String getAdminEmail() {
         return adminEmail;
     }

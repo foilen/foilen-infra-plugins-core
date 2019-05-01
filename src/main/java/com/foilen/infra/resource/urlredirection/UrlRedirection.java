@@ -25,6 +25,7 @@ import com.google.common.collect.ComparisonChain;
  * Manages:
  * <ul>
  * <li>{Website: (1 per protocol) MANAGES - Website to handle the redirection</li>
+ * <li>{UnixUser: 1 MANAGES - The infra_url_redirection user</li>
  * </ul>
  */
 public class UrlRedirection extends AbstractIPResource implements Comparable<UrlRedirection> {
@@ -46,6 +47,16 @@ public class UrlRedirection extends AbstractIPResource implements Comparable<Url
     private boolean httpsIsPermanent;
 
     public UrlRedirection() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param domainName
+     *            the domain name
+     */
+    public UrlRedirection(String domainName) {
+        this.domainName = domainName;
     }
 
     @Override

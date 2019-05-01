@@ -138,7 +138,7 @@ mail.force_extra_parameters = -fadmin@example.com
         } ],
         "containerUsersToChangeId" : [ {
           "a" : "www-data",
-          "b" : 70001
+          "b" : 70000
         } ],
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
@@ -150,7 +150,7 @@ mail.force_extra_parameters = -fadmin@example.com
         },
         "portsExposed" : { },
         "portsRedirect" : [ ],
-        "runAs" : 70001,
+        "runAs" : 70000,
         "services" : [ {
           "command" : "/apache-start.sh",
           "name" : "apache"
@@ -162,22 +162,22 @@ mail.force_extra_parameters = -fadmin@example.com
           "readOnly" : false
         }, {
           "containerFsFolder" : "/var/lock/apache2",
-          "groupId" : 70001,
-          "ownerId" : 70001,
+          "groupId" : 70000,
+          "ownerId" : 70000,
           "permissions" : "755",
           "readOnly" : false
         }, {
           "containerFsFolder" : "/var/log/apache2",
-          "groupId" : 70001,
+          "groupId" : 70000,
           "hostFolder" : "/home/user1/apache_php/my_php/log/apache2",
-          "ownerId" : 70001,
+          "ownerId" : 70000,
           "permissions" : "770",
           "readOnly" : false
         }, {
           "containerFsFolder" : "/var/log/supervisor",
-          "groupId" : 70001,
+          "groupId" : 70000,
           "hostFolder" : "/home/user1/apache_php/my_php/log/supervisor",
-          "ownerId" : 70001,
+          "ownerId" : 70000,
           "permissions" : "770",
           "readOnly" : false
         } ]
@@ -220,27 +220,12 @@ mail.force_extra_parameters = -fadmin@example.com
       "resourceName" : "test1.node.example.com"
     }
   }, {
-    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "homeFolder" : "/home/infra_url_redirection",
-      "id" : 70000,
-      "keepClearPassword" : false,
-      "meta" : { },
-      "name" : "infra_url_redirection",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/infra_url_redirection",
-      "resourceName" : "infra_url_redirection",
-      "shell" : "/bin/bash"
-    }
-  }, {
     "resource" : "UnixUser | user1 | /home/user1",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
       "homeFolder" : "/home/user1",
-      "id" : 70001,
+      "id" : 70000,
       "keepClearPassword" : false,
       "meta" : { },
       "name" : "user1",
