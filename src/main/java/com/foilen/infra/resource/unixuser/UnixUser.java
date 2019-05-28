@@ -113,32 +113,39 @@ public class UnixUser extends AbstractIPResource implements Comparable<UnixUser>
         return keepClearPassword;
     }
 
-    public void setHashedPassword(String hashedPassword) {
+    public UnixUser setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
+        return this;
     }
 
-    public void setHomeFolder(String homeFolder) {
+    public UnixUser setHomeFolder(String homeFolder) {
         this.homeFolder = homeFolder;
+        return this;
     }
 
-    public void setId(Long id) {
+    public UnixUser setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public void setKeepClearPassword(boolean keepClearPassword) {
+    public UnixUser setKeepClearPassword(boolean keepClearPassword) {
         this.keepClearPassword = keepClearPassword;
+        return this;
     }
 
-    public void setName(String name) {
+    public UnixUser setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setPassword(String password) {
+    public UnixUser setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    public void setShell(String shell) {
+    public UnixUser setShell(String shell) {
         this.shell = shell;
+        return this;
     }
 
 }
