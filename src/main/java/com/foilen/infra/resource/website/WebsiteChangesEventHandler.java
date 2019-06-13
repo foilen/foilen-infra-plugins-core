@@ -19,6 +19,7 @@ import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.ChangesEventHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransactionContext;
+import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerResourceStream;
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
@@ -37,36 +38,38 @@ public class WebsiteChangesEventHandler extends AbstractBasics implements Change
 
         List<ActionHandler> actions = new ArrayList<>();
 
-        // Manage
-        Set<String> websiteNames = StreamTools.concat(//
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastAddedLinks(), Website.class, LinkTypeConstants.POINTS_TO, Application.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastDeletedLinks(), Website.class, LinkTypeConstants.POINTS_TO, Application.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastAddedLinks(), Website.class, LinkTypeConstants.USES, WebsiteCertificate.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastDeletedLinks(), Website.class, LinkTypeConstants.USES, WebsiteCertificate.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastAddedLinks(), Website.class, LinkTypeConstants.INSTALLED_ON, Machine.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastDeletedLinks(), Website.class, LinkTypeConstants.INSTALLED_ON, Machine.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastAddedLinks(), Website.class, Website.LINK_TYPE_INSTALLED_ON_NO_DNS, Machine.class), //
-                ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastDeletedLinks(), Website.class, Website.LINK_TYPE_INSTALLED_ON_NO_DNS, Machine.class), //
-                ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastAddedResources(), Website.class), //
-                ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastRefreshedResources(), Website.class), //
-                ChangesEventHandlerUtils.getNextResourcesOfTypeStream(changesInTransactionContext.getLastUpdatedResources(), Website.class).map(i -> (Website) i.getNext()))//
-                .map(Website::getName) //
-                .collect(Collectors.toCollection(() -> new HashSet<>())); //
+        Set<String> websiteNames = new ChangesEventHandlerResourceStream<>(Website.class) //
+                .linksAddFrom(changesInTransactionContext.getLastAddedLinks(), LinkTypeConstants.POINTS_TO, Application.class) //
+                .linksAddFrom(changesInTransactionContext.getLastDeletedLinks(), LinkTypeConstants.POINTS_TO, Application.class) //
+                .linksAddFrom(changesInTransactionContext.getLastAddedLinks(), LinkTypeConstants.USES, WebsiteCertificate.class) //
+                .linksAddFrom(changesInTransactionContext.getLastDeletedLinks(), LinkTypeConstants.USES, WebsiteCertificate.class) //
+                .linksAddFrom(changesInTransactionContext.getLastAddedLinks(), LinkTypeConstants.INSTALLED_ON, Machine.class) //
+                .linksAddFrom(changesInTransactionContext.getLastDeletedLinks(), LinkTypeConstants.INSTALLED_ON, Machine.class) //
+                .linksAddFrom(changesInTransactionContext.getLastAddedLinks(), Website.LINK_TYPE_INSTALLED_ON_NO_DNS, Machine.class) //
+                .linksAddFrom(changesInTransactionContext.getLastDeletedLinks(), Website.LINK_TYPE_INSTALLED_ON_NO_DNS, Machine.class) //
+                .resourcesAddOfType(changesInTransactionContext.getLastAddedResources()) //
+                .resourcesAddOfType(changesInTransactionContext.getLastRefreshedResources()) //
+                .resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources()) //
 
+                // For each updated UnixUser
+                .resourcesAdd(new ChangesEventHandlerResourceStream<>(UnixUser.class) //
+                        .resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources()) //
+                        .streamFromResourceClassAndLinkType(services, Website.class, LinkTypeConstants.MANAGES)) //
+
+                // For each updated WebsiteCertificate
+                .resourcesAdd(new ChangesEventHandlerResourceStream<>(WebsiteCertificate.class) //
+                        .resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources()) //
+                        .streamFromResourceClassAndLinkType(services, Website.class, LinkTypeConstants.USES)) //
+
+                .getResourcesStream().map(Website::getName).collect(Collectors.toCollection(() -> new HashSet<>()));
+
+        // Manage
         websiteNames.forEach(websiteName -> {
             // For each Website, manage the UnixUser
             actions.add(new WebsiteManageUnixUsersActionHandler(websiteName));
             // For each Website, update DnsPointer
             actions.add(new WebsiteManageWebsitesActionHandler(websiteName));
         });
-
-        // For each updated UnixUser
-        for (UnixUser unixUser : ChangesEventHandlerUtils.getNextResourcesOfType(changesInTransactionContext.getLastUpdatedResources(), UnixUser.class)) {
-            for (Website website : services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(Website.class, LinkTypeConstants.MANAGES, unixUser)) {
-                logger.info("the managed UnixUser {} changed. Needs update {}", unixUser.getName(), website.getName());
-                websiteNames.add(website.getName());
-            }
-        }
 
         // For each Machine that has Websites to it, update Application
         StreamTools.concat(websiteNames.stream() //

@@ -17,10 +17,12 @@
           "assetsRelativePathAndBinaryContent" : [ ],
           "assetsRelativePathAndTextContent" : [ {
             "a" : "/certs/myapp.example.com.pem",
-            "b" : ""
+            "b" : "CERTaaaCERT
+"
           }, {
             "a" : "/certs/myapp2.example.com.pem",
-            "b" : ""
+            "b" : "CERTbbbCERT
+"
           }, {
             "a" : "/haproxy.cfg",
             "b" : "global
@@ -404,6 +406,7 @@ backend http_8080_myapp.example.com
     "links" : [ ],
     "tags" : [ ],
     "content" : {
+      "certificate" : "CERTaaaCERT",
       "domainNames" : [ "myapp.example.com" ],
       "end" : 2524626000000,
       "meta" : { },
@@ -416,6 +419,7 @@ backend http_8080_myapp.example.com
     "links" : [ ],
     "tags" : [ ],
     "content" : {
+      "certificate" : "CERTbbbCERT",
       "domainNames" : [ "myapp2.example.com" ],
       "end" : 2524626000000,
       "meta" : { },

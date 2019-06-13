@@ -1,0 +1,431 @@
+{
+  "resources" : [ {
+    "resource" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/certs/myapp.example.com.pem",
+            "b" : "CERTcccCERT
+"
+          }, {
+            "a" : "/certs/myapp2.example.com.pem",
+            "b" : "CERTbbbCERT
+"
+          }, {
+            "a" : "/haproxy.cfg",
+            "b" : "global
+  user haproxy
+  group haproxy
+  tune.ssl.default-dh-param 1024
+
+defaults
+  timeout connect 5000
+  timeout client 600000
+  timeout server 600000
+  timeout tunnel 600000
+
+frontend port_4433
+  mode http
+  option forwardfor
+  option http-server-close
+  bind *:4433 ssl crt /certs
+  reqadd X-Forwarded-Proto:\\ https
+
+  acl https_4433_myapp.example.com hdr(host) -i myapp.example.com
+  acl https_4433_myapp2.example.com hdr(host) -i myapp2.example.com
+
+  http-request replace-header Origin https://myapp2.example.com(.*) http://myapp2.example.com\\1 if https_4433_myapp2.example.com
+
+  use_backend https_4433_myapp.example.com if https_4433_myapp.example.com
+  use_backend https_4433_myapp2.example.com if https_4433_myapp2.example.com
+
+frontend port_8080
+  mode http
+  option forwardfor
+  option http-server-close
+  bind *:8080
+  reqadd X-Forwarded-Proto:\\ http
+
+  acl http_8080_myapp.example.com hdr(host) -i myapp.example.com
+
+  use_backend http_8080_myapp.example.com if http_8080_myapp.example.com
+
+backend https_4433_myapp.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server https_4433_myapp.example.com_1 127.0.0.1:10001 check
+
+backend https_4433_myapp2.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server https_4433_myapp2.example.com_1 127.0.0.1:10002 check
+
+backend http_8080_myapp.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server http_8080_myapp.example.com_1 127.0.0.1:10000 check
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "haproxy",
+          "b" : 70001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-haproxy:1.6.3-002",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "80" : 8080,
+          "443" : 4433
+        },
+        "portsRedirect" : [ {
+          "localPort" : 10000,
+          "machineContainerEndpoint" : "localhost/myphp/HTTP_TCP",
+          "toContainerName" : "myphp",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        }, {
+          "localPort" : 10001,
+          "machineContainerEndpoint" : "localhost/myphp/HTTP_TCP",
+          "toContainerName" : "myphp",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        }, {
+          "localPort" : 10002,
+          "machineContainerEndpoint" : "localhost/myphp/HTTP_TCP",
+          "toContainerName" : "myphp",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        } ],
+        "runAs" : 70001,
+        "services" : [ {
+          "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
+          "name" : "haproxy"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Web HA Proxy for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_web-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Web HA Proxy for h1.example.com",
+      "resourceName" : "infra_web-h1_example_com"
+    }
+  }, {
+    "resource" : "Application | myphp | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | myapp | /home/myapp"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ ],
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "ubuntu:16.04",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 72000,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "myphp",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceName" : "myphp"
+    }
+  }, {
+    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "h1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | myapp.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "myapp.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | myapp2.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "myapp2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "myapp2.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | myapp.example.com | myapp.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | myapp.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp.example.com",
+      "resourceName" : "myapp.example.com"
+    }
+  }, {
+    "resource" : "DnsPointer | myapp2.example.com | myapp2.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | myapp2.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myapp2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp2.example.com",
+      "resourceName" : "myapp2.example.com"
+    }
+  }, {
+    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "publicIp" : "192.168.0.200",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h1.example.com (192.168.0.200)",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | myapp | /home/myapp",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/myapp",
+      "id" : 72000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "myapp",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/myapp",
+      "resourceName" : "myapp",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "Website | myapp-http | myapp.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | myapp.example.com | myapp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | myphp | null"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "myapp.example.com" ],
+      "https" : false,
+      "httpsOriginToHttp" : false,
+      "meta" : { },
+      "name" : "myapp-http",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp.example.com",
+      "resourceName" : "myapp-http"
+    }
+  }, {
+    "resource" : "Website | myapp-https | myapp.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | myapp.example.com | myapp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | myphp | null"
+    }, {
+      "type" : "USES",
+      "to" : "WebsiteCertificate | myapp.example.com | myapp.example.com, 2000-01-01, 2050-01-01"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "myapp.example.com" ],
+      "https" : true,
+      "httpsOriginToHttp" : false,
+      "meta" : { },
+      "name" : "myapp-https",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp.example.com",
+      "resourceName" : "myapp-https"
+    }
+  }, {
+    "resource" : "Website | myapp2-https | myapp2.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | myapp2.example.com | myapp2.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | myphp | null"
+    }, {
+      "type" : "USES",
+      "to" : "WebsiteCertificate | myapp2.example.com | myapp2.example.com, 2000-01-01, 2050-01-01"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "myapp2.example.com" ],
+      "https" : true,
+      "httpsOriginToHttp" : true,
+      "meta" : { },
+      "name" : "myapp2-https",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp2.example.com",
+      "resourceName" : "myapp2-https"
+    }
+  }, {
+    "resource" : "WebsiteCertificate | myapp.example.com | myapp.example.com, 2000-01-01, 2050-01-01",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "certificate" : "CERTcccCERT",
+      "domainNames" : [ "myapp.example.com" ],
+      "end" : 2524626000000,
+      "meta" : { },
+      "resourceCategory" : "NET",
+      "start" : 946702800000,
+      "thumbprint" : "myapp.example.com"
+    }
+  }, {
+    "resource" : "WebsiteCertificate | myapp2.example.com | myapp2.example.com, 2000-01-01, 2050-01-01",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "certificate" : "CERTbbbCERT",
+      "domainNames" : [ "myapp2.example.com" ],
+      "end" : 2524626000000,
+      "meta" : { },
+      "resourceCategory" : "NET",
+      "start" : 946702800000,
+      "thumbprint" : "myapp2.example.com"
+    }
+  } ]
+}

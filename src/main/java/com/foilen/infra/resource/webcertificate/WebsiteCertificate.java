@@ -64,6 +64,16 @@ public class WebsiteCertificate extends AbstractIPResource implements Comparable
     public WebsiteCertificate() {
     }
 
+    /**
+     * Primary key.
+     *
+     * @param thumbprint
+     *            the thumbprint
+     */
+    public WebsiteCertificate(String thumbprint) {
+        this.thumbprint = thumbprint;
+    }
+
     public WebsiteCertificate(String caCertificate, String thumbprint, String certificate, String publicKey, String privateKey, Date start, Date end, String... domainNames) {
         this.caCertificate = caCertificate;
         this.thumbprint = thumbprint;

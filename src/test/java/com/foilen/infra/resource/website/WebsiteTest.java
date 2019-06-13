@@ -28,12 +28,13 @@ import com.google.common.base.Joiner;
 
 public class WebsiteTest extends AbstractCorePluginTest {
 
-    private WebsiteCertificate createWebsiteCertificate(String... domainNames) {
+    private WebsiteCertificate createWebsiteCertificate(String certificate, String... domainNames) {
         WebsiteCertificate websiteCertificate = new WebsiteCertificate();
         websiteCertificate.setThumbprint(Joiner.on(",").join(domainNames));
         websiteCertificate.setDomainNames(new TreeSet<>(Arrays.asList(domainNames)));
         websiteCertificate.setStart(DateTools.parseDateOnly("2000-01-01"));
         websiteCertificate.setEnd(DateTools.parseDateOnly("2050-01-01"));
+        websiteCertificate.setCertificate(certificate);
         return websiteCertificate;
     }
 
@@ -82,7 +83,7 @@ public class WebsiteTest extends AbstractCorePluginTest {
         Website websiteHttp = new Website("myapp-http");
         websiteHttp.getDomainNames().add("myapp.example.com");
         websiteHttp.setApplicationEndpoint(DockerContainerEndpoints.HTTP_TCP);
-        WebsiteCertificate websiteHttpsCertificate = createWebsiteCertificate("myapp.example.com");
+        WebsiteCertificate websiteHttpsCertificate = createWebsiteCertificate("CERTaaaCERT", "myapp.example.com");
         Website websiteHttps = new Website("myapp-https");
         websiteHttps.getDomainNames().add("myapp.example.com");
         websiteHttps.setApplicationEndpoint(DockerContainerEndpoints.HTTP_TCP);
@@ -90,7 +91,7 @@ public class WebsiteTest extends AbstractCorePluginTest {
         Website websiteHttps2 = new Website("myapp2-https");
         websiteHttps2.getDomainNames().add("myapp2.example.com");
         websiteHttps2.setApplicationEndpoint(DockerContainerEndpoints.HTTP_TCP);
-        WebsiteCertificate websiteHttps2Certificate = createWebsiteCertificate("myapp2.example.com");
+        WebsiteCertificate websiteHttps2Certificate = createWebsiteCertificate("CERTbbbCERT", "myapp2.example.com");
         websiteHttps2.setHttps(true);
         websiteHttps2.setHttpsOriginToHttp(true);
 
@@ -124,7 +125,15 @@ public class WebsiteTest extends AbstractCorePluginTest {
         getInternalServicesContext().getInternalChangeService().changesExecute(changes);
 
         // Assert
-        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "WebsiteTest-testWithAppHttpHttpsAndOriginRewrite-state.json", getClass(), true);
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "WebsiteTest-testWithAppHttpHttpsAndOriginRewrite-state-1.json", getClass(), true);
+
+        // Update one cert
+        changes.clear();
+        websiteHttpsCertificate = getCommonServicesContext().getResourceService().resourceFindByPk(new WebsiteCertificate("myapp.example.com")).get();
+        changes.resourceUpdate(websiteHttpsCertificate, createWebsiteCertificate("CERTcccCERT", "myapp.example.com"));
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "WebsiteTest-testWithAppHttpHttpsAndOriginRewrite-state-2.json", getClass(), true);
 
     }
 
