@@ -1,0 +1,31 @@
+{
+  "resources" : [ {
+    "resource" : "DnsEntry | test1.node.example.com / A | 192.168.0.11",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.11",
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.11",
+      "resourceName" : "test1.node.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | test1.node.example.com / A | 192.168.0.11"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "publicIp" : "192.168.0.11",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "test1.node.example.com (192.168.0.11)",
+      "resourceName" : "test1.node.example.com"
+    }
+  } ]
+}

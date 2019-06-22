@@ -44,13 +44,15 @@ public class LetsEncryptRefreshOldCertsBeginTimer extends AbstractBasics impleme
                 .map(LetsencryptConfig::getTagName) //
                 .filter(it -> !Strings.isNullOrEmpty(it)) //
                 .collect(Collectors.toSet());
-        List<DnsEntry> oldDnsEntries = resourceService.resourceFindAll( //
-                resourceService.createResourceQuery(DnsEntry.class) //
-                        .tagAddOr(tagNames.toArray(new String[tagNames.size()])));
         long cleaned = 0;
-        for (DnsEntry dnsEntry : oldDnsEntries) {
-            changes.resourceDelete(dnsEntry);
-            ++cleaned;
+        if (!tagNames.isEmpty()) {
+            List<DnsEntry> oldDnsEntries = resourceService.resourceFindAll( //
+                    resourceService.createResourceQuery(DnsEntry.class) //
+                            .tagAddOr(tagNames.toArray(new String[tagNames.size()])));
+            for (DnsEntry dnsEntry : oldDnsEntries) {
+                changes.resourceDelete(dnsEntry);
+                ++cleaned;
+            }
         }
         logger.info("Cleaned {} old DnsEntries", cleaned);
 
