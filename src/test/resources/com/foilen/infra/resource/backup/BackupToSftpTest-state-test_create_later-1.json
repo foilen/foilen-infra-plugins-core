@@ -115,6 +115,7 @@
       "sshPort" : 22,
       "sshPrivateKey" : "KEY",
       "sshUser" : "backup",
+      "time" : "22 0 * * *",
       "uid" : "abc"
     }
   }, {

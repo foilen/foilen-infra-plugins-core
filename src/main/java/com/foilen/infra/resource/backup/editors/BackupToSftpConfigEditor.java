@@ -43,6 +43,11 @@ public class BackupToSftpConfigEditor extends SimpleResourceEditor<BackupToSftpC
             fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
         });
+        simpleResourceEditorDefinition.addInputText(BackupToSftpConfig.PROPERTY_TIME, fieldConfigConsumer -> {
+            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
+            fieldConfigConsumer.addValidator(CommonValidation::validateCronTime);
+        });
 
     }
 

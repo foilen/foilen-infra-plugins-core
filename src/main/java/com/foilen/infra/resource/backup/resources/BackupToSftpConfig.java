@@ -33,6 +33,8 @@ public class BackupToSftpConfig extends AbstractIPResource {
     public static final String PROPERTY_SSH_PRIVATE_KEY = "sshPrivateKey";
     public static final String PROPERTY_REMOTE_PATH = "remotePath";
 
+    public static final String PROPERTY_TIME = "time";
+
     // Details
     private String uid = SecureRandomTools.randomBase64String(10);
 
@@ -43,6 +45,8 @@ public class BackupToSftpConfig extends AbstractIPResource {
     private String sshPrivateKey;
 
     private String remotePath;
+
+    private String time = "22 0 * * *";
 
     public String getRemotePath() {
         return remotePath;
@@ -79,6 +83,10 @@ public class BackupToSftpConfig extends AbstractIPResource {
         return sshUser;
     }
 
+    public String getTime() {
+        return time;
+    }
+
     public String getUid() {
         return uid;
     }
@@ -101,6 +109,10 @@ public class BackupToSftpConfig extends AbstractIPResource {
 
     public void setSshUser(String sshUser) {
         this.sshUser = sshUser;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setUid(String uid) {

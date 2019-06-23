@@ -68,7 +68,7 @@ public class BackupToSftpActionHandler extends AbstractBasics implements ActionH
             applicationDefinition.setFrom("foilen/fcloud-docker-backup-to-sftp:1.0.0");
 
             backupApplication.setExecutionPolicy(ExecutionPolicy.CRON);
-            backupApplication.setExecutionCronDetails("22 0 * * *");
+            backupApplication.setExecutionCronDetails(config.getTime());
             StringBuilder command = new StringBuilder();
             command.append("SSH_HOSTNAME=").append(config.getSshHostname()).append(" ");
             command.append("SSH_PORT=").append(config.getSshPort()).append(" ");

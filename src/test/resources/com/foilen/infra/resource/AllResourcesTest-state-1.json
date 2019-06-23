@@ -3365,6 +3365,7 @@ LesDy2X7dhgsMWLmTlusc86tdtjdMbnOsbgnYlKOSLuKSWs1WdmJSdiVknfowydv0DHBSK\r
 hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
 -----END OPENSSH PRIVATE KEY-----",
       "sshUser" : "backup",
+      "time" : "22 0 * * *",
       "uid" : "qOFZjOgdXg"
     }
   }, {
