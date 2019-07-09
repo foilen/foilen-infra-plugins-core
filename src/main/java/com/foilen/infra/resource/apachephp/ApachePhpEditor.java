@@ -9,6 +9,8 @@
  */
 package com.foilen.infra.resource.apachephp;
 
+import java.util.stream.Collectors;
+
 import java.util.Arrays;
 
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditor;
@@ -21,7 +23,6 @@ import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.tools.DirectoryTools;
-import com.foilen.smalltools.tools.StringTools;
 import com.google.common.base.Strings;
 
 public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
@@ -49,10 +50,11 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
             fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
         });
 
-        simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER_MSMTP, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
-            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
-            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
-        });
+        simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER,
+                Arrays.asList(EmailSender.values()).stream().map(i -> ((EmailSender) i).name()).collect(Collectors.toList()), fieldConfig -> {
+                    fieldConfig.setConvertFromString(text -> EmailSender.valueOf(text));
+                    fieldConfig.setConvertToString(value -> ((EmailSender) value).name());
+                });
         simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, fieldConfig -> {
             fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfig.addFormator(ApachePhpEditor::nullIfEmpty);

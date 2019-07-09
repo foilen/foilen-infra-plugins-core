@@ -8,12 +8,12 @@
 		{
 			"resourceType": "Apache and PHP",
 			"resourceName": "wordpress",
-			"resourceJson": "{\"basePath\":\"/home/shop_wp/www\",\"defaultEmailFrom\":\"info@example.com\",\"emailSenderMsmtp\":true,\"mainSiteRelativePath\":\"/\",\"meta\":{},\"name\":\"wordpress\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"Apache and PHP application\",\"resourceEditorName\":\"Apache PHP\",\"resourceName\":\"wordpress\",\"version\":\"7.2.15-1\"}"
+			"resourceJson": "{\"basePath\":\"/home/shop_wp/www\",\"defaultEmailFrom\":\"info@example.com\",\"emailSender\":\"MSMTP\",\"mainSiteRelativePath\":\"/\",\"meta\":{},\"name\":\"wordpress\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"Apache and PHP application\",\"resourceEditorName\":\"Apache PHP\",\"resourceName\":\"wordpress\",\"version\":\"7.2.15-1\"}"
 		},
 		{
 			"resourceType": "Apache and PHP",
 			"resourceName": "wordpress_dev",
-			"resourceJson": "{\"basePath\":\"/home/shop_wp/dev\",\"defaultEmailFrom\":\"info@example.com\",\"emailSenderMsmtp\":true,\"mainSiteRelativePath\":\"/\",\"meta\":{},\"name\":\"wordpress_dev\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"Apache and PHP application\",\"resourceEditorName\":\"Apache PHP\",\"resourceName\":\"wordpress_dev\",\"version\":\"7.2.15-1\"}"
+			"resourceJson": "{\"basePath\":\"/home/shop_wp/dev\",\"defaultEmailFrom\":\"info@example.com\",\"emailSender\":\"MSMTP\",\"mainSiteRelativePath\":\"/\",\"meta\":{},\"name\":\"wordpress_dev\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"Apache and PHP application\",\"resourceEditorName\":\"Apache PHP\",\"resourceName\":\"wordpress_dev\",\"version\":\"7.2.15-1\"}"
 		},
 		{
 			"resourceType": "Apache and PHP - HT Passwd",

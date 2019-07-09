@@ -15,7 +15,8 @@
     "content" : {
       "basePath" : "/home/user1/php",
       "defaultEmailFrom" : "admin@example.com",
-      "emailSenderMsmtp" : false,
+      "emailSender" : "SENDMAIL",
+      "emailSenderMsmtp" : true,
       "mainSiteRelativePath" : "/",
       "meta" : { },
       "name" : "my_php",

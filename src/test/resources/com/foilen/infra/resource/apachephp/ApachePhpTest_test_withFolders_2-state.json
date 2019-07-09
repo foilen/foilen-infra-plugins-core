@@ -20,6 +20,7 @@
     "tags" : [ ],
     "content" : {
       "basePath" : "/home/myphp/php",
+      "emailSender" : "SENDMAIL_TO_MSMTP",
       "emailSenderMsmtp" : true,
       "mainSiteRelativePath" : "/www/",
       "meta" : { },
@@ -220,8 +221,6 @@ fi
           }, {
             "a" : "/99-fcloud.ini",
             "b" : "[PHP]
-sendmail_path = \"/usr/bin/msmtp -t --read-envelope-from\"
-
 max_execution_time = 300
 
 upload_max_filesize = 64M

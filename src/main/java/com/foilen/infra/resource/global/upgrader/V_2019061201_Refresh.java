@@ -33,7 +33,7 @@ import com.foilen.infra.resource.urlredirection.UrlRedirection;
 import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.upgrader.tasks.UpgradeTask;
 
-public class V_2016061201_Refresh extends AbstractPluginUpgraderTask {
+public class V_2019061201_Refresh extends AbstractPluginUpgraderTask {
 
     @Override
     public void execute() {

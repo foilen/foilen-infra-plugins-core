@@ -14,7 +14,8 @@
     "tags" : [ ],
     "content" : {
       "basePath" : "/home/user1/php",
-      "emailSenderMsmtp" : false,
+      "emailSender" : "SENDMAIL",
+      "emailSenderMsmtp" : true,
       "mainSiteRelativePath" : "/",
       "meta" : { },
       "name" : "my_php",

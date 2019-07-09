@@ -32,7 +32,8 @@ import com.foilen.infra.resource.email.resources.JamesEmailServer;
 import com.foilen.infra.resource.global.FoilenGlobalPluginDefinitionProvider;
 import com.foilen.infra.resource.global.PluginUpgraderUtils;
 import com.foilen.infra.resource.global.UpgraderItem;
-import com.foilen.infra.resource.global.upgrader.V_2016060501_Refresh;
+import com.foilen.infra.resource.global.upgrader.V_2019061201_Refresh;
+import com.foilen.infra.resource.global.upgrader.V_2019070501_ApachePhp_EmailSender;
 import com.foilen.infra.resource.letsencrypt.plugin.LetsencryptConfig;
 import com.foilen.infra.resource.mariadb.MariaDBServer;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
@@ -215,7 +216,8 @@ public class AllResourcesTest extends AbstractCorePluginTest {
         // Force initial update of all the plugins
         System.setProperty("PluginUpgrader.disable", "false");
         PluginUpgraderUtils.upgrade(getCommonServicesContext(), getInternalServicesContext(), new FoilenGlobalPluginDefinitionProvider().getIPPluginDefinition(), //
-                new V_2016060501_Refresh() //
+                new V_2019061201_Refresh(), //
+                new V_2019070501_ApachePhp_EmailSender() //
         );
 
         // Assert same final state as if starting from scratch

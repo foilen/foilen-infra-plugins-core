@@ -14,7 +14,8 @@
     "tags" : [ ],
     "content" : {
       "basePath" : "/home/user1/php",
-      "emailSender" : "MSMTP",
+      "defaultEmailFrom" : "admin@example.com",
+      "emailSender" : "SENDMAIL_TO_MSMTP",
       "emailSenderMsmtp" : true,
       "mainSiteRelativePath" : "/",
       "meta" : { },
@@ -93,14 +94,17 @@ fi
           }, {
             "a" : "/99-fcloud.ini",
             "b" : "[PHP]
-sendmail_path = \"/usr/bin/msmtp -t --read-envelope-from\"
-
 max_execution_time = 300
 
 upload_max_filesize = 64M
 post_max_size = 128M
 memory_limit = 256M
 "
+          }, {
+            "a" : "/etc/sendmail-to-msmtp.json",
+            "b" : "{
+  \"defaultFrom\" : \"admin@example.com\"
+}"
           }, {
             "a" : "/etc/apache2/sites-enabled/000-default.conf",
             "b" : "<VirtualHost *>

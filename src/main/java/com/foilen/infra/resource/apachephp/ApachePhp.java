@@ -46,14 +46,17 @@ public class ApachePhp extends AbstractIPResource {
     public static final String PROPERTY_BASE_PATH = "basePath";
     public static final String PROPERTY_MAIN_SITE_RELATIVE_PATH = "mainSiteRelativePath";
     public static final String PROPERTY_VERSION = "version";
-    public static final String PROPERTY_EMAIL_SENDER_MSMTP = "emailSenderMsmtp";
+    @Deprecated
+    public static final String PROPERTY_EMAIL_SENDER_MSMTP = "emailSenderMsmtp"; // TODO 2019-07-08 Remove later
+    public static final String PROPERTY_EMAIL_SENDER = "emailSender";
     public static final String PROPERTY_DEFAULT_EMAIL_FROM = "defaultEmailFrom";
 
     // Details
     private String name;
     private String basePath;
     private String mainSiteRelativePath = "/";
-    private boolean emailSenderMsmtp = true;
+    private boolean emailSenderMsmtp = true; // TODO 2019-07-08 Remove later
+    private EmailSender emailSender = EmailSender.SENDMAIL_TO_MSMTP;
     private String defaultEmailFrom;
 
     // Settings
@@ -78,6 +81,10 @@ public class ApachePhp extends AbstractIPResource {
 
     public String getDefaultEmailFrom() {
         return defaultEmailFrom;
+    }
+
+    public EmailSender getEmailSender() {
+        return emailSender;
     }
 
     public String getMainSiteRelativePath() {
@@ -107,6 +114,7 @@ public class ApachePhp extends AbstractIPResource {
         return version;
     }
 
+    @Deprecated
     public boolean isEmailSenderMsmtp() {
         return emailSenderMsmtp;
     }
@@ -119,6 +127,11 @@ public class ApachePhp extends AbstractIPResource {
         this.defaultEmailFrom = defaultEmailFrom;
     }
 
+    public void setEmailSender(EmailSender emailSender) {
+        this.emailSender = emailSender;
+    }
+
+    @Deprecated
     public void setEmailSenderMsmtp(boolean emailSenderMsmtp) {
         this.emailSenderMsmtp = emailSenderMsmtp;
     }
