@@ -18,6 +18,7 @@ import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
 import com.foilen.infra.resource.global.upgrader.V_2019061201_Refresh;
 import com.foilen.infra.resource.global.upgrader.V_2019070501_ApachePhp_EmailSender;
+import com.foilen.infra.resource.global.upgrader.V_2019072401_Refresh_Apache;
 import com.foilen.smalltools.tools.ResourceTools;
 
 public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionProvider {
@@ -51,7 +52,8 @@ public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionP
 
         PluginUpgraderUtils.upgrade(commonServicesContext, internalServicesContext, getIPPluginDefinition(), //
                 new V_2019061201_Refresh(), //
-                new V_2019070501_ApachePhp_EmailSender() //
+                new V_2019070501_ApachePhp_EmailSender(), //
+                new V_2019072401_Refresh_Apache() //
         );
 
     }

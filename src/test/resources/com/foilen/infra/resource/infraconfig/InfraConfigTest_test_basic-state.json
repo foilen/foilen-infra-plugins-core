@@ -364,8 +364,8 @@ echo Apache service is down
     ServerName login.example.com
     ServerAlias login.example.com
     
-    ErrorLog /var/log/apache2/login.example.com-error.log
-    CustomLog /var/log/apache2/login.example.com-access.log combined
+    ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/login.example.com-error.log 10M\"
+    CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/login.example.com-access.log 10M\" combined
     
     RewriteEngine On
     RewriteRule /(.*) https://login.example.com/$1 [R,L]
@@ -375,8 +375,8 @@ echo Apache service is down
     ServerName ui.example.com
     ServerAlias ui.example.com
     
-    ErrorLog /var/log/apache2/ui.example.com-error.log
-    CustomLog /var/log/apache2/ui.example.com-access.log combined
+    ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/ui.example.com-error.log 10M\"
+    CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/ui.example.com-access.log 10M\" combined
     
     RewriteEngine On
     RewriteRule /(.*) https://ui.example.com/$1 [R,L]
@@ -406,7 +406,7 @@ echo Apache service is down
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"

@@ -2,8 +2,8 @@
     ServerName ${domainName}
     ServerAlias ${domainName}
     
-    ErrorLog /var/log/apache2/${domainName}-error.log
-    CustomLog /var/log/apache2/${domainName}-access.log combined
+    ErrorLog "|/usr/bin/rotatelogs -n 1 /var/log/apache2/${domainName}-error.log ${logMaxSizeM}M"
+    CustomLog "|/usr/bin/rotatelogs -n 1 /var/log/apache2/${domainName}-access.log ${logMaxSizeM}M" combined
     
     RewriteEngine On
 <#if redirectionIsExact>

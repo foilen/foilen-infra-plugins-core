@@ -44,8 +44,8 @@ echo Apache service is down
     ServerName redir.example.com
     ServerAlias redir.example.com
     
-    ErrorLog /var/log/apache2/redir.example.com-error.log
-    CustomLog /var/log/apache2/redir.example.com-access.log combined
+    ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/redir.example.com-error.log 10M\"
+    CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/redir.example.com-access.log 10M\" combined
     
     RewriteEngine On
     RewriteRule /.* https://www.example.com/exact [R,L]
@@ -75,7 +75,7 @@ echo Apache service is down
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"
@@ -156,8 +156,8 @@ echo Apache service is down
     ServerName redir.example.com
     ServerAlias redir.example.com
     
-    ErrorLog /var/log/apache2/redir.example.com-error.log
-    CustomLog /var/log/apache2/redir.example.com-access.log combined
+    ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/redir.example.com-error.log 10M\"
+    CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/redir.example.com-access.log 10M\" combined
     
     RewriteEngine On
     RewriteRule /.* https://www.example.com/exact [R,L]
@@ -187,7 +187,7 @@ echo Apache service is down
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"

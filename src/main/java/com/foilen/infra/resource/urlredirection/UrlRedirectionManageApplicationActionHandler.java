@@ -72,7 +72,7 @@ public class UrlRedirectionManageApplicationActionHandler extends AbstractBasics
         application.setApplicationDefinition(applicationDefinition);
         applicationDefinition.setRunAs(unixUserId);
 
-        applicationDefinition.setFrom("foilen/fcloud-docker-apache_php5:1.0.2");
+        applicationDefinition.setFrom("foilen/fcloud-docker-apache_php:7.2.19-2");
 
         // Apache and PHP config
         IPApplicationDefinitionAssetsBundle assetsBundle = applicationDefinition.addAssetsBundle();
@@ -82,6 +82,7 @@ public class UrlRedirectionManageApplicationActionHandler extends AbstractBasics
         // Site configuration
         Map<String, Object> model = new HashMap<>();
         StringBuilder config = new StringBuilder();
+        model.put("logMaxSizeM", 10);
         urlRedirections.forEach(urlRedirection -> {
             model.put("domainName", urlRedirection.getDomainName());
             boolean isPermanent;

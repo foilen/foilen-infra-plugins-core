@@ -58,6 +58,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.MSMTP.name());
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
@@ -88,6 +89,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL.name());
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
@@ -118,6 +120,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL.name());
         apachePhpEditorForm.put(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, "");
         apachePhpEditorForm.put("unixUser", unixUserId);
@@ -149,6 +152,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL_TO_MSMTP.name());
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
@@ -179,6 +183,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL_TO_MSMTP.name());
         apachePhpEditorForm.put(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, "admin@example.com");
         apachePhpEditorForm.put("unixUser", unixUserId);
@@ -210,6 +215,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL.name());
         apachePhpEditorForm.put(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, "admin@example.com");
         apachePhpEditorForm.put("unixUser", unixUserId);

@@ -17,6 +17,7 @@
       "defaultEmailFrom" : "admin@example.com",
       "emailSender" : "SENDMAIL",
       "emailSenderMsmtp" : true,
+      "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
       "meta" : { },
       "name" : "my_php",
@@ -109,8 +110,8 @@ mail.force_extra_parameters = -fadmin@example.com
   
   SetEnvIf x-forwarded-proto https HTTPS=on
   
-  ErrorLog /var/log/apache2/error.log
-  CustomLog /var/log/apache2/access.log combined
+  ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/error.log 10M\"
+  CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/access.log 10M\" combined
   
   <Directory /base/>
     AllowOverride All

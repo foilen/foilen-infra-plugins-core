@@ -9,9 +9,8 @@
  */
 package com.foilen.infra.resource.apachephp;
 
-import java.util.stream.Collectors;
-
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditor;
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditorDefinition;
@@ -49,9 +48,13 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
             fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
         });
+        simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, fieldConfig -> {
+            fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
+        });
 
-        simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER,
-                Arrays.asList(EmailSender.values()).stream().map(i -> ((EmailSender) i).name()).collect(Collectors.toList()), fieldConfig -> {
+        simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER, Arrays.asList(EmailSender.values()).stream().map(i -> i.name()).collect(Collectors.toList()),
+                fieldConfig -> {
                     fieldConfig.setConvertFromString(text -> EmailSender.valueOf(text));
                     fieldConfig.setConvertToString(value -> ((EmailSender) value).name());
                 });

@@ -3,8 +3,8 @@
   
   SetEnvIf x-forwarded-proto https HTTPS=on
   
-  ErrorLog /var/log/apache2/error.log
-  CustomLog /var/log/apache2/access.log combined
+  ErrorLog "|/usr/bin/rotatelogs -n 1 /var/log/apache2/error.log ${logMaxSizeM}M"
+  CustomLog "|/usr/bin/rotatelogs -n 1 /var/log/apache2/access.log ${logMaxSizeM}M" combined
   
   <Directory ${baseFolder}${mainSiteRelativePath}>
     <#if useBasicAuth>

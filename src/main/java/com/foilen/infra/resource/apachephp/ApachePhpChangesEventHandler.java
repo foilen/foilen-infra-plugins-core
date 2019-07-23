@@ -183,6 +183,7 @@ public class ApachePhpChangesEventHandler extends AbstractBasics implements Chan
                             // Site configuration
                             Map<String, Object> model = new HashMap<>();
                             applicationDefinition.addVolume(new IPApplicationDefinitionVolume(apachePhp.getBasePath(), "/base"));
+                            model.put("logMaxSizeM", apachePhp.getLogMaxSizeM());
                             model.put("baseFolder", "/base");
                             model.put("mainSiteRelativePath", sanitisePath(apachePhp.getMainSiteRelativePath(), true, true));
 

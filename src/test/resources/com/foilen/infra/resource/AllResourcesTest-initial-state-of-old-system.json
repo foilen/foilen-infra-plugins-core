@@ -20,6 +20,7 @@
       "defaultEmailFrom" : "info@example.com",
       "emailSender" : "SENDMAIL_TO_MSMTP",
       "emailSenderMsmtp" : true,
+      "logMaxSizeM" : 100,
       "mainSiteRelativePath" : "/",
       "meta" : { },
       "name" : "wordpress",
@@ -53,6 +54,7 @@
       "defaultEmailFrom" : "info@example.com",
       "emailSender" : "SENDMAIL_TO_MSMTP",
       "emailSenderMsmtp" : true,
+      "logMaxSizeM" : 100,
       "mainSiteRelativePath" : "/",
       "meta" : { },
       "name" : "wordpress_dev",
@@ -1016,7 +1018,7 @@ echo Apache service is down
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"
@@ -1128,7 +1130,7 @@ echo Apache service is down
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"
@@ -1240,7 +1242,7 @@ echo Apache service is down
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php5:1.0.2",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"

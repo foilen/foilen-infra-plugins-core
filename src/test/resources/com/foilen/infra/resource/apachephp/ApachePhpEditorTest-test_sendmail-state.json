@@ -16,6 +16,7 @@
       "basePath" : "/home/user1/php",
       "emailSender" : "SENDMAIL",
       "emailSenderMsmtp" : true,
+      "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
       "meta" : { },
       "name" : "my_php",
@@ -107,8 +108,8 @@ memory_limit = 256M
   
   SetEnvIf x-forwarded-proto https HTTPS=on
   
-  ErrorLog /var/log/apache2/error.log
-  CustomLog /var/log/apache2/access.log combined
+  ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/error.log 10M\"
+  CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/access.log 10M\" combined
   
   <Directory /base/>
     AllowOverride All

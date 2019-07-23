@@ -50,6 +50,7 @@ public class ApachePhp extends AbstractIPResource {
     public static final String PROPERTY_EMAIL_SENDER_MSMTP = "emailSenderMsmtp"; // TODO 2019-07-08 Remove later
     public static final String PROPERTY_EMAIL_SENDER = "emailSender";
     public static final String PROPERTY_DEFAULT_EMAIL_FROM = "defaultEmailFrom";
+    public static final String PROPERTY_LOG_MAX_SIZE_M = "logMaxSizeM";
 
     // Details
     private String name;
@@ -58,6 +59,7 @@ public class ApachePhp extends AbstractIPResource {
     private boolean emailSenderMsmtp = true; // TODO 2019-07-08 Remove later
     private EmailSender emailSender = EmailSender.SENDMAIL_TO_MSMTP;
     private String defaultEmailFrom;
+    private int logMaxSizeM = 100;
 
     // Settings
     private String version = "5.5.9-1";
@@ -85,6 +87,10 @@ public class ApachePhp extends AbstractIPResource {
 
     public EmailSender getEmailSender() {
         return emailSender;
+    }
+
+    public int getLogMaxSizeM() {
+        return logMaxSizeM;
     }
 
     public String getMainSiteRelativePath() {
@@ -134,6 +140,10 @@ public class ApachePhp extends AbstractIPResource {
     @Deprecated
     public void setEmailSenderMsmtp(boolean emailSenderMsmtp) {
         this.emailSenderMsmtp = emailSenderMsmtp;
+    }
+
+    public void setLogMaxSizeM(int logMaxSizeM) {
+        this.logMaxSizeM = logMaxSizeM;
     }
 
     public void setMainSiteRelativePath(String mainSiteRelativePath) {

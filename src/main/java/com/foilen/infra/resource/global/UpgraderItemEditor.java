@@ -19,11 +19,6 @@ public class UpgraderItemEditor extends SimpleResourceEditor<UpgraderItem> {
     public static final String EDITOR_NAME = "Upgrader Item";
 
     @Override
-    public Class<UpgraderItem> getForResourceType() {
-        return UpgraderItem.class;
-    }
-
-    @Override
     protected void getDefinition(SimpleResourceEditorDefinition simpleResourceEditorDefinition) {
 
         simpleResourceEditorDefinition.addInputText(UpgraderItem.PROPERTY_NAME, fieldConfigConsumer -> {
@@ -37,6 +32,11 @@ public class UpgraderItemEditor extends SimpleResourceEditor<UpgraderItem> {
             fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
         });
 
+    }
+
+    @Override
+    public Class<UpgraderItem> getForResourceType() {
+        return UpgraderItem.class;
     }
 
 }
