@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.global;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
@@ -27,7 +27,7 @@ public class UpgraderItem extends AbstractIPResource implements Comparable<Upgra
     public static final String PROPERTY_APPLIED = "applied";
 
     private String name;
-    private List<String> applied = new ArrayList<>();
+    private Set<String> applied = new TreeSet<>();
 
     public UpgraderItem() {
     }
@@ -49,7 +49,7 @@ public class UpgraderItem extends AbstractIPResource implements Comparable<Upgra
                 .result();
     }
 
-    public List<String> getApplied() {
+    public Set<String> getApplied() {
         return applied;
     }
 
@@ -72,7 +72,7 @@ public class UpgraderItem extends AbstractIPResource implements Comparable<Upgra
         return name;
     }
 
-    public void setApplied(List<String> applied) {
+    public void setApplied(Set<String> applied) {
         this.applied = applied;
     }
 

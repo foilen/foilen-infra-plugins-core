@@ -37,6 +37,9 @@ public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionP
                 Arrays.asList(UpgraderItem.PROPERTY_NAME), //
                 Collections.emptyList());
 
+        pluginDefinition.addTranslations("/com/foilen/infra/resource/global/messages");
+        pluginDefinition.addResourceEditor(new UpgraderItemEditor(), UpgraderItemEditor.EDITOR_NAME);
+
         // Change Handler
         pluginDefinition.addChangesHandler(new ManagedResourcesChangesEventHandler());
 
