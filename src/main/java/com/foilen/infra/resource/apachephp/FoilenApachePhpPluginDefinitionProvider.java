@@ -33,7 +33,7 @@ public class FoilenApachePhpPluginDefinitionProvider implements IPPluginDefiniti
 
         pluginDefinition.addCustomResource(ApachePhp.class, ApachePhp.RESOURCE_TYPE, //
                 Arrays.asList(ApachePhp.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(ApachePhp.PROPERTY_VERSION));
         pluginDefinition.addCustomResource(ApachePhpFolder.class, ApachePhpFolder.RESOURCE_TYPE, true, //
                 Arrays.asList(ApachePhpFolder.PROPERTY_UID), //
                 Collections.emptyList());
