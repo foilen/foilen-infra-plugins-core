@@ -1,0 +1,251 @@
+{
+  "resources" : [ {
+    "resource" : "Application | infra_web-m1_example_com | Web HA Proxy for m1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/haproxy.cfg",
+            "b" : "global
+  user haproxy
+  group haproxy
+  tune.ssl.default-dh-param 1024
+
+defaults
+  timeout connect 5000
+  timeout client 600000
+  timeout server 600000
+  timeout tunnel 600000
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "haproxy",
+          "b" : 70000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-haproxy:1.6.3-002",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "80" : 8080,
+          "443" : 4433
+        },
+        "portsRedirect" : [ ],
+        "runAs" : 70000,
+        "services" : [ {
+          "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
+          "name" : "haproxy"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Web HA Proxy for m1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_web-m1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Web HA Proxy for m1.example.com",
+      "resourceName" : "infra_web-m1_example_com"
+    }
+  }, {
+    "resource" : "Application | my_app | Composable Application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_user | /home/my_user"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ ],
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "ubuntu:19.04",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 71000,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Composable Application",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "my_app",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Composable Application",
+      "resourceName" : "my_app"
+    }
+  }, {
+    "resource" : "ComposableApplication | my_app | Composable Application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | my_app | Composable Application"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_user | /home/my_user"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "environments" : [ ],
+      "from" : "ubuntu:19.04",
+      "meta" : { },
+      "name" : "my_app",
+      "portsEndpoint" : [ ],
+      "portsExposedTcp" : [ ],
+      "portsExposedUdp" : [ ],
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Composable Application",
+      "resourceName" : "my_app"
+    }
+  }, {
+    "resource" : "DnsEntry | m1.example.com / A | 127.0.100.1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.100.1",
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.100.1",
+      "resourceName" : "m1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | site.example.com / A | 127.0.100.1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.100.1",
+      "meta" : { },
+      "name" : "site.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.100.1",
+      "resourceName" : "site.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | site.example.com | site.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | site.example.com / A | 127.0.100.1"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "site.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "site.example.com",
+      "resourceName" : "site.example.com"
+    }
+  }, {
+    "resource" : "Machine | m1.example.com | m1.example.com (127.0.100.1)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Application | infra_web-m1_example_com | Web HA Proxy for m1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | m1.example.com / A | 127.0.100.1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "publicIp" : "127.0.100.1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "m1.example.com (127.0.100.1)",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | my_user | /home/my_user",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/my_user",
+      "id" : 71000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "my_user",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/my_user",
+      "resourceName" : "my_user",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "Website | site.example.com | site.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | site.example.com | site.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "site.example.com" ],
+      "https" : false,
+      "httpsOriginToHttp" : false,
+      "meta" : { },
+      "name" : "site.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "site.example.com",
+      "resourceName" : "site.example.com"
+    }
+  } ]
+}

@@ -13,12 +13,15 @@ import org.junit.Test;
 
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
+import com.foilen.infra.plugin.v1.core.service.internal.InternalChangeService;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
+import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mariadb.MariaDBServer;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
 import com.foilen.infra.resource.unixuser.UnixUser;
+import com.foilen.infra.resource.website.Website;
 
 public class ComposableApplicationTest extends AbstractCorePluginTest {
 
@@ -69,6 +72,70 @@ public class ComposableApplicationTest extends AbstractCorePluginTest {
 
         // Assert
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-test-state-2.json", getClass(), true);
+
+    }
+
+    @Test
+    public void testAttachedToWebsite() {
+
+        InternalChangeService internalChangeService = getInternalServicesContext().getInternalChangeService();
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+
+        // Just the composable application
+        UnixUser appUnixUser = new UnixUser(71000L, "my_user", null, null);
+        changes.resourceAdd(appUnixUser);
+
+        Machine machine = new Machine("m1.example.com", "127.0.100.1");
+        changes.resourceAdd(machine);
+
+        ComposableApplication composableApplication = new ComposableApplication("my_app");
+        composableApplication.setFrom("ubuntu:18.04");
+        changes.resourceAdd(composableApplication);
+        changes.linkAdd(composableApplication, LinkTypeConstants.RUN_AS, appUnixUser);
+        changes.linkAdd(composableApplication, LinkTypeConstants.INSTALLED_ON, machine);
+
+        // Execute the changes
+        internalChangeService.changesExecute(changes);
+        changes.clear();
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedToWebsite-state-1.json", getClass(), true);
+
+        // Attach a website
+        Website website = new Website("site.example.com");
+        website.getDomainNames().add("site.example.com");
+        changes.resourceAdd(website);
+        changes.linkAdd(website, LinkTypeConstants.POINTS_TO, new Application("my_app"));
+        changes.linkAdd(website, LinkTypeConstants.INSTALLED_ON, machine);
+
+        // Execute the changes
+        internalChangeService.changesExecute(changes);
+        changes.clear();
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedToWebsite-state-2.json", getClass(), true);
+
+        // Update the version of the composable application
+        composableApplication.setFrom("ubuntu:19.04");
+        changes.resourceUpdate(composableApplication);
+
+        // Execute the changes
+        internalChangeService.changesExecute(changes);
+        changes.clear();
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedToWebsite-state-3.json", getClass(), true);
+
+        System.out.println("\n\n\n\n-------------\n\n\n"); // TODO + DELETE
+        // Detach the website
+        changes.linkDelete(website, LinkTypeConstants.POINTS_TO, new Application("my_app"));
+
+        // Execute the changes
+        internalChangeService.changesExecute(changes);
+        changes.clear();
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedToWebsite-state-4.json", getClass(), true);
 
     }
 

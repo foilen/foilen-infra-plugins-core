@@ -256,6 +256,7 @@ public class ComposableApplicationEventHandler extends AbstractBasics implements
 
                             // Sync link websites
                             List<Website> websitesFrom = resourceService.linkFindAllByFromResourceClassAndLinkTypeAndToResource(Website.class, LinkTypeConstants.POINTS_TO, composableApplication);
+                            websitesFrom.addAll(resourceService.linkFindAllByFromResourceClassAndLinkTypeAndToResource(Website.class, LinkTypeConstants.POINTS_TO, application));
                             CommonResourceLink.syncFromLinks(services, changes, Website.class, LinkTypeConstants.POINTS_TO, application, websitesFrom);
 
                         }

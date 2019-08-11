@@ -1,0 +1,110 @@
+{
+  "resources" : [ {
+    "resource" : "Application | my_app | Composable Application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_user | /home/my_user"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ ],
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "ubuntu:18.04",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 71000,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Composable Application",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "my_app",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Composable Application",
+      "resourceName" : "my_app"
+    }
+  }, {
+    "resource" : "ComposableApplication | my_app | Composable Application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | my_app | Composable Application"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_user | /home/my_user"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "environments" : [ ],
+      "from" : "ubuntu:18.04",
+      "meta" : { },
+      "name" : "my_app",
+      "portsEndpoint" : [ ],
+      "portsExposedTcp" : [ ],
+      "portsExposedUdp" : [ ],
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Composable Application",
+      "resourceName" : "my_app"
+    }
+  }, {
+    "resource" : "DnsEntry | m1.example.com / A | 127.0.100.1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.100.1",
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.100.1",
+      "resourceName" : "m1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Machine | m1.example.com | m1.example.com (127.0.100.1)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | m1.example.com / A | 127.0.100.1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "publicIp" : "127.0.100.1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "m1.example.com (127.0.100.1)",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | my_user | /home/my_user",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/my_user",
+      "id" : 71000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "my_user",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/my_user",
+      "resourceName" : "my_user",
+      "shell" : "/bin/bash"
+    }
+  } ]
+}
