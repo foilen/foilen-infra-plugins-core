@@ -35,4 +35,4 @@ docker run -ti \
   --volume /var/run/docker.sock:/var/run/docker.sock \
   foilen/foilen-infra-system-app-test-docker \
   start-resources --debug \
-  /to_import
+  /to_import | tee _log.txt

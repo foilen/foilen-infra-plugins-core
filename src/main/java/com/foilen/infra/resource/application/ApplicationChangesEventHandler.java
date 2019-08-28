@@ -23,6 +23,7 @@ import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.ChangesEventHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransactionContext;
+import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerResourceStream;
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
@@ -42,20 +43,25 @@ public class ApplicationChangesEventHandler extends AbstractBasics implements Ch
 
         List<ActionHandler> actions = new ArrayList<>();
 
-        // Update "runAs" with the link RUN_AS -> UnixUser
-        Set<String> applicationNamesToCheck = new HashSet<>();
-        applicationNamesToCheck.addAll(ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastAddedLinks(), Application.class, LinkTypeConstants.RUN_AS, UnixUser.class) //
-                .map(Application::getName).collect(Collectors.toList()));
-        applicationNamesToCheck.addAll(ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastDeletedLinks(), Application.class, LinkTypeConstants.RUN_AS, UnixUser.class) //
-                .map(Application::getName).collect(Collectors.toList()));
-        // UnixUser updated
-        applicationNamesToCheck.addAll(ChangesEventHandlerUtils.getNextResourcesOfTypeStream(changesInTransactionContext.getLastUpdatedResources(), UnixUser.class) //
-                .flatMap(it -> {
-                    UnixUser unixUser = (UnixUser) it.getNext();
-                    return services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(Application.class, LinkTypeConstants.RUN_AS, unixUser).stream() //
-                            .map(application -> application.getName());
-                }) //
-                .collect(Collectors.toList()));
+        logger.info("Search for modified RUN_AS");
+
+        // Updated Unix Users
+        Set<String> applicationNamesToCheck = new ChangesEventHandlerResourceStream<>(UnixUser.class) //
+                .resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources()) //
+                .streamFromResourceClassAndLinkType(services, Application.class, LinkTypeConstants.RUN_AS) //
+
+                // Changes in the RUN_AS links
+                .linksAddFrom(changesInTransactionContext.getLastAddedLinks(), LinkTypeConstants.RUN_AS, UnixUser.class) //
+                .linksAddFrom(changesInTransactionContext.getLastDeletedLinks(), LinkTypeConstants.RUN_AS, UnixUser.class) //
+
+                // Changes in the application runAs
+                .resourcesAdd(new ChangesEventHandlerResourceStream<>(Application.class) //
+                        .resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources()) //
+                ) //
+
+                .getResourcesStream() //
+                .map(it -> it.getName()) //
+                .collect(Collectors.toSet());
 
         applicationNamesToCheck.forEach(applicationName -> {
 
