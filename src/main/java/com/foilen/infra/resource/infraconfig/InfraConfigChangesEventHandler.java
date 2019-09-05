@@ -11,6 +11,7 @@ package com.foilen.infra.resource.infraconfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
@@ -54,6 +55,19 @@ public class InfraConfigChangesEventHandler extends AbstractBasics implements Ch
                     changesInTransactionContext.getLastUpdatedResources().stream().filter(it -> it.getNext() instanceof InfraConfigPlugin).map(it -> (InfraConfigPlugin) it.getNext()) //
             ).findAny().isPresent();
             logger.info("InfraConfigPlugin changed? {}", changed);
+        }
+
+        // Resources linked to InfraConfig were updated
+        if (!changed && !changesInTransactionContext.getLastUpdatedResources().isEmpty()) {
+            IPResourceService resourceService = services.getResourceService();
+            List<Long> internalIds = resourceService.resourceFindAll(resourceService.createResourceQuery(InfraConfig.class)).stream() //
+                    .flatMap(infraConfig -> resourceService.linkFindAllByFromResource(infraConfig).stream()) //
+                    .map(linkTo -> linkTo.getB().getInternalId()) //
+                    .sorted() //
+                    .collect(Collectors.toList());
+            changed |= changesInTransactionContext.getLastUpdatedResources().stream() //
+                    .anyMatch(updated -> internalIds.contains(updated.getPrevious().getInternalId()) || internalIds.contains(updated.getNext().getInternalId()));
+            logger.info("InfraConfig linked resources updated? {}", changed);
         }
 
         // When changed, check only 1 or 0 InfraConfig

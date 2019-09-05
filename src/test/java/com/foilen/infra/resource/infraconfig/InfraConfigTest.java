@@ -19,9 +19,20 @@ import com.foilen.infra.plugin.core.system.junits.ResourcesDump;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
+import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
 import com.foilen.smalltools.tools.JsonTools;
 
 public class InfraConfigTest extends AbstractCorePluginTest {
+
+    // public static void main(String[] args) {
+    // AsymmetricKeys rootKeys = RSACrypt.RSA_CRYPT.generateKeyPair(2048);
+    // RSACertificate rootCertificate = new RSACertificate(rootKeys);
+    // rootCertificate.selfSign(new CertificateDetails().setCommonName("login.example.com").addSanDns("login.example.com") //
+    // .setEndDate(DateTools.addDate(Calendar.MONTH, 5)));
+    // WebsiteCertificate resource = new WebsiteCertificate();
+    // CertificateHelper.toWebsiteCertificate(null, rootCertificate, resource);
+    // System.out.println(JsonTools.prettyPrint(resource));
+    // }
 
     @Test
     public void test_basic() {
@@ -42,6 +53,25 @@ public class InfraConfigTest extends AbstractCorePluginTest {
 
         // Assert
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "InfraConfigTest_test_basic-state.json", getClass(), true);
+
+    }
+
+    @Test
+    public void test_basic_update_login_cert() {
+
+        // Initial
+        test_basic();
+
+        // Update certificate
+        WebsiteCertificate newWebsiteCertificate = JsonTools.readFromResource("test_basic_update_login_cert-new_login_cert.json", WebsiteCertificate.class, getClass());
+        WebsiteCertificate websiteCertificate = getCommonServicesContext().getResourceService().resourceFindByPk(new WebsiteCertificate("3db0fbf94792b7eb21db1652e0566f7d2b5904e9")).get();
+        System.out.println("\n\n\n/////////////////////////////\n\n\n");// TODO + REMOVE
+        getInternalServicesContext().getInternalChangeService().changesExecute(new ChangesContext(getCommonServicesContext().getResourceService()) //
+                .resourceUpdate(websiteCertificate, newWebsiteCertificate));
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "test_basic_update_login_cert-after-cert-update-state.json", getClass(), true);
+
     }
 
     @Test

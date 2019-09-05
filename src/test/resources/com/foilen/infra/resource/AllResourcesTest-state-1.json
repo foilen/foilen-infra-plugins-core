@@ -726,35 +726,7 @@ max_allowed_packet	= 500M
     \"appId\" : \"jkfdjoiephgiurehgjrhe\",
     \"baseUrl\" : \"https://login.example.com\",
     \"certFile\" : null,
-    \"certText\" : \"-----BEGIN CERTIFICATE-----\
-MIIE0zCCArugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp\
-bi5leGFtcGxlLmNvbTAeFw0xOTA1MjMxMTIxMThaFw0xOTA2MjMxMTIxMThaMBwx\
-GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOC\
-Ag8AMIICCgKCAgEAy7Q2flIjMduUoRBOBSjBCc67WFkbL39e2oKkxLwA2lDeDxXf\
-Xtz6tIcL/318S3ItpVEiTILt277+x+1/rD6VXtVQni+/b2QWmVskLWZ/GsZY/DhV\
-qjSVPfODip3ZeEaiSuuuq4kiLXl0wQr8FuUG0id3V4opzADbjHuQuxCElJ2+RgA3\
-DDmCdoODfgmGPykVG66j/56XqOA/jFk+Mu3o3z8Xpd0OoTZ2qLTacgDXGECXE7hu\
-qEEveP0VmT4kUoa6fShcl+qQWnPrdTzogkujCKpcI4K90nfNG1jJEsvwFfA/JEBc\
-SIYBnzpwZPtQYzNU4BjlI0sgAOWCzF8ua9cXhY3Y71RV8nag7c+1+lEHiist2nO4\
-Wamj17UlO/BEAIw/wJv83nK20sUwCY+osD5wQQcJdhrn8VovzoFFmb2Mikz+p9Gh\
-SfI2Rhq8P3nMx/RKabpfOyyVMzj47DDokvNzg747YNHW7eL1NCnDM4gwX9A5oNxg\
-qerm4sKu0AjEsg/HuqYsrpn8jxDbEHTtVxekbk/jMCrnw6vncQk8E6yT8Rl8hs7J\
-HaQSe7SpKf9TyAftXxOsJZuMvTLMf7wVZw5444Q6/iQob2PUR7xaTxQkJAm+2ZwT\
-WyJ1kE1zHieel3MD09/DW6G6w2awOBozilk2YLUgX7WcTP3qGBuvJt656ZsCAwEA\
-AaMgMB4wHAYDVR0RBBUwE4IRbG9naW4uZXhhbXBsZS5jb20wDQYJKoZIhvcNAQEL\
-BQADggIBAG+dwmh6VG51cKcV89Ucbrc9po/wE0CbO6iu8R/XklPIiD0zwyJShEQQ\
-vrW5GrwBrwEqrPMZ9wHGLJTsfxWy6T20nY7ipKm78BgnCmAGMHrPrNuQecQcs6cY\
-SieW+VY0SGANc69sJWla7xLhRAJ/YLbSdn0TMQ6c2RPL7OyGgQ0DgR6TVE1qMt3G\
-pvZuQBFLkCxTu9nGY+H3vhBDup47Jmbnj5ZaT10ghXV7fLjwKT/mM6A2uiVvgVt3\
-RB/syPY04uIGR3MWuOq9nZ0Wb9SMZJQYdc2do64ZVmxwaCZ/xOdeZMGUPjyQHBJg\
-7i2hXFiUq6yfbqNyPjno+3uSIVSEHozERBMEDfT1qGyS0xIUSjGStPbHkM7hC12B\
-pIa9ErxNeMCZk0uYYPOaYOEO287sEq5/4LMSO67mQX1Ua/Vv+vB/vr4KpCtmcGri\
-UD/fpOOJd4WoJN4qH0GppnOxflwiwkeWeHzCxX59esAs/7rGipZnNLkrlzQUlyh5\
-AbFuUMK5FxiVPZ3qJff3eFf1h5J1x9ZfgH1cS0Pz2ckKAJIz6llw1QmWa4l9Ldt3\
-HXND1StXghbww7KtijxPTX8iNPmpMYSM7xNHY4uxti62QImvIEyyDIFOXhwEp1P7\
-mUggKZYH6OEfjep31m5Utp/Q/pqGTpss+0A6dcdpAiY3o6QmyxfU\
------END CERTIFICATE-----\
-\"
+    \"certText\" : \"CERTIFICATE\"
   },
   \"loginCookieSignatureSalt\" : \"GGGHHH\",
   \"mailAlertsTo\" : \"admin@example.com\",
