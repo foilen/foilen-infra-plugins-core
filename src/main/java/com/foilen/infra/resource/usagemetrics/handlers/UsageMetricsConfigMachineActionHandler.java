@@ -97,6 +97,9 @@ public class UsageMetricsConfigMachineActionHandler extends AbstractBasics imple
         applicationDefinition.addAssetContent("/config.json", JsonTools.prettyPrintWithoutNulls(configFileContent));
 
         applicationDefinition.addVolume(new IPApplicationDefinitionVolume("/", "/hostfs"));
+        applicationDefinition.addVolume(new IPApplicationDefinitionVolume("/usr/bin/docker", "/usr/bin/docker"));
+        applicationDefinition.addVolume(new IPApplicationDefinitionVolume("/usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1", "/usr/lib/x86_64-linux-gnu/libltdl.so.7"));
+        applicationDefinition.addVolume(new IPApplicationDefinitionVolume("/var/run/docker.sock", "/var/run/docker.sock"));
 
         // Add Central
         List<Machine> centralMachines = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(config, LinkTypeConstants.INSTALLED_ON, Machine.class);

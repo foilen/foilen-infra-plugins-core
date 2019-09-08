@@ -114,6 +114,18 @@
           "containerFsFolder" : "/hostfs",
           "hostFolder" : "/",
           "readOnly" : false
+        }, {
+          "containerFsFolder" : "/usr/bin/docker",
+          "hostFolder" : "/usr/bin/docker",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7",
+          "hostFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/run/docker.sock",
+          "hostFolder" : "/var/run/docker.sock",
+          "readOnly" : false
         } ]
       },
       "description" : "Usage Agent for f1.example.com",
@@ -177,6 +189,18 @@
         "volumes" : [ {
           "containerFsFolder" : "/hostfs",
           "hostFolder" : "/",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/usr/bin/docker",
+          "hostFolder" : "/usr/bin/docker",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7",
+          "hostFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/run/docker.sock",
+          "hostFolder" : "/var/run/docker.sock",
           "readOnly" : false
         } ]
       },
