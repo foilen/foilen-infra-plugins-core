@@ -17,6 +17,7 @@ import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
 import com.foilen.infra.resource.usagemetrics.resources.UsageMetricsConfig;
+import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.tools.SecureRandomTools;
 import com.google.common.base.Strings;
 
@@ -49,6 +50,7 @@ public class UsageMetricsConfigEditor extends SimpleResourceEditor<UsageMetricsC
         });
         simpleResourceEditorDefinition.addResource("mongoDbServer", LinkTypeConstants.USES, MongoDBServer.class);
         simpleResourceEditorDefinition.addResource("centralInstalledOn", LinkTypeConstants.INSTALLED_ON, Machine.class);
+        simpleResourceEditorDefinition.addReverseResources("websitesFrom", Website.class, LinkTypeConstants.POINTS_TO);
 
     }
 

@@ -14,6 +14,7 @@ import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
+import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.tools.SecureRandomTools;
 
 /**
@@ -23,6 +24,11 @@ import com.foilen.smalltools.tools.SecureRandomTools;
  * <ul>
  * <li>{@link MongoDBServer}: (1) USES - The Mongo DB to use</li>
  * <li>{@link Machine}: (1) INSTALLED_ON - Where to install the central</li>
+ * </ul>
+ * 
+ * Links from:
+ * <ul>
+ * <li>{@link Website}: (optional / many) POINTS_TO - Websites that will point to them</li>
  * </ul>
  *
  * Manages:

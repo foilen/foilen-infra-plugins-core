@@ -29,6 +29,7 @@ import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.usagemetrics.resources.UsageMetricsConfig;
+import com.foilen.infra.resource.website.Website;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.JsonTools;
 
@@ -78,6 +79,7 @@ public class UsageMetricsConfigCentralActionHandler extends AbstractBasics imple
             logger.info("Too many Central Machines");
             throw new IllegalUpdateException("Must have a singe Central Machine. Got " + centralMachines.size());
         }
+        List<Website> websites = resourceService.linkFindAllByFromResourceClassAndLinkTypeAndToResource(Website.class, LinkTypeConstants.POINTS_TO, config);
 
         // Application
         Application centralApplication = new Application();
@@ -117,6 +119,7 @@ public class UsageMetricsConfigCentralActionHandler extends AbstractBasics imple
 
         // Apply links
         changes.linkAdd(config, LinkTypeConstants.MANAGES, centralApplication);
+        CommonResourceLink.syncFromLinks(services, changes, Website.class, LinkTypeConstants.POINTS_TO, centralApplication, websites);
         CommonResourceLink.syncToLinks(services, changes, centralApplication, LinkTypeConstants.INSTALLED_ON, Machine.class, centralMachines);
         CommonResourceLink.syncToLinks(services, changes, centralApplication, LinkTypeConstants.RUN_AS, UnixUser.class, Arrays.asList(optionalUnixUser.get()));
 

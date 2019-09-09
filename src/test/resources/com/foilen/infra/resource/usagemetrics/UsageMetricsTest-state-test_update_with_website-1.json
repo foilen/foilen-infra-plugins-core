@@ -1,0 +1,302 @@
+{
+  "resources" : [ {
+    "resource" : "Application | infra_web-f1_example_com | Web HA Proxy for f1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/haproxy.cfg",
+            "b" : "global
+  user haproxy
+  group haproxy
+  tune.ssl.default-dh-param 1024
+
+defaults
+  timeout connect 5000
+  timeout client 600000
+  timeout server 600000
+  timeout tunnel 600000
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "haproxy",
+          "b" : 70000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-haproxy:1.6.3-002",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "80" : 8080,
+          "443" : 4433
+        },
+        "portsRedirect" : [ ],
+        "runAs" : 70000,
+        "services" : [ {
+          "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
+          "name" : "haproxy"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Web HA Proxy for f1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_web-f1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Web HA Proxy for f1.example.com",
+      "resourceName" : "infra_web-f1_example_com"
+    }
+  }, {
+    "resource" : "Application | mongoUsage | Database for Usage Metrics",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | mongo | /home/mongo"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/newPass",
+            "b" : "qwerty"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "mongodb",
+          "b" : 80000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-mongodb:4.0.12",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "27017" : "MONGODB_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 80000,
+        "services" : [ {
+          "command" : "/mongodb-start.sh",
+          "name" : "app"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lib/mongodb",
+          "groupId" : 80000,
+          "hostFolder" : "/home/mongo/mongodb/mongoUsage",
+          "ownerId" : 80000,
+          "permissions" : "770",
+          "readOnly" : false
+        } ]
+      },
+      "description" : "Database for Usage Metrics",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "mongoUsage",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Database for Usage Metrics",
+      "resourceName" : "mongoUsage"
+    }
+  }, {
+    "resource" : "DnsEntry | central.example.com / A | 127.0.0.1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.0.1",
+      "meta" : { },
+      "name" : "central.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.0.1",
+      "resourceName" : "central.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | f1.example.com / A | 127.0.0.1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.0.1",
+      "meta" : { },
+      "name" : "f1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.0.1",
+      "resourceName" : "f1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | f2.example.com / A | 127.0.0.2",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.0.2",
+      "meta" : { },
+      "name" : "f2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.0.2",
+      "resourceName" : "f2.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | central.example.com | central.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | central.example.com / A | 127.0.0.1"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "central.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "central.example.com",
+      "resourceName" : "central.example.com"
+    }
+  }, {
+    "resource" : "Machine | f1.example.com | f1.example.com (127.0.0.1)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Application | infra_web-f1_example_com | Web HA Proxy for f1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | f1.example.com / A | 127.0.0.1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "f1.example.com",
+      "publicIp" : "127.0.0.1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "f1.example.com (127.0.0.1)",
+      "resourceName" : "f1.example.com"
+    }
+  }, {
+    "resource" : "Machine | f2.example.com | f2.example.com (127.0.0.2)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | f2.example.com / A | 127.0.0.2"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "f2.example.com",
+      "publicIp" : "127.0.0.2",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "f2.example.com (127.0.0.2)",
+      "resourceName" : "f2.example.com"
+    }
+  }, {
+    "resource" : "MongoDBServer | mongoUsage | Database for Usage Metrics",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | mongoUsage | Database for Usage Metrics"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | mongo | /home/mongo"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "Database for Usage Metrics",
+      "meta" : { },
+      "name" : "mongoUsage",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "Database for Usage Metrics",
+      "resourceName" : "mongoUsage",
+      "rootPassword" : "qwerty",
+      "version" : "4.0.12"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | mongo | /home/mongo",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/mongo",
+      "id" : 80000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "mongo",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/mongo",
+      "resourceName" : "mongo",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "Website | central | central.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | central.example.com | central.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "central.example.com" ],
+      "https" : false,
+      "httpsOriginToHttp" : false,
+      "meta" : { },
+      "name" : "central",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "central.example.com",
+      "resourceName" : "central"
+    }
+  } ]
+}
