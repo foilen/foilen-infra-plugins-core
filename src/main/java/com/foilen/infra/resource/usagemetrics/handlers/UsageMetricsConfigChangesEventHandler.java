@@ -37,13 +37,14 @@ public class UsageMetricsConfigChangesEventHandler extends AbstractBasics implem
         List<ActionHandler> actions = new ArrayList<>();
 
         // Check configuration changed
-        boolean configChanged = StreamTools.concat( //
-                ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastAddedResources(), UsageMetricsConfig.class), //
-                ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastRefreshedResources(), UsageMetricsConfig.class), //
-                ChangesEventHandlerUtils.getNextResourcesOfTypeStream(changesInTransactionContext.getLastUpdatedResources(), UsageMetricsConfig.class).map(it -> (UsageMetricsConfig) it.getNext()), //
-                ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastDeletedResources(), UsageMetricsConfig.class) //
-        //
-        ).count() > 0;
+        boolean configChanged = new ChangesEventHandlerResourceStream<>(UsageMetricsConfig.class) //
+                .resourcesAddOfType(changesInTransactionContext.getLastAddedResources()) //
+                .resourcesAddOfType(changesInTransactionContext.getLastRefreshedResources()) //
+                .resourcesAddOfType(changesInTransactionContext.getLastDeletedResources()) //
+                .resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources()) //
+                .linksAddFromAndTo(changesInTransactionContext.getLastAddedLinks()) //
+                .linksAddFromAndTo(changesInTransactionContext.getLastDeletedLinks()) //
+                .getResourcesStream().count() > 0;
 
         logger.info("Usage Metrics config changed? {}", configChanged);
         if (configChanged) {
