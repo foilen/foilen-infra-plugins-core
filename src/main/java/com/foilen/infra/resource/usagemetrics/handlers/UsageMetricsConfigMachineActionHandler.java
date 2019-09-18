@@ -9,10 +9,12 @@
  */
 package com.foilen.infra.resource.usagemetrics.handlers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
@@ -24,13 +26,19 @@ import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionVolume;
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
+import com.foilen.infra.resource.email.resources.JamesEmailServer;
 import com.foilen.infra.resource.machine.Machine;
+import com.foilen.infra.resource.mariadb.MariaDBDatabase;
+import com.foilen.infra.resource.mariadb.MariaDBServer;
+import com.foilen.infra.resource.mariadb.MariaDBUser;
 import com.foilen.infra.resource.unixuser.SystemUnixUser;
 import com.foilen.infra.resource.unixuser.UnixUser;
+import com.foilen.infra.resource.usagemetrics.model.DatabaseInfo;
 import com.foilen.infra.resource.usagemetrics.resources.UsageMetricsConfig;
 import com.foilen.smalltools.hash.HashSha256;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.JsonTools;
+import com.foilen.smalltools.tools.StringTools;
 
 public class UsageMetricsConfigMachineActionHandler extends AbstractBasics implements ActionHandler {
 
@@ -89,11 +97,51 @@ public class UsageMetricsConfigMachineActionHandler extends AbstractBasics imple
         applicationDefinition.setFrom("foilen/usage-metrics-agent:" + config.getVersion());
 
         applicationDefinition.setCommand("/app/bin/usage-metrics-agent /config.json");
-        Map<String, String> configFileContent = new HashMap<>();
+
+        // Add James Servers databases on this machine
+        List<DatabaseInfo> jamesDatabases = new ArrayList<>();
+        AtomicInteger nextPortRedirect = new AtomicInteger(9000);
+        resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(config, LinkTypeConstants.USES, JamesEmailServer.class).forEach(jamesEmailServer -> {
+            logger.info("[James] Got {}", jamesEmailServer.getName());
+
+            Optional<MariaDBUser> mariaDbUserOptional = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(jamesEmailServer, LinkTypeConstants.USES, MariaDBUser.class).stream()
+                    .findFirst();
+            if (mariaDbUserOptional.isEmpty()) {
+                logger.info("[James] Does not have a Maria DB User set. Skipping");
+                return;
+            }
+            MariaDBUser mariaDbUser = mariaDbUserOptional.get();
+            logger.info("[James-MariaDB User] Got {} / {}", jamesEmailServer.getName(), mariaDbUser.getName());
+
+            resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(jamesEmailServer, LinkTypeConstants.USES, MariaDBDatabase.class).forEach(mariaDbDatabase -> {
+                logger.info("[James-MariaDB Database] Got {} / {}", jamesEmailServer.getName(), mariaDbDatabase.getName());
+
+                resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(mariaDbDatabase, LinkTypeConstants.INSTALLED_ON, MariaDBServer.class).forEach(mariaDbServer -> {
+                    logger.info("[James-MariaDB Database-MariaDB Server] Got {} / {} / {}", jamesEmailServer.getName(), mariaDbDatabase.getName(), mariaDbServer.getName());
+
+                    resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(mariaDbServer, LinkTypeConstants.INSTALLED_ON, Machine.class).forEach(mariaDbMachine -> {
+                        logger.info("[James-MariaDB Database-MariaDB Server-Machine] Got {} / {} / {} / {}", jamesEmailServer.getName(), mariaDbDatabase.getName(), mariaDbServer.getName(),
+                                mariaDbMachine.getName());
+
+                        if (StringTools.safeEquals(machine.getName(), mariaDbMachine.getName())) {
+                            int port = nextPortRedirect.getAndIncrement();
+                            jamesDatabases.add(new DatabaseInfo("127.0.0.1", port, mariaDbDatabase.getName(), mariaDbUser.getName(), mariaDbUser.getPassword()));
+                            applicationDefinition.addPortRedirect(port, mariaDbMachine.getName(), mariaDbServer.getName(), DockerContainerEndpoints.MYSQL_TCP);
+                        } else {
+                            logger.info("Not this machine. Skip");
+                        }
+
+                    });
+                });
+            });
+        });
+
+        Map<String, Object> configFileContent = new HashMap<>();
         configFileContent.put("centralUri", "http://127.0.0.1:8080");
         configFileContent.put("hostname", machineName);
         configFileContent.put("hostnameKey", HashSha256.hashString(config.getHostKeySalt() + machineName));
         configFileContent.put("diskSpaceRootFs", "/hostfs/");
+        configFileContent.put("jamesDatabases", jamesDatabases);
         applicationDefinition.addAssetContent("/config.json", JsonTools.prettyPrintWithoutNulls(configFileContent));
 
         applicationDefinition.addVolume(new IPApplicationDefinitionVolume("/", "/hostfs"));

@@ -12,6 +12,7 @@ package com.foilen.infra.resource.usagemetrics.resources;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 import com.foilen.infra.resource.application.Application;
+import com.foilen.infra.resource.email.resources.JamesEmailServer;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
 import com.foilen.infra.resource.website.Website;
@@ -24,6 +25,7 @@ import com.foilen.smalltools.tools.SecureRandomTools;
  * <ul>
  * <li>{@link MongoDBServer}: (1) USES - The Mongo DB to use</li>
  * <li>{@link Machine}: (1) INSTALLED_ON - Where to install the central</li>
+ * <li>{@link JamesEmailServer}: (optional / many) USES - The James Email Servers to check for space usage</li>
  * </ul>
  * 
  * Links from:

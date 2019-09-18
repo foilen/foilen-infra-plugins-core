@@ -9,15 +9,18 @@
  */
 package com.foilen.infra.resource.usagemetrics;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.junit.Test;
 
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
+import com.foilen.infra.plugin.core.system.junits.ResourcesDump;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.core.service.internal.InternalChangeService;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
+import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
@@ -25,6 +28,8 @@ import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.usagemetrics.editors.UsageMetricsConfigEditor;
 import com.foilen.infra.resource.usagemetrics.resources.UsageMetricsConfig;
 import com.foilen.infra.resource.website.Website;
+import com.foilen.smalltools.test.asserts.AssertTools;
+import com.foilen.smalltools.tools.JsonTools;
 
 public class UsageMetricsTest extends AbstractCorePluginTest {
 
@@ -120,6 +125,19 @@ public class UsageMetricsTest extends AbstractCorePluginTest {
         );
 
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "UsageMetricsTest-state-test_update-1.2.json", getClass(), true);
+    }
+
+    @Test
+    public void test_update_with_james_servers() {
+        // Execute the dump
+        ResourcesDump resourcesDump = JsonTools.readFromResource("UsageMetricsTest-test_update_with_james_servers-import.json", ResourcesDump.class, getClass());
+        JunitsHelper.dumpImport(getCommonServicesContext(), getInternalServicesContext(), resourcesDump);
+
+        // Get the app and assert f2 config contains james
+        Application agentF1 = getCommonServicesContext().getResourceService().resourceFindByPk(new Application("usage_agent-f1_example_com")).get();
+        Application agentF2 = getCommonServicesContext().getResourceService().resourceFindByPk(new Application("usage_agent-f2_example_com")).get();
+
+        AssertTools.assertJsonComparison("UsageMetricsTest-test_update_with_james_servers-expected.json", getClass(), Arrays.asList(agentF1, agentF2));
     }
 
     @Test

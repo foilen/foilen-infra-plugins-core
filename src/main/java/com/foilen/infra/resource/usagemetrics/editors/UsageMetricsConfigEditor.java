@@ -14,6 +14,7 @@ import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleR
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
+import com.foilen.infra.resource.email.resources.JamesEmailServer;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mongodb.MongoDBServer;
 import com.foilen.infra.resource.usagemetrics.resources.UsageMetricsConfig;
@@ -51,6 +52,7 @@ public class UsageMetricsConfigEditor extends SimpleResourceEditor<UsageMetricsC
         simpleResourceEditorDefinition.addResource("mongoDbServer", LinkTypeConstants.USES, MongoDBServer.class);
         simpleResourceEditorDefinition.addResource("centralInstalledOn", LinkTypeConstants.INSTALLED_ON, Machine.class);
         simpleResourceEditorDefinition.addReverseResources("websitesFrom", Website.class, LinkTypeConstants.POINTS_TO);
+        simpleResourceEditorDefinition.addResources("jamesEmailServers", LinkTypeConstants.USES, JamesEmailServer.class);
 
     }
 

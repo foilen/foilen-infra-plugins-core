@@ -1,0 +1,160 @@
+[ {
+  "applicationDefinition" : {
+    "_nextAssetId" : 2,
+    "assetsBundles" : [ ],
+    "assetsPathAndContent" : [ {
+      "a" : "_assets/1",
+      "b" : "{\n  \"hostname\" : \"f1.example.com\",\n  \"hostnameKey\" : \"c5f053998ac6036784ace3a5ed0cf9a439d7775ab5fff8412dd7e1fd10e93aaa\",\n  \"jamesDatabases\" : [ ],\n  \"centralUri\" : \"http://127.0.0.1:8080\",\n  \"diskSpaceRootFs\" : \"/hostfs/\"\n}"
+    } ],
+    "buildSteps" : [ {
+      "step" : "_assets/1 /config.json",
+      "type" : "COPY"
+    } ],
+    "command" : "/app/bin/usage-metrics-agent /config.json",
+    "containerUsersToChangeId" : [ ],
+    "copyWhenStartedPathAndContentFiles" : [ ],
+    "entrypoint" : null,
+    "environments" : { },
+    "executeWhenStartedCommands" : [ ],
+    "from" : "foilen/usage-metrics-agent:1.3.0",
+    "hostToIpMapping" : [ ],
+    "portsEndpoint" : { },
+    "portsExposed" : { },
+    "portsRedirect" : [ {
+      "localPort" : 8080,
+      "machineContainerEndpoint" : "f1.example.com/usage_central/HTTP_TCP",
+      "toContainerName" : "usage_central",
+      "toEndpoint" : "HTTP_TCP",
+      "toLocalMachine" : false,
+      "toMachine" : "f1.example.com"
+    } ],
+    "runAs" : 0,
+    "services" : [ ],
+    "udpPortsExposed" : { },
+    "volumes" : [ {
+      "containerFsFolder" : "/hostfs",
+      "groupId" : null,
+      "hostFolder" : "/",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/usr/bin/docker",
+      "groupId" : null,
+      "hostFolder" : "/usr/bin/docker",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7",
+      "groupId" : null,
+      "hostFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/var/run/docker.sock",
+      "groupId" : null,
+      "hostFolder" : "/var/run/docker.sock",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    } ],
+    "workingDirectory" : null
+  },
+  "description" : "Usage Agent for f1.example.com",
+  "domainNames" : [ ],
+  "executionCronDetails" : null,
+  "executionPolicy" : "ALWAYS_ON",
+  "meta" : {
+    "usagemetrics" : "true"
+  },
+  "name" : "usage_agent-f1_example_com",
+  "resourceCategory" : "INFRASTRUCTURE",
+  "resourceDescription" : "Usage Agent for f1.example.com",
+  "resourceEditorName" : null,
+  "resourceName" : "usage_agent-f1_example_com"
+}, {
+  "applicationDefinition" : {
+    "_nextAssetId" : 2,
+    "assetsBundles" : [ ],
+    "assetsPathAndContent" : [ {
+      "a" : "_assets/1",
+      "b" : "{\n  \"hostname\" : \"f2.example.com\",\n  \"hostnameKey\" : \"3bea8cd74ba6c67f6b2c9fbbfcd3bf2e042671e84094ec3dab51cf67f26ee23c\",\n  \"jamesDatabases\" : [ {\n    \"host\" : \"127.0.0.1\",\n    \"port\" : 9000,\n    \"dbName\" : \"db_database_email\",\n    \"dbUser\" : \"db_user_email\",\n    \"dbPassword\" : \"the_password\"\n  } ],\n  \"centralUri\" : \"http://127.0.0.1:8080\",\n  \"diskSpaceRootFs\" : \"/hostfs/\"\n}"
+    } ],
+    "buildSteps" : [ {
+      "step" : "_assets/1 /config.json",
+      "type" : "COPY"
+    } ],
+    "command" : "/app/bin/usage-metrics-agent /config.json",
+    "containerUsersToChangeId" : [ ],
+    "copyWhenStartedPathAndContentFiles" : [ ],
+    "entrypoint" : null,
+    "environments" : { },
+    "executeWhenStartedCommands" : [ ],
+    "from" : "foilen/usage-metrics-agent:1.3.0",
+    "hostToIpMapping" : [ ],
+    "portsEndpoint" : { },
+    "portsExposed" : { },
+    "portsRedirect" : [ {
+      "localPort" : 9000,
+      "machineContainerEndpoint" : "f2.example.com/db_server_email/MYSQL_TCP",
+      "toContainerName" : "db_server_email",
+      "toEndpoint" : "MYSQL_TCP",
+      "toLocalMachine" : false,
+      "toMachine" : "f2.example.com"
+    }, {
+      "localPort" : 8080,
+      "machineContainerEndpoint" : "f1.example.com/usage_central/HTTP_TCP",
+      "toContainerName" : "usage_central",
+      "toEndpoint" : "HTTP_TCP",
+      "toLocalMachine" : false,
+      "toMachine" : "f1.example.com"
+    } ],
+    "runAs" : 0,
+    "services" : [ ],
+    "udpPortsExposed" : { },
+    "volumes" : [ {
+      "containerFsFolder" : "/hostfs",
+      "groupId" : null,
+      "hostFolder" : "/",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/usr/bin/docker",
+      "groupId" : null,
+      "hostFolder" : "/usr/bin/docker",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7",
+      "groupId" : null,
+      "hostFolder" : "/usr/lib/x86_64-linux-gnu/libltdl.so.7.3.1",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/var/run/docker.sock",
+      "groupId" : null,
+      "hostFolder" : "/var/run/docker.sock",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    } ],
+    "workingDirectory" : null
+  },
+  "description" : "Usage Agent for f2.example.com",
+  "domainNames" : [ ],
+  "executionCronDetails" : null,
+  "executionPolicy" : "ALWAYS_ON",
+  "meta" : {
+    "usagemetrics" : "true"
+  },
+  "name" : "usage_agent-f2_example_com",
+  "resourceCategory" : "INFRASTRUCTURE",
+  "resourceDescription" : "Usage Agent for f2.example.com",
+  "resourceEditorName" : null,
+  "resourceName" : "usage_agent-f2_example_com"
+} ]

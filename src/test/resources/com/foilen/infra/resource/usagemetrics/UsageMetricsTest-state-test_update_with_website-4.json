@@ -175,6 +175,7 @@ backend http_8080_central.example.com
           "b" : "{
   \"hostname\" : \"f1.example.com\",
   \"hostnameKey\" : \"7b38efda64ce2fb90b0a9ef29be94bac9d3e042376d741cf82ae3d87805d0965\",
+  \"jamesDatabases\" : [ ],
   \"centralUri\" : \"http://127.0.0.1:8080\",
   \"diskSpaceRootFs\" : \"/hostfs/\"
 }"
@@ -251,6 +252,7 @@ backend http_8080_central.example.com
           "b" : "{
   \"hostname\" : \"f2.example.com\",
   \"hostnameKey\" : \"3507d60f4d41c9610ef790b7941a4e22a9e037c72357739681cb24049d815895\",
+  \"jamesDatabases\" : [ ],
   \"centralUri\" : \"http://127.0.0.1:8080\",
   \"diskSpaceRootFs\" : \"/hostfs/\"
 }"

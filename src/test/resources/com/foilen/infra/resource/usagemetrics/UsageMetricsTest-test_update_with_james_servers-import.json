@@ -1,0 +1,272 @@
+{
+	"resources": [
+		{
+			"resourceType": "Apache James Email Server",
+			"resourceName": "james_server",
+			"resourceJson": "{\"disableBounceNotifyPostmaster\":false,\"disableBounceNotifySender\":false,\"disableRelayDeniedNotifyPostmaster\":false,\"enableDebugDumpMessagesDetails\":false,\"enableDebuglogs\":false,\"meta\":{},\"name\":\"james_server\",\"postmasterEmail\":\"a1@example.com\",\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Apache James email server\",\"resourceEditorName\":\"James Email Server\",\"resourceName\":\"james_server\",\"version\":\"3.2.0-2\"}"
+		},
+		{
+			"resourceType": "Attachable MariaDB",
+			"resourceName": "db_database_email",
+			"resourceJson": "{\"localPort\":3306,\"meta\":{},\"name\":\"db_database_email\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"Local infra to a MariaDB Database\",\"resourceEditorName\":\"Attachable MariaDB\",\"resourceName\":\"db_database_email\"}"
+		},
+		{
+			"resourceType": "Email Account",
+			"resourceName": "a1",
+			"resourceJson": "{\"accountName\":\"a1\",\"meta\":{},\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Email Account\",\"resourceEditorName\":\"Email Account\",\"resourceName\":\"a1\",\"sha512Password\":\"0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8\",\"uid\":\"73UEG0v7nw\"}"
+		},
+		{
+			"resourceType": "Email Account",
+			"resourceName": "a2",
+			"resourceJson": "{\"accountName\":\"a2\",\"meta\":{},\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Email Account\",\"resourceEditorName\":\"Email Account\",\"resourceName\":\"a2\",\"sha512Password\":\"0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8\",\"uid\":\"GOAFqspNow\"}"
+		},
+		{
+			"resourceType": "Email Account",
+			"resourceName": "a3",
+			"resourceJson": "{\"accountName\":\"a3\",\"meta\":{},\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Email Account\",\"resourceEditorName\":\"Email Account\",\"resourceName\":\"a3\",\"sha512Password\":\"0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8\",\"uid\":\"pIxmZ6dZ5A\"}"
+		},
+		{
+			"resourceType": "Email Account",
+			"resourceName": "a4",
+			"resourceJson": "{\"accountName\":\"a4\",\"meta\":{},\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Email Account\",\"resourceEditorName\":\"Email Account\",\"resourceName\":\"a4\",\"sha512Password\":\"0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8\",\"uid\":\"mLP4pstR/A\"}"
+		},
+		{
+			"resourceType": "Email Account",
+			"resourceName": "any",
+			"resourceJson": "{\"accountName\":\"any\",\"meta\":{},\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Email Account\",\"resourceEditorName\":\"Email Account\",\"resourceName\":\"any\",\"sha512Password\":\"0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8\",\"uid\":\"ca/d4iPS1Q\"}"
+		},
+		{
+			"resourceType": "Email Domain",
+			"resourceName": "example.com",
+			"resourceJson": "{\"domainName\":\"example.com\",\"imapDomainName\":\"mail.example.com\",\"meta\":{},\"mxDomainName\":\"mail.example.com\",\"pop3DomainName\":\"mail.example.com\",\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Email Domain\",\"resourceEditorName\":\"Email Domain\",\"resourceName\":\"example.com\"}"
+		},
+		{
+			"resourceType": "Email Redirection",
+			"resourceName": "",
+			"resourceJson": "{\"accountName\":\"\",\"meta\":{},\"redirectTos\":[\"any@example.com\"],\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Redirect to: any@example.com\",\"resourceEditorName\":\"Email Redirection\",\"resourceName\":\"\",\"uid\":\"X9jXEYBc4Q\"}"
+		},
+		{
+			"resourceType": "Email Redirection",
+			"resourceName": "r1",
+			"resourceJson": "{\"accountName\":\"r1\",\"meta\":{},\"redirectTos\":[\"a1@example.com\",\"a2@example.com\"],\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Redirect to: a1@example.com, a2@example.com\",\"resourceEditorName\":\"Email Redirection\",\"resourceName\":\"r1\",\"uid\":\"rbXfHd5YsA\"}"
+		},
+		{
+			"resourceType": "Email Relay",
+			"resourceName": "example-relay",
+			"resourceJson": "{\"hostname\":\"relay.example.com\",\"meta\":{},\"name\":\"example-relay\",\"password\":\"BBB\",\"port\":587,\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"relay.example.com:587 AAA\",\"resourceEditorName\":\"Email Relay\",\"resourceName\":\"example-relay\",\"username\":\"AAA\"}"
+		},
+		{
+			"resourceType": "Machine",
+			"resourceName": "f1.example.com",
+			"resourceJson": "{\"meta\":{},\"name\":\"f1.example.com\",\"publicIp\":\"127.0.0.1\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"f1.example.com (127.0.0.1)\",\"resourceEditorName\":\"Machine\",\"resourceName\":\"f1.example.com\"}"
+		},
+		{
+			"resourceType": "Machine",
+			"resourceName": "f2.example.com",
+			"resourceJson": "{\"meta\":{},\"name\":\"f2.example.com\",\"publicIp\":\"127.0.0.2\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"f2.example.com (127.0.0.2)\",\"resourceEditorName\":\"Machine\",\"resourceName\":\"f2.example.com\"}"
+		},
+		{
+			"resourceType": "MariaDB Database",
+			"resourceName": "db_database_email",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db_database_email\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"db_database_email\"}"
+		},
+		{
+			"resourceType": "MariaDB Server",
+			"resourceName": "db_server_email",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db_server_email\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Server\",\"resourceName\":\"db_server_email\",\"rootPassword\":\"ABC\"}"
+		},
+		{
+			"resourceType": "MariaDB User",
+			"resourceName": "db_user_email",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db_user_email\",\"password\":\"the_password\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"db_user_email\"}"
+		},
+		{
+			"resourceType": "MongoDB Server",
+			"resourceName": "mongousage",
+			"resourceJson": "{\"description\":\"Database for Usage Metrics\",\"meta\":{},\"name\":\"mongousage\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"Database for Usage Metrics\",\"resourceEditorName\":\"MongoDB Server\",\"resourceName\":\"mongousage\",\"rootPassword\":\"qwerty\",\"version\":\"4.0.12\"}"
+		},
+		{
+			"resourceType": "Unix User",
+			"resourceName": "james",
+			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":\"/home/james\",\"id\":72001,\"keepClearPassword\":false,\"meta\":{},\"name\":\"james\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"/home/james\",\"resourceEditorName\":\"Unix User\",\"resourceName\":\"james\",\"shell\":\"/bin/bash\"}"
+		},
+		{
+			"resourceType": "Unix User",
+			"resourceName": "mariadb",
+			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":\"/home/mariadb\",\"id\":72002,\"keepClearPassword\":false,\"meta\":{},\"name\":\"mariadb\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"/home/mariadb\",\"resourceEditorName\":\"Unix User\",\"resourceName\":\"mariadb\",\"shell\":\"/bin/bash\"}"
+		},
+		{
+			"resourceType": "Unix User",
+			"resourceName": "mongo",
+			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":null,\"id\":70000,\"keepClearPassword\":false,\"meta\":{},\"name\":\"mongo\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":null,\"resourceEditorName\":\"Unix User\",\"resourceName\":\"mongo\",\"shell\":\"/bin/bash\"}"
+		},
+		{
+			"resourceType": "Usage Metrics Config",
+			"resourceName": "hFJ3uimEAQ",
+			"resourceJson": "{\"hostKeySalt\":\"aabbcc\",\"meta\":{},\"mongoDatabase\":\"mdb\",\"mongoPassword\":\"mpass\",\"mongoUser\":\"muser\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"hFJ3uimEAQ\",\"resourceEditorName\":\"Usage Metrics Config\",\"resourceName\":\"hFJ3uimEAQ\",\"uid\":\"hFJ3uimEAQ\",\"version\":\"1.3.0\"}"
+		},
+		{
+			"resourceType": "Website Certificate",
+			"resourceName": "example.com",
+			"resourceJson": "{\"caCertificate\":null,\"certificate\":\"-----BEGIN CERTIFICATE-----\\nMIIEwTCCAqmgAwIBAgIBATANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtleGFt\\ncGxlLmNvbTAeFw0xODA1MDUwMTIwNDlaFw0xODA2MDUwMTIwNDlaMBYxFDASBgNV\\nBAMMC2V4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA\\nvBO21qHVMLtA7NGwnzWbTS/ToLeriG4aTYTwbYGSZ7DGWBwQCU5l7cMheqnxN0xR\\n4f6c+OFFPMK7X0xpRxsP8MBhJtpWdhpc8L1C4FAWaJhQzqY3Xz/7iBJDUbASRQOH\\nkbecUraKaheRKHkrCbyH37JvYdn5e0hnIWPcKropJylvsVZ175GHF4gwv7t5/hS1\\nHPqNCSE6blPZn5ZwP5Fxla19KXZlsGEK3t6lxRggIQwzeXDgngoS3MEw3a8WRJyu\\n+hSsbbeMkfatadRT/5ynQuxFCBItbedJOiUGMKfsMuROM7i0sDfoORPZMiqHMXg8\\n8/cxXcIJaptqttDow8VLHtDr9E6l87deUMD4zh+RisfISFoiF/sgRxxff1n+1nur\\nzBHntvcrx3qIhWrLcMHZasisL3FZQPUTR10R2cFMGTvOmU7UloGSmNCKZBUkNJjN\\nNNMoevdkIeQNHCHDJW73J5L/CFvgnLwf/Fpy7iDYpEwMrL1YRsa4azJDPifTgNQX\\nZR0FMKM8GfqW+kkJLlbpSnpn6yFZDS4KDx0k9MjNLfCZSz/wTXuXXdhYmYnzvr+F\\n3k1GzHpbqO2b6SedemAM75qxRiSeAqjM/v0JVwrRjwrmgme3RSzjjPE757aXfVX0\\ntZ0eFwY8xAoK99Eru7YKnAzZ77SwvIuhk5hgWeRwqx8CAwEAAaMaMBgwFgYDVR0R\\nBA8wDYILZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQADggIBAF3CsjAbo4WWHxTf\\nZhwRW5HPIbi8nqOMfuywKe+QsTupZC9ZI32zrtxKYgCgMYGyZ6ikHYnOQzpqpVlE\\nabnhGBSt2ITy0FypW1GSN1ZcZSEs5z2RSwFpPeUrKNIx6zsrhPb9w13aJKsPEBj/\\n0ZE9lNxs65I2Yz5jqVU87eTM4BxkUF7sPADSGzbq2vre5FsGQnD+CPY20sPhL5ls\\nht6DlySLKjbRBcyYHwXWgeEch95uz2gkLL4amkRimojWTclAEKKtZ7nrcyhhcWp+\\nLi4CsI76krQoE3TqYUsyu2QzMXN+3dfivCdZe1gInpNhnkLChm25JUrQuN1KkZzp\\nOkZnH7vRgOmFzRjXFMAf+FEStw5s5YPaIvY5YoJbN6+Olo0OxX9E0Lw6kc+GMJiZ\\n5LEASGef4fpqzlZ61jde43IsydO5AXqBTh+ECqER8hGVfbnm1oN7FAYXmHVmDqL0\\nIqqVKWvguu9//AV40a1w46SNbPsUa1L1E5v8Prr9Xt0YViYpclgI/GwP0dlDXiQz\\nBvVI9v7djMnZ9pKxYKJcLQGPC/r5fxvu47Qg1A3zOAZVCdKt8bYaR9rkeAIwEYFs\\nmxBXFQwL1gzMUWIamzmDZgmsbkLZN9m3QxLhgw3b3ttJQS/XZ/XbjRjZTNVzokup\\nv5MQDKlsOT0PmcTDruexCrQVWicJ\\n-----END CERTIFICATE-----\\n\",\"domainNames\":[\"example.com\"],\"end\":9528161649000,\"meta\":{},\"privateKey\":\"-----BEGIN RSA PRIVATE KEY-----\\n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\\n-----END RSA PRIVATE KEY-----\\n\",\"publicKey\":\"-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAvBO21qHVMLtA7NGwnzWb\\nTS/ToLeriG4aTYTwbYGSZ7DGWBwQCU5l7cMheqnxN0xR4f6c+OFFPMK7X0xpRxsP\\n8MBhJtpWdhpc8L1C4FAWaJhQzqY3Xz/7iBJDUbASRQOHkbecUraKaheRKHkrCbyH\\n37JvYdn5e0hnIWPcKropJylvsVZ175GHF4gwv7t5/hS1HPqNCSE6blPZn5ZwP5Fx\\nla19KXZlsGEK3t6lxRggIQwzeXDgngoS3MEw3a8WRJyu+hSsbbeMkfatadRT/5yn\\nQuxFCBItbedJOiUGMKfsMuROM7i0sDfoORPZMiqHMXg88/cxXcIJaptqttDow8VL\\nHtDr9E6l87deUMD4zh+RisfISFoiF/sgRxxff1n+1nurzBHntvcrx3qIhWrLcMHZ\\nasisL3FZQPUTR10R2cFMGTvOmU7UloGSmNCKZBUkNJjNNNMoevdkIeQNHCHDJW73\\nJ5L/CFvgnLwf/Fpy7iDYpEwMrL1YRsa4azJDPifTgNQXZR0FMKM8GfqW+kkJLlbp\\nSnpn6yFZDS4KDx0k9MjNLfCZSz/wTXuXXdhYmYnzvr+F3k1GzHpbqO2b6SedemAM\\n75qxRiSeAqjM/v0JVwrRjwrmgme3RSzjjPE757aXfVX0tZ0eFwY8xAoK99Eru7YK\\nnAzZ77SwvIuhk5hgWeRwqx8CAwEAAQ==\\n-----END PUBLIC KEY-----\\n\",\"resourceCategory\":\"NET\",\"resourceEditorName\":\"Self-signed WebsiteCertificate\",\"start\":1525483249000,\"thumbprint\":\"28247946f93580251ab809d91797275c54851d05\"}"
+		},
+		{
+			"resourceType": "Website Certificate",
+			"resourceName": "mail.example.com",
+			"resourceJson": "{\"caCertificate\":null,\"certificate\":\"-----BEGIN CERTIFICATE-----\\nMIIE0DCCArigAwIBAgIBATANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDDBBtYWls\\nLmV4YW1wbGUuY29tMB4XDTE4MDUwNTAxMjEwM1oXDTE4MDYwNTAxMjEwM1owGzEZ\\nMBcGA1UEAwwQbWFpbC5leGFtcGxlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIP\\nADCCAgoCggIBALgnxKw5XN3xJyJE4RDezwLPwDwUTpbWnRvhVb0VxW1qj20LPH3P\\nvx5OErLrEKCYlV+ULx8oUKbDh8XG/C1aRhhKvVR5VLVUNUIXdFBql6YA7aurLgDt\\nJg+XiKH2uN6JzgKbQl0i+nMcKlaNccPbE9VzlurMFRlHLvLXFHNdQFMC6JGHgjZ6\\nWSjcsAOFFwBPf+JYZTzycPnYqZgwp36OrPZNcPQK446AbPF1FAxPd4pqsCeO9Gt8\\nQkKJZj3pQ6YvGBx+2/FJGLqgKj3+uySQ0hUJeOJENtWLjWmafHlIOuQqFeOOLgos\\n9igCiYucDSe3LDWOAQzOa0kwtvYR32osGqtuy+nEPozBdg08ydxlRroIfO5TOliM\\nWtlhJJhl/03ivSZFFB6kk/Lw15ILCgJbVzvdEaV0Dh8BKzYB5ykvniZHnToeaKDb\\ntZ/yX4XWpjKkB4ECdscVp5qAwDVJX18OqWvXBfsryL76FB3Y5M0QcL+k/DEG8Xw1\\nwXEFOFuItf3JKKnjQExeLhGoa6ucMaUgR2oTwsm2LV8McNnSwCW7yfmBhuNgnsbE\\nyirypV7NFfwfruMC8/flIfn+93LjDd/0lVvHFcEEZVKetY7zX9Y5yHwWepu/pXRc\\nN3+GZdXT6Zzt5kDsA4u6QJOzSKB76xsAbnB3D2aFxFLsRzAopq9u7i0jAgMBAAGj\\nHzAdMBsGA1UdEQQUMBKCEG1haWwuZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQAD\\nggIBAJvPVXUQPGe+J8TtfsCJwsBi4d6kN2AhMXZgEBLSV4jhf7/PcBit3hISIfrM\\nxtnIXrSqLpjO7kVbNKGXYmWu/DMEeL5nnvSxC27uM703gtKBeY5lpv722T+QcrrE\\n73dQpvQaoWKaU/aLRA0zSeUcyRBG5FK2N+oW/JPT20VtJR8WxYiWh7Jf3zP9h0uV\\nqia5yJiXy+xC6vO6e0DkaAhOXyZBSgRlHJywqLAo0eJFKKDIZuBep5Qwb+0lP5qh\\nTmam+ToDSFDih8oncMVFirnuE599C/HXZGWVVjqoVlUOOLDkCKg27e9BjRsVPO3U\\nyFdaW221q26FF9dXW35ls7+wJV+rZR5TKili60hAfwXjTrSPxqchG1EIq2i47Nh7\\ndVh89Q3QBMKqbg9C74Tb2IzfeR+HFfNNu9LA1NjYUGblsn1JuTe0uZFi/v9386tS\\nw9MHygBxxkcOyOeRXPDk6yxEOM3C1mxqkRjQWmcbG1ZbiG7Nh7Nz2tRbpKC/NV6c\\nitVv2MZwP4Dz6MKfSRY5n+AWylG8d6pOCEJnSYrMMs0+SGGbsNlBiX9r9rf9Ek8M\\n6kk79RA1tNRN5/Q/pCI7cKHcI9ELaW0nUArWgN4kolvtAq3coIR2ULCbcbjYW6eA\\nOOvnCa5T6BOV7uQBCy5WkkQcRid8it7sDMYE5JWmfFaNDvDW\\n-----END CERTIFICATE-----\\n\",\"domainNames\":[\"mail.example.com\"],\"end\":9528161663000,\"meta\":{},\"privateKey\":\"-----BEGIN RSA PRIVATE KEY-----\\n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\\n-----END RSA PRIVATE KEY-----\\n\",\"publicKey\":\"-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAuCfErDlc3fEnIkThEN7P\\nAs/APBROltadG+FVvRXFbWqPbQs8fc+/Hk4SsusQoJiVX5QvHyhQpsOHxcb8LVpG\\nGEq9VHlUtVQ1Qhd0UGqXpgDtq6suAO0mD5eIofa43onOAptCXSL6cxwqVo1xw9sT\\n1XOW6swVGUcu8tcUc11AUwLokYeCNnpZKNywA4UXAE9/4lhlPPJw+dipmDCnfo6s\\n9k1w9ArjjoBs8XUUDE93imqwJ470a3xCQolmPelDpi8YHH7b8UkYuqAqPf67JJDS\\nFQl44kQ21YuNaZp8eUg65CoV444uCiz2KAKJi5wNJ7csNY4BDM5rSTC29hHfaiwa\\nq27L6cQ+jMF2DTzJ3GVGugh87lM6WIxa2WEkmGX/TeK9JkUUHqST8vDXkgsKAltX\\nO90RpXQOHwErNgHnKS+eJkedOh5ooNu1n/JfhdamMqQHgQJ2xxWnmoDANUlfXw6p\\na9cF+yvIvvoUHdjkzRBwv6T8MQbxfDXBcQU4W4i1/ckoqeNATF4uEahrq5wxpSBH\\nahPCybYtXwxw2dLAJbvJ+YGG42CexsTKKvKlXs0V/B+u4wLz9+Uh+f73cuMN3/SV\\nW8cVwQRlUp61jvNf1jnIfBZ6m7+ldFw3f4Zl1dPpnO3mQOwDi7pAk7NIoHvrGwBu\\ncHcPZoXEUuxHMCimr27uLSMCAwEAAQ==\\n-----END PUBLIC KEY-----\\n\",\"resourceCategory\":\"NET\",\"resourceEditorName\":\"Self-signed WebsiteCertificate\",\"start\":1525483263000,\"thumbprint\":\"f890dc9be9a6b5116de69f1ed649b5524b92a4ef\"}"
+		}
+	],
+	"tags": [],
+	"links": [
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "ATTACHED",
+			"toResourceTypeAndName": "Attachable MariaDB/db_database_email"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/f1.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "RUN_AS",
+			"toResourceTypeAndName": "Unix User/james"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "USES",
+			"toResourceTypeAndName": "MariaDB Database/db_database_email"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "USES",
+			"toResourceTypeAndName": "MariaDB User/db_user_email"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "USES_IMAP",
+			"toResourceTypeAndName": "Website Certificate/mail.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "USES_POP3",
+			"toResourceTypeAndName": "Website Certificate/mail.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Apache James Email Server/james_server",
+			"linkType": "USES_SMTP",
+			"toResourceTypeAndName": "Website Certificate/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Attachable MariaDB/db_database_email",
+			"linkType": "POINTS_TO",
+			"toResourceTypeAndName": "MariaDB Server/db_server_email"
+		},
+		{
+			"fromResourceTypeAndName": "Email Account/a1",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Email Account/a2",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Email Account/a3",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Email Account/a4",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Email Account/any",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Email Domain/example.com",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Apache James Email Server/james_server"
+		},
+		{
+			"fromResourceTypeAndName": "Email Domain/example.com",
+			"linkType": "SEND_THROUGHT",
+			"toResourceTypeAndName": "Email Relay/example-relay"
+		},
+		{
+			"fromResourceTypeAndName": "Email Redirection/",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Email Redirection/r1",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Email Domain/example.com"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB Database/db_database_email",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "MariaDB Server/db_server_email"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB Server/db_server_email",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/f2.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB Server/db_server_email",
+			"linkType": "RUN_AS",
+			"toResourceTypeAndName": "Unix User/mariadb"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB User/db_user_email",
+			"linkType": "CAN_ADMIN",
+			"toResourceTypeAndName": "MariaDB Database/db_database_email"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB User/db_user_email",
+			"linkType": "CAN_READ",
+			"toResourceTypeAndName": "MariaDB Database/db_database_email"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB User/db_user_email",
+			"linkType": "CAN_WRITE",
+			"toResourceTypeAndName": "MariaDB Database/db_database_email"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Server/mongousage",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/f1.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Server/mongousage",
+			"linkType": "RUN_AS",
+			"toResourceTypeAndName": "Unix User/mongo"
+		},
+		{
+			"fromResourceTypeAndName": "Unix User/mongo",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/f1.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Usage Metrics Config/hFJ3uimEAQ",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/f1.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Usage Metrics Config/hFJ3uimEAQ",
+			"linkType": "USES",
+			"toResourceTypeAndName": "Apache James Email Server/james_server"
+		},
+		{
+			"fromResourceTypeAndName": "Usage Metrics Config/hFJ3uimEAQ",
+			"linkType": "USES",
+			"toResourceTypeAndName": "MongoDB Server/mongousage"
+		}
+	]
+}
