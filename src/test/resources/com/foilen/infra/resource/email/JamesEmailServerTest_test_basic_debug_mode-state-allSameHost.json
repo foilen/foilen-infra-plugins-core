@@ -1410,7 +1410,8 @@ configuration.directory.in.classpath.last=../conf/lib/*
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "db_server_email",
-      "rootPassword" : "ABC"
+      "rootPassword" : "ABC",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBUser | db_user_email | ",

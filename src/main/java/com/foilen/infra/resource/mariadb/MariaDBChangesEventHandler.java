@@ -206,7 +206,7 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
                             IPApplicationDefinition applicationDefinition = new IPApplicationDefinition();
                             application.setApplicationDefinition(applicationDefinition);
 
-                            applicationDefinition.setFrom("foilen/fcloud-docker-mariadb:10.3.5-1.1.1-001");
+                            applicationDefinition.setFrom("foilen/fcloud-docker-mariadb:" + server.getVersion());
 
                             applicationDefinition.addService("app", "/mariadb-start.sh");
                             IPApplicationDefinitionAssetsBundle assetsBundle = applicationDefinition.addAssetsBundle();

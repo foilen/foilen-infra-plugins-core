@@ -976,7 +976,8 @@ backend http_8080_ui.example.com
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "commonserver",
-      "rootPassword" : "masterqwerty"
+      "rootPassword" : "masterqwerty",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBUser | loginuser | ",

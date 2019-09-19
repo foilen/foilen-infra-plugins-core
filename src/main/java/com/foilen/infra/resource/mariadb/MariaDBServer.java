@@ -33,6 +33,7 @@ public class MariaDBServer extends AbstractIPResource implements Comparable<Mari
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_DESCRIPTION = "description";
     public static final String PROPERTY_ROOT_PASSWORD = "rootPassword";
+    public static final String PROPERTY_VERSION = "version";
 
     // Basics
     private String name;
@@ -40,8 +41,19 @@ public class MariaDBServer extends AbstractIPResource implements Comparable<Mari
 
     // Settings
     private String rootPassword;
+    private String version = "10.3.5-1.1.1-001";
 
     public MariaDBServer() {
+    }
+
+    /**
+     * Primary key.
+     *
+     * @param name
+     *            the name
+     */
+    public MariaDBServer(String name) {
+        this.name = name;
     }
 
     public MariaDBServer(String name, String description, String rootPassword) {
@@ -84,6 +96,10 @@ public class MariaDBServer extends AbstractIPResource implements Comparable<Mari
         return rootPassword;
     }
 
+    public String getVersion() {
+        return version;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -94,6 +110,10 @@ public class MariaDBServer extends AbstractIPResource implements Comparable<Mari
 
     public void setRootPassword(String rootPassword) {
         this.rootPassword = rootPassword;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
     }
 
 }

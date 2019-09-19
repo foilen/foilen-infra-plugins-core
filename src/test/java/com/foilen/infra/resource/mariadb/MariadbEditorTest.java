@@ -69,6 +69,7 @@ public class MariadbEditorTest extends AbstractCorePluginTest {
         // MariaDBServerEditor
         Map<String, String> mariaDBServerEditorForm = new HashMap<>();
         mariaDBServerEditorForm.put(MariaDBServer.PROPERTY_NAME, "user_db");
+        mariaDBServerEditorForm.put(MariaDBServer.PROPERTY_VERSION, "10.3.5-1.1.1-001");
         mariaDBServerEditorForm.put(MariaDBServer.PROPERTY_ROOT_PASSWORD, "abc");
         mariaDBServerEditorForm.put("unixUser", unixUserId);
         mariaDBServerEditorForm.put("machine", machineId);

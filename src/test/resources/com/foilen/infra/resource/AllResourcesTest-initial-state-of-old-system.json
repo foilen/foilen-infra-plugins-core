@@ -4673,7 +4673,8 @@ CaYWCi7HItsRoK7ujZ9a69sCAwEAAQ==
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "infra_login_db",
-      "rootPassword" : "18956349DC8DD80809C697A5F"
+      "rootPassword" : "18956349DC8DD80809C697A5F",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBServer | infra_ui_db | ",
@@ -4696,7 +4697,8 @@ CaYWCi7HItsRoK7ujZ9a69sCAwEAAQ==
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "infra_ui_db",
-      "rootPassword" : "2FECCDCFB262D5A19C204E6C9"
+      "rootPassword" : "2FECCDCFB262D5A19C204E6C9",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBServer | james_server_db | ",
@@ -4719,7 +4721,8 @@ CaYWCi7HItsRoK7ujZ9a69sCAwEAAQ==
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "james_server_db",
-      "rootPassword" : "D0A913692A00F0A3058E10AD1"
+      "rootPassword" : "D0A913692A00F0A3058E10AD1",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBServer | shop_wordpress_db | ",
@@ -4742,7 +4745,8 @@ CaYWCi7HItsRoK7ujZ9a69sCAwEAAQ==
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "shop_wordpress_db",
-      "rootPassword" : "91B99DAF691D91AC512732AF0"
+      "rootPassword" : "91B99DAF691D91AC512732AF0",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBUser | infra_login | ",

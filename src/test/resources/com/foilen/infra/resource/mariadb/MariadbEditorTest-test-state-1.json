@@ -174,7 +174,8 @@ max_allowed_packet	= 500M
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
       "resourceName" : "user_db",
-      "rootPassword" : "abc"
+      "rootPassword" : "abc",
+      "version" : "10.3.5-1.1.1-001"
     }
   }, {
     "resource" : "MariaDBUser | wp_user | null",

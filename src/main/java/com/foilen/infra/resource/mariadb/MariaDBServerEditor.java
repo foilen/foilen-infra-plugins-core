@@ -33,6 +33,10 @@ public class MariaDBServerEditor extends SimpleResourceEditor<MariaDBServer> {
         simpleResourceEditorDefinition.addInputText(MariaDBServer.PROPERTY_DESCRIPTION, fieldConfigConsumer -> {
             fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
         });
+        simpleResourceEditorDefinition.addInputText(MariaDBServer.PROPERTY_VERSION, fieldConfig -> {
+            fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
+        });
         simpleResourceEditorDefinition.addInputText(MariaDBServer.PROPERTY_ROOT_PASSWORD, fieldConfigConsumer -> {
             fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
         });
