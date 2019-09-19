@@ -27,7 +27,7 @@ import com.foilen.smalltools.tools.SecureRandomTools;
  * <li>{@link Machine}: (1) INSTALLED_ON - Where to install the central</li>
  * <li>{@link JamesEmailServer}: (optional / many) USES - The James Email Servers to check for space usage</li>
  * </ul>
- * 
+ *
  * Links from:
  * <ul>
  * <li>{@link Website}: (optional / many) POINTS_TO - Websites that will point to them</li>

@@ -24,23 +24,6 @@ import com.foilen.smalltools.tools.AbstractBasics;
 
 public class UsageMetricsManageUnixUsersActionHandler extends AbstractBasics implements ActionHandler {
 
-    @Override
-    public void executeAction(CommonServicesContext services, ChangesContext changes) {
-
-        IPResourceService resourceService = services.getResourceService();
-
-        // Get the configuration
-        Optional<UsageMetricsConfig> optionalUsageMetricsConfig = resourceService.resourceFind(resourceService.createResourceQuery(UsageMetricsConfig.class));
-        if (!optionalUsageMetricsConfig.isPresent()) {
-            logger.info("Config is not present. Skipping");
-            return;
-        }
-
-        createCentralUser(changes, resourceService, optionalUsageMetricsConfig.get());
-        createRootUser(changes, resourceService);
-
-    }
-
     private void createCentralUser(ChangesContext changes, IPResourceService resourceService, UsageMetricsConfig usageMetricsConfig) {
         // Get the unix user if present
         logger.info("Check unix user exists: {}", UsageMetricsConfigChangesEventHandler.UNIX_USER);
@@ -74,6 +57,23 @@ public class UsageMetricsManageUnixUsersActionHandler extends AbstractBasics imp
         logger.info("Create unix user: {}", rootName);
         SystemUnixUser unixUser = new SystemUnixUser(0L, rootName);
         changes.resourceAdd(unixUser);
+    }
+
+    @Override
+    public void executeAction(CommonServicesContext services, ChangesContext changes) {
+
+        IPResourceService resourceService = services.getResourceService();
+
+        // Get the configuration
+        Optional<UsageMetricsConfig> optionalUsageMetricsConfig = resourceService.resourceFind(resourceService.createResourceQuery(UsageMetricsConfig.class));
+        if (!optionalUsageMetricsConfig.isPresent()) {
+            logger.info("Config is not present. Skipping");
+            return;
+        }
+
+        createCentralUser(changes, resourceService, optionalUsageMetricsConfig.get());
+        createRootUser(changes, resourceService);
+
     }
 
 }
