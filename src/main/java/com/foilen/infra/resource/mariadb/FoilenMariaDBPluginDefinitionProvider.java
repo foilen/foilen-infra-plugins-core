@@ -34,7 +34,8 @@ public class FoilenMariaDBPluginDefinitionProvider implements IPPluginDefinition
                 Arrays.asList(MariaDBServer.PROPERTY_NAME), //
                 Arrays.asList( //
                         MariaDBServer.PROPERTY_NAME, //
-                        MariaDBServer.PROPERTY_DESCRIPTION //
+                        MariaDBServer.PROPERTY_DESCRIPTION, //
+                        MariaDBServer.PROPERTY_VERSION //
                 ));
 
         pluginDefinitionV1.addCustomResource(MariaDBDatabase.class, MariaDBDatabase.RESOURCE_TYPE, //
