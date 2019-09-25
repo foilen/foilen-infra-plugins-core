@@ -126,7 +126,6 @@ public class ComposableApplicationTest extends AbstractCorePluginTest {
         // Assert
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedToWebsite-state-3.json", getClass(), true);
 
-        System.out.println("\n\n\n\n-------------\n\n\n"); // TODO + DELETE
         // Detach the website
         changes.linkDelete(website, LinkTypeConstants.POINTS_TO, new Application("my_app"));
 
