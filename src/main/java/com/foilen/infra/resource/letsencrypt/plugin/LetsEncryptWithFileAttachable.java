@@ -63,10 +63,12 @@ public class LetsEncryptWithFileAttachable extends AttachablePart implements Com
         if (CollectionsTools.isAllItemNotNullOrEmpty(fileName, fileContent)) {
             String challengesPath = basePath + ".well-known/acme-challenge";
             fileName = challengesPath + "/" + fileName;
+            String htAccessFileName = challengesPath + "/.htaccess";
             logger.info("[{}] Full file name: {}", name, fileName);
             context.getApplicationDefinition().addExecuteWhenStartedCommand("rm -rf " + challengesPath);
             context.getApplicationDefinition().addExecuteWhenStartedCommand("mkdir -p " + challengesPath);
             context.getApplicationDefinition().addExecuteWhenStartedCommand("echo " + fileContent + " > " + fileName);
+            context.getApplicationDefinition().addExecuteWhenStartedCommand("echo Satisfy any > " + htAccessFileName);
         }
     }
 
