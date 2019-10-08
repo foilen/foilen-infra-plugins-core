@@ -1,0 +1,103 @@
+{
+  "applicationDefinition" : {
+    "_nextAssetId" : 2,
+    "assetsBundles" : [ {
+      "assetsFolderPath" : "_assets_1/",
+      "assetsRelativePathAndBinaryContent" : [ ],
+      "assetsRelativePathAndTextContent" : [ {
+        "a" : "/etc/apache2/ports.conf",
+        "b" : "Listen 8080\n"
+      }, {
+        "a" : "/apache-start.sh",
+        "b" : "#!/bin/bash\n\nset -e\nsource /etc/apache2/envvars\n/usr/sbin/apache2ctl start\n\nuntil [ -f /var/run/apache2/apache2.pid ]\ndo\n\techo Waiting for /var/run/apache2/apache2.pid\n\tsleep 1\ndone\n\nAPP_PID=$(cat /var/run/apache2/apache2.pid)\nwhile [ -e /proc/$APP_PID ]; do sleep 5; done\n\necho Apache service is down\n"
+      }, {
+        "a" : "/copy-php-conf.sh",
+        "b" : "#!/bin/bash\n\nset -e\n\nif [ -d /etc/php5 ]; then\n\tcd /etc/php5\n\tfor SUB in $(ls); do\n\t\tif [ -d $SUB/conf.d/ ]; then\n\t\t\tcp /99-fcloud.ini $SUB/conf.d/\n\t\tfi\n\tdone\nfi\n\nif [ -d /etc/php ]; then\n\tcd /etc/php\n\tfor VER in $(ls); do\n\t\tcd /etc/php/$VER\n\t\tfor SUB in $(ls); do\n\t\t\tif [ -d $SUB/conf.d/ ]; then\n\t\t\t\tcp /99-fcloud.ini $SUB/conf.d/\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n"
+      }, {
+        "a" : "/99-fcloud.ini",
+        "b" : "[PHP]\nmax_execution_time = 300\n\nupload_max_filesize = 64M\npost_max_size = 128M\nmemory_limit = 256M\n"
+      }, {
+        "a" : "/etc/apache2/sites-enabled/000-default.conf",
+        "b" : "<VirtualHost *>\n  DocumentRoot /base/\n  \n  SetEnvIf x-forwarded-proto https HTTPS=on\n  \n  ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/error.log 100M\"\n  CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/access.log 100M\" combined\n  \n  <Directory /base/>\n    AllowOverride All\n    Require all granted\n  </Directory>\n  \n  \n\n</VirtualHost>\n"
+      } ]
+    } ],
+    "assetsPathAndContent" : [ ],
+    "buildSteps" : [ {
+      "step" : "_assets_1/ /",
+      "type" : "COPY"
+    }, {
+      "step" : "chmod 644 /etc/apache2/ports.conf /99-fcloud.ini && chmod +x /*.sh && sync && /copy-php-conf.sh",
+      "type" : "COMMAND"
+    }, {
+      "step" : "chmod -R 777 /var/log && chown www-data:www-data /var/run/apache2",
+      "type" : "COMMAND"
+    }, {
+      "step" : "/usr/sbin/a2enmod rewrite",
+      "type" : "COMMAND"
+    } ],
+    "command" : null,
+    "containerUsersToChangeId" : [ {
+      "a" : "www-data",
+      "b" : 70000
+    } ],
+    "copyWhenStartedPathAndContentFiles" : [ ],
+    "entrypoint" : null,
+    "environments" : { },
+    "executeWhenStartedCommands" : [ ],
+    "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
+    "hostToIpMapping" : [ ],
+    "portsEndpoint" : {
+      "8080" : "HTTP_TCP"
+    },
+    "portsExposed" : { },
+    "portsRedirect" : [ ],
+    "runAs" : 70000,
+    "services" : [ {
+      "command" : "/apache-start.sh",
+      "name" : "apache",
+      "runAs" : null,
+      "workingDirectory" : null
+    } ],
+    "udpPortsExposed" : { },
+    "volumes" : [ {
+      "containerFsFolder" : "/base",
+      "groupId" : null,
+      "hostFolder" : "/home/testing/php",
+      "ownerId" : null,
+      "permissions" : null,
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/var/lock/apache2",
+      "groupId" : 70000,
+      "hostFolder" : null,
+      "ownerId" : 70000,
+      "permissions" : "755",
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/var/log/apache2",
+      "groupId" : 70000,
+      "hostFolder" : "/home/testing/apache_php/testing/log/apache2",
+      "ownerId" : 70000,
+      "permissions" : "770",
+      "readOnly" : false
+    }, {
+      "containerFsFolder" : "/var/log/supervisor",
+      "groupId" : 70000,
+      "hostFolder" : "/home/testing/apache_php/testing/log/supervisor",
+      "ownerId" : 70000,
+      "permissions" : "770",
+      "readOnly" : false
+    } ],
+    "workingDirectory" : null
+  },
+  "description" : "Apache and PHP application",
+  "domainNames" : [ ],
+  "executionCronDetails" : null,
+  "executionPolicy" : "ALWAYS_ON",
+  "meta" : { },
+  "name" : "testing",
+  "resourceCategory" : "INFRASTRUCTURE",
+  "resourceDescription" : "Apache and PHP application",
+  "resourceEditorName" : null,
+  "resourceName" : "testing"
+}

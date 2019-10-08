@@ -23,15 +23,16 @@ import org.shredzone.acme4j.Certificate;
 import org.shredzone.acme4j.Order;
 import org.shredzone.acme4j.Session;
 import org.shredzone.acme4j.Status;
+import org.shredzone.acme4j.challenge.Challenge;
 import org.shredzone.acme4j.challenge.Dns01Challenge;
+import org.shredzone.acme4j.challenge.Http01Challenge;
 import org.shredzone.acme4j.exception.AcmeException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.foilen.infra.resource.letsencrypt.plugin.LetsencryptConfig;
 import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSATools;
+import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.AssertTools;
 import com.foilen.smalltools.tools.ThreadTools;
 import com.foilen.smalltools.tuple.Tuple2;
@@ -40,9 +41,7 @@ import com.google.common.base.Joiner;
 /**
  * To communicate with the ACME server.
  */
-public class AcmeServiceImpl implements AcmeService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(AcmeServiceImpl.class);
+public class AcmeServiceImpl extends AbstractBasics implements AcmeService {
 
     private LetsencryptConfig config;
 
@@ -53,7 +52,7 @@ public class AcmeServiceImpl implements AcmeService {
     public AcmeServiceImpl(LetsencryptConfig config) {
         this.config = config;
         try {
-            LOGGER.info("Logging to {}", config.getUrl());
+            logger.info("Logging to {}", config.getUrl());
             session = new Session(new URI(config.getUrl()));
             login();
         } catch (Exception e) {
@@ -62,16 +61,16 @@ public class AcmeServiceImpl implements AcmeService {
     }
 
     @Override
-    public void challengeComplete(Dns01Challenge challenge) {
+    public void challengeComplete(Challenge challenge) {
 
         AssertTools.assertNotNull(account, "You need to log in first");
 
         // Trigger the challenge
         try {
-            LOGGER.info("Triggering the challenge");
+            logger.info("Triggering the challenge");
             challenge.trigger();
         } catch (AcmeException e) {
-            LOGGER.error("Problem triggering the challenge", e);
+            logger.error("Problem triggering the challenge", e);
             throw new LetsencryptException("Problem triggering the challenge: " + challenge.getError().getDetail(), e);
         }
 
@@ -82,19 +81,19 @@ public class AcmeServiceImpl implements AcmeService {
             }
             ThreadTools.sleep(5 * 1000); // 5 secs
             try {
-                LOGGER.info("Updating the status");
+                logger.info("Updating the status");
                 challenge.update();
             } catch (AcmeException e) {
-                LOGGER.error("Problem updating the challenge status", e);
+                logger.error("Problem updating the challenge status", e);
                 throw new LetsencryptException("Problem updating the challenge status: " + challenge.getError().getDetail(), e);
             }
-            LOGGER.info("Current status: {}", challenge.getStatus());
+            logger.info("Current status: {}", challenge.getStatus());
         }
 
     }
 
     @Override
-    public Tuple2<Order, Dns01Challenge> challengeInit(String domainName) {
+    public Tuple2<Order, Dns01Challenge> challengeDnsInit(String domainName) {
 
         AssertTools.assertNotNull(account, "You need to log in first");
 
@@ -104,7 +103,7 @@ public class AcmeServiceImpl implements AcmeService {
                     .domains(domainName) //
                     .create();
         } catch (AcmeException e) {
-            LOGGER.error("Could not ask for domain {}", domainName, e);
+            logger.error("Could not ask for domain {}", domainName, e);
             throw new LetsencryptException("Could not ask for domain " + domainName, e);
         }
 
@@ -122,11 +121,40 @@ public class AcmeServiceImpl implements AcmeService {
         return new Tuple2<>(order, challenge);
     }
 
+    @Override
+    public Tuple2<Order, Http01Challenge> challengeHttpInit(String domainName) {
+
+        AssertTools.assertNotNull(account, "You need to log in first");
+
+        Order order;
+        try {
+            order = account.newOrder() //
+                    .domains(domainName) //
+                    .create();
+        } catch (AcmeException e) {
+            logger.error("Could not ask for domain {}", domainName, e);
+            throw new LetsencryptException("Could not ask for domain " + domainName, e);
+        }
+
+        // Get the HTTP challenge
+        Http01Challenge challenge = null;
+        List<String> availableChallenges = new ArrayList<>();
+        for (Authorization auth : order.getAuthorizations()) {
+            auth.getChallenges().stream().map(it -> it.getType()).forEach(it -> availableChallenges.add(it));
+            challenge = auth.findChallenge(Http01Challenge.TYPE);
+        }
+        if (challenge == null) {
+            throw new LetsencryptException("HTTP Challenge not found for " + domainName + " ; Available challenges are: [" + Joiner.on(", ").join(availableChallenges) + "]");
+        }
+
+        return new Tuple2<>(order, challenge);
+    }
+
     private void login() {
 
         KeyPair accountKeyPair = RSATools.createKeyPair(RSACrypt.RSA_CRYPT.loadKeysPemFromString(config.getAccountKeypairPem()));
 
-        LOGGER.info("Registering account");
+        logger.info("Registering account");
         try {
             account = new AccountBuilder() //
                     .addContact("mailto:" + config.getContactEmail()) //
@@ -134,7 +162,7 @@ public class AcmeServiceImpl implements AcmeService {
                     .useKeyPair(accountKeyPair) //
                     .create(session);
         } catch (AcmeException e) {
-            LOGGER.error("Problem logging in", e);
+            logger.error("Problem logging in", e);
             throw new LetsencryptException("Problem logging in", e);
         }
 
@@ -142,7 +170,7 @@ public class AcmeServiceImpl implements AcmeService {
         session.login(accountLocationUrl, accountKeyPair);
 
         // Get the location
-        LOGGER.info("AcmeClient location: {}", accountLocationUrl);
+        logger.info("AcmeClient location: {}", accountLocationUrl);
 
     }
 
@@ -155,7 +183,7 @@ public class AcmeServiceImpl implements AcmeService {
         try {
             order.execute(certificateRequest);
         } catch (AcmeException e) {
-            LOGGER.error("Problem executing the cert request", e);
+            logger.error("Problem executing the cert request", e);
             throw new LetsencryptException("Problem executing the cert request", e);
         }
 
@@ -167,18 +195,18 @@ public class AcmeServiceImpl implements AcmeService {
             }
             ThreadTools.sleep(10 * 1000); // 10 secs
             try {
-                LOGGER.info("Updating the status");
+                logger.info("Updating the status");
                 order.update();
             } catch (AcmeException e) {
-                LOGGER.error("Problem updating the order status", e);
+                logger.error("Problem updating the order status", e);
                 throw new LetsencryptException("Problem updating the order status", e);
             }
-            LOGGER.info("[{}] Current order status: {}", count, order.getStatus());
+            logger.info("[{}] Current order status: {}", count, order.getStatus());
             ++count;
         }
 
         if (order.getStatus() != Status.VALID) {
-            LOGGER.error("Order status is still not valid after 1 minute. Status is {} ; problem is {} ; json: {}", order.getStatus(), order.getError(), order.getJSON().toString());
+            logger.error("Order status is still not valid after 1 minute. Status is {} ; problem is {} ; json: {}", order.getStatus(), order.getError(), order.getJSON().toString());
             throw new LetsencryptException("Order status is still not valid after 1 minute. Status is " + order.getStatus());
         }
 

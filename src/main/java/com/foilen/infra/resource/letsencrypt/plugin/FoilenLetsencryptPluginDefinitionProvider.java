@@ -35,6 +35,9 @@ public class FoilenLetsencryptPluginDefinitionProvider implements IPPluginDefini
         pluginDefinition.addCustomResource(LetsencryptConfig.class, LetsencryptConfig.RESOURCE_TYPE, //
                 Arrays.asList(LetsencryptConfig.PROPERTY_NAME), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(LetsEncryptWithFileAttachable.class, LetsEncryptWithFileAttachable.RESOURCE_TYPE, //
+                Arrays.asList(LetsEncryptWithFileAttachable.PROPERTY_NAME), //
+                Collections.emptyList());
 
         pluginDefinition.addTimer(new LetsEncryptRefreshOldCertsBeginTimer(), //
                 LetsEncryptRefreshOldCertsBeginTimer.TIMER_NAME, //
@@ -47,9 +50,11 @@ public class FoilenLetsencryptPluginDefinitionProvider implements IPPluginDefini
         pluginDefinition.addTranslations("/com/foilen/infra/resource/letsencrypt/messages");
         pluginDefinition.addResourceEditor(new LetsencryptConfigEditor(), LetsencryptConfigEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new LetsEncryptWebsiteCertificateEditor(), LetsEncryptWebsiteCertificateEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new LetsEncryptWithFileAttachableEditor(), LetsEncryptWithFileAttachableEditor.EDITOR_NAME);
 
         // Updater
         pluginDefinition.addChangesHandler(new LetsencryptConfigChangesEventHandler());
+        pluginDefinition.addChangesHandler(new LetsencryptWithFileAttachableChangesEventHandler());
 
         return pluginDefinition;
     }

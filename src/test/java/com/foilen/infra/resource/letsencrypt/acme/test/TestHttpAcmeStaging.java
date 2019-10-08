@@ -10,13 +10,15 @@
 package com.foilen.infra.resource.letsencrypt.acme.test;
 
 import org.shredzone.acme4j.Order;
-import org.shredzone.acme4j.challenge.Dns01Challenge;
+import org.shredzone.acme4j.challenge.Http01Challenge;
 import org.shredzone.acme4j.util.CSRBuilder;
 
 import com.foilen.infra.resource.letsencrypt.acme.AcmeService;
 import com.foilen.infra.resource.letsencrypt.acme.AcmeServiceImpl;
 import com.foilen.infra.resource.letsencrypt.acme.LetsencryptException;
 import com.foilen.infra.resource.letsencrypt.plugin.LetsencryptConfig;
+import com.foilen.infra.resource.letsencrypt.plugin.LetsencryptHelper;
+import com.foilen.infra.resource.letsencrypt.plugin.LetsencryptHelperImpl;
 import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
 import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
@@ -26,11 +28,13 @@ import com.foilen.smalltools.tools.SecureRandomTools;
 import com.foilen.smalltools.tools.ThreadTools;
 import com.foilen.smalltools.tuple.Tuple2;
 
-public class TestAcmeStaging {
+public class TestHttpAcmeStaging {
 
     private static final String KEYPAIR_FILE = "_keypair.pem";
 
     public static void main(String[] args) {
+
+        LetsencryptHelper letsencryptHelper = new LetsencryptHelperImpl();
 
         // Get or create registration
         String accountPem;
@@ -56,20 +60,29 @@ public class TestAcmeStaging {
         // Request the challenge
         AcmeService acmeService = new AcmeServiceImpl(config);
         String domainName = "testing.foilen-lab.com";
-        Tuple2<Order, Dns01Challenge> orderAndDnsChallenge = acmeService.challengeInit(domainName);
-        Dns01Challenge dnsChallenge = orderAndDnsChallenge.getB();
+        Tuple2<Order, Http01Challenge> orderAndHttpChallenge = acmeService.challengeHttpInit(domainName);
+        Http01Challenge httpChallenge = orderAndHttpChallenge.getB();
 
-        String acmeDomainName = "_acme-challenge." + domainName;
-        System.out.println("Need " + acmeDomainName + " / TXT / " + dnsChallenge.getDigest());
+        String url = "https://" + domainName + "/.well-known/acme-challenge/" + httpChallenge.getToken();
+        String fileContent = httpChallenge.getAuthorization();
 
-        // Wait for the DNS to be updated
-        System.out.println("Waiting for domain 5 minutes");
-        ThreadTools.sleep(5 * 60000);
+        System.out.println("Need " + url + " with content " + fileContent);
+
+        // Wait for the URL to be available
+        while (true) {
+            System.out.println("Waiting for url");
+            ThreadTools.sleep(15000);
+            try {
+                letsencryptHelper.checkUrlOrFail(url);
+                break;
+            } catch (Exception e) {
+            }
+        }
 
         // Confirm
         try {
             System.out.println("Challenge completed");
-            acmeService.challengeComplete(dnsChallenge);
+            acmeService.challengeComplete(httpChallenge);
         } catch (LetsencryptException e) {
             // Challenge failed
             System.out.println("Failed the challenge");
@@ -86,7 +99,7 @@ public class TestAcmeStaging {
             AsymmetricKeys asymmetricKeys = RSACrypt.RSA_CRYPT.generateKeyPair(4096);
             csrb.sign(RSATools.createKeyPair(asymmetricKeys));
             byte[] csr = csrb.getEncoded();
-            RSACertificate certificate = acmeService.requestCertificate(orderAndDnsChallenge.getA(), csr);
+            RSACertificate certificate = acmeService.requestCertificate(orderAndHttpChallenge.getA(), csr);
             certificate.setKeysForSigning(asymmetricKeys);
 
             System.out.println("Got the certificate: " + certificate.getThumbprint());

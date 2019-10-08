@@ -40,47 +40,20 @@ import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
 import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSATools;
-import com.foilen.smalltools.tools.AbstractBasics;
-import com.foilen.smalltools.tools.ResourceTools;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Joiner;
 
-public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractBasics implements TimerEventHandler {
-
-    private static final String CA_CERTIFICATE_TEXT = ResourceTools.getResourceAsString("/com/foilen/infra/resource/letsencrypt/lets-encrypt-x3-cross-signed.pem");
-
-    private AcmeService acmeService;
+public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractLetsEncryptRefreshOldCertsWaitTimer implements TimerEventHandler {
 
     private String dnsWaitDomain;
     private Map<String, Tuple2<Order, Dns01Challenge>> challengeByDomain;
 
     private boolean foundOnLastCheck = false;
 
-    public LetsEncryptRefreshOldCertsWaitDnsTimer(AcmeService acmeService, String dnsWaitDomain, Map<String, Tuple2<Order, Dns01Challenge>> challengeByDomain) {
-        this.acmeService = acmeService;
+    public LetsEncryptRefreshOldCertsWaitDnsTimer(AcmeService acmeService, LetsencryptHelper letsencryptHelper, String dnsWaitDomain, Map<String, Tuple2<Order, Dns01Challenge>> challengeByDomain) {
+        super(acmeService, letsencryptHelper);
         this.dnsWaitDomain = dnsWaitDomain;
         this.challengeByDomain = challengeByDomain;
-    }
-
-    private String getAllMessages(Throwable e) {
-
-        StringBuilder messages = new StringBuilder();
-
-        boolean first = true;
-        while (e != null) {
-            if (first) {
-                first = true;
-            } else {
-                messages.append(" ; ");
-            }
-            if (e.getMessage() != null) {
-                messages.append(messages);
-            }
-
-            e = e.getCause();
-        }
-
-        return messages.toString();
     }
 
     @Override

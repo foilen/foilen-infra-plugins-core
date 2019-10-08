@@ -40,6 +40,16 @@ public class LetsEncryptWebsiteCertificateEditor implements ResourceEditor<Websi
 
     private static final String FIELD_NAME_DOMAIN = "domain";
 
+    private LetsencryptHelper letsencryptHelper;
+
+    public LetsEncryptWebsiteCertificateEditor() {
+        this.letsencryptHelper = new LetsencryptHelperImpl();
+    }
+
+    public LetsEncryptWebsiteCertificateEditor(LetsencryptHelper letsencryptHelper) {
+        this.letsencryptHelper = letsencryptHelper;
+    }
+
     @Override
     public void fillResource(CommonServicesContext servicesCtx, ChangesContext changesContext, Map<String, String> validFormValues, WebsiteCertificate resource) {
 
@@ -75,7 +85,7 @@ public class LetsEncryptWebsiteCertificateEditor implements ResourceEditor<Websi
             servicesCtx.getTimerService().executeLater((services, changes, event) -> {
                 List<WebsiteCertificate> certificatesToUpdate = new ArrayList<>();
                 certificatesToUpdate.add(resource);
-                LetsencryptHelper.createChallengesAndCreateTimer(servicesCtx, changes, certificatesToUpdate);
+                letsencryptHelper.createChallengesAndCreateTimer(servicesCtx, changes, certificatesToUpdate);
             });
 
         }

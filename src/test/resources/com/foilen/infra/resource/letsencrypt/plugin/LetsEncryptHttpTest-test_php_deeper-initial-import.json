@@ -1,0 +1,67 @@
+{
+	"resources": [
+		{
+			"resourceType": "Apache and PHP",
+			"resourceName": "testing",
+			"resourceJson": "{\"basePath\":\"/home/testing/php\",\"defaultEmailFrom\":null,\"emailSender\":\"SENDMAIL_TO_MSMTP\",\"emailSenderMsmtp\":true,\"logMaxSizeM\":100,\"mainSiteRelativePath\":\"/sub/\",\"meta\":{},\"name\":\"testing\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"Apache and PHP application\",\"resourceEditorName\":\"Apache PHP\",\"resourceName\":\"testing\",\"version\":\"7.2.19-2\"}"
+		},
+		{
+			"resourceType": "Letsencrypt Config",
+			"resourceName": "staging",
+			"resourceJson": "{\"accountKeypairPem\":\"\",\"contactEmail\":\"admin@example.com\",\"dnsUpdatedSubDomain\":\"letsencrypt.example.com\",\"meta\":{},\"name\":\"staging\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"admin@example.com | STAGGING\",\"resourceEditorName\":\"Let's Encrypt Config\",\"resourceName\":\"staging\",\"staging\":true,\"tagName\":\"\",\"url\":\"acme://letsencrypt.org/staging\"}"
+		},
+		{
+			"resourceType": "Machine",
+			"resourceName": "localhost.example.com",
+			"resourceJson": "{\"meta\":{},\"name\":\"localhost.example.com\",\"publicIp\":\"127.0.0.1\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"localhost.example.com (127.0.0.1)\",\"resourceEditorName\":\"Machine\",\"resourceName\":\"localhost.example.com\"}"
+		},
+		{
+			"resourceType": "Unix User",
+			"resourceName": "testing",
+			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":null,\"id\":70000,\"keepClearPassword\":false,\"meta\":{},\"name\":\"testing\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":null,\"resourceEditorName\":\"Unix User\",\"resourceName\":\"testing\",\"shell\":\"/bin/bash\"}"
+		},
+		{
+			"resourceType": "Website",
+			"resourceName": "testing.example.com",
+			"resourceJson": "{\"applicationEndpoint\":\"HTTP_TCP\",\"domainNames\":[\"testing.example.com\"],\"https\":true,\"httpsOriginToHttp\":true,\"meta\":{},\"name\":\"testing.example.com\",\"resourceCategory\":\"NET\",\"resourceDescription\":\"testing.example.com\",\"resourceEditorName\":\"Website\",\"resourceName\":\"testing.example.com\"}"
+		},
+		{
+			"resourceType": "Website Certificate",
+			"resourceName": "testing.example.com",
+			"resourceJson": "{\"caCertificate\":null,\"certificate\":\"-----BEGIN CERTIFICATE-----\\nMIIE2TCCAsGgAwIBAgIBATANBgkqhkiG9w0BAQsFADAeMRwwGgYDVQQDDBN0ZXN0\\naW5nLmV4YW1wbGUuY29tMB4XDTE5MTAwMTExNTgwN1oXDTE5MTAwMjExNTgwN1ow\\nHjEcMBoGA1UEAwwTdGVzdGluZy5leGFtcGxlLmNvbTCCAiIwDQYJKoZIhvcNAQEB\\nBQADggIPADCCAgoCggIBAKYFzSUBhtntMJHA5b2XAo663nAkKy6Jq+QnjQM4pRXh\\ndz9Sg2bUoHecFgbfeHOoXZ3Mlq54oOwH+YCyF1cd8KBPCF9ngbPSJCYEESXo9YOS\\nCKqATBuvtD7udAkim5ublZIXx1Y4AGQLRzLBWuQwskcXLV0cufKXhBRBPbi5dgpW\\n6wD/8iUpBd+JpcGgOTBAQbzLsYESyCIf/FJkrRBf73PJNNySPMndhpZ1VMVsH08t\\n8RkJCUFaVOoOOhusbSBQB0ZBEoBn7SzQV8bBeiaqjg2n24LS6tzgvmvHlJjI68ef\\n0qLSSOSQgPGFV78OTcGtEdIcqOMTRtQx6z0ZJgLV8D/BcFKS4Q8EFux9g38AV/zw\\nkbXFNtGKcZstcM1zJF5i+E4GcqjplYOnWr8tyL2fDoqSM/hWrFVJa/GTWD1WIQ9J\\nMK0mrTwqavBmwyHTh9B/soDtrixUNd/WD2Ek1Mf5422waAiMU2wXFD06WeXoLxyE\\nCk6JSF00sOtMeWrHy+L0qCsmK18iZWhoXdGv6oPlGmV2s8KNBRoTO/WEJCqRgNkN\\nfBpMP6+0ZkbVpX/5soWs+RpC5hGUOLTcVmHQrPjv50JCSF/Y5HCVeWLcJbf0Fu+G\\n2Mm6LGPjFTL7yFl62ltBRrr4htpSmN/E6uyVR10au0LyfyRsNFxPhEuxzHiVmHOv\\nAgMBAAGjIjAgMB4GA1UdEQQXMBWCE3Rlc3RpbmcuZXhhbXBsZS5jb20wDQYJKoZI\\nhvcNAQELBQADggIBACx7ylF90NwIs0333ID5p/GwgyYRJhatmqflGM9w/t4k5lPJ\\nezqcO7bOrzfMtg/R5Jv5Nwj4XKWObx3ZwIgGKN3/zMVnvoyqAnfY6xSyHbd4DsOh\\n20PGwb3R4FKrHNE53E+vrqMkueuvAazu4xz6KLj642pyRVyyrQHxjNFUUQMY8ZBi\\nFYQMV4UIF/z6agDOFHx/XO396xcs30sOPn+BU/u/mZohVM+zCWLj8/77ShBA2Ocw\\nx78TkiVJfu/vxzrLhyX1ZUx4NK+kjSvPsgR/et5XHpAeFRoFnl3DriUe8vufcv30\\nvcyHLKVRNsPZ7k66JGKdgioRDQu0V6z6DSe7gWilHr0y0DuigJzisrkbrX856q7N\\nPv4NSlL8FQDn1DdssxwFfpuYqBjwBy1Y5qkUnkWp6TEFZ92lwXQivsttfU6Ad6JU\\nyeWvjwUO8SpUxlXwPOSbRBHNnUw4lJb8gzTiAiq154EX1KgMSk6z0zekIilVcqek\\nIZokylaM/0OIM5zigMeITrRgYtNWfuL1dn1tf5QZkACmLkL2FeXCBf9Rbq5CYRVO\\n0EcCO+AK4bcb42igGgJ2WWgXr1U3ENLflkWpGOa97QnfbkWIoJiMj93IJ+oejI+J\\noJELuS521FZxj2CjoVnpvbDvZg7bSx1JJdsl8L0iBOHnRBpZAongapO0UmiO\\n-----END CERTIFICATE-----\\n\",\"domainNames\":[\"testing.example.com\"],\"end\":1570017487000,\"meta\":{},\"privateKey\":\"-----BEGIN RSA PRIVATE KEY-----\\n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\\n-----END RSA PRIVATE KEY-----\\n\",\"publicKey\":\"-----BEGIN PUBLIC KEY-----\\nMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEApgXNJQGG2e0wkcDlvZcC\\njrrecCQrLomr5CeNAzilFeF3P1KDZtSgd5wWBt94c6hdncyWrnig7Af5gLIXVx3w\\noE8IX2eBs9IkJgQRJej1g5IIqoBMG6+0Pu50CSKbm5uVkhfHVjgAZAtHMsFa5DCy\\nRxctXRy58peEFEE9uLl2ClbrAP/yJSkF34mlwaA5MEBBvMuxgRLIIh/8UmStEF/v\\nc8k03JI8yd2GlnVUxWwfTy3xGQkJQVpU6g46G6xtIFAHRkESgGftLNBXxsF6JqqO\\nDafbgtLq3OC+a8eUmMjrx5/SotJI5JCA8YVXvw5Nwa0R0hyo4xNG1DHrPRkmAtXw\\nP8FwUpLhDwQW7H2DfwBX/PCRtcU20Ypxmy1wzXMkXmL4TgZyqOmVg6davy3IvZ8O\\nipIz+FasVUlr8ZNYPVYhD0kwrSatPCpq8GbDIdOH0H+ygO2uLFQ139YPYSTUx/nj\\nbbBoCIxTbBcUPTpZ5egvHIQKTolIXTSw60x5asfL4vSoKyYrXyJlaGhd0a/qg+Ua\\nZXazwo0FGhM79YQkKpGA2Q18Gkw/r7RmRtWlf/myhaz5GkLmEZQ4tNxWYdCs+O/n\\nQkJIX9jkcJV5Ytwlt/QW74bYybosY+MVMvvIWXraW0FGuviG2lKY38Tq7JVHXRq7\\nQvJ/JGw0XE+ES7HMeJWYc68CAwEAAQ==\\n-----END PUBLIC KEY-----\\n\",\"resourceCategory\":\"NET\",\"resourceEditorName\":\"Let's Encrypt WebsiteCertificate\",\"start\":1569931087000,\"thumbprint\":\"eafd274ff55444c8d69ba59fbb8f258a2271cb06\"}"
+		}
+	],
+	"tags": [],
+	"links": [
+		{
+			"fromResourceTypeAndName": "Apache and PHP/testing",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/localhost.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Apache and PHP/testing",
+			"linkType": "RUN_AS",
+			"toResourceTypeAndName": "Unix User/testing"
+		},
+		{
+			"fromResourceTypeAndName": "Unix User/testing",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/localhost.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Website/testing.example.com",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/localhost.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "Website/testing.example.com",
+			"linkType": "POINTS_TO",
+			"toResourceTypeAndName": "Apache and PHP/testing"
+		},
+		{
+			"fromResourceTypeAndName": "Website/testing.example.com",
+			"linkType": "USES",
+			"toResourceTypeAndName": "Website Certificate/testing.example.com"
+		}
+	]
+}

@@ -33,6 +33,16 @@ public class LetsEncryptRefreshOldCertsBeginTimer extends AbstractBasics impleme
 
     public static final String TIMER_NAME = "Lets Encrypt";
 
+    private LetsencryptHelper letsencryptHelper;
+
+    public LetsEncryptRefreshOldCertsBeginTimer() {
+        this.letsencryptHelper = new LetsencryptHelperImpl();
+    }
+
+    public LetsEncryptRefreshOldCertsBeginTimer(LetsencryptHelper letsencryptHelper) {
+        this.letsencryptHelper = letsencryptHelper;
+    }
+
     @Override
     public void timerHandler(CommonServicesContext services, ChangesContext changes, TimerEventContext event) {
 
@@ -88,7 +98,7 @@ public class LetsEncryptRefreshOldCertsBeginTimer extends AbstractBasics impleme
             logger.info("Updating certificates: {}", it.getDomainNames());
         });
 
-        LetsencryptHelper.createChallengesAndCreateTimer(services, changes, certificatesToUpdate);
+        letsencryptHelper.createChallengesAndCreateTimer(services, changes, certificatesToUpdate);
 
     }
 
