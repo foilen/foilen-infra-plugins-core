@@ -12,6 +12,8 @@ package com.foilen.infra.resource.bind9;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,8 @@ import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
+import com.foilen.infra.resource.dns.DnsEntry;
+import com.foilen.infra.resource.dns.ManualDnsEntryEditor;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
 import com.foilen.infra.resource.unixuser.UnixUser;
@@ -66,7 +70,25 @@ public class Bind9ServerTest extends AbstractCorePluginTest {
         application.setApplicationDefinition(JsonTools.readFromString(json.replaceAll(currentSerial, newSerial), IPApplicationDefinition.class));
 
         // Assert
-        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "Bind9ServerTest-state.json", getClass(), true);
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "Bind9ServerTest-state-1.json", getClass(), true);
+
+        // Add DNS Entry using the editor
+        Map<String, String> formValues = new HashMap<>();
+        formValues.put(DnsEntry.PROPERTY_NAME, "editor.example.com");
+        formValues.put(DnsEntry.PROPERTY_TYPE, "A");
+        formValues.put(DnsEntry.PROPERTY_DETAILS, "127.0.0.1");
+        assertEditorNoErrors(null, new ManualDnsEntryEditor(), formValues);
+
+        // Change serial
+        application = fakeSystemServicesImpl.getResources().stream() //
+                .filter(it -> it.getClass().equals(Application.class) && "myDns_bind9".equals(it.getResourceName())) //
+                .map(it -> (Application) it) //
+                .findAny().get();
+        json = JsonTools.compactPrint(application.getApplicationDefinition());
+        application.setApplicationDefinition(JsonTools.readFromString(json.replaceAll(currentSerial, newSerial), IPApplicationDefinition.class));
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "Bind9ServerTest-state-2.json", getClass(), true);
     }
 
 }

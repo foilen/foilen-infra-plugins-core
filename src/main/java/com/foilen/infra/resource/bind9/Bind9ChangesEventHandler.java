@@ -64,6 +64,9 @@ public class Bind9ChangesEventHandler extends AbstractBasics implements ChangesE
             currentChangedDnsCounts += changesInTransactionContext.getAllDeletedResources().stream().filter(r -> r instanceof DnsEntry).count();
 
             String previousChangedDnsCounts = changesInTransactionContext.getVars().get(CHANGE_TRACKER);
+            if (previousChangedDnsCounts == null) {
+                previousChangedDnsCounts = "0:0:0";
+            }
             logger.info("previous changedDnsCounts {} ; current changedDnsCounts {}", previousChangedDnsCounts, currentChangedDnsCounts);
 
             if (StringTools.safeEquals(previousChangedDnsCounts, currentChangedDnsCounts)) {

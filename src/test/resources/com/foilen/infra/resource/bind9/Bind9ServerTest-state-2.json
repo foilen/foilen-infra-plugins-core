@@ -1,0 +1,259 @@
+{
+  "resources" : [ {
+    "resource" : "Application | myDns_bind9 | Bind9 Server",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | ns1.example.com | ns1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | ns2.example.com | ns2.example.com"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra-bind | /home/infra-bind"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "etc/bind/pri.example.com",
+            "b" : "$TTL 300
+@ IN SOA ns1.example.com. admin.example.com. (
+  1111111100; serial number
+  3600; refresh [1h]
+  600; retry [10m]
+  86400; expire [1d]
+  300); min TTL
+;
+
+example.com. 300 NS ns1.example.com.
+editor 300 A 127.0.0.1
+h1 300 A 192.168.0.200
+ns1 300 A 192.168.0.200
+ns2 300 A 192.168.0.200
+"
+          }, {
+            "a" : "etc/bind/named.conf.local",
+            "b" : "zone \"example.com\" {
+  type master;
+  allow-transfer {none;};
+  file \"/etc/bind/pri.example.com\";
+};
+"
+          }, {
+            "a" : "/etc/bind/named.conf.options",
+            "b" : "options {
+        directory \"/var/cache/bind\";
+
+        // If there is a firewall between you and nameservers you want
+        // to talk to, you may need to fix the firewall to allow multiple
+        // ports to talk.  See http://www.kb.cert.org/vuls/id/800113
+
+        // If your ISP provided one or more IP addresses for stable
+        // nameservers, you probably want to use them as forwarders.
+        // Uncomment the following block, and insert the addresses replacing
+        // the all-0's placeholder.
+
+        // forwarders {
+        //      0.0.0.0;
+        // };
+
+        //========================================================================
+        // If BIND logs error messages about the root key being expired,
+        // you will need to update your keys.  See https://www.isc.org/bind-keys
+        //========================================================================
+        dnssec-validation auto;
+
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on port 53000 { any; };
+        listen-on-v6 port 53000 { any; };
+};
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "bind",
+          "b" : 72000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-bind9:9.10.3-001",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "53" : 53000
+        },
+        "portsRedirect" : [ ],
+        "runAs" : 72000,
+        "services" : [ {
+          "command" : "/usr/sbin/named -g",
+          "name" : "bind"
+        } ],
+        "udpPortsExposed" : {
+          "53" : 53000
+        },
+        "volumes" : [ ]
+      },
+      "description" : "Bind9 Server",
+      "domainNames" : [ "ns1.example.com", "ns2.example.com" ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "myDns_bind9",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Bind9 Server",
+      "resourceName" : "myDns_bind9"
+    }
+  }, {
+    "resource" : "Bind9Server | myDns | DNS Server",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | myDns_bind9 | Bind9 Server"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra-bind | /home/infra-bind"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "adminEmail" : "admin@example.com",
+      "meta" : { },
+      "name" : "myDns",
+      "nsDomainNames" : [ "ns1.example.com", "ns2.example.com" ],
+      "port" : 53,
+      "resourceCategory" : "NET",
+      "resourceDescription" : "DNS Server",
+      "resourceEditorName" : "Bind9",
+      "resourceName" : "myDns"
+    }
+  }, {
+    "resource" : "DnsEntry | editor.example.com / A | 127.0.0.1",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.0.1",
+      "meta" : { },
+      "name" : "editor.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.0.1",
+      "resourceName" : "editor.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "h1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | ns1.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "ns1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "ns1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | ns2.example.com / A | 192.168.0.200",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "name" : "ns2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "ns2.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | ns1.example.com | ns1.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | ns1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ns1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "ns1.example.com",
+      "resourceName" : "ns1.example.com"
+    }
+  }, {
+    "resource" : "DnsPointer | ns2.example.com | ns2.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | ns2.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ns2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "ns2.example.com",
+      "resourceName" : "ns2.example.com"
+    }
+  }, {
+    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "publicIp" : "192.168.0.200",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h1.example.com (192.168.0.200)",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra-bind | /home/infra-bind",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra-bind",
+      "id" : 72000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra-bind",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra-bind",
+      "resourceName" : "infra-bind",
+      "shell" : "/bin/bash"
+    }
+  } ]
+}
