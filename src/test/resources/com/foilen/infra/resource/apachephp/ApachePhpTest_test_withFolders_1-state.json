@@ -21,6 +21,7 @@
       "emailSenderMsmtp" : true,
       "logMaxSizeM" : 100,
       "mainSiteRelativePath" : "/www/",
+      "maxUploadFilesizeM" : 64,
       "meta" : { },
       "name" : "myphp",
       "resourceCategory" : "NET",
@@ -208,8 +209,10 @@ fi
 max_execution_time = 300
 
 upload_max_filesize = 64M
-post_max_size = 128M
-memory_limit = 256M
+post_max_size = 0
+max_file_uploads = 100
+
+memory_limit = 192M
 "
           }, {
             "a" : "/etc/apache2/sites-enabled/000-default.conf",

@@ -19,6 +19,7 @@
       "emailSenderMsmtp" : true,
       "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
+      "maxUploadFilesizeM" : 100,
       "meta" : { },
       "name" : "my_php",
       "resourceCategory" : "NET",
@@ -97,9 +98,11 @@ fi
             "b" : "[PHP]
 max_execution_time = 300
 
-upload_max_filesize = 64M
-post_max_size = 128M
-memory_limit = 256M
+upload_max_filesize = 100M
+post_max_size = 0
+max_file_uploads = 100
+
+memory_limit = 300M
 "
           }, {
             "a" : "/etc/sendmail-to-msmtp.json",

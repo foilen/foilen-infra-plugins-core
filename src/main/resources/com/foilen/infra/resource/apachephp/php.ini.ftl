@@ -6,7 +6,3 @@ post_max_size = 0
 max_file_uploads = ${max_file_uploads}
 
 memory_limit = ${memory_limit}M
-
-<#if defaultEmailFrom??>
-mail.force_extra_parameters = -f${defaultEmailFrom}
-</#if>

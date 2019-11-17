@@ -52,6 +52,11 @@ public class ApachePhpEditor extends SimpleResourceEditor<ApachePhp> {
             fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfig.addValidator(CommonValidation::validateNotNullOrEmpty);
         });
+        simpleResourceEditorDefinition.addInputText(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, fieldConfig -> {
+            fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfig.addFormator(CommonFormatting::nullIfEmpty);
+            fieldConfig.setConvertFromString(v -> v == null ? 64 : Integer.valueOf(v));
+        });
 
         simpleResourceEditorDefinition.addSelectOptionsField(ApachePhp.PROPERTY_EMAIL_SENDER, Arrays.asList(EmailSender.values()).stream().map(i -> i.name()).collect(Collectors.toList()),
                 fieldConfig -> {

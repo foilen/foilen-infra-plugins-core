@@ -51,6 +51,7 @@ public class ApachePhp extends AbstractIPResource {
     public static final String PROPERTY_EMAIL_SENDER = "emailSender";
     public static final String PROPERTY_DEFAULT_EMAIL_FROM = "defaultEmailFrom";
     public static final String PROPERTY_LOG_MAX_SIZE_M = "logMaxSizeM";
+    public static final String PROPERTY_MAX_UPLOAD_FILESIZE_M = "maxUploadFilesizeM";
 
     // Details
     private String name;
@@ -60,6 +61,7 @@ public class ApachePhp extends AbstractIPResource {
     private EmailSender emailSender = EmailSender.SENDMAIL_TO_MSMTP;
     private String defaultEmailFrom;
     private int logMaxSizeM = 100;
+    private int maxUploadFilesizeM = 64;
 
     // Settings
     private String version = "5.5.9-1";
@@ -95,6 +97,10 @@ public class ApachePhp extends AbstractIPResource {
 
     public String getMainSiteRelativePath() {
         return mainSiteRelativePath;
+    }
+
+    public int getMaxUploadFilesizeM() {
+        return maxUploadFilesizeM;
     }
 
     public String getName() {
@@ -148,6 +154,10 @@ public class ApachePhp extends AbstractIPResource {
 
     public void setMainSiteRelativePath(String mainSiteRelativePath) {
         this.mainSiteRelativePath = mainSiteRelativePath;
+    }
+
+    public void setMaxUploadFilesizeM(int maxUploadFilesizeM) {
+        this.maxUploadFilesizeM = maxUploadFilesizeM;
     }
 
     public void setName(String name) {

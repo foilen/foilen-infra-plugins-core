@@ -15,7 +15,7 @@
         "b" : "#!/bin/bash\n\nset -e\n\nif [ -d /etc/php5 ]; then\n\tcd /etc/php5\n\tfor SUB in $(ls); do\n\t\tif [ -d $SUB/conf.d/ ]; then\n\t\t\tcp /99-fcloud.ini $SUB/conf.d/\n\t\tfi\n\tdone\nfi\n\nif [ -d /etc/php ]; then\n\tcd /etc/php\n\tfor VER in $(ls); do\n\t\tcd /etc/php/$VER\n\t\tfor SUB in $(ls); do\n\t\t\tif [ -d $SUB/conf.d/ ]; then\n\t\t\t\tcp /99-fcloud.ini $SUB/conf.d/\n\t\t\tfi\n\t\tdone\n\tdone\nfi\n"
       }, {
         "a" : "/99-fcloud.ini",
-        "b" : "[PHP]\nmax_execution_time = 300\n\nupload_max_filesize = 64M\npost_max_size = 128M\nmemory_limit = 256M\n"
+        "b" : "[PHP]\nmax_execution_time = 300\n\nupload_max_filesize = 64M\npost_max_size = 0\nmax_file_uploads = 100\n\nmemory_limit = 192M\n"
       }, {
         "a" : "/etc/apache2/sites-enabled/000-default.conf",
         "b" : "<VirtualHost *>\n  DocumentRoot /base/sub/\n  \n  SetEnvIf x-forwarded-proto https HTTPS=on\n  \n  ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/error.log 100M\"\n  CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/access.log 100M\" combined\n  \n  <Directory /base/sub/>\n    AllowOverride All\n    Require all granted\n  </Directory>\n  \n  \n\n</VirtualHost>\n"

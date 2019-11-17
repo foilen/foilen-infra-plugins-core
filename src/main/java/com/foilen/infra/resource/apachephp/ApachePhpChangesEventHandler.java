@@ -160,17 +160,24 @@ public class ApachePhpChangesEventHandler extends AbstractBasics implements Chan
                             assetsBundle.addAssetResource("/etc/apache2/ports.conf", "/com/foilen/infra/resource/apachephp/apache-ports.conf");
                             assetsBundle.addAssetResource("/apache-start.sh", "/com/foilen/infra/resource/apachephp/apache-start.sh");
                             assetsBundle.addAssetResource("/copy-php-conf.sh", "/com/foilen/infra/resource/apachephp/copy-php-conf.sh");
+
+                            int maxUploadFilesizeM = apachePhp.getMaxUploadFilesizeM();
+
+                            Map<String, Object> iniConfigModel = new HashMap<>();
+                            iniConfigModel.put("defaultEmailFrom", apachePhp.getDefaultEmailFrom());
+                            iniConfigModel.put("upload_max_filesize", maxUploadFilesizeM);
+                            iniConfigModel.put("memory_limit", maxUploadFilesizeM * 3);
+                            iniConfigModel.put("max_file_uploads", 100);
+
                             switch (apachePhp.getEmailSender()) {
                             case MSMTP:
-                                assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php-msmtp.ini");
+                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php-msmtp.ini.ftl", iniConfigModel));
                                 break;
                             case SENDMAIL:
-                                Map<String, Object> model = new HashMap<>();
-                                model.put("defaultEmailFrom", apachePhp.getDefaultEmailFrom());
-                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php-sendmail.ini.ftl", model));
+                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php-sendmail.ini.ftl", iniConfigModel));
                                 break;
                             case SENDMAIL_TO_MSMTP:
-                                assetsBundle.addAssetResource("/99-fcloud.ini", "/com/foilen/infra/resource/apachephp/php.ini");
+                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php.ini.ftl", iniConfigModel));
                                 if (!Strings.isNullOrEmpty(apachePhp.getDefaultEmailFrom())) {
                                     Map<String, String> config = Collections.singletonMap("defaultFrom", apachePhp.getDefaultEmailFrom());
                                     assetsBundle.addAssetContent("/etc/sendmail-to-msmtp.json", JsonTools.prettyPrint(config));
