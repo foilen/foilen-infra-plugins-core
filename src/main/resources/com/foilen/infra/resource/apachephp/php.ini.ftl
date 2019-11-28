@@ -1,8 +1,8 @@
 [PHP]
 max_execution_time = 300
 
-upload_max_filesize = ${upload_max_filesize}M
+upload_max_filesize = <#if upload_max_filesize==0>0<#else>${upload_max_filesize?c}M</#if>
 post_max_size = 0
-max_file_uploads = ${max_file_uploads}
+max_file_uploads = ${max_file_uploads?c}
 
-memory_limit = ${memory_limit}M
+memory_limit = <#if memory_limit==0>-1<#else>${memory_limit?c}M</#if>

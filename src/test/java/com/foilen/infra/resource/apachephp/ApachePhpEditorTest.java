@@ -200,6 +200,70 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
     }
 
     @Test
+    public void test_sendmail_to_msmtp_unlimited_max_upload() {
+
+        // Create fake data
+        IPResourceService resourceService = getCommonServicesContext().getResourceService();
+        InternalChangeService internalChangeService = getInternalServicesContext().getInternalChangeService();
+
+        ChangesContext changes = new ChangesContext(resourceService);
+        changes.resourceAdd(new Machine("test1.node.example.com", "192.168.0.11"));
+        changes.resourceAdd(new UnixUser(null, "user1", "/home/user1", null, null));
+        internalChangeService.changesExecute(changes);
+        String machineId = String.valueOf(findMachineByName("test1.node.example.com").getInternalId());
+        String unixUserId = String.valueOf(findUnixUserByName("user1").getInternalId());
+
+        // ApachePhpEditor
+        Map<String, String> apachePhpEditorForm = new HashMap<>();
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_NAME, "my_php");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "0");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL_TO_MSMTP.name());
+        apachePhpEditorForm.put("unixUser", unixUserId);
+        apachePhpEditorForm.put("machines", machineId);
+        assertEditorNoErrors(null, new ApachePhpEditor(), apachePhpEditorForm);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ApachePhpEditorTest-test_sendmail_to_msmtp_unlimited_max_upload-state.json", getClass(), true);
+
+    }
+
+    @Test
+    public void test_sendmail_to_msmtp_big_max_upload() {
+
+        // Create fake data
+        IPResourceService resourceService = getCommonServicesContext().getResourceService();
+        InternalChangeService internalChangeService = getInternalServicesContext().getInternalChangeService();
+
+        ChangesContext changes = new ChangesContext(resourceService);
+        changes.resourceAdd(new Machine("test1.node.example.com", "192.168.0.11"));
+        changes.resourceAdd(new UnixUser(null, "user1", "/home/user1", null, null));
+        internalChangeService.changesExecute(changes);
+        String machineId = String.valueOf(findMachineByName("test1.node.example.com").getInternalId());
+        String unixUserId = String.valueOf(findUnixUserByName("user1").getInternalId());
+
+        // ApachePhpEditor
+        Map<String, String> apachePhpEditorForm = new HashMap<>();
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_NAME, "my_php");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user1/php");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "5000");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_EMAIL_SENDER, EmailSender.SENDMAIL_TO_MSMTP.name());
+        apachePhpEditorForm.put("unixUser", unixUserId);
+        apachePhpEditorForm.put("machines", machineId);
+        assertEditorNoErrors(null, new ApachePhpEditor(), apachePhpEditorForm);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ApachePhpEditorTest-test_sendmail_to_msmtp_big_max_upload-state.json", getClass(), true);
+
+    }
+
+    @Test
     public void test_sendmail_to_msmtp_with_default_email() {
 
         // Create fake data
