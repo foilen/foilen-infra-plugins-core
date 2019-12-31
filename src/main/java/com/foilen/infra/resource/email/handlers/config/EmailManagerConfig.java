@@ -1,20 +1,21 @@
 /*
-    Foilen Infra Plugins Core
-    https://github.com/foilen/foilen-infra-plugins-core
-    Copyright (c) 2018-2019 Foilen (http://foilen.com)
+    Email Server
+    https://github.com/foilen/foilen-email-server
+    Copyright (c) 2019-2019 Foilen (http://foilen.com)
 
     The MIT License
     http://opensource.org/licenses/MIT
 
  */
-package com.foilen.infra.resource.email.handlers;
+package com.foilen.infra.resource.email.handlers.config;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmailManagerConfig {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-    private EmailManagerConfigDatabase database;
+@JsonIgnoreProperties(ignoreUnknown = false)
+public class EmailManagerConfig {
 
     private List<String> domains = new ArrayList<>();
     private List<EmailManagerConfigAccount> accounts = new ArrayList<>();
@@ -22,10 +23,6 @@ public class EmailManagerConfig {
 
     public List<EmailManagerConfigAccount> getAccounts() {
         return accounts;
-    }
-
-    public EmailManagerConfigDatabase getDatabase() {
-        return database;
     }
 
     public List<String> getDomains() {
@@ -38,10 +35,6 @@ public class EmailManagerConfig {
 
     public void setAccounts(List<EmailManagerConfigAccount> accounts) {
         this.accounts = accounts;
-    }
-
-    public void setDatabase(EmailManagerConfigDatabase database) {
-        this.database = database;
     }
 
     public void setDomains(List<String> domains) {

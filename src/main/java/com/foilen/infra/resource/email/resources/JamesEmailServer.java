@@ -50,7 +50,7 @@ public class JamesEmailServer extends EmailServer {
     public static final String PROPERTY_ENABLE_DEBUG_LOGS = "enableDebuglogs";
     public static final String PROPERTY_ENABLE_DEBUG_DUMP_MESSAGES_DETAILS = "enableDebugDumpMessagesDetails";
 
-    private String version = "3.2.0-2";
+    private String version = "1.0.0";
 
     private boolean disableBounceNotifyPostmaster;
     private boolean disableBounceNotifySender;

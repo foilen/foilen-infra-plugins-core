@@ -3,7 +3,7 @@
 		{
 			"resourceType": "Apache James Email Server",
 			"resourceName": "james_server",
-			"resourceJson": "{\"disableBounceNotifyPostmaster\":false,\"disableBounceNotifySender\":false,\"disableRelayDeniedNotifyPostmaster\":false,\"enableDebugDumpMessagesDetails\":false,\"enableDebuglogs\":false,\"meta\":{},\"name\":\"james_server\",\"postmasterEmail\":\"a1@example.com\",\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Apache James email server\",\"resourceEditorName\":\"James Email Server\",\"resourceName\":\"james_server\",\"version\":\"3.2.0-2\"}"
+			"resourceJson": "{\"disableBounceNotifyPostmaster\":false,\"disableBounceNotifySender\":false,\"disableRelayDeniedNotifyPostmaster\":false,\"enableDebugDumpMessagesDetails\":false,\"enableDebuglogs\":false,\"meta\":{},\"name\":\"james_server\",\"postmasterEmail\":\"a1@example.com\",\"resourceCategory\":\"EMAIL\",\"resourceDescription\":\"Apache James email server\",\"resourceEditorName\":\"James Email Server\",\"resourceName\":\"james_server\",\"version\":\"1.0.0\"}"
 		},
 		{
 			"resourceType": "Attachable MariaDB",

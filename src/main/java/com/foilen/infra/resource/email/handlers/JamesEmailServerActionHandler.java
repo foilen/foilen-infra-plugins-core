@@ -9,17 +9,10 @@
  */
 package com.foilen.infra.resource.email.handlers;
 
-import java.io.ByteArrayOutputStream;
-import java.security.Key;
-import java.security.KeyStore;
-import java.security.cert.Certificate;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,7 +20,6 @@ import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
-import com.foilen.infra.plugin.v1.core.exception.ProblemException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonResourceLink;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
@@ -39,6 +31,12 @@ import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.composableapplication.AttachablePart;
 import com.foilen.infra.resource.composableapplication.AttachablePartContext;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
+import com.foilen.infra.resource.email.handlers.config.EmailConfig;
+import com.foilen.infra.resource.email.handlers.config.EmailConfigDatabase;
+import com.foilen.infra.resource.email.handlers.config.EmailConfigDomainAndRelay;
+import com.foilen.infra.resource.email.handlers.config.EmailManagerConfig;
+import com.foilen.infra.resource.email.handlers.config.EmailManagerConfigAccount;
+import com.foilen.infra.resource.email.handlers.config.EmailManagerConfigRedirection;
 import com.foilen.infra.resource.email.resources.EmailAccount;
 import com.foilen.infra.resource.email.resources.EmailDomain;
 import com.foilen.infra.resource.email.resources.EmailRedirection;
@@ -50,13 +48,8 @@ import com.foilen.infra.resource.mariadb.MariaDBUser;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.utils.ActionsHandlerUtils;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
-import com.foilen.infra.resource.webcertificate.helper.CertificateHelper;
-import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
-import com.foilen.smalltools.crypt.spongycastle.cert.RSATools;
 import com.foilen.smalltools.tools.AbstractBasics;
-import com.foilen.smalltools.tools.FreemarkerTools;
 import com.foilen.smalltools.tools.JsonTools;
-import com.foilen.smalltools.tools.StringTools;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Strings;
 
@@ -66,49 +59,6 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
 
     public JamesEmailServerActionHandler(String serverName) {
         this.serverName = serverName;
-    }
-
-    protected byte[] createKeystore(ChangesContext changes, JamesEmailServer jamesEmailServer, String certType, List<WebsiteCertificate> certs) {
-
-        WebsiteCertificate cert = certs.get(0);
-
-        if (StringTools.safeEquals(jamesEmailServer.getMeta().get("certThumbprint-" + certType), cert.getThumbprint())) {
-            // Return same
-            logger.debug("Keystore for cert {} is already generated", certType);
-            String certBase64 = jamesEmailServer.getMeta().get("certKeystore-" + certType);
-            if (Strings.isNullOrEmpty(certBase64)) {
-                logger.warn("Keystore for cert {} was already generated, but it is not present. Will regenerate", certType);
-            } else {
-                return Base64.getDecoder().decode(certBase64);
-            }
-        }
-
-        logger.debug("Keystore for cert {} is not generated. Will generate", certType);
-        jamesEmailServer.getMeta().put("certThumbprint-" + certType, cert.getThumbprint());
-
-        try {
-            RSACertificate rsaCert = CertificateHelper.toRSACertificate(cert);
-
-            char[] password = new char[] { 'j', 'a', 'm', 'e', 's' };
-            KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            keyStore.load(null, password);
-
-            String alias = "james";
-            Certificate certificate = rsaCert.getCertificate();
-            keyStore.setCertificateEntry(alias, certificate);
-            Key key = RSATools.createPrivateKey(rsaCert.getKeysForSigning());
-            keyStore.setKeyEntry(alias, key, password, new Certificate[] { certificate });
-
-            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-            keyStore.store(outStream, password);
-            byte[] byteArray = outStream.toByteArray();
-            jamesEmailServer.getMeta().put("certKeystore-" + certType, Base64.getEncoder().encodeToString(byteArray));
-            changes.resourceUpdate(jamesEmailServer);
-            return byteArray;
-        } catch (Exception e) {
-            throw new ProblemException("Could not create the keystore", e);
-        }
-
     }
 
     @Override
@@ -208,10 +158,14 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
             proceed = false;
         }
 
+        if (!jamesEmailServer.getMeta().isEmpty()) {
+            jamesEmailServer.getMeta().clear();
+            changes.resourceUpdate(jamesEmailServer);
+        }
+
         if (proceed) {
 
             UnixUser unixUser = unixUsers.get(0);
-            Long unixUserId = unixUser.getId();
             MariaDBDatabase mariadbDatabase = mariadbDatabases.get(0);
             MariaDBUser mariadbUser = mariadbUsers.get(0);
 
@@ -222,62 +176,41 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
 
             IPApplicationDefinition applicationDefinition = new IPApplicationDefinition();
             application.setApplicationDefinition(applicationDefinition);
-            applicationDefinition.setRunAs(unixUserId);
+            applicationDefinition.setFrom("foilen/foilen-email-server:" + jamesEmailServer.getVersion());
 
-            applicationDefinition.setFrom("foilen/fcloud-docker-email:" + jamesEmailServer.getVersion());
-
-            // Start script
-            IPApplicationDefinitionAssetsBundle assetsBundle = applicationDefinition.addAssetsBundle();
-            assetsBundle.addAssetResource("/james-start.sh", "/com/foilen/infra/resource/email/james/james-start.sh");
+            // Command
+            String command = "/app/bin/foilen-email-server --jamesConfigFile /jamesConfig.json --managerConfigFile /emailManagerConfig.json --workDir /workDir";
+            if (jamesEmailServer.isEnableDebuglogs()) {
+                command += " --debug";
+            }
+            applicationDefinition.setCommand(command);
 
             // Config files
-            Map<String, Object> model = new HashMap<>();
-            model.put("postmasterEmail", jamesEmailServer.getPostmasterEmail());
-            model.put("disableBounceNotifyPostmaster", jamesEmailServer.isDisableBounceNotifyPostmaster());
-            model.put("disableBounceNotifySender", jamesEmailServer.isDisableBounceNotifySender());
-            model.put("disableRelayDeniedNotifyPostmaster", jamesEmailServer.isDisableRelayDeniedNotifyPostmaster());
-            model.put("enableDebugDumpMessagesDetails", jamesEmailServer.isEnableDebugDumpMessagesDetails());
-            model.put("dbName", mariadbDatabase.getName());
-            model.put("dbUser", mariadbUser.getName());
-            model.put("dbPass", mariadbUser.getPassword());
-            assetsBundle.addAssetResource("/james-server-app/conf/domainlist.xml", "/com/foilen/infra/resource/email/james/domainlist.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/dnsservice.xml", "/com/foilen/infra/resource/email/james/dnsservice.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/events.xml", "/com/foilen/infra/resource/email/james/events.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/imapserver.xml", "/com/foilen/infra/resource/email/james/imapserver.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/indexer.xml", "/com/foilen/infra/resource/email/james/indexer.xml");
-            assetsBundle.addAssetContent("/james-server-app/conf/james-database.properties",
-                    FreemarkerTools.processTemplate("/com/foilen/infra/resource/email/james/james-database.properties.ftl", model));
-            assetsBundle.addAssetResource("/james-server-app/conf/jmx.properties", "/com/foilen/infra/resource/email/james/jmx.properties");
-            assetsBundle.addAssetResource("/james-server-app/conf/lmtpserver.xml", "/com/foilen/infra/resource/email/james/lmtpserver.xml");
-            if (jamesEmailServer.isEnableDebuglogs()) {
-                assetsBundle.addAssetResource("/james-server-app/conf/log4j.properties", "/com/foilen/infra/resource/email/james/log4j-debug.properties");
-            } else {
-                assetsBundle.addAssetResource("/james-server-app/conf/log4j.properties", "/com/foilen/infra/resource/email/james/log4j.properties");
-            }
-            assetsBundle.addAssetResource("/james-server-app/conf/mailbox.xml", "/com/foilen/infra/resource/email/james/mailbox.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/mailrepositorystore.xml", "/com/foilen/infra/resource/email/james/mailrepositorystore.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/managesieveserver.xml", "/com/foilen/infra/resource/email/james/managesieveserver.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/pop3server.xml", "/com/foilen/infra/resource/email/james/pop3server.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/quota.xml", "/com/foilen/infra/resource/email/james/quota.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/recipientrewritetable.xml", "/com/foilen/infra/resource/email/james/recipientrewritetable.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/sieverepository.xml", "/com/foilen/infra/resource/email/james/sieverepository.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/smtpserver.xml", "/com/foilen/infra/resource/email/james/smtpserver.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/usersrepository.xml", "/com/foilen/infra/resource/email/james/usersrepository.xml");
-            assetsBundle.addAssetResource("/james-server-app/conf/wrapper.conf", "/com/foilen/infra/resource/email/james/wrapper.conf");
+            EmailConfig emailConfig = new EmailConfig();
+            emailConfig.setDatabase(new EmailConfigDatabase() //
+                    .setHostname("127.0.0.1") //
+                    .setDatabase(mariadbDatabase.getName()) //
+                    .setUsername(mariadbUser.getName()) //
+                    .setPassword(mariadbUser.getPassword()) //
+            );
+            emailConfig.setPostmasterEmail(jamesEmailServer.getPostmasterEmail());
+            emailConfig.setEnableDebugDumpMessagesDetails(jamesEmailServer.isEnableDebugDumpMessagesDetails());
+            emailConfig.setDisableRelayDeniedNotifyPostmaster(jamesEmailServer.isDisableRelayDeniedNotifyPostmaster());
+            emailConfig.setDisableBounceNotifyPostmaster(jamesEmailServer.isDisableBounceNotifyPostmaster());
+            emailConfig.setDisableBounceNotifySender(jamesEmailServer.isDisableBounceNotifySender());
 
-            // Keystores
-            assetsBundle.addAssetContent("/james-server-app/conf/keystore-imaps", createKeystore(changes, jamesEmailServer, "imaps", certsImap));
-            assetsBundle.addAssetContent("/james-server-app/conf/keystore-pop3s", createKeystore(changes, jamesEmailServer, "pop3s", certsPop3));
-            assetsBundle.addAssetContent("/james-server-app/conf/keystore-smtps", createKeystore(changes, jamesEmailServer, "smtp", certsSmtp));
+            // Certificates
+            emailConfig.setImapCertPemFile("/cert-imap.pem");
+            emailConfig.setPop3CertPemFile("/cert-pop3.pem");
+            emailConfig.setSmtpCertPemFile("/cert-smtp.pem");
+
+            IPApplicationDefinitionAssetsBundle assetsBundle = applicationDefinition.addAssetsBundle();
+            assetsBundle.addAssetContent("/cert-imap.pem", toPem(certsImap.get(0)));
+            assetsBundle.addAssetContent("/cert-pop3.pem", toPem(certsPop3.get(0)));
+            assetsBundle.addAssetContent("/cert-smtp.pem", toPem(certsSmtp.get(0)));
 
             // Config for Manager Daemon Service
             EmailManagerConfig emailManagerConfig = new EmailManagerConfig();
-            EmailManagerConfigDatabase emailManagerConfigDatabase = new EmailManagerConfigDatabase();
-            emailManagerConfigDatabase.setHostname("127.0.0.1");
-            emailManagerConfigDatabase.setDatabase(mariadbDatabase.getName());
-            emailManagerConfigDatabase.setUsername(mariadbUser.getName());
-            emailManagerConfigDatabase.setPassword(mariadbUser.getPassword());
-            emailManagerConfig.setDatabase(emailManagerConfigDatabase);
             List<EmailDomain> emailDomains = resourceService.linkFindAllByFromResourceClassAndLinkTypeAndToResource(EmailDomain.class, LinkTypeConstants.INSTALLED_ON, jamesEmailServer);
             List<Tuple2<String, EmailRelay>> domainAndRelais = new ArrayList<>();
             emailDomains.forEach(emailDomain -> {
@@ -315,13 +248,23 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
                     return o1.getA().compareTo(o2.getA());
                 }
             });
-            model.put("domainAndRelais", domainAndRelais);
-            assetsBundle.addAssetContent("/james-server-app/conf/mailetcontainer.xml", FreemarkerTools.processTemplate("/com/foilen/infra/resource/email/james/mailetcontainer.xml.ftl", model));
+
+            emailConfig.setDomainAndRelais(domainAndRelais.stream() //
+                    .map(it -> new EmailConfigDomainAndRelay() //
+                            .setDomain(it.getA()) //
+                            .setHostname(it.getB().getHostname()) //
+                            .setPort(it.getB().getPort()) //
+                            .setUsername(it.getB().getUsername()) //
+                            .setPassword(it.getB().getPassword()) //
+                    ) //
+                    .collect(Collectors.toList()));
 
             Collections.sort(emailManagerConfig.getDomains());
             Collections.sort(emailManagerConfig.getAccounts());
             Collections.sort(emailManagerConfig.getRedirections());
-            applicationDefinition.addCopyWhenStartedContent("/emailManagerConfig.json", JsonTools.prettyPrint(emailManagerConfig));
+
+            assetsBundle.addAssetContent("/jamesConfig.json", JsonTools.prettyPrintWithoutNulls(emailConfig));
+            applicationDefinition.addCopyWhenStartedContent("/emailManagerConfig.json", JsonTools.prettyPrintWithoutNulls(emailManagerConfig));
 
             // Attach parts in a deterministic order
             logger.debug("attachedParts ; amount {}", attachedParts.size());
@@ -332,19 +275,12 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
                         attachedPart.attachTo(new AttachablePartContext().setServices(services).setApplication(application).setApplicationDefinition(applicationDefinition));
                     });
 
-            // Logs
+            // Workdir
             applicationDefinition.addVolume(new IPApplicationDefinitionVolume( //
-                    unixUser.getHomeFolder() + "/_" + jamesEmailServer.getName() + "/log", //
-                    "/james-server-app/log"));
+                    unixUser.getHomeFolder() + "/_" + jamesEmailServer.getName(), //
+                    "/workDir"));
 
-            // User
-            applicationDefinition.addContainerUserToChangeId("james", unixUserId);
-            applicationDefinition.addBuildStepCommand("chmod 755 /james-start.sh && chown james:james -R /james-server-app/");
-
-            // Service
-            applicationDefinition.addService("james", "/james-start.sh");
-            applicationDefinition.addService("james-manager", "/opt/james-manager/bin/james-manager --configFile /emailManagerConfig.json");
-
+            // Ports
             applicationDefinition.addPortEndpoint(10025, DockerContainerEndpoints.SMTP_TCP);
             applicationDefinition.addPortExposed(25, 10025); // SMTP with startTLS
             applicationDefinition.addPortExposed(465, 10465); // SMTP with TLS
@@ -363,6 +299,19 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
 
         CommonResourceLink.syncToLinks(services, changes, jamesEmailServer, LinkTypeConstants.MANAGES, Application.class, desiredManagedApplications);
 
+    }
+
+    private String toPem(WebsiteCertificate websiteCertificate) {
+        StringBuilder pem = new StringBuilder();
+
+        if (!Strings.isNullOrEmpty(websiteCertificate.getCertificate())) {
+            pem.append(websiteCertificate.getCertificate()).append("\n");
+        }
+        if (!Strings.isNullOrEmpty(websiteCertificate.getPrivateKey())) {
+            pem.append(websiteCertificate.getPrivateKey()).append("\n");
+        }
+
+        return pem.toString();
     }
 
 }

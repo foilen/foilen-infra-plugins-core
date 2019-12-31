@@ -28,7 +28,6 @@ import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.dns.DnsEntry;
 import com.foilen.infra.resource.dns.DnsPointer;
-import com.foilen.infra.resource.email.resources.JamesEmailServer;
 import com.foilen.infra.resource.global.FoilenGlobalPluginDefinitionProvider;
 import com.foilen.infra.resource.global.PluginUpgraderUtils;
 import com.foilen.infra.resource.global.UpgraderItem;
@@ -76,15 +75,6 @@ public class AllResourcesTest extends AbstractCorePluginTest {
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
         process(UpgraderItem.class, it -> {
             changes.resourceDelete(it);
-        });
-        process(JamesEmailServer.class, it -> {
-            it.getMeta().forEach((key, value) -> {
-                if (key.startsWith("certKeystore")) {
-                    it.getMeta().put(key, "YQo=");
-                }
-            });
-
-            changes.resourceUpdate(it);
         });
         process(LetsencryptConfig.class, it -> {
             if (!Strings.isNullOrEmpty(it.getAccountKeypairPem())) {

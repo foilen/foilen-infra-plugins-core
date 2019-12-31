@@ -1,17 +1,17 @@
 /*
-    Foilen Infra Plugins Core
-    https://github.com/foilen/foilen-infra-plugins-core
-    Copyright (c) 2018-2019 Foilen (http://foilen.com)
+    Email Server
+    https://github.com/foilen/foilen-email-server
+    Copyright (c) 2019-2019 Foilen (http://foilen.com)
 
     The MIT License
     http://opensource.org/licenses/MIT
 
  */
-package com.foilen.infra.resource.email.handlers;
+package com.foilen.infra.resource.email.handlers.config;
 
 import com.foilen.smalltools.tools.AbstractBasics;
 
-public class EmailManagerConfigDatabase extends AbstractBasics {
+public class EmailConfigDatabase extends AbstractBasics {
 
     private String hostname;
     private int port = 3306;
@@ -39,24 +39,29 @@ public class EmailManagerConfigDatabase extends AbstractBasics {
         return username;
     }
 
-    public void setDatabase(String database) {
+    public EmailConfigDatabase setDatabase(String database) {
         this.database = database;
+        return this;
     }
 
-    public void setHostname(String hostname) {
+    public EmailConfigDatabase setHostname(String hostname) {
         this.hostname = hostname;
+        return this;
     }
 
-    public void setPassword(String password) {
+    public EmailConfigDatabase setPassword(String password) {
         this.password = password;
+        return this;
     }
 
-    public void setPort(int port) {
+    public EmailConfigDatabase setPort(int port) {
         this.port = port;
+        return this;
     }
 
-    public void setUsername(String username) {
+    public EmailConfigDatabase setUsername(String username) {
         this.username = username;
+        return this;
     }
 
 }

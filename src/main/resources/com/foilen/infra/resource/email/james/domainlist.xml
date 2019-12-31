@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<domainlist class="org.apache.james.domainlist.jpa.JPADomainList">
-  <autodetect>false</autodetect>
-  <autodetectIP>false</autodetectIP>
-</domainlist>

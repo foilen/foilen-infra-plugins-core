@@ -126,877 +126,262 @@ max_allowed_packet	= 500M
         "_nextAssetId" : 2,
         "assetsBundles" : [ {
           "assetsFolderPath" : "_assets_1/",
-          "assetsRelativePathAndBinaryContent" : [ {
-            "a" : "/james-server-app/conf/keystore-imaps",
-            "b" : ""
-          }, {
-            "a" : "/james-server-app/conf/keystore-pop3s",
-            "b" : ""
-          }, {
-            "a" : "/james-server-app/conf/keystore-smtps",
-            "b" : ""
-          } ],
+          "assetsRelativePathAndBinaryContent" : [ ],
           "assetsRelativePathAndTextContent" : [ {
-            "a" : "/james-start.sh",
-            "b" : "#!/bin/bash
+            "a" : "/cert-imap.pem",
+            "b" : "-----BEGIN CERTIFICATE-----
+MIIE0DCCArigAwIBAgIBATANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDDBBtYWls
+LmV4YW1wbGUuY29tMB4XDTE4MDUwNTAxMjEwM1oXDTE4MDYwNTAxMjEwM1owGzEZ
+MBcGA1UEAwwQbWFpbC5leGFtcGxlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIP
+ADCCAgoCggIBALgnxKw5XN3xJyJE4RDezwLPwDwUTpbWnRvhVb0VxW1qj20LPH3P
+vx5OErLrEKCYlV+ULx8oUKbDh8XG/C1aRhhKvVR5VLVUNUIXdFBql6YA7aurLgDt
+Jg+XiKH2uN6JzgKbQl0i+nMcKlaNccPbE9VzlurMFRlHLvLXFHNdQFMC6JGHgjZ6
+WSjcsAOFFwBPf+JYZTzycPnYqZgwp36OrPZNcPQK446AbPF1FAxPd4pqsCeO9Gt8
+QkKJZj3pQ6YvGBx+2/FJGLqgKj3+uySQ0hUJeOJENtWLjWmafHlIOuQqFeOOLgos
+9igCiYucDSe3LDWOAQzOa0kwtvYR32osGqtuy+nEPozBdg08ydxlRroIfO5TOliM
+WtlhJJhl/03ivSZFFB6kk/Lw15ILCgJbVzvdEaV0Dh8BKzYB5ykvniZHnToeaKDb
+tZ/yX4XWpjKkB4ECdscVp5qAwDVJX18OqWvXBfsryL76FB3Y5M0QcL+k/DEG8Xw1
+wXEFOFuItf3JKKnjQExeLhGoa6ucMaUgR2oTwsm2LV8McNnSwCW7yfmBhuNgnsbE
+yirypV7NFfwfruMC8/flIfn+93LjDd/0lVvHFcEEZVKetY7zX9Y5yHwWepu/pXRc
+N3+GZdXT6Zzt5kDsA4u6QJOzSKB76xsAbnB3D2aFxFLsRzAopq9u7i0jAgMBAAGj
+HzAdMBsGA1UdEQQUMBKCEG1haWwuZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQAD
+ggIBAJvPVXUQPGe+J8TtfsCJwsBi4d6kN2AhMXZgEBLSV4jhf7/PcBit3hISIfrM
+xtnIXrSqLpjO7kVbNKGXYmWu/DMEeL5nnvSxC27uM703gtKBeY5lpv722T+QcrrE
+73dQpvQaoWKaU/aLRA0zSeUcyRBG5FK2N+oW/JPT20VtJR8WxYiWh7Jf3zP9h0uV
+qia5yJiXy+xC6vO6e0DkaAhOXyZBSgRlHJywqLAo0eJFKKDIZuBep5Qwb+0lP5qh
+Tmam+ToDSFDih8oncMVFirnuE599C/HXZGWVVjqoVlUOOLDkCKg27e9BjRsVPO3U
+yFdaW221q26FF9dXW35ls7+wJV+rZR5TKili60hAfwXjTrSPxqchG1EIq2i47Nh7
+dVh89Q3QBMKqbg9C74Tb2IzfeR+HFfNNu9LA1NjYUGblsn1JuTe0uZFi/v9386tS
+w9MHygBxxkcOyOeRXPDk6yxEOM3C1mxqkRjQWmcbG1ZbiG7Nh7Nz2tRbpKC/NV6c
+itVv2MZwP4Dz6MKfSRY5n+AWylG8d6pOCEJnSYrMMs0+SGGbsNlBiX9r9rf9Ek8M
+6kk79RA1tNRN5/Q/pCI7cKHcI9ELaW0nUArWgN4kolvtAq3coIR2ULCbcbjYW6eA
+OOvnCa5T6BOV7uQBCy5WkkQcRid8it7sDMYE5JWmfFaNDvDW
+-----END CERTIFICATE-----
 
-set -e
-
-cp /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar /james-server-app/lib/
-
-cd /james-server-app
-./bin/james start
-
-
-PIDFILE=\"var/james.pid\"
-
-until [ -f $PIDFILE ]
-do
-	echo Waiting for $PIDFILE
-	sleep 1
-done
-
-APP_PID=$(cat $PIDFILE)
-while [ -e /proc/$APP_PID ]; do sleep 5; done
-
-echo Service is down
-"
-          }, {
-            "a" : "/james-server-app/conf/domainlist.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<domainlist class=\"org.apache.james.domainlist.jpa.JPADomainList\">
-  <autodetect>false</autodetect>
-  <autodetectIP>false</autodetectIP>
-</domainlist>
-"
-          }, {
-            "a" : "/james-server-app/conf/dnsservice.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<dnsservice>
-  <servers>
-  </servers>
-
-  <autodiscover>true</autodiscover>
-  <authoritative>false</authoritative>
-
-  <maxcachesize>50000</maxcachesize>
-
-</dnsservice>
-"
-          }, {
-            "a" : "/james-server-app/conf/events.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<events>
-  <type>default</type>
-  <delivery>synchronous</delivery>
-</events>"
-          }, {
-            "a" : "/james-server-app/conf/imapserver.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<imapservers>
-
-  <imapserver enabled=\"true\">
-
-    <jmxName>imapserver</jmxName>
-
-    <bind>0.0.0.0:10143</bind>
-
-    <connectionBacklog>2000</connectionBacklog>
-    
-    <tls socketTLS=\"false\" startTLS=\"true\">
-      <keystore>file://conf/keystore-imaps</keystore>
-      <secret>james</secret>
-      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
-    </tls>
-
-    <connectionLimit>0</connectionLimit>
-    <connectionLimitPerIP>200</connectionLimitPerIP>
-
-  </imapserver>
-  
-  <imapserver enabled=\"true\">
-
-    <jmxName>imapsserver-tls</jmxName>
-
-    <bind>0.0.0.0:10993</bind>
-
-    <connectionBacklog>2000</connectionBacklog>
-
-    <tls socketTLS=\"true\" startTLS=\"false\">
-      <keystore>file://conf/keystore-imaps</keystore>
-      <secret>james</secret>
-      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
-    </tls>
-
-    <connectionLimit>0</connectionLimit>
-    <connectionLimitPerIP>200</connectionLimitPerIP>
-
-  </imapserver>
-
-</imapservers>
-"
-          }, {
-            "a" : "/james-server-app/conf/indexer.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<indexer>
-  <provider>luceneIndex</provider>
-</indexer>
-"
-          }, {
-            "a" : "/james-server-app/conf/james-database.properties",
-            "b" : "database.driverClassName=org.mariadb.jdbc.Driver\r
-database.url=jdbc:mariadb://127.0.0.1:3306/db_database_email\r
-database.username=db_user_email\r
-database.password=the_password\r
-\r
-vendorAdapter.database=MYSQL\r
-\r
-openjpa.streaming=false\r
-\r
-datasource.testOnBorrow=true\r
-datasource.validationQueryTimeoutSec=2\r
-datasource.validationQuery=select 1\r
-"
-          }, {
-            "a" : "/james-server-app/conf/jmx.properties",
-            "b" : "jmx.address=127.0.0.1
-jmx.port=9999
-"
-          }, {
-            "a" : "/james-server-app/conf/lmtpserver.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<lmtpservers>
- 
-</lmtpservers>
-"
-          }, {
-            "a" : "/james-server-app/conf/log4j.properties",
-            "b" : "log4j.rootLogger=DEBUG
-
-log4j.appender.CONS=org.apache.log4j.ConsoleAppender
-log4j.appender.CONS.layout=org.apache.log4j.PatternLayout
-log4j.appender.CONS.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.FILE=org.apache.log4j.RollingFileAppender
-log4j.appender.FILE.File=../log/james-server.log
-log4j.appender.FILE.MaxFileSize=100MB
-log4j.appender.FILE.MaxBackupIndex=1
-log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
-log4j.appender.FILE.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.FOILEN=org.apache.log4j.RollingFileAppender
-log4j.appender.FOILEN.File=../log/foilen.log
-log4j.appender.FOILEN.MaxFileSize=100MB
-log4j.appender.FOILEN.MaxBackupIndex=1
-log4j.appender.FOILEN.layout=org.apache.log4j.PatternLayout
-log4j.appender.FOILEN.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.MAILBOXMANAGER=org.apache.log4j.RollingFileAppender
-log4j.appender.MAILBOXMANAGER.File=../log/mailboxmanager.log
-log4j.appender.MAILBOXMANAGER.MaxFileSize=100MB
-log4j.appender.MAILBOXMANAGER.MaxBackupIndex=1
-log4j.appender.MAILBOXMANAGER.layout=org.apache.log4j.PatternLayout
-log4j.appender.MAILBOXMANAGER.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.IMAPSERVER=org.apache.log4j.RollingFileAppender
-log4j.appender.IMAPSERVER.File=../log/imapserver.log
-log4j.appender.IMAPSERVER.MaxFileSize=100MB
-log4j.appender.IMAPSERVER.MaxBackupIndex=1
-log4j.appender.IMAPSERVER.layout=org.apache.log4j.PatternLayout
-log4j.appender.IMAPSERVER.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.MAILETCONTAINER=org.apache.log4j.RollingFileAppender
-log4j.appender.MAILETCONTAINER.File=../log/mailetcontainer.log
-log4j.appender.MAILETCONTAINER.MaxFileSize=100MB
-log4j.appender.MAILETCONTAINER.MaxBackupIndex=1
-log4j.appender.MAILETCONTAINER.layout=org.apache.log4j.PatternLayout
-log4j.appender.MAILETCONTAINER.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.DNSSERVICE=org.apache.log4j.RollingFileAppender
-log4j.appender.DNSSERVICE.File=../log/dnsservice.log
-log4j.appender.DNSSERVICE.MaxFileSize=100MB
-log4j.appender.DNSSERVICE.MaxBackupIndex=1
-log4j.appender.DNSSERVICE.layout=org.apache.log4j.PatternLayout
-log4j.appender.DNSSERVICE.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.POP3SERVER=org.apache.log4j.RollingFileAppender
-log4j.appender.POP3SERVER.File=../log/pop3server.log
-log4j.appender.POP3SERVER.MaxFileSize=100MB
-log4j.appender.POP3SERVER.MaxBackupIndex=1
-log4j.appender.POP3SERVER.layout=org.apache.log4j.PatternLayout
-log4j.appender.POP3SERVER.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.SMTPSERVER=org.apache.log4j.RollingFileAppender
-log4j.appender.SMTPSERVER.File=../log/smtpserver.log
-log4j.appender.SMTPSERVER.MaxFileSize=100MB
-log4j.appender.SMTPSERVER.MaxBackupIndex=1
-log4j.appender.SMTPSERVER.layout=org.apache.log4j.PatternLayout
-log4j.appender.SMTPSERVER.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.LMTPSERVER=org.apache.log4j.RollingFileAppender
-log4j.appender.LMTPSERVER.File=../log/lmtpserver.log
-log4j.appender.LMTPSERVER.MaxFileSize=100MB
-log4j.appender.LMTPSERVER.MaxBackupIndex=1
-log4j.appender.LMTPSERVER.layout=org.apache.log4j.PatternLayout
-log4j.appender.LMTPSERVER.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.MAILREPOSITORYSTORE=org.apache.log4j.RollingFileAppender
-log4j.appender.MAILREPOSITORYSTORE.File=../log/mailrepositorystore.log
-log4j.appender.MAILREPOSITORYSTORE.MaxFileSize=100MB
-log4j.appender.MAILREPOSITORYSTORE.MaxBackupIndex=1
-log4j.appender.MAILREPOSITORYSTORE.layout=org.apache.log4j.PatternLayout
-log4j.appender.MAILREPOSITORYSTORE.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.USERSREPOSITORY=org.apache.log4j.RollingFileAppender
-log4j.appender.USERSREPOSITORY.File=../log/usersrepository.log
-log4j.appender.USERSREPOSITORY.MaxFileSize=100MB
-log4j.appender.USERSREPOSITORY.MaxBackupIndex=1
-log4j.appender.USERSREPOSITORY.layout=org.apache.log4j.PatternLayout
-log4j.appender.USERSREPOSITORY.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.FETCHMAIL=org.apache.log4j.RollingFileAppender
-log4j.appender.FETCHMAIL.File=../log/fetchmail.log
-log4j.appender.FETCHMAIL.MaxFileSize=100MB
-log4j.appender.FETCHMAIL.MaxBackupIndex=1
-log4j.appender.FETCHMAIL.layout=org.apache.log4j.PatternLayout
-log4j.appender.FETCHMAIL.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.DOMAINLIST=org.apache.log4j.RollingFileAppender
-log4j.appender.DOMAINLIST.File=../log/domainlist.log
-log4j.appender.DOMAINLIST.MaxFileSize=100MB
-log4j.appender.DOMAINLIST.MaxBackupIndex=1
-log4j.appender.DOMAINLIST.layout=org.apache.log4j.PatternLayout
-log4j.appender.DOMAINLIST.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.VIRTUALUSERTABLE=org.apache.log4j.RollingFileAppender
-log4j.appender.VIRTUALUSERTABLE.File=../log/virtualusertable.log
-log4j.appender.VIRTUALUSERTABLE.MaxFileSize=100MB
-log4j.appender.VIRTUALUSERTABLE.MaxBackupIndex=1
-log4j.appender.VIRTUALUSERTABLE.layout=org.apache.log4j.PatternLayout
-log4j.appender.VIRTUALUSERTABLE.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.appender.MAILQUEUEFACTORY=org.apache.log4j.RollingFileAppender
-log4j.appender.MAILQUEUEFACTORY.File=../log/mailqueuefactory.log
-log4j.appender.MAILQUEUEFACTORY.MaxFileSize=100MB
-log4j.appender.MAILQUEUEFACTORY.MaxBackupIndex=1
-log4j.appender.MAILQUEUEFACTORY.layout=org.apache.log4j.PatternLayout
-log4j.appender.MAILQUEUEFACTORY.layout.ConversionPattern=%-5p %d{HH:mm:ss,SSS} | %c | %m%n
-
-log4j.logger.org.apache.jackrabbit=ERROR, CONS, FILE
-
-log4j.logger.org.apache.xbean.spring=WARN, CONS, FILE
-log4j.logger.org.apache.activemq=WARN, CONS, FILE
-
-log4j.logger.org.apache.camel=WARN, CONS, FILE
-log4j.logger.org.springframework=WARN, CONS, FILE
-log4j.logger.org.apache.james=DEBUG, CONS, FILE
-log4j.logger.com.foilen=DEBUG, CONS, FILE, FOILEN
-
-log4j.logger=DEBUG, CONS, FILE
-
-log4j.logger.org.apache.james.mailboxmanager=DEBUG, MAILBOXMANAGER
-log4j.logger.org.apache.james.imapserver=DEBUG, IMAPSERVER
-log4j.logger.org.apache.james.mailetcontainer=DEBUG, MAILETCONTAINER
-log4j.logger.org.apache.james.mailetcontext=DEBUG, MAILETCONTAINER
-log4j.logger.org.apache.james.mailspooler=DEBUG, MAILETCONTAINER
-log4j.logger.org.apache.james.mailprocessor=DEBUG, MAILETCONTAINER
-log4j.logger.org.apache.james.dnsservice=DEBUG, DNSSERVICE
-log4j.logger.org.apache.james.pop3server=DEBUG, POP3SERVER
-log4j.logger.org.apache.james.smtpserver=DEBUG, SMTPSERVER
-log4j.logger.org.apache.james.lmtpserver=DEBUG, LMTPSERVER
-log4j.logger.org.apache.james.mailrepositorystore=DEBUG, MAILREPOSITORYSTORE
-log4j.logger.org.apache.james.usersrepository=DEBUG, USERSREPOSITORY
-log4j.logger.org.apache.james.fetchmail=DEBUG, FETCHMAIL
-log4j.logger.org.apache.james.domainlist=DEBUG, DOMAINLIST
-log4j.logger.org.apache.james.virtualusertable=DEBUG, VIRTUALUSERTABLE
-log4j.logger.org.apache.james.mailqueuefactory=DEBUG, MAILQUEUEFACTORY
-log4j.logger.etm.core.monitor.EtmMonitor= DEBUG, CONS, FILE
-"
-          }, {
-            "a" : "/james-server-app/conf/mailbox.xml",
-            "b" : "<?xml version=\"1.0\"?>
- 
-<mailbox>
-   <provider>jpa</provider>
-</mailbox>
-"
-          }, {
-            "a" : "/james-server-app/conf/mailrepositorystore.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<mailrepositorystore>
-
-   <mailrepositories>
-
-       <!-- JDBC based repositories.  These repositories store all message data -->
-       <!-- in the database. -->
-       <mailrepository class=\"org.apache.james.mailrepository.jdbc.JDBCMailRepository\">
-           <protocols>
-               <protocol>db</protocol>
-           </protocols>
-           <config>
-               <sqlFile>file://conf/sqlResources.xml</sqlFile>
-               <!-- Set the size threshold for in memory handling of storing operations -->
-               <!-- Default is currently 409600000 due to a bug with mysql and binary stream -->
-               <!-- currently under investigation. Please change this only if you know what -->
-               <!-- you do. -->
-               <!--
-               <inMemorySizeLimit>4096</inMemorySizeLimit>
-                -->
-           </config>
-       </mailrepository>
-
-        <!-- File based repositories.  These repositories store all message data -->
-        <!-- in the file system. -->
-        <mailrepository class=\"org.apache.james.mailrepository.file.FileMailRepository\">
-            <protocols>
-                <protocol>file</protocol>
-            </protocols>
-            <!-- Set if the messages should be listed sorted. False by default -->
-            <config FIFO=\"false\" CACHEKEYS=\"true\"/>
-        </mailrepository>
-        
-   </mailrepositories>
-   
-</mailrepositorystore>
-"
-          }, {
-            "a" : "/james-server-app/conf/managesieveserver.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<managesieveservers>
-
-</managesieveservers>
-
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
 
 "
           }, {
-            "a" : "/james-server-app/conf/pop3server.xml",
-            "b" : "<?xml version=\"1.0\"?>
+            "a" : "/cert-pop3.pem",
+            "b" : "-----BEGIN CERTIFICATE-----
+MIIE0DCCArigAwIBAgIBATANBgkqhkiG9w0BAQsFADAbMRkwFwYDVQQDDBBtYWls
+LmV4YW1wbGUuY29tMB4XDTE4MDUwNTAxMjEwM1oXDTE4MDYwNTAxMjEwM1owGzEZ
+MBcGA1UEAwwQbWFpbC5leGFtcGxlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIP
+ADCCAgoCggIBALgnxKw5XN3xJyJE4RDezwLPwDwUTpbWnRvhVb0VxW1qj20LPH3P
+vx5OErLrEKCYlV+ULx8oUKbDh8XG/C1aRhhKvVR5VLVUNUIXdFBql6YA7aurLgDt
+Jg+XiKH2uN6JzgKbQl0i+nMcKlaNccPbE9VzlurMFRlHLvLXFHNdQFMC6JGHgjZ6
+WSjcsAOFFwBPf+JYZTzycPnYqZgwp36OrPZNcPQK446AbPF1FAxPd4pqsCeO9Gt8
+QkKJZj3pQ6YvGBx+2/FJGLqgKj3+uySQ0hUJeOJENtWLjWmafHlIOuQqFeOOLgos
+9igCiYucDSe3LDWOAQzOa0kwtvYR32osGqtuy+nEPozBdg08ydxlRroIfO5TOliM
+WtlhJJhl/03ivSZFFB6kk/Lw15ILCgJbVzvdEaV0Dh8BKzYB5ykvniZHnToeaKDb
+tZ/yX4XWpjKkB4ECdscVp5qAwDVJX18OqWvXBfsryL76FB3Y5M0QcL+k/DEG8Xw1
+wXEFOFuItf3JKKnjQExeLhGoa6ucMaUgR2oTwsm2LV8McNnSwCW7yfmBhuNgnsbE
+yirypV7NFfwfruMC8/flIfn+93LjDd/0lVvHFcEEZVKetY7zX9Y5yHwWepu/pXRc
+N3+GZdXT6Zzt5kDsA4u6QJOzSKB76xsAbnB3D2aFxFLsRzAopq9u7i0jAgMBAAGj
+HzAdMBsGA1UdEQQUMBKCEG1haWwuZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQAD
+ggIBAJvPVXUQPGe+J8TtfsCJwsBi4d6kN2AhMXZgEBLSV4jhf7/PcBit3hISIfrM
+xtnIXrSqLpjO7kVbNKGXYmWu/DMEeL5nnvSxC27uM703gtKBeY5lpv722T+QcrrE
+73dQpvQaoWKaU/aLRA0zSeUcyRBG5FK2N+oW/JPT20VtJR8WxYiWh7Jf3zP9h0uV
+qia5yJiXy+xC6vO6e0DkaAhOXyZBSgRlHJywqLAo0eJFKKDIZuBep5Qwb+0lP5qh
+Tmam+ToDSFDih8oncMVFirnuE599C/HXZGWVVjqoVlUOOLDkCKg27e9BjRsVPO3U
+yFdaW221q26FF9dXW35ls7+wJV+rZR5TKili60hAfwXjTrSPxqchG1EIq2i47Nh7
+dVh89Q3QBMKqbg9C74Tb2IzfeR+HFfNNu9LA1NjYUGblsn1JuTe0uZFi/v9386tS
+w9MHygBxxkcOyOeRXPDk6yxEOM3C1mxqkRjQWmcbG1ZbiG7Nh7Nz2tRbpKC/NV6c
+itVv2MZwP4Dz6MKfSRY5n+AWylG8d6pOCEJnSYrMMs0+SGGbsNlBiX9r9rf9Ek8M
+6kk79RA1tNRN5/Q/pCI7cKHcI9ELaW0nUArWgN4kolvtAq3coIR2ULCbcbjYW6eA
+OOvnCa5T6BOV7uQBCy5WkkQcRid8it7sDMYE5JWmfFaNDvDW
+-----END CERTIFICATE-----
 
-<pop3servers>
-
-	<pop3server enabled=\"true\">
-	
-	   <jmxName>pop3server</jmxName>
-	
-	   <bind>0.0.0.0:10110</bind>
-	
-	   <connectionBacklog>200</connectionBacklog>
-	
-	   <tls socketTLS=\"false\" startTLS=\"true\">
-	       <keystore>file://conf/keystore-pop3s</keystore>
-	       <secret>james</secret>
-	       <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
-	   </tls>
-	      
-     <connectiontimeout>1200</connectiontimeout>
-     <connectionLimit>0</connectionLimit>
-     <connectionLimitPerIP>50</connectionLimitPerIP>
-       
-     <handlerchain>
-         <handler class=\"org.apache.james.pop3server.core.CoreCmdHandlerLoader\"/>
-     </handlerchain>
-	    
-	</pop3server>
-	
-</pop3servers>
-"
-          }, {
-            "a" : "/james-server-app/conf/quota.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<quota>
-
-  <quotaRootResolver>
-    <provider>default</provider>
-  </quotaRootResolver>
-
-  <currentQuotaManager>
-    <provider>none</provider>
-  </currentQuotaManager>
-
-  <maxQuotaManager>
-    <provider>fake</provider>
-  </maxQuotaManager>
-
-  <quotaManager>
-    <provider>fake</provider>
-  </quotaManager>
-
-  <updates>
-    <provider>fake</provider>
-  </updates>
-
-</quota>"
-          }, {
-            "a" : "/james-server-app/conf/recipientrewritetable.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<recipientrewritetable class=\"org.apache.james.rrt.jpa.JPARecipientRewriteTable\">
-   <recursiveMapping>true</recursiveMapping>
-   <mappingLimit>10</mappingLimit>
-</recipientrewritetable>
-
-"
-          }, {
-            "a" : "/james-server-app/conf/sieverepository.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<sieverepository class=\"org.apache.james.sieverepository.file.SieveFileRepository\">
-</sieverepository>
-"
-          }, {
-            "a" : "/james-server-app/conf/smtpserver.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<smtpservers>
-
-  <smtpserver enabled=\"true\">
-
-    <jmxName>smtpserver</jmxName>
-
-    <bind>0.0.0.0:10025</bind>
-
-    <connectionBacklog>200</connectionBacklog>
-
-    <tls socketTLS=\"false\" startTLS=\"true\">
-      <keystore>file://conf/keystore-smtps</keystore>
-      <secret>james</secret>
-      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
-      <algorithm>SunX509</algorithm>
-    </tls>
-
-    <connectiontimeout>360</connectiontimeout>
-    <connectionLimit>0</connectionLimit>
-    <connectionLimitPerIP>50</connectionLimitPerIP>
-    <verifyIdentity>true</verifyIdentity>
-    <maxmessagesize>75000</maxmessagesize><!-- 75MB -->
-    <addressBracketsEnforcement>true</addressBracketsEnforcement>
-
-    <handlerchain>
-      <handler class=\"com.foilen.james.components.handler.fastfail.ValidRcptHandler\" />
-      <handler class=\"org.apache.james.smtpserver.CoreCmdHandlerLoader\" />
-    </handlerchain>
-  </smtpserver>
-
-
-  <smtpserver enabled=\"true\">
-
-    <jmxName>smtpserver-authenticated</jmxName>
-
-    <bind>0.0.0.0:10587</bind>
-
-    <connectionBacklog>200</connectionBacklog>
-
-    <tls socketTLS=\"false\" startTLS=\"true\">
-      <keystore>file://conf/keystore-smtps</keystore>
-      <secret>james</secret>
-      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
-      <algorithm>SunX509</algorithm>
-    </tls>
-    <connectiontimeout>360</connectiontimeout>
-    <connectionLimit>0</connectionLimit>
-    <connectionLimitPerIP>50</connectionLimitPerIP>
-
-    <authRequired>true</authRequired>
-    <authorizedAddresses>127.0.0.0/8</authorizedAddresses>
-
-    <verifyIdentity>true</verifyIdentity>
-    <maxmessagesize>75000</maxmessagesize><!-- 75MB -->
-    <addressBracketsEnforcement>true</addressBracketsEnforcement>
-
-    <handlerchain>
-      <handler class=\"com.foilen.james.components.handler.fastfail.ValidRcptHandler\" />
-      <handler class=\"org.apache.james.smtpserver.CoreCmdHandlerLoader\" />
-    </handlerchain>
-  </smtpserver>
-  
-  <smtpserver enabled=\"true\">
-
-    <jmxName>smtpserver-tls-authenticated</jmxName>
-
-    <bind>0.0.0.0:10465</bind>
-
-    <connectionBacklog>200</connectionBacklog>
-
-    <tls socketTLS=\"true\" startTLS=\"false\">
-      <keystore>file://conf/keystore-smtps</keystore>
-      <secret>james</secret>
-      <provider>org.bouncycastle.jce.provider.BouncyCastleProvider</provider>
-      <algorithm>SunX509</algorithm>
-    </tls>
-    <connectiontimeout>360</connectiontimeout>
-    <connectionLimit>0</connectionLimit>
-    <connectionLimitPerIP>50</connectionLimitPerIP>
-
-    <authRequired>true</authRequired>
-    <authorizedAddresses>127.0.0.0/8</authorizedAddresses>
-
-    <verifyIdentity>true</verifyIdentity>
-    <maxmessagesize>75000</maxmessagesize><!-- 75MB -->
-    <addressBracketsEnforcement>true</addressBracketsEnforcement>
-
-    <handlerchain>
-      <handler class=\"com.foilen.james.components.handler.fastfail.ValidRcptHandler\" />
-      <handler class=\"org.apache.james.smtpserver.CoreCmdHandlerLoader\" />
-    </handlerchain>
-  </smtpserver>
-
-</smtpservers>
-
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
 
 "
           }, {
-            "a" : "/james-server-app/conf/usersrepository.xml",
-            "b" : "<?xml version=\"1.0\"?>
-<usersrepository name=\"LocalUsers\" class=\"org.apache.james.user.jpa.JPAUsersRepository\">
-  <algorithm>SHA-512</algorithm>
-  <enableVirtualHosting>true</enableVirtualHosting>
-</usersrepository>
+            "a" : "/cert-smtp.pem",
+            "b" : "-----BEGIN CERTIFICATE-----
+MIIEwTCCAqmgAwIBAgIBATANBgkqhkiG9w0BAQsFADAWMRQwEgYDVQQDDAtleGFt
+cGxlLmNvbTAeFw0xODA1MDUwMTIwNDlaFw0xODA2MDUwMTIwNDlaMBYxFDASBgNV
+BAMMC2V4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA
+vBO21qHVMLtA7NGwnzWbTS/ToLeriG4aTYTwbYGSZ7DGWBwQCU5l7cMheqnxN0xR
+4f6c+OFFPMK7X0xpRxsP8MBhJtpWdhpc8L1C4FAWaJhQzqY3Xz/7iBJDUbASRQOH
+kbecUraKaheRKHkrCbyH37JvYdn5e0hnIWPcKropJylvsVZ175GHF4gwv7t5/hS1
+HPqNCSE6blPZn5ZwP5Fxla19KXZlsGEK3t6lxRggIQwzeXDgngoS3MEw3a8WRJyu
++hSsbbeMkfatadRT/5ynQuxFCBItbedJOiUGMKfsMuROM7i0sDfoORPZMiqHMXg8
+8/cxXcIJaptqttDow8VLHtDr9E6l87deUMD4zh+RisfISFoiF/sgRxxff1n+1nur
+zBHntvcrx3qIhWrLcMHZasisL3FZQPUTR10R2cFMGTvOmU7UloGSmNCKZBUkNJjN
+NNMoevdkIeQNHCHDJW73J5L/CFvgnLwf/Fpy7iDYpEwMrL1YRsa4azJDPifTgNQX
+ZR0FMKM8GfqW+kkJLlbpSnpn6yFZDS4KDx0k9MjNLfCZSz/wTXuXXdhYmYnzvr+F
+3k1GzHpbqO2b6SedemAM75qxRiSeAqjM/v0JVwrRjwrmgme3RSzjjPE757aXfVX0
+tZ0eFwY8xAoK99Eru7YKnAzZ77SwvIuhk5hgWeRwqx8CAwEAAaMaMBgwFgYDVR0R
+BA8wDYILZXhhbXBsZS5jb20wDQYJKoZIhvcNAQELBQADggIBAF3CsjAbo4WWHxTf
+ZhwRW5HPIbi8nqOMfuywKe+QsTupZC9ZI32zrtxKYgCgMYGyZ6ikHYnOQzpqpVlE
+abnhGBSt2ITy0FypW1GSN1ZcZSEs5z2RSwFpPeUrKNIx6zsrhPb9w13aJKsPEBj/
+0ZE9lNxs65I2Yz5jqVU87eTM4BxkUF7sPADSGzbq2vre5FsGQnD+CPY20sPhL5ls
+ht6DlySLKjbRBcyYHwXWgeEch95uz2gkLL4amkRimojWTclAEKKtZ7nrcyhhcWp+
+Li4CsI76krQoE3TqYUsyu2QzMXN+3dfivCdZe1gInpNhnkLChm25JUrQuN1KkZzp
+OkZnH7vRgOmFzRjXFMAf+FEStw5s5YPaIvY5YoJbN6+Olo0OxX9E0Lw6kc+GMJiZ
+5LEASGef4fpqzlZ61jde43IsydO5AXqBTh+ECqER8hGVfbnm1oN7FAYXmHVmDqL0
+IqqVKWvguu9//AV40a1w46SNbPsUa1L1E5v8Prr9Xt0YViYpclgI/GwP0dlDXiQz
+BvVI9v7djMnZ9pKxYKJcLQGPC/r5fxvu47Qg1A3zOAZVCdKt8bYaR9rkeAIwEYFs
+mxBXFQwL1gzMUWIamzmDZgmsbkLZN9m3QxLhgw3b3ttJQS/XZ/XbjRjZTNVzokup
+v5MQDKlsOT0PmcTDruexCrQVWicJ
+-----END CERTIFICATE-----
+
+-----BEGIN RSA PRIVATE KEY-----
+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
+-----END RSA PRIVATE KEY-----
+
 "
           }, {
-            "a" : "/james-server-app/conf/wrapper.conf",
-            "b" : "#********************************************************************
-# Wrapper Properties
-#********************************************************************
-# Java Application
-wrapper.java.command=java
-wrapper.working.dir=.
-
-# Java Main class.  This class must implement the WrapperListener interface
-#  or guarantee that the WrapperManager class is initialized.  Helper
-#  classes are provided to do this for you.  See the Integration section
-#  of the documentation for details.
-wrapper.java.mainclass=org.tanukisoftware.wrapper.WrapperSimpleApp
-set.default.REPO_DIR=../lib
-set.APP_BASE=.
-
-# Java Classpath (include wrapper.jar)  Add class path elements as
-#  needed starting from 1
-wrapper.java.classpath.1=%REPO_DIR%/wrapper.jar
-wrapper.java.classpath.2=../conf
-wrapper.java.classpath.3=%REPO_DIR%/*
-wrapper.java.classpath.4=../conf/lib/*
-
-# Java Library Path (location of Wrapper.DLL or libwrapper.so)
-wrapper.java.library.path.1=lib
-
-# Java Additional Parameters
-#wrapper.java.additional.1=
-wrapper.java.additional.14=-Djames.message.usememorycopy=false
-wrapper.java.additional.13=-Dmail.mime.address.strict=false
-wrapper.java.additional.12=-Dmail.mime.decodeparameters=true
-wrapper.java.additional.11=-Dmail.mime.encodeparameters=true
-wrapper.java.additional.10=-Dmail.mime.base64.ignoreerrors=true
-wrapper.java.additional.9=-Dmail.mime.multipart.allowempty=true
-wrapper.java.additional.8=-Dmail.mime.uudecode.ignoremissingbeginend=true
-wrapper.java.additional.7=-Dmail.mime.uudecode.ignoreerrors=true
-wrapper.java.additional.6=-Dmail.mime.ignoreunknownencoding=true
-wrapper.java.additional.5=-Dmail.mime.multipart.ignoremissingboundaryparameter=true
-wrapper.java.additional.4=-Dmail.mime.multipart.ignoremissingendboundary=true
-wrapper.java.additional.3=-Dcom.sun.management.jmxremote.authenticate=false
-wrapper.java.additional.2=-Dcom.sun.management.jmxremote=true
-wrapper.java.additional.1=-XX:+HeapDumpOnOutOfMemoryError
-
-# Initial Java Heap Size (in MB)
-#wrapper.java.initmemory=3
-wrapper.java.initmemory=128
-
-# Maximum Java Heap Size (in MB)
-#wrapper.java.maxmemory=64
-wrapper.java.maxmemory=2048
-
-# Application parameters.  Add parameters as needed starting from 1
-wrapper.app.parameter.1=org.apache.james.app.spring.JamesAppSpringMain
-wrapper.app.parameter.2=start
-
-#********************************************************************
-# Wrapper Logging Properties
-#********************************************************************
-# Format of output for the console.  (See docs for formats)
-wrapper.console.format=PM
-
-# Log Level for console output.  (See docs for log levels)
-wrapper.console.loglevel=INFO
-
-# Log file to use for wrapper output logging.
-wrapper.logfile=../log/wrapper.log
-
-# Format of output for the log file.  (See docs for formats)
-wrapper.logfile.format=LPTM
-
-# Log Level for log file output.  (See docs for log levels)
-wrapper.logfile.loglevel=INFO
-
-# Maximum size that the log file will be allowed to grow to before
-#  the log is rolled. Size is specified in bytes.  The default value
-#  of 0, disables log rolling.  May abbreviate with the 'k' (kb) or
-#  'm' (mb) suffix.  For example: 10m = 10 megabytes.
-wrapper.logfile.maxsize=50M
-
-# Maximum number of rolled log files which will be allowed before old
-#  files are deleted.  The default value of 0 implies no limit.
-wrapper.logfile.maxfiles=1
-
-# Log Level for sys/event log output.  (See docs for log levels)
-wrapper.syslog.loglevel=NONE
-
-#********************************************************************
-# Wrapper Windows Properties
-#********************************************************************
-# Title to use when running as a console
-wrapper.console.title=Apache James :: Server :: App
-
-#********************************************************************
-# Wrapper Windows NT/2000/XP Service Properties
-#********************************************************************
-# WARNING - Do not modify any of these properties when an application
-#  using this configuration file has been installed as a service.
-#  Please uninstall the service before modifying this section.  The
-#  service can then be reinstalled.
-
-# Name of the service
-wrapper.ntservice.name=james
-
-# Display name of the service
-wrapper.ntservice.displayname=Apache James :: Server :: App
-
-# Description of the service
-wrapper.ntservice.description=An advanced email server / Spring version
-
-# Service dependencies.  Add dependencies as needed starting from 1
-wrapper.ntservice.dependency.1=
-
-# Mode in which the service is installed.  AUTO_START or DEMAND_START
-wrapper.ntservice.starttype=AUTO_START
-
-# Allow the service to interact with the desktop.
-wrapper.ntservice.interactive=false
-
-configuration.directory.in.classpath.first=../conf
-wrapper.java.library.path=../lib
-configuration.directory.in.classpath.last=../conf/lib/*
-"
-          }, {
-            "a" : "/james-server-app/conf/mailetcontainer.xml",
-            "b" : "<?xml version=\"1.0\"?>
-
-<mailetcontainer enableJmx=\"true\">
-
-  <context>
-    <postmaster>a1@example.com</postmaster>
-  </context>
-
-  <spooler>
-    <threads>20</threads>
-  </spooler>
-
-  <processors>
-
-    <processor state=\"root\" enableJmx=\"true\">
-    
-      <mailet match=\"All\" class=\"PostmasterAlias\" />
-      <mailet match=\"All\" class=\"RecipientToLowerCase\" />
-      <mailet match=\"RelayLimit=30\" class=\"Null\" />
-
-      <!-- Check if authenticated -->
-      <mailet match=\"SMTPAuthSuccessful\" class=\"SetMimeHeader\">
-        <name>X-UserIsAuth</name>
-        <value>true</value>
-      </mailet>
-
-        <mailet match=\"All\" class=\"com.foilen.james.components.mailet.DumpAllSystemErr\" />
-      
-      <!-- Check recipient's redirections -->
-      <mailet match=\"All\" class=\"com.foilen.james.components.mailet.ExactAndCatchAllRedirections\">
-        <cacheMaxTimeInSeconds>10</cacheMaxTimeInSeconds>
-        <cacheMaxEntries>1000</cacheMaxEntries>
-      </mailet>
-      
-      <!-- Local delivery -->
-      <mailet match=\"RecipientIsLocal\" class=\"ToProcessor\">
-        <processor>localProcessor</processor>
-      </mailet>
-
-      <!-- Local delivery - The domain is managed locally, but the local mailbox does not exist -->
-      <mailet match=\"HostIsLocal\" class=\"ToProcessor\">
-        <processor>localAccountDoesNotExistProcessor</processor>
-        <notice>550 - Requested action not taken: no such user here</notice>
-      </mailet>
-      
-      <!-- Outgoing -->
-      <mailet match=\"com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=X-UserIsAuth\" class=\"ToProcessor\">
-        <processor>outgoingAuthProcessor</processor>
-      </mailet>
-      
-      <mailet match=\"All\" class=\"ToProcessor\">
-        <processor>outgoingAnonymousProcessor</processor>
-      </mailet>
-      
-    </processor>
-
-    <processor state=\"localProcessor\" enableJmx=\"true\">
-    
-      <mailet match=\"All\" class=\"com.foilen.james.components.mailet.LogInfo\">
-        <text>localProcessor</text>
-      </mailet>
-      
-      <mailet match=\"All\" class=\"AddDeliveredToHeader\" />
-      <mailet match=\"All\" class=\"LocalDelivery\" />
-    
-    </processor>
-    
-    <processor state=\"outgoingAuthProcessor\" enableJmx=\"true\">
-    
-      <mailet match=\"All\" class=\"com.foilen.james.components.mailet.LogInfo\">
-        <text>outgoingAuthProcessor</text>
-      </mailet>
-      
-      <!-- Relay emails per domain to different gateways -->
-      
-        <mailet match=\"SenderIsRegex=(.*)@example.com\" class=\"com.foilen.james.components.mailet.LogInfo\">
-          <text>Remote delivery via the gateway for SenderIsRegex=(.*)@example.com</text>
-        </mailet>
-        <mailet match=\"SenderIsRegex=(.*)@example.com\" class=\"RemoteDelivery\">
-          <outgoing>outgoing-example.com</outgoing>
-    
-          <delayTime>5000, 100000, 500000</delayTime>
-          <maxRetries>25</maxRetries>
-          <maxDnsProblemRetries>0</maxDnsProblemRetries>
-          <deliveryThreads>10</deliveryThreads>
-          <sendpartial>true</sendpartial>
-          <bounceProcessor>bounceProcessor</bounceProcessor>
-          <gateway>relay.example.com</gateway>
-          <gatewayPort>587</gatewayPort>
-          <gatewayUsername>AAA</gatewayUsername>
-          <gatewayPassword>BBB</gatewayPassword>
-        </mailet>
-      
-      <mailet match=\"All\" class=\"ToProcessor\">
-        <processor>outgoingDirectRelayProcessor</processor>
-      </mailet>
-      
-    </processor>
-
-    <processor state=\"outgoingDirectRelayProcessor\" enableJmx=\"true\">
-    
-      <!-- Relay -->
-      <mailet match=\"All\" class=\"com.foilen.james.components.mailet.LogInfo\">
-        <text>Remote delivery via the server directly (no gateway)</text>
-      </mailet>
-      <mailet match=\"All\" class=\"RemoteDelivery\">
-        <outgoing>outgoing</outgoing>
-
-        <delayTime>5000, 100000, 500000</delayTime>
-        <maxRetries>25</maxRetries>
-        <maxDnsProblemRetries>0</maxDnsProblemRetries>
-        <deliveryThreads>10</deliveryThreads>
-        <sendpartial>true</sendpartial>
-        <bounceProcessor>bounceProcessor</bounceProcessor>
-      </mailet>
-      
-    </processor>
-    
-    <processor state=\"outgoingAnonymousProcessor\" enableJmx=\"true\">
-    
-      <mailet match=\"All\" class=\"com.foilen.james.components.mailet.LogInfo\">
-        <text>outgoingAnonymousProcessor</text>
-      </mailet>
-      
-      <!-- If is a redirection -> Send directly (since could be spam) -->
-      <mailet match=\"com.foilen.james.components.matcher.HasHeaderGlobalAndSpecific=isRedirection\" class=\"ToProcessor\">
-        <processor>outgoingDirectRelayProcessor</processor>
-      </mailet>
-      
-      <!-- If is not a redirection -> Deny -->
-      <mailet match=\"All\" class=\"ToProcessor\">
-        <processor>outgoingDeniedProcessor</processor>
-        <notice>550 - Requested action not taken: relaying denied</notice>
-      </mailet>
-      
-    </processor>
-    
-    <processor state=\"localAccountDoesNotExistProcessor\" enableJmx=\"true\">
-    
-      <mailet match=\"All\" class=\"com.foilen.james.components.mailet.LogInfo\">
-        <text>localAccountDoesNotExistProcessor</text>
-      </mailet>
-    
-      <mailet match=\"All\" class=\"Bounce\">
-        <attachment>none</attachment>
-      </mailet>
-      
-    </processor>
-
-    <processor state=\"outgoingDeniedProcessor\" enableJmx=\"true\">
-    
-        <mailet match=\"All\" class=\"NotifyPostmaster\">
-          <sender>unaltered</sender>
-          <attachError>true</attachError>
-          <prefix>[RELAY-DENIED]</prefix>
-          <passThrough>true</passThrough>
-          <to>postmaster</to>
-          <debug>true</debug>
-        </mailet>
-
-      <mailet match=\"All\" class=\"Null\" />
-      
-    </processor>
-
-    <processor state=\"bounceProcessor\" enableJmx=\"true\">
-    
-        <mailet match=\"All\" class=\"NotifyPostmaster\">
-          <sender>unaltered</sender>
-          <attachError>true</attachError>
-          <prefix>[BOUNCE]</prefix>
-          <passThrough>true</passThrough>
-          <to>postmaster</to>
-          <debug>true</debug>
-        </mailet>
-      
-        <mailet match=\"All\" class=\"DSNBounce\">
-          <passThrough>true</passThrough>
-        </mailet>
-      
-      <mailet match=\"All\" class=\"Null\" />
-      
-    </processor>
-    
-    <processor state=\"error\" enableJmx=\"true\">
-    
-      <mailet match=\"All\" class=\"NotifyPostmaster\">
-        <sender>unaltered</sender>
-        <attachError>true</attachError>
-        <prefix>[ERROR]</prefix>
-        <passThrough>false</passThrough>
-        <to>postmaster</to>
-        <debug>true</debug>
-      </mailet>
-      
-    </processor>
-    
-  </processors>
-
-</mailetcontainer>
-"
-          } ]
-        } ],
-        "assetsPathAndContent" : [ ],
-        "buildSteps" : [ {
-          "step" : "_assets_1/ /",
-          "type" : "COPY"
-        }, {
-          "step" : "chmod 755 /james-start.sh && chown james:james -R /james-server-app/",
-          "type" : "COMMAND"
-        } ],
-        "containerUsersToChangeId" : [ {
-          "a" : "james",
-          "b" : 72001
-        } ],
-        "copyWhenStartedPathAndContentFiles" : [ {
-          "a" : "/emailManagerConfig.json",
-          "b" : "{
+            "a" : "/jamesConfig.json",
+            "b" : "{
   \"database\" : {
     \"hostname\" : \"127.0.0.1\",
     \"port\" : 3306,
@@ -1004,6 +389,34 @@ configuration.directory.in.classpath.last=../conf/lib/*
     \"username\" : \"db_user_email\",
     \"password\" : \"the_password\"
   },
+  \"postmasterEmail\" : \"a1@example.com\",
+  \"enableDebugDumpMessagesDetails\" : true,
+  \"disableRelayDeniedNotifyPostmaster\" : false,
+  \"disableBounceNotifyPostmaster\" : false,
+  \"disableBounceNotifySender\" : false,
+  \"imapCertPemFile\" : \"/cert-imap.pem\",
+  \"pop3CertPemFile\" : \"/cert-pop3.pem\",
+  \"smtpCertPemFile\" : \"/cert-smtp.pem\",
+  \"domainAndRelais\" : [ {
+    \"domain\" : \"example.com\",
+    \"hostname\" : \"relay.example.com\",
+    \"port\" : 587,
+    \"username\" : \"AAA\",
+    \"password\" : \"BBB\"
+  } ]
+}"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "command" : "/app/bin/foilen-email-server --jamesConfigFile /jamesConfig.json --managerConfigFile /emailManagerConfig.json --workDir /workDir --debug",
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ {
+          "a" : "/emailManagerConfig.json",
+          "b" : "{
   \"domains\" : [ \"example.com\" ],
   \"accounts\" : [ {
     \"email\" : \"a1@example.com\",
@@ -1032,7 +445,7 @@ configuration.directory.in.classpath.last=../conf/lib/*
         } ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-email:3.2.0-2",
+        "from" : "foilen/foilen-email-server:1.0.0",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "10025" : "SMTP_TCP"
@@ -1054,17 +467,11 @@ configuration.directory.in.classpath.last=../conf/lib/*
           "toMachine" : "localhost.foilen-lab.com"
         } ],
         "runAs" : 72001,
-        "services" : [ {
-          "command" : "/james-start.sh",
-          "name" : "james"
-        }, {
-          "command" : "/opt/james-manager/bin/james-manager --configFile /emailManagerConfig.json",
-          "name" : "james-manager"
-        } ],
+        "services" : [ ],
         "udpPortsExposed" : { },
         "volumes" : [ {
-          "containerFsFolder" : "/james-server-app/log",
-          "hostFolder" : "/home/james/_james_server/log",
+          "containerFsFolder" : "/workDir",
+          "hostFolder" : "/home/james/_james_server",
           "readOnly" : false
         } ]
       },
@@ -1421,7 +828,7 @@ configuration.directory.in.classpath.last=../conf/lib/*
       "resourceDescription" : "Apache James email server",
       "resourceEditorName" : "James Email Server",
       "resourceName" : "james_server",
-      "version" : "3.2.0-2"
+      "version" : "1.0.0"
     }
   }, {
     "resource" : "Machine | localhost.foilen-lab.com | localhost.foilen-lab.com (127.0.0.1)",
