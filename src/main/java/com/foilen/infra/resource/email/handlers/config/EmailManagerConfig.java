@@ -1,7 +1,7 @@
 /*
-    Email Server
-    https://github.com/foilen/foilen-email-server
-    Copyright (c) 2019-2019 Foilen (http://foilen.com)
+    Foilen Infra Plugins Core
+    https://github.com/foilen/foilen-infra-plugins-core
+    Copyright (c) 2018-2019 Foilen (http://foilen.com)
 
     The MIT License
     http://opensource.org/licenses/MIT
