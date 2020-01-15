@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.dns;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -23,6 +23,7 @@ import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransaction
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.resource.dns.model.DnsEntryType;
+import com.foilen.infra.resource.domain.DomainResourceHelper;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.StreamTools;
 import com.google.common.base.Strings;
@@ -70,15 +71,20 @@ public class DnsEntryValidationChangesEventHandler extends AbstractBasics implem
 
     @Override
     public List<ActionHandler> computeActionsToExecute(CommonServicesContext services, ChangesInTransactionContext changesInTransactionContext) {
+
+        List<ActionHandler> actions = new ArrayList<>();
+
         StreamTools.concat( //
                 ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastAddedResources(), DnsEntry.class), //
+                ChangesEventHandlerUtils.getResourcesOfTypeStream(changesInTransactionContext.getLastRefreshedResources(), DnsEntry.class), //
                 ChangesEventHandlerUtils.getNextResourcesOfTypeStream(changesInTransactionContext.getLastUpdatedResources(), DnsEntry.class).map(it -> (DnsEntry) it.getNext()) //
         ) //
                 .forEach(dnsEntry -> {
                     validate(services, dnsEntry);
+                    actions.add((s, changes) -> DomainResourceHelper.syncManagedLinks(s, changes, dnsEntry, dnsEntry.getName()));
                 });
 
-        return Collections.emptyList();
+        return actions;
     }
 
 }

@@ -502,7 +502,10 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     }
   }, {
     "resource" : "DnsEntry | example.com / MX | mail.example.com",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "mail.example.com",
@@ -515,7 +518,10 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     }
   }, {
     "resource" : "DnsEntry | localhost.foilen-lab.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | localhost.foilen-lab.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -528,7 +534,10 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     }
   }, {
     "resource" : "DnsEntry | mail.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -545,6 +554,9 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "type" : "MANAGES",
       "to" : "DnsEntry | mail.example.com / A | 127.0.0.1"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | localhost.foilen-lab.com | localhost.foilen-lab.com (127.0.0.1)"
     } ],
@@ -554,6 +566,56 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "name" : "mail.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "mail.example.com",
+      "resourceName" : "mail.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | mail.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | foilen-lab.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | localhost.foilen-lab.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "foilen-lab.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "foilen-lab.com"
+    }
+  }, {
+    "resource" : "Domain | localhost.foilen-lab.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "localhost.foilen-lab.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "localhost.foilen-lab.com"
+    }
+  }, {
+    "resource" : "Domain | mail.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "mail.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
       "resourceName" : "mail.example.com"
     }
   }, {
@@ -652,6 +714,12 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | mail.example.com | mail.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
     }, {
       "type" : "SEND_THROUGHT",
       "to" : "EmailRelay | example-relay | relay.example.com:587 AAA"
@@ -769,6 +837,9 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | localhost.foilen-lab.com / A | 127.0.0.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | localhost.foilen-lab.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -877,7 +948,10 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     }
   }, {
     "resource" : "WebsiteCertificate | example.com | 28247946f93580251ab809d91797275c54851d05, 2018-05-04, 2271-12-08",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "-----BEGIN CERTIFICATE-----
@@ -986,7 +1060,10 @@ nAzZ77SwvIuhk5hgWeRwqx8CAwEAAQ==
     }
   }, {
     "resource" : "WebsiteCertificate | mail.example.com | f890dc9be9a6b5116de69f1ed649b5524b92a4ef, 2018-05-04, 2271-12-08",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "-----BEGIN CERTIFICATE-----

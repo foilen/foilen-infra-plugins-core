@@ -289,7 +289,10 @@ memory_limit = 192M
     }
   }, {
     "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -302,7 +305,10 @@ memory_limit = 192M
     }
   }, {
     "resource" : "DnsEntry | myphp.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | myphp.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -319,6 +325,9 @@ memory_limit = 192M
       "type" : "MANAGES",
       "to" : "DnsEntry | myphp.example.com / A | 192.168.0.200"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myphp.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
     } ],
@@ -331,6 +340,45 @@ memory_limit = 192M
       "resourceName" : "myphp.example.com"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | myphp.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | myphp.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myphp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "myphp.example.com"
+    }
+  }, {
     "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
     "links" : [ {
       "type" : "MANAGES",
@@ -338,6 +386,9 @@ memory_limit = 192M
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -401,6 +452,9 @@ memory_limit = 192M
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | myphp.example.com | myphp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myphp.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"

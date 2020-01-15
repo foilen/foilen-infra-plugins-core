@@ -6,7 +6,7 @@ buildscript {
 }
 
 plugins {
-  id "com.github.johnrengelman.shadow" version "2.0.4"
+  id "com.github.johnrengelman.shadow" version "5.2.0"
   id "com.jfrog.bintray" version "1.8.4"
 }
 
@@ -42,6 +42,7 @@ configurations {
 
 dependencies {
   compileOnly "com.foilen:foilen-infra-system-core-system-fake:$foilenInfraSystemVersion"
+  compile "com.foilen:jl-smalltools:0.51.0" // TODO Remove when the plugins is 0.51 +
   compile ("org.shredzone.acme4j:acme4j-client:$acme4jVersion")
   compile ("org.shredzone.acme4j:acme4j-utils:$acme4jVersion")
   
@@ -64,6 +65,8 @@ shadowJar {
     exclude(dependency('org.bouncycastle:bcprov-jdk15on:1.61'))
     exclude(dependency('org.bouncycastle:bcpkix-jdk15on:1.61'))
   }
+  
+  relocate 'com.foilen.smalltools', 'shadow.com.foilen.infra.smalltools' // TODO Remove when the plugins is 0.51 +
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

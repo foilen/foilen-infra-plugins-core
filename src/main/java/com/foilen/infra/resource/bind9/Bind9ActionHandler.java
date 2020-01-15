@@ -26,6 +26,7 @@ import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.bind9.service.Bind9Service;
 import com.foilen.infra.resource.bind9.service.Bind9ServiceImpl;
 import com.foilen.infra.resource.dns.DnsEntry;
+import com.foilen.infra.resource.domain.DomainResourceHelper;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.utils.ActionsHandlerUtils;
@@ -125,6 +126,9 @@ public class Bind9ActionHandler extends AbstractBasics implements ActionHandler 
         }
 
         CommonResourceLink.syncToLinks(services, changes, bind9Server, LinkTypeConstants.MANAGES, Application.class, desiredManageApplications);
+
+        // Sync managed domain names
+        DomainResourceHelper.syncManagedLinks(services, changes, bind9Server, bind9Server.getNsDomainNames());
 
     }
 

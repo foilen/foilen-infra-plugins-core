@@ -42,6 +42,14 @@ public class Bind9ChangesEventHandler extends AbstractBasics implements ChangesE
                     bind9ServerNeedsRefresh.add(bind9Server.getName());
                 });
 
+        // Refreshes
+        ChangesEventHandlerUtils.getNextResourcesOfTypeStream(changesInTransactionContext.getLastUpdatedResources(), Bind9Server.class) //
+                .forEach(it -> {
+                    Bind9Server bind9Server = (Bind9Server) it.getNext();
+                    logger.info("Bind9Server updated for {}", bind9Server.getName());
+                    bind9ServerNeedsRefresh.add(bind9Server.getName());
+                });
+
         // UnixUser updated
         for (UnixUser unixUser : ChangesEventHandlerUtils.getNextResourcesOfType(changesInTransactionContext.getLastUpdatedResources(), UnixUser.class)) {
             for (Bind9Server bind9Server : services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(Bind9Server.class, LinkTypeConstants.RUN_AS, unixUser)) {

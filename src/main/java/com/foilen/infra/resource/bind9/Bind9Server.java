@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 import com.foilen.infra.resource.application.Application;
+import com.foilen.infra.resource.domain.Domain;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.unixuser.UnixUser;
 
@@ -28,6 +29,7 @@ import com.foilen.infra.resource.unixuser.UnixUser;
  *
  * Manages:
  * <ul>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
  * <li>{@link Application}: The Bind9 application</li>
  * </ul>
  */

@@ -17,6 +17,17 @@
       "uid" : "abc"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
     "resource" : "SystemUnixUser | root | /home/root",
     "links" : [ ],
     "tags" : [ ],

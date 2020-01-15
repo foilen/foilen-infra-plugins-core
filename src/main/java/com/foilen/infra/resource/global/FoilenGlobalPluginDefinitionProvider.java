@@ -22,6 +22,7 @@ import com.foilen.infra.resource.global.upgrader.V_2019072401_Refresh_Apache;
 import com.foilen.infra.resource.global.upgrader.V_2019090401_Refresh_InfraConfig;
 import com.foilen.infra.resource.global.upgrader.V_2019111401_Refresh_ApachePhp;
 import com.foilen.infra.resource.global.upgrader.V_2019123001_Refresh_ApacheJames;
+import com.foilen.infra.resource.global.upgrader.V_2020011401_Refresh_All_Resources_With_Domains;
 import com.foilen.smalltools.tools.ResourceTools;
 
 public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionProvider {
@@ -59,7 +60,8 @@ public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionP
                 new V_2019072401_Refresh_Apache(), //
                 new V_2019090401_Refresh_InfraConfig(), //
                 new V_2019111401_Refresh_ApachePhp(), //
-                new V_2019123001_Refresh_ApacheJames() //
+                new V_2019123001_Refresh_ApacheJames(), //
+                new V_2020011401_Refresh_All_Resources_With_Domains() //
         );
 
     }

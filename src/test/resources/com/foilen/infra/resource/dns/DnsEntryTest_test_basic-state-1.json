@@ -1,7 +1,10 @@
 {
   "resources" : [ {
     "resource" : "DnsEntry | d0.example.com / TXT | hello",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | d0.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "hello",
@@ -14,7 +17,10 @@
     }
   }, {
     "resource" : "DnsEntry | d1.example.com / TXT | hello",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | d1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "hello",
@@ -27,7 +33,10 @@
     }
   }, {
     "resource" : "DnsEntry | d2.example.com / TXT | hello",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | d2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "hello",
@@ -40,7 +49,10 @@
     }
   }, {
     "resource" : "DnsEntry | d3.example.com / TXT | hello",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | d3.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "hello",
@@ -53,7 +65,10 @@
     }
   }, {
     "resource" : "DnsEntry | d4.example.com / TXT | hello",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | d4.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "hello",
@@ -63,6 +78,87 @@
       "resourceDescription" : "hello",
       "resourceName" : "d4.example.com / TXT",
       "type" : "TXT"
+    }
+  }, {
+    "resource" : "Domain | d0.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d0.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d0.example.com"
+    }
+  }, {
+    "resource" : "Domain | d1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d1.example.com"
+    }
+  }, {
+    "resource" : "Domain | d2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d2.example.com"
+    }
+  }, {
+    "resource" : "Domain | d3.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d3.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d3.example.com"
+    }
+  }, {
+    "resource" : "Domain | d4.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d4.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d4.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | d0.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | d1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | d2.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | d3.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | d4.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
     }
   } ]
 }

@@ -13,6 +13,7 @@ import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 import com.foilen.infra.resource.dns.DnsEntry;
 import com.foilen.infra.resource.dns.DnsPointer;
+import com.foilen.infra.resource.domain.Domain;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
 
 /**
@@ -28,6 +29,7 @@ import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
  *
  * Manages:
  * <ul>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
  * <li>{@link DnsEntry}: Creates a {@link DnsEntry} for MX</li>
  * <li>{@link DnsPointer}: Creates a {@link DnsPointer} for As that point to the EmailServer's machines</li>
  * </ul>

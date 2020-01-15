@@ -715,7 +715,10 @@ backend http_8080_ui.example.com
     }
   }, {
     "resource" : "DnsEntry | login.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -728,7 +731,10 @@ backend http_8080_ui.example.com
     }
   }, {
     "resource" : "DnsEntry | m1.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -741,7 +747,10 @@ backend http_8080_ui.example.com
     }
   }, {
     "resource" : "DnsEntry | ui.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ui.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -757,6 +766,9 @@ backend http_8080_ui.example.com
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | login.example.com / A | 127.0.0.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | m1.example.com | m1.example.com (127.0.0.1)"
@@ -775,6 +787,9 @@ backend http_8080_ui.example.com
       "type" : "MANAGES",
       "to" : "DnsEntry | ui.example.com / A | 127.0.0.1"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ui.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | m1.example.com | m1.example.com (127.0.0.1)"
     } ],
@@ -784,6 +799,59 @@ backend http_8080_ui.example.com
       "name" : "ui.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "ui.example.com",
+      "resourceName" : "ui.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | login.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | ui.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | login.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "login.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "login.example.com"
+    }
+  }, {
+    "resource" : "Domain | m1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "Domain | ui.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ui.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
       "resourceName" : "ui.example.com"
     }
   }, {
@@ -912,6 +980,9 @@ backend http_8080_ui.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | m1.example.com / A | 127.0.0.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -1111,6 +1182,9 @@ backend http_8080_ui.example.com
       "to" : "Machine | m1.example.com | m1.example.com (127.0.0.1)"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
     }, {
       "type" : "MANAGES",
@@ -1132,6 +1206,9 @@ backend http_8080_ui.example.com
     "links" : [ {
       "type" : "INSTALLED_ON",
       "to" : "Machine | m1.example.com | m1.example.com (127.0.0.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ui.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
@@ -1158,6 +1235,9 @@ backend http_8080_ui.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | login.example.com | login.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -1187,6 +1267,9 @@ backend http_8080_ui.example.com
       "to" : "DnsPointer | ui.example.com | ui.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | ui.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -1212,6 +1295,9 @@ backend http_8080_ui.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | login.example.com | login.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -1244,6 +1330,9 @@ backend http_8080_ui.example.com
       "to" : "DnsPointer | ui.example.com | ui.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | ui.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -1266,7 +1355,10 @@ backend http_8080_ui.example.com
     }
   }, {
     "resource" : "WebsiteCertificate | login.example.com | e1d7a4a48492b6b13e9695391433f65a9c660f9a, 2019-09-04, 2020-02-04",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "-----BEGIN CERTIFICATE-----
@@ -1335,7 +1427,10 @@ sQIDAQAB
     }
   }, {
     "resource" : "WebsiteCertificate | ui.example.com | 1fed8dd4eea2f20d4f89776eb9b7a67dd7f4a629, 2018-06-13, 2018-07-13",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ui.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "-----BEGIN CERTIFICATE-----

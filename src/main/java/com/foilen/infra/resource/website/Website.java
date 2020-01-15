@@ -15,6 +15,7 @@ import java.util.TreeSet;
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
+import com.foilen.infra.resource.domain.Domain;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ComparisonChain;
 
@@ -30,6 +31,7 @@ import com.google.common.collect.ComparisonChain;
  *
  * Manages:
  * <ul>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
  * <li>DnsPointer: (optional / many) POINTS_TO - Some domain names that will automatically point to the Machines on which it is INSTALLED_ON</li>
  * <li>{UnixUser: 1 MANAGES - The infra_web user</li>
  * </ul>

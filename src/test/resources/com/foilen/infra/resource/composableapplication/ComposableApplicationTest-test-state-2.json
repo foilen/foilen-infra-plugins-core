@@ -194,7 +194,10 @@ max_allowed_packet	= 500M
     }
   }, {
     "resource" : "DnsEntry | m1.example.com / A | 127.0.100.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.100.1",
@@ -207,7 +210,10 @@ max_allowed_packet	= 500M
     }
   }, {
     "resource" : "DnsEntry | m2.example.com / A | 127.0.100.2",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.100.2",
@@ -219,10 +225,52 @@ max_allowed_packet	= 500M
       "type" : "A"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | m1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "Domain | m2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m2.example.com"
+    }
+  }, {
     "resource" : "Machine | m1.example.com | m1.example.com (127.0.100.1)",
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | m1.example.com / A | 127.0.100.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -238,6 +286,9 @@ max_allowed_packet	= 500M
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | m2.example.com / A | 127.0.100.2"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {

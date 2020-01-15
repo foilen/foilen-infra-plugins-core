@@ -120,7 +120,10 @@
     }
   }, {
     "resource" : "DnsEntry | f1.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | f1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -133,7 +136,10 @@
     }
   }, {
     "resource" : "DnsEntry | f2.example.com / A | 127.0.0.2",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | f2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.2",
@@ -145,6 +151,45 @@
       "type" : "A"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | f1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | f2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | f1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "f1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "f1.example.com"
+    }
+  }, {
+    "resource" : "Domain | f2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "f2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "f2.example.com"
+    }
+  }, {
     "resource" : "Machine | f1.example.com | f1.example.com (127.0.0.1)",
     "links" : [ {
       "type" : "MANAGES",
@@ -152,6 +197,9 @@
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | f1.example.com / A | 127.0.0.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | f1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -170,6 +218,9 @@
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | f2.example.com / A | 127.0.0.2"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | f2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {

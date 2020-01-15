@@ -31,6 +31,7 @@ import com.foilen.infra.plugin.v1.core.visual.helper.CommonResourceLink;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.dns.DnsPointer;
+import com.foilen.infra.resource.domain.DomainResourceHelper;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.smalltools.tools.AbstractBasics;
@@ -77,6 +78,7 @@ public class ApplicationChangesEventHandler extends AbstractBasics implements Ch
                 }
                 Application application = o.get();
 
+                // Update the running user
                 List<UnixUser> unixUsers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(application, LinkTypeConstants.RUN_AS, UnixUser.class);
                 if (unixUsers.size() > 1) {
                     throw new IllegalUpdateException("An application cannot have multiple users to run as (only 0 or 1)");
@@ -92,12 +94,14 @@ public class ApplicationChangesEventHandler extends AbstractBasics implements Ch
                     application.getApplicationDefinition().setRunAs(neededRunAs);
                     changes.resourceUpdate(application);
                 }
+
             });
 
         });
         applicationNamesToCheck.clear();
 
         // Create and manage one DnsPointer per "domainNames" ; POINTS_TO Machines that this application is installed on
+        // Also manage Domains
         applicationNamesToCheck
                 .addAll(ChangesEventHandlerUtils.getFromResourcesStream(changesInTransactionContext.getLastAddedLinks(), Application.class, LinkTypeConstants.INSTALLED_ON, Machine.class)//
                         .map(Application::getName).collect(Collectors.toList()));
@@ -166,6 +170,9 @@ public class ApplicationChangesEventHandler extends AbstractBasics implements Ch
                     CommonResourceLink.syncToLinks(services, changes, dnsPointer, LinkTypeConstants.POINTS_TO, Machine.class, installOnMachines);
 
                 });
+
+                // Sync managed domain names
+                DomainResourceHelper.syncManagedLinks(s, changes, application, application.getDomainNames());
 
             });
 

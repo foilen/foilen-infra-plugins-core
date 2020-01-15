@@ -14,6 +14,7 @@ import java.util.Objects;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 import com.foilen.infra.resource.dns.model.DnsEntryType;
+import com.foilen.infra.resource.domain.Domain;
 import com.google.common.collect.ComparisonChain;
 
 /**
@@ -22,6 +23,11 @@ import com.google.common.collect.ComparisonChain;
  * Links to:
  * <ul>
  * <li>None</li>
+ * </ul>
+ *
+ * Manages:
+ * <ul>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
  * </ul>
  */
 public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry> {

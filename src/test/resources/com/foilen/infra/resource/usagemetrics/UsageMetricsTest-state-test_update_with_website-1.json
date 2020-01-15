@@ -134,7 +134,10 @@ defaults
     }
   }, {
     "resource" : "DnsEntry | central.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | central.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -147,7 +150,10 @@ defaults
     }
   }, {
     "resource" : "DnsEntry | f1.example.com / A | 127.0.0.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | f1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.1",
@@ -160,7 +166,10 @@ defaults
     }
   }, {
     "resource" : "DnsEntry | f2.example.com / A | 127.0.0.2",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | f2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.2",
@@ -177,6 +186,9 @@ defaults
       "type" : "MANAGES",
       "to" : "DnsEntry | central.example.com / A | 127.0.0.1"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | central.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
     } ],
@@ -189,6 +201,59 @@ defaults
       "resourceName" : "central.example.com"
     }
   }, {
+    "resource" : "Domain | central.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "central.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "central.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | central.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | f1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | f2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | f1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "f1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "f1.example.com"
+    }
+  }, {
+    "resource" : "Domain | f2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "f2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "f2.example.com"
+    }
+  }, {
     "resource" : "Machine | f1.example.com | f1.example.com (127.0.0.1)",
     "links" : [ {
       "type" : "MANAGES",
@@ -196,6 +261,9 @@ defaults
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | f1.example.com / A | 127.0.0.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | f1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -211,6 +279,9 @@ defaults
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | f2.example.com / A | 127.0.0.2"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | f2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -282,6 +353,9 @@ defaults
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | central.example.com | central.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | central.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"

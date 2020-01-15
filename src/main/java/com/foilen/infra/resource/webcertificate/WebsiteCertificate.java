@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
+import com.foilen.infra.resource.domain.Domain;
 import com.foilen.smalltools.tools.DateTools;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ComparisonChain;
@@ -32,7 +33,7 @@ import com.google.common.collect.ComparisonChain;
  *
  * Manages:
  * <ul>
- * <li>Domain: Creates/uses a Domain to make sure it is owned by the user</li>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
  * </ul>
  */
 public class WebsiteCertificate extends AbstractIPResource implements Comparable<WebsiteCertificate> {

@@ -40,6 +40,8 @@ public class FoilenMachinePluginDefinitionProvider implements IPPluginDefinition
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/machine/messages");
         pluginDefinitionV1.addResourceEditor(new MachineEditor(), MachineEditor.EDITOR_NAME);
 
+        pluginDefinitionV1.addChangesHandler(new MachineDomainChangesEventHandler());
+
         return pluginDefinitionV1;
     }
 

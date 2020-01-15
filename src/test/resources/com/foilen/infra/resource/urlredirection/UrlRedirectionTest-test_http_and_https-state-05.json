@@ -437,7 +437,10 @@ backend http_8080_redir.example.com
     }
   }, {
     "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -450,7 +453,10 @@ backend http_8080_redir.example.com
     }
   }, {
     "resource" : "DnsEntry | h2.example.com / A | 192.168.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.202",
@@ -463,7 +469,10 @@ backend http_8080_redir.example.com
     }
   }, {
     "resource" : "DnsEntry | redir.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | redir.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -476,7 +485,10 @@ backend http_8080_redir.example.com
     }
   }, {
     "resource" : "DnsEntry | redir.example.com / A | 192.168.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | redir.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.202",
@@ -489,7 +501,10 @@ backend http_8080_redir.example.com
     }
   }, {
     "resource" : "DnsEntry | redir2.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | redir2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -508,6 +523,9 @@ backend http_8080_redir.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | redir.example.com / A | 192.168.0.202"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | redir.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
@@ -529,6 +547,9 @@ backend http_8080_redir.example.com
       "type" : "MANAGES",
       "to" : "DnsEntry | redir2.example.com / A | 192.168.0.200"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | redir2.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
     } ],
@@ -538,6 +559,73 @@ backend http_8080_redir.example.com
       "name" : "redir2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "redir2.example.com",
+      "resourceName" : "redir2.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h2.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | redir.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | redir2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | h2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h2.example.com"
+    }
+  }, {
+    "resource" : "Domain | redir.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "redir.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "redir.example.com"
+    }
+  }, {
+    "resource" : "Domain | redir2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "redir2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
       "resourceName" : "redir2.example.com"
     }
   }, {
@@ -551,6 +639,9 @@ backend http_8080_redir.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -572,6 +663,9 @@ backend http_8080_redir.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h2.example.com / A | 192.168.0.202"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -622,6 +716,9 @@ backend http_8080_redir.example.com
       "to" : "Machine | h2.example.com | h2.example.com (192.168.0.202)"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | redir.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
     }, {
       "type" : "MANAGES",
@@ -643,6 +740,9 @@ backend http_8080_redir.example.com
     "links" : [ {
       "type" : "INSTALLED_ON",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | redir2.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
@@ -674,6 +774,9 @@ backend http_8080_redir.example.com
       "to" : "DnsPointer | redir.example.com | redir.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | redir.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -702,6 +805,9 @@ backend http_8080_redir.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | redir2.example.com | redir2.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | redir2.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"

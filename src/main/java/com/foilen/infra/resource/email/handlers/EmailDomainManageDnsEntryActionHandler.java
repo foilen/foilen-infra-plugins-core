@@ -24,6 +24,7 @@ import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.dns.DnsEntry;
 import com.foilen.infra.resource.dns.DnsPointer;
 import com.foilen.infra.resource.dns.model.DnsEntryType;
+import com.foilen.infra.resource.domain.DomainResourceHelper;
 import com.foilen.infra.resource.email.resources.EmailDomain;
 import com.foilen.infra.resource.email.resources.EmailServer;
 import com.foilen.infra.resource.machine.Machine;
@@ -98,6 +99,9 @@ public class EmailDomainManageDnsEntryActionHandler extends AbstractBasics imple
 
         CommonResourceLink.syncToLinks(services, changes, emailDomain, LinkTypeConstants.MANAGES, DnsEntry.class, dnsEntries);
         CommonResourceLink.syncToLinks(services, changes, emailDomain, LinkTypeConstants.MANAGES, DnsPointer.class, dnsPointers);
+
+        DomainResourceHelper.syncManagedLinks(services, changes, emailDomain, //
+                emailDomain.getDomainName(), emailDomain.getImapDomainName(), emailDomain.getMxDomainName(), emailDomain.getPop3DomainName());
 
     }
 

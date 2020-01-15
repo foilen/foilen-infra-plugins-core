@@ -55,6 +55,8 @@ public class UrlRedirectionChangesEventHandler extends AbstractBasics implements
             actions.add(new UrlRedirectionManageUnixUsersActionHandler(urlRedirectionDomainName));
             // For each UrlRedirection, update Website
             actions.add(new UrlRedirectionManageWebsitesActionHandler(urlRedirectionDomainName));
+            // For each UrlRedirection, update Domain
+            actions.add(new UrlRedirectionManageDomainsActionHandler(urlRedirectionDomainName));
         });
 
         // For each updated UnixUser

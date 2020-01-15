@@ -180,7 +180,10 @@ backend http_8080_myapp.example.com
     }
   }, {
     "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -193,7 +196,10 @@ backend http_8080_myapp.example.com
     }
   }, {
     "resource" : "DnsEntry | myapp.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -206,7 +212,10 @@ backend http_8080_myapp.example.com
     }
   }, {
     "resource" : "DnsEntry | myapp2.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -222,6 +231,9 @@ backend http_8080_myapp.example.com
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | myapp.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
@@ -240,6 +252,9 @@ backend http_8080_myapp.example.com
       "type" : "MANAGES",
       "to" : "DnsEntry | myapp2.example.com / A | 192.168.0.200"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp2.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
     } ],
@@ -252,6 +267,59 @@ backend http_8080_myapp.example.com
       "resourceName" : "myapp2.example.com"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | myapp.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | myapp2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | myapp.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "myapp.example.com"
+    }
+  }, {
+    "resource" : "Domain | myapp2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myapp2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "myapp2.example.com"
+    }
+  }, {
     "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
     "links" : [ {
       "type" : "MANAGES",
@@ -259,6 +327,9 @@ backend http_8080_myapp.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -324,6 +395,9 @@ backend http_8080_myapp.example.com
       "to" : "DnsPointer | myapp.example.com | myapp.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -349,6 +423,9 @@ backend http_8080_myapp.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | myapp.example.com | myapp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -381,6 +458,9 @@ backend http_8080_myapp.example.com
       "to" : "DnsPointer | myapp2.example.com | myapp2.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | myapp2.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -403,7 +483,10 @@ backend http_8080_myapp.example.com
     }
   }, {
     "resource" : "WebsiteCertificate | myapp.example.com | myapp.example.com, 2000-01-01, 2050-01-01",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTaaaCERT",
@@ -416,7 +499,10 @@ backend http_8080_myapp.example.com
     }
   }, {
     "resource" : "WebsiteCertificate | myapp2.example.com | myapp2.example.com, 2000-01-01, 2050-01-01",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTbbbCERT",

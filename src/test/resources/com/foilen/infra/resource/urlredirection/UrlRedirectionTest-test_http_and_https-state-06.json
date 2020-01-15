@@ -1,7 +1,10 @@
 {
   "resources" : [ {
     "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -14,7 +17,10 @@
     }
   }, {
     "resource" : "DnsEntry | h2.example.com / A | 192.168.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.202",
@@ -26,10 +32,52 @@
       "type" : "A"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | h2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h2.example.com"
+    }
+  }, {
     "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -45,6 +93,9 @@
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | h2.example.com / A | 192.168.0.202"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {

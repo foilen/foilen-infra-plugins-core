@@ -158,7 +158,10 @@ backend http_8080_site.example.com
     }
   }, {
     "resource" : "DnsEntry | m1.example.com / A | 127.0.100.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.100.1",
@@ -171,7 +174,10 @@ backend http_8080_site.example.com
     }
   }, {
     "resource" : "DnsEntry | site.example.com / A | 127.0.100.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | site.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.100.1",
@@ -188,6 +194,9 @@ backend http_8080_site.example.com
       "type" : "MANAGES",
       "to" : "DnsEntry | site.example.com / A | 127.0.100.1"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | site.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
     } ],
@@ -200,6 +209,45 @@ backend http_8080_site.example.com
       "resourceName" : "site.example.com"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | site.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | m1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "Domain | site.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "site.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "site.example.com"
+    }
+  }, {
     "resource" : "Machine | m1.example.com | m1.example.com (127.0.100.1)",
     "links" : [ {
       "type" : "MANAGES",
@@ -207,6 +255,9 @@ backend http_8080_site.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | m1.example.com / A | 127.0.100.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -255,6 +306,9 @@ backend http_8080_site.example.com
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | site.example.com | site.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | site.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"

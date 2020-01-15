@@ -11,6 +11,7 @@ package com.foilen.infra.resource.dns;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
+import com.foilen.infra.resource.domain.Domain;
 import com.google.common.collect.ComparisonChain;
 
 /**
@@ -22,6 +23,7 @@ import com.google.common.collect.ComparisonChain;
  *
  * Manages:
  * <ul>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
  * <li>{@link DnsEntry}: The A entries with the ips of the machines</li>
  * </ul>
  */

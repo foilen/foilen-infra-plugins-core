@@ -15,6 +15,7 @@ import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.model.resource.IPResource;
 import com.foilen.infra.resource.application.Application;
+import com.foilen.infra.resource.domain.Domain;
 import com.foilen.infra.resource.urlredirection.UrlRedirection;
 import com.foilen.infra.resource.website.Website;
 
@@ -26,6 +27,16 @@ public class ActionsHandlerUtils {
         } else {
             changes.resourceUpdate(resource);
         }
+    }
+
+    public static Domain getOrCreateADomain(IPResourceService resourceService, String domainName) {
+        Domain domain = new Domain(domainName);
+        Optional<Domain> o = resourceService.resourceFindByPk(domain);
+        if (o.isPresent()) {
+            domain = o.get();
+        }
+
+        return domain;
     }
 
     public static Application getOrCreateAnApplication(IPResourceService resourceService, String applicationName) {

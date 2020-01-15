@@ -326,6 +326,12 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "type" : "MANAGES",
       "to" : "DnsPointer | ns2.example.com | ns2.example.com"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | bind9 | /home/bind9"
     } ],
@@ -2545,6 +2551,12 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "type" : "MANAGES",
       "to" : "Application | dns_server_bind9 | Bind9 Server"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | bind9 | /home/bind9"
     } ],
@@ -2602,7 +2614,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | config.example.com / A | 127.0.0.201",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | config.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.201",
@@ -2615,7 +2630,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | dev.example.com / A | 127.0.0.203",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | dev.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.203",
@@ -2628,7 +2646,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | example.com / A | 127.0.0.203",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.203",
@@ -2641,7 +2662,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | example.com / MX | mail.example.com",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "mail.example.com",
@@ -2654,7 +2678,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | example.com / TXT | v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
@@ -2668,7 +2695,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | follow.example.com / A | 127.0.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | follow.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.202",
@@ -2681,7 +2711,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | follow.example.com / A | 127.0.0.203",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | follow.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.203",
@@ -2694,7 +2727,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | h1.example.com / A | 127.0.0.201",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.201",
@@ -2707,7 +2743,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | h2.example.com / A | 127.0.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.202",
@@ -2720,7 +2759,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | h3.example.com / A | 127.0.0.203",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h3.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.203",
@@ -2733,7 +2775,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | login.example.com / A | 127.0.0.201",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.201",
@@ -2746,7 +2791,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | mail.example.com / A | 127.0.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.202",
@@ -2759,7 +2807,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | ns1.example.com / A | 127.0.0.201",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.201",
@@ -2772,7 +2823,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | ns1.example.com / A | 127.0.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.202",
@@ -2785,7 +2839,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | ns2.example.com / A | 127.0.0.201",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.201",
@@ -2798,7 +2855,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | ns2.example.com / A | 127.0.0.202",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.202",
@@ -2811,7 +2871,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "DnsEntry | www.example.com / A | 127.0.0.203",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | www.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.0.203",
@@ -2827,6 +2890,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | config.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | config.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
@@ -2845,6 +2911,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "type" : "MANAGES",
       "to" : "DnsEntry | dev.example.com / A | 127.0.0.203"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | dev.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h3.example.com | h3.example.com (127.0.0.203)"
     } ],
@@ -2861,6 +2930,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | example.com / A | 127.0.0.203"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h3.example.com | h3.example.com (127.0.0.203)"
@@ -2881,6 +2953,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | follow.example.com / A | 127.0.0.203"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | follow.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h2.example.com | h2.example.com (127.0.0.202)"
@@ -2903,6 +2978,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "type" : "MANAGES",
       "to" : "DnsEntry | login.example.com / A | 127.0.0.201"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
     } ],
@@ -2919,6 +2997,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | mail.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h2.example.com | h2.example.com (127.0.0.202)"
@@ -2939,6 +3020,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | ns1.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
@@ -2963,6 +3047,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "type" : "MANAGES",
       "to" : "DnsEntry | ns2.example.com / A | 127.0.0.202"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
     }, {
@@ -2983,6 +3070,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "type" : "MANAGES",
       "to" : "DnsEntry | www.example.com / A | 127.0.0.203"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | www.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h3.example.com | h3.example.com (127.0.0.203)"
     } ],
@@ -2992,6 +3082,171 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "name" : "www.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "www.example.com",
+      "resourceName" : "www.example.com"
+    }
+  }, {
+    "resource" : "Domain | config.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "config.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "config.example.com"
+    }
+  }, {
+    "resource" : "Domain | dev.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "dev.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "dev.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | config.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | dev.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | follow.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h2.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h3.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | login.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | mail.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | ns1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | ns2.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | www.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | follow.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "follow.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "follow.example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | h2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h2.example.com"
+    }
+  }, {
+    "resource" : "Domain | h3.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h3.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h3.example.com"
+    }
+  }, {
+    "resource" : "Domain | login.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "login.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "login.example.com"
+    }
+  }, {
+    "resource" : "Domain | mail.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "mail.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "mail.example.com"
+    }
+  }, {
+    "resource" : "Domain | ns1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ns1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "ns1.example.com"
+    }
+  }, {
+    "resource" : "Domain | ns2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ns2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "ns2.example.com"
+    }
+  }, {
+    "resource" : "Domain | www.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "www.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
       "resourceName" : "www.example.com"
     }
   }, {
@@ -3022,6 +3277,12 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | mail.example.com | mail.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
     }, {
       "type" : "USES_IMAP",
       "to" : "WebsiteCertificate | mail.example.com | a64856c37476e330b63c38c7e1cbbb7573b2748c, 2019-05-23, 2019-05-24"
@@ -3239,6 +3500,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -3258,6 +3522,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h2.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -3286,6 +3553,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsEntry | h3.example.com / A | 127.0.0.203"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h3.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -3881,6 +4151,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | config.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
     }, {
       "type" : "MANAGES",
@@ -3902,6 +4175,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "links" : [ {
       "type" : "INSTALLED_ON",
       "to" : "Machine | h3.example.com | h3.example.com (127.0.0.203)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
@@ -3935,6 +4211,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
     }, {
       "type" : "MANAGES",
@@ -3959,6 +4238,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | config.example.com | config.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | config.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -3988,6 +4270,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "DnsPointer | example.com | example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -4015,6 +4300,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "DnsPointer | login.example.com | login.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -4040,6 +4328,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | example.com | example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -4070,6 +4361,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | dev.example.com | dev.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | dev.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -4106,6 +4400,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "DnsPointer | login.example.com | login.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -4134,6 +4431,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | config.example.com | config.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | config.example.com | "
     }, {
       "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
@@ -4166,6 +4466,9 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "DnsPointer | www.example.com | www.example.com"
     }, {
       "type" : "MANAGES",
+      "to" : "Domain | www.example.com | "
+    }, {
+      "type" : "MANAGES",
       "to" : "UnixUser | infra_web | /home/infra_web"
     }, {
       "type" : "POINTS_TO",
@@ -4192,7 +4495,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "WebsiteCertificate | config.example.com | 08c81dea51e94626ab69d92270e8e9ee7ec5a522, 2019-05-23, 2019-06-23",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | config.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTIFICATE",
@@ -4208,7 +4514,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "WebsiteCertificate | dev.example.com | 3ddc7c41b932fa8dba5ae623f85256ab225d75fb, 2019-05-23, 2019-05-24",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | dev.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTIFICATE",
@@ -4224,7 +4533,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "WebsiteCertificate | example.com | 013b6b5e233cf6fa734e3d7beae2b008a71f6148, 2019-05-23, 2019-06-23",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTIFICATE",
@@ -4240,7 +4552,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "WebsiteCertificate | login.example.com | e7877b47d5d7eaf7b9c85d6cf1514df3ceb6b5db, 2019-05-23, 2019-06-23",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | login.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTIFICATE",
@@ -4256,7 +4571,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "WebsiteCertificate | mail.example.com | a64856c37476e330b63c38c7e1cbbb7573b2748c, 2019-05-23, 2019-05-24",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | mail.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTIFICATE",
@@ -4272,7 +4590,10 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }
   }, {
     "resource" : "WebsiteCertificate | www.example.com | 2f552c1fb84c0df73a86a8790e3f4dd135555fc0, 2019-05-23, 2019-05-24",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | www.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "certificate" : "CERTIFICATE",

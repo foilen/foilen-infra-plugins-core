@@ -45,6 +45,8 @@ public class FoilenWebCertificatesPluginDefinitionProvider implements IPPluginDe
         pluginDefinitionV1.addResourceEditor(new ManualWebsiteCertificateEditor(), ManualWebsiteCertificateEditor.EDITOR_NAME);
         pluginDefinitionV1.addResourceEditor(new SelfSignedWebsiteCertificateEditor(), SelfSignedWebsiteCertificateEditor.EDITOR_NAME);
 
+        pluginDefinitionV1.addChangesHandler(new WebCertificateDomainChangesEventHandler());
+
         pluginDefinitionV1.addTimer(new SelfSignedWebsiteCertificateRefreshTimer(), //
                 SelfSignedWebsiteCertificateRefreshTimer.TIMER_NAME, //
                 Calendar.DAY_OF_YEAR, 1, //

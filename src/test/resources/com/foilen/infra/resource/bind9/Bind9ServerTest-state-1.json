@@ -11,6 +11,12 @@
       "type" : "MANAGES",
       "to" : "DnsPointer | ns2.example.com | ns2.example.com"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | infra-bind | /home/infra-bind"
     } ],
@@ -123,6 +129,12 @@ ns2 300 A 192.168.0.200
       "type" : "MANAGES",
       "to" : "Application | myDns_bind9 | Bind9 Server"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | infra-bind | /home/infra-bind"
     } ],
@@ -140,7 +152,10 @@ ns2 300 A 192.168.0.200
     }
   }, {
     "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -153,7 +168,10 @@ ns2 300 A 192.168.0.200
     }
   }, {
     "resource" : "DnsEntry | ns1.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -166,7 +184,10 @@ ns2 300 A 192.168.0.200
     }
   }, {
     "resource" : "DnsEntry | ns2.example.com / A | 192.168.0.200",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "192.168.0.200",
@@ -182,6 +203,9 @@ ns2 300 A 192.168.0.200
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | ns1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns1.example.com | "
     }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
@@ -200,6 +224,9 @@ ns2 300 A 192.168.0.200
       "type" : "MANAGES",
       "to" : "DnsEntry | ns2.example.com / A | 192.168.0.200"
     }, {
+      "type" : "MANAGES",
+      "to" : "Domain | ns2.example.com | "
+    }, {
       "type" : "POINTS_TO",
       "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
     } ],
@@ -212,10 +239,66 @@ ns2 300 A 192.168.0.200
       "resourceName" : "ns2.example.com"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | ns1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | ns2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | ns1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ns1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "ns1.example.com"
+    }
+  }, {
+    "resource" : "Domain | ns2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "ns2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "ns2.example.com"
+    }
+  }, {
     "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {

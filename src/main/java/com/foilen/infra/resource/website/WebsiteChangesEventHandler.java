@@ -69,6 +69,8 @@ public class WebsiteChangesEventHandler extends AbstractBasics implements Change
             actions.add(new WebsiteManageUnixUsersActionHandler(websiteName));
             // For each Website, update DnsPointer
             actions.add(new WebsiteManageWebsitesActionHandler(websiteName));
+            // For each Website, update Domain
+            actions.add(new WebsiteManageDomainsActionHandler(websiteName));
         });
 
         // For each Machine that has Websites to it, update Application

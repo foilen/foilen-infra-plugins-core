@@ -12,6 +12,7 @@ package com.foilen.infra.resource.dns;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,7 @@ import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonResourceLink;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.dns.model.DnsEntryType;
+import com.foilen.infra.resource.domain.DomainResourceHelper;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.google.common.base.Strings;
@@ -59,12 +61,18 @@ public class DnsPointerChangesEventHandler extends AbstractBasics implements Cha
         // Update the DnsPointers
         List<ActionHandler> actions = new ArrayList<>();
 
-        dnsPointersToRefresh.forEach(dnsPointer -> {
+        dnsPointersToRefresh.stream().map(it -> it.getName()).forEach(dnsPointerName -> {
 
             actions.add((s, changes) -> {
-                logger.info("Processing {}", dnsPointer);
+                logger.info("Processing {}", dnsPointerName);
 
                 IPResourceService resourceService = services.getResourceService();
+                Optional<DnsPointer> o = resourceService.resourceFindByPk(new DnsPointer(dnsPointerName));
+                if (!o.isPresent()) {
+                    logger.info("{} is not present. Skipping", dnsPointerName);
+                    return;
+                }
+                DnsPointer dnsPointer = o.get();
 
                 List<Machine> machines = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(dnsPointer, LinkTypeConstants.POINTS_TO, Machine.class);
                 logger.debug("{} points to {} machines", dnsPointer.getName(), machines.size());
@@ -81,6 +89,9 @@ public class DnsPointerChangesEventHandler extends AbstractBasics implements Cha
                     }
                 });
                 CommonResourceLink.syncToLinks(services, changes, dnsPointer, LinkTypeConstants.MANAGES, DnsEntry.class, desiredDnsEntries);
+
+                // Sync domains
+                DomainResourceHelper.syncManagedLinks(s, changes, dnsPointer, dnsPointer.getName());
 
             });
 

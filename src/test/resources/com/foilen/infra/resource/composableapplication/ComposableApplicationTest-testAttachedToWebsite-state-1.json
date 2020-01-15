@@ -65,7 +65,10 @@
     }
   }, {
     "resource" : "DnsEntry | m1.example.com / A | 127.0.100.1",
-    "links" : [ ],
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
+    } ],
     "tags" : [ ],
     "content" : {
       "details" : "127.0.100.1",
@@ -77,10 +80,38 @@
       "type" : "A"
     }
   }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m1.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | m1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
     "resource" : "Machine | m1.example.com | m1.example.com (127.0.100.1)",
     "links" : [ {
       "type" : "MANAGES",
       "to" : "DnsEntry | m1.example.com / A | 127.0.100.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {

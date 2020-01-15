@@ -16,19 +16,24 @@ import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 import com.foilen.infra.resource.application.model.ExecutionPolicy;
+import com.foilen.infra.resource.dns.DnsPointer;
+import com.foilen.infra.resource.domain.Domain;
+import com.foilen.infra.resource.machine.Machine;
+import com.foilen.infra.resource.unixuser.UnixUser;
 import com.google.common.collect.ComparisonChain;
 
 /**
  * This is for any application/service that is installed on a machine. <br>
  * Links to:
  * <ul>
- * <li>UnixUser: (optional / 1) RUN_AS - The user that executes that application. Will update the "runAs" of the Application itself and the "runAs" of all the services that are "null"</li>
- * <li>Machine: (optional / many) INSTALLED_ON - The machines where to install that application</li>
+ * <li>{@link UnixUser}: (optional / 1) RUN_AS - The user that executes that application. Will update the "runAs" of the Application itself and the "runAs" of all the services that are "null"</li>
+ * <li>{@link Machine}: (optional / many) INSTALLED_ON - The machines where to install that application</li>
  * </ul>
  *
  * Manages:
  * <ul>
- * <li>DnsPointer: (optional / many) POINTS_TO - Some domain names that will automatically point to the Machines on which it is INSTALLED_ON</li>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
+ * <li>{@link DnsPointer}: (optional / many) POINTS_TO - Some domain names that will automatically point to the Machines on which it is INSTALLED_ON</li>
  * </ul>
  */
 public class Application extends AbstractIPResource implements Comparable<Application> {

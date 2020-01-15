@@ -11,6 +11,9 @@ package com.foilen.infra.resource.urlredirection;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
+import com.foilen.infra.resource.domain.Domain;
+import com.foilen.infra.resource.unixuser.UnixUser;
+import com.foilen.infra.resource.website.Website;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ComparisonChain;
 
@@ -24,8 +27,9 @@ import com.google.common.collect.ComparisonChain;
  *
  * Manages:
  * <ul>
- * <li>{Website: (1 per protocol) MANAGES - Website to handle the redirection</li>
- * <li>{UnixUser: 1 MANAGES - The infra_url_redirection user</li>
+ * <li>{@link Domain}: (optional / many) MANAGES - The domains</li>
+ * <li>{@link Website}: (1 per protocol) MANAGES - Website to handle the redirection</li>
+ * <li>{@link UnixUser}: 1 MANAGES - The infra_url_redirection user</li>
  * </ul>
  */
 public class UrlRedirection extends AbstractIPResource implements Comparable<UrlRedirection> {
