@@ -142,6 +142,7 @@ defaults
     "content" : {
       "details" : "127.0.100.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "m1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.100.1",
@@ -158,6 +159,7 @@ defaults
     "content" : {
       "details" : "127.0.100.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "site.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.100.1",

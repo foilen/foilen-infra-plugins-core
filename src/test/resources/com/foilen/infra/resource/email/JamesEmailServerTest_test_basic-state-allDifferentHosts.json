@@ -510,6 +510,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "mail.example.com",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "mail.example.com",
@@ -526,6 +527,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "imap.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -542,6 +544,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "localhost.foilen-lab.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -558,6 +561,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "mail.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -574,6 +578,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "pop3.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",

@@ -78,7 +78,7 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getDetails() + ".");
                     break;
                 case MX:
-                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " 10 " + bindEntry.getDetails() + ".");
+                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getMxPriority() + " " + bindEntry.getDetails() + ".");
                     break;
                 case TXT:
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " \"" + bindEntry.getDetails() + "\"");
@@ -104,7 +104,7 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
                 .map(entry -> {
                     String zone = getZoneFromDomain(entry.getName());
                     String subDomain = getSubDomainFromDomain(entry.getName());
-                    return new BindEntry(zone, subDomain, entry.getType(), entry.getDetails());
+                    return new BindEntry(zone, subDomain, entry.getType(), entry.getDetails()).setMxPriority(entry.getMxPriority());
                 }) //
                 .collect(Collectors.toList());
 

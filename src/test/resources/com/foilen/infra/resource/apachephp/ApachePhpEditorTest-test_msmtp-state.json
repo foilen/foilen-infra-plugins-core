@@ -205,6 +205,7 @@ memory_limit = 300M
     "content" : {
       "details" : "192.168.0.11",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "test1.node.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.11",

@@ -139,6 +139,7 @@ backend http_8080_myapp.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
@@ -155,6 +156,7 @@ backend http_8080_myapp.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "myapp.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",

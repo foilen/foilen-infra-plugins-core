@@ -362,6 +362,7 @@
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "f1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -378,6 +379,7 @@
     "content" : {
       "details" : "127.0.0.2",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "f2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.2",
@@ -394,6 +396,7 @@
     "content" : {
       "details" : "127.0.0.3",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "f3.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.3",

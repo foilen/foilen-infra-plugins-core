@@ -368,6 +368,7 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
@@ -384,6 +385,7 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "myphp.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",

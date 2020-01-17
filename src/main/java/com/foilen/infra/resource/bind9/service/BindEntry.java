@@ -13,17 +13,20 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.foilen.infra.resource.dns.model.DnsEntryType;
+import com.foilen.smalltools.tools.AbstractBasics;
 import com.google.common.collect.ComparisonChain;
 
 /**
  * The low level entry.
  */
-public class BindEntry implements Comparable<BindEntry> {
+public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
 
     private String zone;
     private String subDomain;
     private DnsEntryType type;
     private String details;
+
+    private int mxPriority = 10;
 
     public BindEntry() {
     }
@@ -42,6 +45,7 @@ public class BindEntry implements Comparable<BindEntry> {
         cc = cc.compare(subDomain, o.subDomain);
         cc = cc.compare(type, o.type);
         cc = cc.compare(details, o.details);
+        cc = cc.compare(mxPriority, o.mxPriority);
         return cc.result();
     }
 
@@ -62,11 +66,16 @@ public class BindEntry implements Comparable<BindEntry> {
         b.append(subDomain, be.subDomain);
         b.append(type, be.type);
         b.append(details, be.details);
+        b.append(mxPriority, be.mxPriority);
         return b.isEquals();
     }
 
     public String getDetails() {
         return details;
+    }
+
+    public int getMxPriority() {
+        return mxPriority;
     }
 
     public String getSubDomain() {
@@ -89,28 +98,33 @@ public class BindEntry implements Comparable<BindEntry> {
         b.append(subDomain);
         b.append(type);
         b.append(details);
+        b.append(mxPriority);
         return b.toHashCode();
     }
 
-    public void setDetails(String details) {
+    public BindEntry setDetails(String details) {
         this.details = details;
+        return this;
     }
 
-    public void setSubDomain(String subDomain) {
+    public BindEntry setMxPriority(int mxPriority) {
+        this.mxPriority = mxPriority;
+        return this;
+    }
+
+    public BindEntry setSubDomain(String subDomain) {
         this.subDomain = subDomain;
+        return this;
     }
 
-    public void setType(DnsEntryType type) {
+    public BindEntry setType(DnsEntryType type) {
         this.type = type;
+        return this;
     }
 
-    public void setZone(String zone) {
+    public BindEntry setZone(String zone) {
         this.zone = zone;
-    }
-
-    @Override
-    public String toString() {
-        return "BindEntry [zone=" + zone + ", subDomain=" + subDomain + ", type=" + type + ", details=" + details + "]";
+        return this;
     }
 
 }

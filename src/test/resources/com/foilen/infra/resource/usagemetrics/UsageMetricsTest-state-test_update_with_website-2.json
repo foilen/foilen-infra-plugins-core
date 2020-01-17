@@ -378,6 +378,7 @@ backend http_8080_central.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "central.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -394,6 +395,7 @@ backend http_8080_central.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "f1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -410,6 +412,7 @@ backend http_8080_central.example.com
     "content" : {
       "details" : "127.0.0.2",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "f2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.2",

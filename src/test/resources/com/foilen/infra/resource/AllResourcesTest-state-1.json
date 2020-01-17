@@ -2622,6 +2622,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "config.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
@@ -2638,6 +2639,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "dev.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
@@ -2654,6 +2656,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
@@ -2670,6 +2673,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "mail.example.com",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "mail.example.com",
@@ -2686,6 +2690,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
@@ -2703,6 +2708,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "follow.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
@@ -2719,6 +2725,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "follow.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
@@ -2735,6 +2742,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
@@ -2751,6 +2759,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
@@ -2767,6 +2776,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h3.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
@@ -2783,6 +2793,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "login.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
@@ -2799,6 +2810,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "mail.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
@@ -2815,6 +2827,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ns1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
@@ -2831,6 +2844,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ns1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
@@ -2847,6 +2861,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ns2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
@@ -2863,6 +2878,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ns2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
@@ -2879,6 +2895,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "www.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",

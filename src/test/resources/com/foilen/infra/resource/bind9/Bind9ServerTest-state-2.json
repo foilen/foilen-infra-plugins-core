@@ -161,6 +161,7 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "editor.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -177,6 +178,7 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
@@ -193,6 +195,7 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ns1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
@@ -209,6 +212,7 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ns2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",

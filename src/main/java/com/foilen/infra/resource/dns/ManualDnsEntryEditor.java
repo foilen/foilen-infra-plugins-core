@@ -24,6 +24,7 @@ import com.foilen.infra.plugin.v1.core.visual.pageItem.field.InputTextFieldPageI
 import com.foilen.infra.plugin.v1.core.visual.pageItem.field.SelectOptionsPageItem;
 import com.foilen.infra.resource.dns.model.DnsEntryType;
 import com.foilen.smalltools.tuple.Tuple2;
+import com.google.common.base.Strings;
 
 public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
 
@@ -34,6 +35,13 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
         resource.setName(validFormValues.get(DnsEntry.PROPERTY_NAME));
         resource.setType(DnsEntryType.valueOf(validFormValues.get(DnsEntry.PROPERTY_TYPE)));
         resource.setDetails(validFormValues.get(DnsEntry.PROPERTY_DETAILS));
+
+        String mxPriority = validFormValues.get(DnsEntry.PROPERTY_MX_PRIORITY);
+        if (Strings.isNullOrEmpty(mxPriority)) {
+            resource.setMxPriority(10);
+        } else {
+            resource.setMxPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_MX_PRIORITY)));
+        }
     }
 
     @Override
@@ -57,11 +65,13 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
         InputTextFieldPageItem namePageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.name", DnsEntry.PROPERTY_NAME);
         SelectOptionsPageItem typePageItem = CommonPageItem.createSelectOptionsField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.type", DnsEntry.PROPERTY_TYPE, DnsEntryType.values());
         InputTextFieldPageItem detailsPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.details", DnsEntry.PROPERTY_DETAILS);
+        InputTextFieldPageItem mxPriorityPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.mxPriority", DnsEntry.PROPERTY_MX_PRIORITY);
 
         if (resource != null) {
             namePageItem.setFieldValue(resource.getName());
             typePageItem.setFieldValue(resource.getType().name());
             detailsPageItem.setFieldValue(resource.getDetails());
+            mxPriorityPageItem.setFieldValue(String.valueOf(resource.getMxPriority()));
         }
 
         return pageDefinition;
@@ -77,6 +87,15 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
                 errors.addAll(CommonValidation.validateIpAddress(rawFormValues, DnsEntry.PROPERTY_DETAILS));
             }
         } catch (Exception e) {
+        }
+
+        String mxPriority = rawFormValues.get(DnsEntry.PROPERTY_MX_PRIORITY);
+        if (!Strings.isNullOrEmpty(mxPriority)) {
+            try {
+                Integer.parseInt(mxPriority);
+            } catch (NumberFormatException e) {
+                errors.add(new Tuple2<>(DnsEntry.PROPERTY_MX_PRIORITY, "error.notInteger"));
+            }
         }
         return errors;
     }

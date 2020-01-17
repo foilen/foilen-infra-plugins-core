@@ -37,10 +37,13 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_TYPE = "type";
     public static final String PROPERTY_DETAILS = "details";
+    public static final String PROPERTY_MX_PRIORITY = "mxPriority";
 
     private String name;
     private DnsEntryType type;
     private String details;
+
+    private int mxPriority = 10;
 
     public DnsEntry() {
     }
@@ -67,6 +70,7 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
         cc = cc.compare(name, o.name);
         cc = cc.compare(type, o.type);
         cc = cc.compare(details, o.details);
+        cc = cc.compare(mxPriority, o.mxPriority);
         return cc.result();
     }
 
@@ -86,11 +90,16 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
         DnsEntry se = (DnsEntry) o;
         return Objects.equals(name, se.name) //
                 && Objects.equals(type, se.type) //
-                && Objects.equals(details, se.details);
+                && Objects.equals(details, se.details) //
+                && Objects.equals(mxPriority, se.mxPriority);
     }
 
     public String getDetails() {
         return details;
+    }
+
+    public int getMxPriority() {
+        return mxPriority;
     }
 
     public String getName() {
@@ -118,11 +127,15 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
 
     @Override
     public int hashCode() {
-        return Objects.hash(details, name, type);
+        return Objects.hash(details, name, type, mxPriority);
     }
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public void setMxPriority(int mxPriority) {
+        this.mxPriority = mxPriority;
     }
 
     public void setName(String name) {

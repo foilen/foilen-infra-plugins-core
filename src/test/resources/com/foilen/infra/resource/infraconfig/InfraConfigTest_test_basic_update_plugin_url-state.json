@@ -767,6 +767,7 @@ backend http_8080_ui.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "login.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -783,6 +784,7 @@ backend http_8080_ui.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "m1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
@@ -799,6 +801,7 @@ backend http_8080_ui.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "ui.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",

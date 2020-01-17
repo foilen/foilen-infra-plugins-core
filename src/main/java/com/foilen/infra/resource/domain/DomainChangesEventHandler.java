@@ -27,7 +27,6 @@ public class DomainChangesEventHandler extends AbstractBasics implements Changes
     @Override
     public List<ActionHandler> computeActionsToExecute(CommonServicesContext services, ChangesInTransactionContext changesInTransactionContext) {
 
-        // TODO + Junit cannot rename a domain
         // Validate cannot rename a domain
         changesInTransactionContext.getLastUpdatedResources().stream() //
                 .filter(update -> update.getNext() instanceof Domain) //

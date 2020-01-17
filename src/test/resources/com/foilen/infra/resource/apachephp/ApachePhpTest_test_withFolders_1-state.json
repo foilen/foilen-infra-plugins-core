@@ -323,6 +323,7 @@ memory_limit = 192M
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "h1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
@@ -339,6 +340,7 @@ memory_limit = 192M
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
+      "mxPriority" : 10,
       "name" : "myphp.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
