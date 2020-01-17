@@ -14,8 +14,6 @@
     "tags" : [ ],
     "content" : {
       "basePath" : "/home/user1/php",
-      "emailSender" : "SENDMAIL_TO_MSMTP",
-      "emailSenderMsmtp" : true,
       "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
       "maxUploadFilesizeM" : 5000,

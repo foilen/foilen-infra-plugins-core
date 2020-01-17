@@ -18,8 +18,6 @@
     "content" : {
       "basePath" : "/home/shop_wp/www",
       "defaultEmailFrom" : "info@example.com",
-      "emailSender" : "MSMTP",
-      "emailSenderMsmtp" : true,
       "logMaxSizeM" : 100,
       "mainSiteRelativePath" : "/",
       "maxUploadFilesizeM" : 64,
@@ -53,8 +51,6 @@
     "content" : {
       "basePath" : "/home/shop_wp/dev",
       "defaultEmailFrom" : "info@example.com",
-      "emailSender" : "MSMTP",
-      "emailSenderMsmtp" : true,
       "logMaxSizeM" : 100,
       "mainSiteRelativePath" : "/",
       "maxUploadFilesizeM" : 64,
@@ -2112,8 +2108,6 @@ fi
           }, {
             "a" : "/99-fcloud.ini",
             "b" : "[PHP]
-sendmail_path = \"/usr/bin/msmtp -t --read-envelope-from\"
-
 max_execution_time = 300
 
 upload_max_filesize = 64M
@@ -2122,6 +2116,11 @@ max_file_uploads = 100
 
 memory_limit = 192M
 "
+          }, {
+            "a" : "/etc/sendmail-to-msmtp.json",
+            "b" : "{
+  \"defaultFrom\" : \"info@example.com\"
+}"
           }, {
             "a" : "/etc/apache2/sites-enabled/000-default.conf",
             "b" : "<VirtualHost *>
@@ -2288,8 +2287,6 @@ fi
           }, {
             "a" : "/99-fcloud.ini",
             "b" : "[PHP]
-sendmail_path = \"/usr/bin/msmtp -t --read-envelope-from\"
-
 max_execution_time = 300
 
 upload_max_filesize = 64M
@@ -2298,6 +2295,11 @@ max_file_uploads = 100
 
 memory_limit = 192M
 "
+          }, {
+            "a" : "/etc/sendmail-to-msmtp.json",
+            "b" : "{
+  \"defaultFrom\" : \"info@example.com\"
+}"
           }, {
             "a" : "/htpasswd",
             "b" : "dev:{SHA}RXmRHSlUrshJiqLHG2nTVFb+G5U="

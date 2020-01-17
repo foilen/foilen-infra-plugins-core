@@ -46,9 +46,6 @@ public class ApachePhp extends AbstractIPResource {
     public static final String PROPERTY_BASE_PATH = "basePath";
     public static final String PROPERTY_MAIN_SITE_RELATIVE_PATH = "mainSiteRelativePath";
     public static final String PROPERTY_VERSION = "version";
-    @Deprecated
-    public static final String PROPERTY_EMAIL_SENDER_MSMTP = "emailSenderMsmtp"; // TODO 2019-07-08 Remove later
-    public static final String PROPERTY_EMAIL_SENDER = "emailSender";
     public static final String PROPERTY_DEFAULT_EMAIL_FROM = "defaultEmailFrom";
     public static final String PROPERTY_LOG_MAX_SIZE_M = "logMaxSizeM";
     public static final String PROPERTY_MAX_UPLOAD_FILESIZE_M = "maxUploadFilesizeM";
@@ -57,8 +54,6 @@ public class ApachePhp extends AbstractIPResource {
     private String name;
     private String basePath;
     private String mainSiteRelativePath = "/";
-    private boolean emailSenderMsmtp = true; // TODO 2019-07-08 Remove later
-    private EmailSender emailSender = EmailSender.SENDMAIL_TO_MSMTP;
     private String defaultEmailFrom;
     private int logMaxSizeM = 100;
     private int maxUploadFilesizeM = 64;
@@ -85,10 +80,6 @@ public class ApachePhp extends AbstractIPResource {
 
     public String getDefaultEmailFrom() {
         return defaultEmailFrom;
-    }
-
-    public EmailSender getEmailSender() {
-        return emailSender;
     }
 
     public int getLogMaxSizeM() {
@@ -126,26 +117,12 @@ public class ApachePhp extends AbstractIPResource {
         return version;
     }
 
-    @Deprecated
-    public boolean isEmailSenderMsmtp() {
-        return emailSenderMsmtp;
-    }
-
     public void setBasePath(String basePath) {
         this.basePath = basePath;
     }
 
     public void setDefaultEmailFrom(String defaultEmailFrom) {
         this.defaultEmailFrom = defaultEmailFrom;
-    }
-
-    public void setEmailSender(EmailSender emailSender) {
-        this.emailSender = emailSender;
-    }
-
-    @Deprecated
-    public void setEmailSenderMsmtp(boolean emailSenderMsmtp) {
-        this.emailSenderMsmtp = emailSenderMsmtp;
     }
 
     public void setLogMaxSizeM(int logMaxSizeM) {

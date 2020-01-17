@@ -15,8 +15,6 @@
     "content" : {
       "basePath" : "/home/user1/php",
       "defaultEmailFrom" : "admin@example.com",
-      "emailSender" : "SENDMAIL_TO_MSMTP",
-      "emailSenderMsmtp" : true,
       "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
       "maxUploadFilesizeM" : 100,

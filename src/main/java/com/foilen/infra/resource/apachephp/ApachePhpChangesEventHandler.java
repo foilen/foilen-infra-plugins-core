@@ -169,22 +169,10 @@ public class ApachePhpChangesEventHandler extends AbstractBasics implements Chan
                             iniConfigModel.put("memory_limit", maxUploadFilesizeM * 3);
                             iniConfigModel.put("max_file_uploads", 100);
 
-                            switch (apachePhp.getEmailSender()) {
-                            case MSMTP:
-                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php-msmtp.ini.ftl", iniConfigModel));
-                                break;
-                            case SENDMAIL:
-                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php-sendmail.ini.ftl", iniConfigModel));
-                                break;
-                            case SENDMAIL_TO_MSMTP:
-                                assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php.ini.ftl", iniConfigModel));
-                                if (!Strings.isNullOrEmpty(apachePhp.getDefaultEmailFrom())) {
-                                    Map<String, String> config = Collections.singletonMap("defaultFrom", apachePhp.getDefaultEmailFrom());
-                                    assetsBundle.addAssetContent("/etc/sendmail-to-msmtp.json", JsonTools.prettyPrint(config));
-                                }
-                                break;
-                            default:
-                                break;
+                            assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php.ini.ftl", iniConfigModel));
+                            if (!Strings.isNullOrEmpty(apachePhp.getDefaultEmailFrom())) {
+                                Map<String, String> config = Collections.singletonMap("defaultFrom", apachePhp.getDefaultEmailFrom());
+                                assetsBundle.addAssetContent("/etc/sendmail-to-msmtp.json", JsonTools.prettyPrint(config));
                             }
 
                             // Site configuration
