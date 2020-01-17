@@ -501,7 +501,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceName" : "db_database_email"
     }
   }, {
-    "resource" : "DnsEntry | example.com / MX | mail.example.com",
+    "resource" : "DnsEntry | example.com / MX | mail.example.com (10)",
     "links" : [ {
       "type" : "MANAGES",
       "to" : "Domain | example.com | "
@@ -513,7 +513,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "mxPriority" : 10,
       "name" : "example.com",
       "resourceCategory" : "NET",
-      "resourceDescription" : "mail.example.com",
+      "resourceDescription" : "mail.example.com (10)",
       "resourceName" : "example.com / MX",
       "type" : "MX"
     }
@@ -713,7 +713,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "to" : "JamesEmailServer | james_server | Apache James email server"
     }, {
       "type" : "MANAGES",
-      "to" : "DnsEntry | example.com / MX | mail.example.com"
+      "to" : "DnsEntry | example.com / MX | mail.example.com (10)"
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | mail.example.com | mail.example.com"

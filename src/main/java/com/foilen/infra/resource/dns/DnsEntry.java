@@ -113,6 +113,9 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
 
     @Override
     public String getResourceDescription() {
+        if (type == DnsEntryType.MX) {
+            return details + " (" + mxPriority + ")";
+        }
         return details;
     }
 
