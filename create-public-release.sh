@@ -22,6 +22,7 @@ cd $RUN_PATH
 
 ./step-update-copyrights.sh
 ./step-clean-compile.sh
+./step-verify-jar.sh
 ./step-upload-bintray.sh
 ./step-git-tag.sh
 

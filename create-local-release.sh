@@ -15,3 +15,4 @@ cd $RUN_PATH
 
 ./step-update-copyrights.sh
 ./step-clean-compile.sh
+./step-verify-jar.sh
