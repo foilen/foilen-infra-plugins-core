@@ -10,13 +10,12 @@
 package com.foilen.infra.resource.test;
 
 import org.junit.Before;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import com.foilen.infra.plugin.core.system.common.service.IPPluginServiceImpl;
-import com.foilen.infra.plugin.core.system.fake.ConfigWebUiConfig;
-import com.foilen.infra.plugin.core.system.fake.junits.AbstractIPPluginTest;
-import com.foilen.infra.plugin.core.system.fake.service.FakeSystemServicesImpl;
-import com.foilen.infra.plugin.core.system.fake.service.TranslationServiceImpl;
+import com.foilen.infra.plugin.core.system.common.service.MessagingServiceLoggerImpl;
+import com.foilen.infra.plugin.core.system.common.service.TranslationServiceImpl;
+import com.foilen.infra.plugin.core.system.junits.AbstractIPPluginTest;
+import com.foilen.infra.plugin.core.system.memory.service.ResourceServicesInMemoryImpl;
 import com.foilen.infra.plugin.v1.core.common.InfraPluginCommonInit;
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.TimerEventContext;
@@ -27,13 +26,25 @@ import com.foilen.infra.plugin.v1.core.service.TranslationService;
 
 public class AbstractCorePluginTest extends AbstractIPPluginTest {
 
+    private CommonServicesContext commonServicesContext;
+    private InternalServicesContext internalServicesContext;
+    protected ResourceServicesInMemoryImpl resourceServicesInMemoryImpl;
+
     @Override
+    protected CommonServicesContext getCommonServicesContext() {
+        return commonServicesContext;
+    }
+
+    @Override
+    protected InternalServicesContext getInternalServicesContext() {
+        return internalServicesContext;
+    }
+
     @Before
     public void init() {
 
         System.setProperty("PluginUpgrader.disable", "true");
 
-        fakeSystemServicesImpl = new FakeSystemServicesImpl();
         TimerService timerService = new TimerService() {
 
             @Override
@@ -44,15 +55,15 @@ public class AbstractCorePluginTest extends AbstractIPPluginTest {
             public void timerAdd(TimerEventContext timer) {
             }
         };
+        resourceServicesInMemoryImpl = new ResourceServicesInMemoryImpl();
 
         TranslationService translationService = new TranslationServiceImpl();
-        ReflectionTestUtils.setField(translationService, "messageSource", new ConfigWebUiConfig().messageSource());
 
-        CommonServicesContext commonServicesContext = new CommonServicesContext(fakeSystemServicesImpl, new IPPluginServiceImpl(), fakeSystemServicesImpl, timerService, translationService);
-        InternalServicesContext internalServicesContext = new InternalServicesContext(fakeSystemServicesImpl, fakeSystemServicesImpl);
+        commonServicesContext = new CommonServicesContext(new MessagingServiceLoggerImpl(), new IPPluginServiceImpl(), resourceServicesInMemoryImpl, timerService, translationService);
+        internalServicesContext = new InternalServicesContext(resourceServicesInMemoryImpl, resourceServicesInMemoryImpl);
 
-        ReflectionTestUtils.setField(fakeSystemServicesImpl, "commonServicesContext", commonServicesContext);
-        ReflectionTestUtils.setField(fakeSystemServicesImpl, "internalServicesContext", internalServicesContext);
+        resourceServicesInMemoryImpl.setCommonServicesContext(commonServicesContext);
+        resourceServicesInMemoryImpl.setInternalServicesContext(internalServicesContext);
 
         InfraPluginCommonInit.init(commonServicesContext, internalServicesContext);
 

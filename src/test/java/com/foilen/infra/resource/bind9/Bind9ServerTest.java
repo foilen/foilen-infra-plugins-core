@@ -62,7 +62,7 @@ public class Bind9ServerTest extends AbstractCorePluginTest {
         SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMdd");
         String currentSerial = sdf.format(new Date()) + "00";
         String newSerial = "1111111100";
-        Application application = fakeSystemServicesImpl.getResources().stream() //
+        Application application = resourceServicesInMemoryImpl.getResources().stream() //
                 .filter(it -> it.getClass().equals(Application.class) && "myDns_bind9".equals(it.getResourceName())) //
                 .map(it -> (Application) it) //
                 .findAny().get();
@@ -80,7 +80,7 @@ public class Bind9ServerTest extends AbstractCorePluginTest {
         assertEditorNoErrors(null, new ManualDnsEntryEditor(), formValues);
 
         // Change serial
-        application = fakeSystemServicesImpl.getResources().stream() //
+        application = resourceServicesInMemoryImpl.getResources().stream() //
                 .filter(it -> it.getClass().equals(Application.class) && "myDns_bind9".equals(it.getResourceName())) //
                 .map(it -> (Application) it) //
                 .findAny().get();

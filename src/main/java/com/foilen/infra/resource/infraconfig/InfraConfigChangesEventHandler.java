@@ -60,7 +60,7 @@ public class InfraConfigChangesEventHandler extends AbstractBasics implements Ch
         // Resources linked to InfraConfig were updated
         if (!changed && !changesInTransactionContext.getLastUpdatedResources().isEmpty()) {
             IPResourceService resourceService = services.getResourceService();
-            List<Long> internalIds = resourceService.resourceFindAll(resourceService.createResourceQuery(InfraConfig.class)).stream() //
+            List<String> internalIds = resourceService.resourceFindAll(resourceService.createResourceQuery(InfraConfig.class)).stream() //
                     .flatMap(infraConfig -> resourceService.linkFindAllByFromResource(infraConfig).stream()) //
                     .map(linkTo -> linkTo.getB().getInternalId()) //
                     .sorted() //

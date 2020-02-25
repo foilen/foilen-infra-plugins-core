@@ -27,7 +27,7 @@ repositories {
   }
 }
 
-sourceCompatibility = 1.11
+sourceCompatibility = 11
 
 eclipse {
   classpath {
@@ -45,9 +45,12 @@ dependencies {
   compile ("org.shredzone.acme4j:acme4j-client:$acme4jVersion")
   compile ("org.shredzone.acme4j:acme4j-utils:$acme4jVersion")
   
-  compileOnly "com.foilen:foilen-infra-system-core-system-fake:$foilenInfraSystemVersion"
+  compileOnly "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
   
+  testCompile "com.foilen:foilen-infra-system-core-system-junits:$foilenInfraSystemVersion"
+  testCompile "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
   testCompileOnly 'junit:junit:4.12'
+  testCompile 'org.freemarker:freemarker:2.3.23'
   testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
   testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junitVersion"
 }

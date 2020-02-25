@@ -82,7 +82,7 @@
       "resourceName" : "metrics_extra_packages"
     }
   }, {
-    "resource" : "AttachableContainerUserToChangeId | user1 | 1 : user1",
+    "resource" : "AttachableContainerUserToChangeId | user1 | 4 : user1",
     "links" : [ {
       "type" : "USES",
       "to" : "UnixUser | user1 | /home/user1"
@@ -91,9 +91,9 @@
     "content" : {
       "meta" : { },
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "1 : user1",
+      "resourceDescription" : "4 : user1",
       "resourceName" : "user1",
-      "uid" : "1",
+      "uid" : "4",
       "usernameInContainer" : "user1"
     }
   }, {
@@ -120,7 +120,7 @@
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "/home/user1 -> /home/user1",
       "resourceName" : "/home/user1 -> /home/user1",
-      "uid" : "2"
+      "uid" : "1"
     }
   }, {
     "resource" : "AttachableVolume | /var/lock | /var/lock",
@@ -132,7 +132,7 @@
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "/var/lock",
       "resourceName" : "/var/lock",
-      "uid" : "4"
+      "uid" : "3"
     }
   }, {
     "resource" : "AttachableVolume | /var/log | /var/log",
@@ -144,7 +144,7 @@
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "/var/log",
       "resourceName" : "/var/log",
-      "uid" : "3"
+      "uid" : "2"
     }
   }, {
     "resource" : "ComposableApplication | my_java_app | Composable Application",
@@ -153,7 +153,7 @@
       "to" : "AttachableAptInstall | metrics_extra_packages | Apt Install"
     }, {
       "type" : "ATTACHED",
-      "to" : "AttachableContainerUserToChangeId | user1 | 1 : user1"
+      "to" : "AttachableContainerUserToChangeId | user1 | 4 : user1"
     }, {
       "type" : "ATTACHED",
       "to" : "AttachableService | metrics_java_app | Service"

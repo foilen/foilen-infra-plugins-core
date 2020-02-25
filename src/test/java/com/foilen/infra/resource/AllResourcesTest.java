@@ -154,7 +154,7 @@ public class AllResourcesTest extends AbstractCorePluginTest {
     @Test
     public void test_all() {
 
-        fakeSystemServicesImpl.setInfiniteLoopTimeoutInMs(60000);
+        resourceServicesInMemoryImpl.setInfiniteLoopTimeoutInMs(60000);
 
         // Initial import
         ResourcesDump resourcesDump = JsonTools.readFromResource("AllResourcesTest-initial-import.json", ResourcesDump.class, getClass());

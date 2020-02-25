@@ -73,7 +73,7 @@ public class UsageMetricsTest extends AbstractCorePluginTest {
                     .resourceUpdate(umc) //
             );
         });
-        Long configId = resourceService.resourceFindByPk(new UsageMetricsConfig("uid123uid")).get().getInternalId();
+        String configId = resourceService.resourceFindByPk(new UsageMetricsConfig("uid123uid")).get().getInternalId();
 
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "UsageMetricsTest-state-test_update-2.json", getClass(), true);
 
@@ -187,7 +187,7 @@ public class UsageMetricsTest extends AbstractCorePluginTest {
                     .resourceUpdate(umc) //
             );
         });
-        Long configId = resourceService.resourceFindByPk(new UsageMetricsConfig("uid123uid")).get().getInternalId();
+        String configId = resourceService.resourceFindByPk(new UsageMetricsConfig("uid123uid")).get().getInternalId();
 
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "UsageMetricsTest-state-test_update_with_website-2.json", getClass(), true);
 

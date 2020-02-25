@@ -79,11 +79,11 @@ public class SystemUnixUserEditor implements ResourceEditor<SystemUnixUser> {
             Optional<SystemUnixUser> unixUser = resourceService.resourceFind(resourceService.createResourceQuery(SystemUnixUser.class) //
                     .propertyEquals(UnixUser.PROPERTY_NAME, username));
             if (unixUser.isPresent()) {
-                Long expectedInternalId = null;
+                String expectedInternalId = null;
                 try {
                     String idText = rawFormValues.get("_resourceId");
                     if (!Strings.isNullOrEmpty(idText)) {
-                        expectedInternalId = Long.valueOf(idText);
+                        expectedInternalId = idText;
                     }
                 } catch (Exception e) {
                 }

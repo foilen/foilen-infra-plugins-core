@@ -18,7 +18,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.junit.Test;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.InvalidPropertyException;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
@@ -162,7 +161,7 @@ public class ComposableApplicationEditorTest extends AbstractCorePluginTest {
                 }) //
                 .sorted((a, b) -> a.getInternalId().compareTo(b.getInternalId())) //
                 .forEach(it -> {
-                    ReflectionTestUtils.setField(it, "uid", String.valueOf(nextUid.incrementAndGet()));
+                    new BeanWrapperImpl(it).setPropertyValue("uid", String.valueOf(nextUid.incrementAndGet()));
                     changes.resourceUpdate(it);
                 });
         internalChangeService.changesExecute(changes);

@@ -9,8 +9,8 @@
  */
 package com.foilen.infra.resource.apachephp;
 
-import com.foilen.infra.plugin.core.system.fake.junits.FakeSystemServicesTests;
-import com.foilen.infra.plugin.core.system.fake.service.FakeSystemServicesImpl;
+import com.foilen.infra.plugin.core.system.memory.junits.ResourceServicesInMemoryTests;
+import com.foilen.infra.plugin.core.system.memory.service.ResourceServicesInMemoryImpl;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.machine.Machine;
@@ -22,7 +22,7 @@ public class ApachePhpPerfTestingApp {
 
     public static void main(String[] args) {
 
-        FakeSystemServicesImpl fakeSystemServices = FakeSystemServicesTests.init();
+        ResourceServicesInMemoryImpl resourceServicesInMemoryImpl = ResourceServicesInMemoryTests.init();
 
         // Create common
         Machine machine = new Machine("h1.example.com", "192.168.0.200");
@@ -30,12 +30,12 @@ public class ApachePhpPerfTestingApp {
         Website website = new Website("myphp");
         website.getDomainNames().add("myphp.example.com");
 
-        ChangesContext changes = new ChangesContext(fakeSystemServices);
+        ChangesContext changes = new ChangesContext(resourceServicesInMemoryImpl);
         changes.resourceAdd(machine);
         changes.resourceAdd(unixUser);
         changes.resourceAdd(website);
         changes.linkAdd(website, LinkTypeConstants.INSTALLED_ON, machine);
-        fakeSystemServices.changesExecute(changes);
+        resourceServicesInMemoryImpl.changesExecute(changes);
 
         // Create some
         System.out.println("---[ Creation ]---");
@@ -56,10 +56,10 @@ public class ApachePhpPerfTestingApp {
                 changes.linkAdd(apachePhp, LinkTypeConstants.USES, apachePhpFolder);
                 changes.linkAdd(website, LinkTypeConstants.POINTS_TO, apachePhp);
                 if (i % 5 == 0) {
-                    fakeSystemServices.changesExecute(changes);
+                    resourceServicesInMemoryImpl.changesExecute(changes);
                 }
             }
-            fakeSystemServices.changesExecute(changes);
+            resourceServicesInMemoryImpl.changesExecute(changes);
         });
 
         System.out.println("Took " + timeInMs + " ms");
