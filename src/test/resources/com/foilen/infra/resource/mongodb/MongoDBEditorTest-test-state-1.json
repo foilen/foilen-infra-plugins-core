@@ -25,6 +25,7 @@
           "step" : "_assets_1/ /",
           "type" : "COPY"
         } ],
+        "command" : "/mongodb-start.sh",
         "containerUsersToChangeId" : [ {
           "a" : "mongodb",
           "b" : 70000
@@ -40,10 +41,7 @@
         "portsExposed" : { },
         "portsRedirect" : [ ],
         "runAs" : 70000,
-        "services" : [ {
-          "command" : "/mongodb-start.sh",
-          "name" : "app"
-        } ],
+        "services" : [ ],
         "udpPortsExposed" : { },
         "volumes" : [ {
           "containerFsFolder" : "/var/lib/mongodb",
@@ -62,6 +60,72 @@
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "null",
       "resourceName" : "user_db"
+    }
+  }, {
+    "resource" : "Application | user_db_manager | null",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | user1 | /home/user1"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "export TERM=dumb ; export DEBIAN_FRONTEND=noninteractive ; apt-get update && apt-get install -y haproxy supervisor && apt-get clean && rm -rf /var/lib/apt/lists/*",
+          "type" : "COMMAND"
+        } ],
+        "command" : "/app/bin/database-tools mongodb-manage --configFiles /manager-config.json --keepAlive",
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ {
+          "a" : "/manager-config.json",
+          "b" : "{
+  \"connection\" : {
+    \"jdbcUri\" : \"jdbc:mongodb://root:abc@127.0.0.1:27017/\"
+  },
+  \"databases\" : [ ],
+  \"usersToIgnore\" : [ {
+    \"database\" : \"admin\",
+    \"name\" : \"root\"
+  } ],
+  \"globalClusterRoles\" : { },
+  \"globalDatabaseRoles\" : { },
+  \"roleByDatabase\" : { },
+  \"usersPermissions\" : [ ]
+}"
+        } ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/database-tools:0.4.1",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ {
+          "localPort" : 27017,
+          "machineContainerEndpoint" : "test1.node.example.com/user_db/MONGODB_TCP",
+          "toContainerName" : "user_db",
+          "toEndpoint" : "MONGODB_TCP",
+          "toLocalMachine" : false,
+          "toMachine" : "test1.node.example.com"
+        } ],
+        "runAs" : 70000,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "null",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "user_db_manager",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "null",
+      "resourceName" : "user_db_manager"
     }
   }, {
     "resource" : "DnsEntry | test1.node.example.com / A | 192.168.0.11",
@@ -145,6 +209,9 @@
     }, {
       "type" : "MANAGES",
       "to" : "Application | user_db | null"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | user_db_manager | null"
     }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | user1 | /home/user1"

@@ -37,12 +37,28 @@ public class FoilenMongoDBPluginDefinitionProvider implements IPPluginDefinition
                         MongoDBServer.PROPERTY_DESCRIPTION //
                 ));
 
+        pluginDefinitionV1.addCustomResource(MongoDBDatabase.class, MongoDBDatabase.RESOURCE_TYPE, //
+                Arrays.asList(MongoDBDatabase.PROPERTY_NAME), //
+                Arrays.asList( //
+                        MongoDBDatabase.PROPERTY_NAME, //
+                        MongoDBDatabase.PROPERTY_DESCRIPTION //
+                ));
+
+        pluginDefinitionV1.addCustomResource(MongoDBUser.class, MongoDBUser.RESOURCE_TYPE, //
+                Arrays.asList(MongoDBUser.PROPERTY_NAME), //
+                Arrays.asList( //
+                        MongoDBUser.PROPERTY_NAME, //
+                        MongoDBUser.PROPERTY_DESCRIPTION //
+                ));
+
         // Resource editors
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/mongodb/messages");
         pluginDefinitionV1.addResourceEditor(new MongoDBServerEditor(), MongoDBServerEditor.EDITOR_NAME);
+        pluginDefinitionV1.addResourceEditor(new MongoDBDatabaseEditor(), MongoDBDatabaseEditor.EDITOR_NAME);
+        pluginDefinitionV1.addResourceEditor(new MongoDBUserEditor(), MongoDBUserEditor.EDITOR_NAME);
 
         // Change Handler
-        pluginDefinitionV1.addChangesHandler(new MongoDBServerChangesEventHandler());
+        pluginDefinitionV1.addChangesHandler(new MongoDBChangesEventHandler());
 
         return pluginDefinitionV1;
     }

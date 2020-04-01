@@ -1,0 +1,107 @@
+{
+	"resources": [
+		{
+			"resourceType": "Machine",
+			"resourceName": "localhost",
+			"resourceJson": "{\"meta\":{},\"name\":\"localhost\",\"publicIp\":\"127.0.0.1\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"localhost (127.0.0.1)\",\"resourceEditorName\":\"Machine\",\"resourceName\":\"localhost\"}"
+		},
+		{
+			"resourceType": "MongoDB Database",
+			"resourceName": "db1",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db1\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB Database\",\"resourceName\":\"db1\"}"
+		},
+		{
+			"resourceType": "MongoDB Database",
+			"resourceName": "db2",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db2\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB Database\",\"resourceName\":\"db2\"}"
+		},
+		{
+			"resourceType": "MongoDB Server",
+			"resourceName": "my_db",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"my_db\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB Server\",\"resourceName\":\"my_db\",\"rootPassword\":\"QWERTY\",\"version\":\"4.2.3-2\"}"
+		},
+		{
+			"resourceType": "MongoDB User",
+			"resourceName": "db1_a",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db1_a\",\"password\":\"aaa\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB User\",\"resourceName\":\"db1_a\"}"
+		},
+		{
+			"resourceType": "MongoDB User",
+			"resourceName": "db1_b",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db1_b\",\"password\":\"bbb\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB User\",\"resourceName\":\"db1_b\"}"
+		},
+		{
+			"resourceType": "MongoDB User",
+			"resourceName": "db2_a",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"db2_a\",\"password\":\"aa22\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB User\",\"resourceName\":\"db2_a\"}"
+		},
+		{
+			"resourceType": "Unix User",
+			"resourceName": "db_user",
+			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":\"/home/db_user\",\"id\":70000,\"keepClearPassword\":false,\"meta\":{},\"name\":\"db_user\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"/home/db_user\",\"resourceEditorName\":\"Unix User\",\"resourceName\":\"db_user\",\"shell\":\"/bin/bash\"}"
+		}
+	],
+	"tags": [],
+	"links": [
+		{
+			"fromResourceTypeAndName": "MongoDB Database/db1",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "MongoDB Server/my_db"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Database/db2",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "MongoDB Server/my_db"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Server/my_db",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/localhost"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Server/my_db",
+			"linkType": "RUN_AS",
+			"toResourceTypeAndName": "Unix User/db_user"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db1_a",
+			"linkType": "CAN_ADMIN",
+			"toResourceTypeAndName": "MongoDB Database/db1"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db1_b",
+			"linkType": "CAN_ADMIN",
+			"toResourceTypeAndName": "MongoDB Database/db1"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db1_b",
+			"linkType": "CAN_READ",
+			"toResourceTypeAndName": "MongoDB Database/db1"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db1_b",
+			"linkType": "CAN_WRITE",
+			"toResourceTypeAndName": "MongoDB Database/db1"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db2_a",
+			"linkType": "CAN_ADMIN",
+			"toResourceTypeAndName": "MongoDB Database/db2"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db2_a",
+			"linkType": "CAN_READ",
+			"toResourceTypeAndName": "MongoDB Database/db2"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/db2_a",
+			"linkType": "CAN_WRITE",
+			"toResourceTypeAndName": "MongoDB Database/db2"
+		},
+		{
+			"fromResourceTypeAndName": "Unix User/db_user",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/localhost"
+		}
+	]
+}

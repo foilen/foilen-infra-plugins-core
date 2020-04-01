@@ -41,9 +41,11 @@ configurations {
 }
 
 dependencies {
-  compileOnly "com.foilen:foilen-infra-system-core-system-fake:$foilenInfraSystemVersion"
+  compile ("com.foilen:database-tools:$foilenDatabaseToolsVersion") { transitive = false }
   compile ("org.shredzone.acme4j:acme4j-client:$acme4jVersion")
   compile ("org.shredzone.acme4j:acme4j-utils:$acme4jVersion")
+  
+  compileOnly "com.foilen:foilen-infra-system-core-system-fake:$foilenInfraSystemVersion"
   
   testCompileOnly 'junit:junit:4.12'
   testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"

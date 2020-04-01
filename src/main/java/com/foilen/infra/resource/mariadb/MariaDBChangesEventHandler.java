@@ -62,8 +62,6 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
     public List<ActionHandler> computeActionsToExecute(CommonServicesContext services, ChangesInTransactionContext changesInTransactionContext) {
         List<ActionHandler> actions = new ArrayList<>();
 
-        IPResourceService resourceService = services.getResourceService();
-
         // Database
         ChangesEventHandlerResourceStream<MariaDBDatabase> dbStream = new ChangesEventHandlerResourceStream<>(MariaDBDatabase.class);
         dbStream.resourcesAddOfType(changesInTransactionContext.getLastAddedResources());
@@ -92,17 +90,17 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
                     });
                 });
 
-        // Server
-        usersStream = new ChangesEventHandlerResourceStream<>(MariaDBUser.class);
-        usersStream.resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources());
+        // Add links
         usersStream.sortedAndDistinct();
-        dbStream = usersStream.streamFromResourceAndLinkTypesAndToResourceClass(services, //
+        dbStream.resourcesAdd(usersStream.streamFromResourceAndLinkTypesAndToResourceClass(services, //
                 new String[] { MariaDBUser.LINK_TYPE_ADMIN, MariaDBUser.LINK_TYPE_READ, MariaDBUser.LINK_TYPE_WRITE }, //
-                MariaDBDatabase.class);
+                MariaDBDatabase.class));
         dbStream.resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources());
         dbStream.linksAddTo(changesInTransactionContext.getLastAddedLinks(), new String[] { MariaDBUser.LINK_TYPE_ADMIN, MariaDBUser.LINK_TYPE_READ, MariaDBUser.LINK_TYPE_WRITE });
         dbStream.linksAddTo(changesInTransactionContext.getLastDeletedLinks(), new String[] { MariaDBUser.LINK_TYPE_ADMIN, MariaDBUser.LINK_TYPE_READ, MariaDBUser.LINK_TYPE_WRITE });
+        dbStream.sortedAndDistinct();
 
+        // Server
         ChangesEventHandlerResourceStream<MariaDBServer> serversStream = dbStream.streamFromResourceAndLinkTypeAndToResourceClass(services, LinkTypeConstants.INSTALLED_ON, MariaDBServer.class);
         serversStream.resourcesAddOfType(changesInTransactionContext.getLastAddedResources());
         serversStream.resourcesAddOfType(changesInTransactionContext.getLastRefreshedResources());
@@ -111,13 +109,21 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
         serversStream.linksAddFromAndTo(changesInTransactionContext.getLastDeletedLinks());
 
         serversStream.getResourcesStream() //
+                .map(it -> it.getName()) //
                 .sorted().distinct() //
-                .forEach(server -> {
+                .forEach(serverName -> {
 
                     actions.add((s, changes) -> {
 
-                        String serverName = server.getName();
-                        logger.info("[{}] Processing", serverName);
+                        logger.info("Processing mariadb server {}", serverName);
+
+                        IPResourceService resourceService = services.getResourceService();
+                        Optional<MariaDBServer> o = resourceService.resourceFindByPk(new MariaDBServer(serverName));
+                        if (!o.isPresent()) {
+                            logger.info("{} is not present. Skipping", serverName);
+                            return;
+                        }
+                        MariaDBServer server = o.get();
 
                         // Create a root password if none is set
                         if (Strings.isNullOrEmpty(server.getRootPassword())) {
@@ -126,8 +132,8 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
                         }
 
                         // Get the user and machines
-                        List<UnixUser> unixUsers = services.getResourceService().linkFindAllByFromResourceAndLinkTypeAndToResourceClass(server, LinkTypeConstants.RUN_AS, UnixUser.class);
-                        List<Machine> machines = services.getResourceService().linkFindAllByFromResourceAndLinkTypeAndToResourceClass(server, LinkTypeConstants.INSTALLED_ON, Machine.class);
+                        List<UnixUser> unixUsers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(server, LinkTypeConstants.RUN_AS, UnixUser.class);
+                        List<Machine> machines = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(server, LinkTypeConstants.INSTALLED_ON, Machine.class);
 
                         List<Application> desiredManageApplications = new ArrayList<>();
 

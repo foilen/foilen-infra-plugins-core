@@ -36,7 +36,7 @@ public class DnsEntryValidationChangesEventHandler extends AbstractBasics implem
 
     static protected void validate(CommonServicesContext services, DnsEntry dnsEntry) {
         if (!Strings.isNullOrEmpty(dnsEntry.getName())) {
-            if (typesWithDomain.contains(dnsEntry.getType()) && !DomainValidator.getInstance().isValid(dnsEntry.getName())) {
+            if (typesWithDomain.contains(dnsEntry.getType()) && !DomainValidator.getInstance().isValid(dnsEntry.getName()) && !"localhost".equals(dnsEntry.getName())) {
                 throw new IllegalUpdateException(services.getTranslationService().translate("error.notADomainName"));
             }
             if (strictTypesWithDomain.contains(dnsEntry.getType()) && !startWithLetterValidationRegex.matcher(dnsEntry.getName()).matches()) {

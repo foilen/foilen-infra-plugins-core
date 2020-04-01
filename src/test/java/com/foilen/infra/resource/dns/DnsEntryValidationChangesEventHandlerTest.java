@@ -46,6 +46,7 @@ public class DnsEntryValidationChangesEventHandlerTest extends AbstractCorePlugi
 
         assertOk(results, new DnsEntry("example.com", DnsEntryType.NS, "ns1.example.com"));
 
+        assertOk(results, new DnsEntry("localhost", DnsEntryType.A, "127.0.0.1"));
         assertOk(results, new DnsEntry("www.example.com", DnsEntryType.A, "127.0.0.1"));
         assertOk(results, new DnsEntry("www.example-example.com", DnsEntryType.A, "127.0.0.1"));
         assertFail(results, new DnsEntry("www.example.com", DnsEntryType.A, "520.0.0.1"));

@@ -94,6 +94,7 @@ defaults
           "step" : "_assets_1/ /",
           "type" : "COPY"
         } ],
+        "command" : "/mongodb-start.sh",
         "containerUsersToChangeId" : [ {
           "a" : "mongodb",
           "b" : 80000
@@ -109,10 +110,7 @@ defaults
         "portsExposed" : { },
         "portsRedirect" : [ ],
         "runAs" : 80000,
-        "services" : [ {
-          "command" : "/mongodb-start.sh",
-          "name" : "app"
-        } ],
+        "services" : [ ],
         "udpPortsExposed" : { },
         "volumes" : [ {
           "containerFsFolder" : "/var/lib/mongodb",
@@ -131,6 +129,72 @@ defaults
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "Database for Usage Metrics",
       "resourceName" : "mongoUsage"
+    }
+  }, {
+    "resource" : "Application | mongoUsage_manager | Database for Usage Metrics",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | f1.example.com | f1.example.com (127.0.0.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | mongo | /home/mongo"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "export TERM=dumb ; export DEBIAN_FRONTEND=noninteractive ; apt-get update && apt-get install -y haproxy supervisor && apt-get clean && rm -rf /var/lib/apt/lists/*",
+          "type" : "COMMAND"
+        } ],
+        "command" : "/app/bin/database-tools mongodb-manage --configFiles /manager-config.json --keepAlive",
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ {
+          "a" : "/manager-config.json",
+          "b" : "{
+  \"connection\" : {
+    \"jdbcUri\" : \"jdbc:mongodb://root:qwerty@127.0.0.1:27017/\"
+  },
+  \"databases\" : [ ],
+  \"usersToIgnore\" : [ {
+    \"database\" : \"admin\",
+    \"name\" : \"root\"
+  } ],
+  \"globalClusterRoles\" : { },
+  \"globalDatabaseRoles\" : { },
+  \"roleByDatabase\" : { },
+  \"usersPermissions\" : [ ]
+}"
+        } ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/database-tools:0.4.1",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ {
+          "localPort" : 27017,
+          "machineContainerEndpoint" : "f1.example.com/mongoUsage/MONGODB_TCP",
+          "toContainerName" : "mongoUsage",
+          "toEndpoint" : "MONGODB_TCP",
+          "toLocalMachine" : false,
+          "toMachine" : "f1.example.com"
+        } ],
+        "runAs" : 80000,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Database for Usage Metrics",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "mongoUsage_manager",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Database for Usage Metrics",
+      "resourceName" : "mongoUsage_manager"
     }
   }, {
     "resource" : "DnsEntry | central.example.com / A | 127.0.0.1",
@@ -303,6 +367,9 @@ defaults
     }, {
       "type" : "MANAGES",
       "to" : "Application | mongoUsage | Database for Usage Metrics"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | mongoUsage_manager | Database for Usage Metrics"
     }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | mongo | /home/mongo"
