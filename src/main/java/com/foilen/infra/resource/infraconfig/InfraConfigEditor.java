@@ -17,6 +17,9 @@ import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mariadb.MariaDBDatabase;
 import com.foilen.infra.resource.mariadb.MariaDBServer;
 import com.foilen.infra.resource.mariadb.MariaDBUser;
+import com.foilen.infra.resource.mongodb.MongoDBDatabase;
+import com.foilen.infra.resource.mongodb.MongoDBServer;
+import com.foilen.infra.resource.mongodb.MongoDBUser;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
 
@@ -126,6 +129,9 @@ public class InfraConfigEditor extends SimpleResourceEditor<InfraConfig> {
         simpleResourceEditorDefinition.addResource("uiMariadbServer", InfraConfig.LINK_TYPE_UI_USES, MariaDBServer.class);
         simpleResourceEditorDefinition.addResource("uiMariadbDatabase", InfraConfig.LINK_TYPE_UI_USES, MariaDBDatabase.class);
         simpleResourceEditorDefinition.addResource("uiMariadbUser", InfraConfig.LINK_TYPE_UI_USES, MariaDBUser.class);
+        simpleResourceEditorDefinition.addResource("uiMongodbServer", InfraConfig.LINK_TYPE_UI_USES, MongoDBServer.class);
+        simpleResourceEditorDefinition.addResource("uiMongodbDatabase", InfraConfig.LINK_TYPE_UI_USES, MongoDBDatabase.class);
+        simpleResourceEditorDefinition.addResource("uiMongodbUser", InfraConfig.LINK_TYPE_UI_USES, MongoDBUser.class);
         simpleResourceEditorDefinition.addResource("uiUnixUser", InfraConfig.LINK_TYPE_UI_USES, UnixUser.class);
         simpleResourceEditorDefinition.addResources("uiPlugins", InfraConfig.LINK_TYPE_UI_USES, InfraConfigPlugin.class);
 

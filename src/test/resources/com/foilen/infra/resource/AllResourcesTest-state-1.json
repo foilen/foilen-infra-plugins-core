@@ -739,6 +739,7 @@ max_allowed_packet	= 500M
   \"mailPassword\" : \"\",
   \"mailPort\" : 25,
   \"mailUsername\" : \"\",
+  \"mongoUri\" : null,
   \"mysqlDatabaseName\" : \"infra_ui\",
   \"mysqlDatabasePassword\" : \"765432\",
   \"mysqlDatabaseUserName\" : \"infra_ui\",

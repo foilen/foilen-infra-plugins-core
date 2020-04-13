@@ -25,13 +25,16 @@ import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinitionAssetsBundle
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.infra.InfraLoginConfig;
 import com.foilen.infra.plugin.v1.model.infra.InfraLoginConfigDetails;
-import com.foilen.infra.plugin.v1.model.infra.InfraUiConfig;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
+import com.foilen.infra.resource.infraconfig.model.InfraUiConfig;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mariadb.MariaDBDatabase;
 import com.foilen.infra.resource.mariadb.MariaDBServer;
 import com.foilen.infra.resource.mariadb.MariaDBUser;
+import com.foilen.infra.resource.mongodb.MongoDBDatabase;
+import com.foilen.infra.resource.mongodb.MongoDBServer;
+import com.foilen.infra.resource.mongodb.MongoDBUser;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.urlredirection.UrlRedirection;
 import com.foilen.infra.resource.utils.ActionsHandlerUtils;
@@ -103,6 +106,9 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
         List<MariaDBServer> uiMariaDBServers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, MariaDBServer.class);
         List<MariaDBDatabase> uiMariaDBDatabases = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, MariaDBDatabase.class);
         List<MariaDBUser> uiMariaDBUsers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, MariaDBUser.class);
+        List<MongoDBServer> uiMongoDBServers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, MongoDBServer.class);
+        List<MongoDBDatabase> uiMongoDBDatabases = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, MongoDBDatabase.class);
+        List<MongoDBUser> uiMongoDBUsers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, MongoDBUser.class);
         List<UnixUser> uiUnixUsers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, UnixUser.class);
         List<Machine> uiMachines = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_INSTALLED_ON, Machine.class);
         List<InfraConfigPlugin> uiPlugins = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(infraConfig, InfraConfig.LINK_TYPE_UI_USES, InfraConfigPlugin.class);
@@ -117,7 +123,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
         // Create the Applications and Websites if everything is available
         if (hasAllPropertiesSet(infraConfig, //
                 loginWebsiteCertificates, loginMariaDBServers, loginMariaDBDatabases, loginMariaDBUsers, loginUnixUsers, loginMachines, //
-                uiWebsiteCertificates, uiMariaDBServers, uiMariaDBDatabases, uiMariaDBUsers, uiUnixUsers, uiMachines)) {
+                uiWebsiteCertificates, uiUnixUsers, uiMachines)) {
 
             logger.info("Will create the applications");
 
@@ -218,10 +224,26 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 }
 
                 // Prepare the UI config
-                MariaDBServer uiMariaDBServer = uiMariaDBServers.get(0);
-                String uiMariaDBServerMachine = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(uiMariaDBServer, LinkTypeConstants.INSTALLED_ON, Machine.class).get(0).getName();
-                MariaDBDatabase uiMariaDBDatabase = uiMariaDBDatabases.get(0);
-                MariaDBUser uiMariaDBUser = uiMariaDBUsers.get(0);
+                MariaDBServer uiMariaDBServer = uiMariaDBServers.isEmpty() ? null : uiMariaDBServers.get(0);
+                List<Machine> uiMariaDBMachines = uiMariaDBServer == null ? Collections.emptyList()
+                        : resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(uiMariaDBServer, LinkTypeConstants.INSTALLED_ON, Machine.class);
+                String uiMariaDBServerMachine = uiMariaDBMachines.isEmpty() ? null : uiMariaDBMachines.get(0).getName();
+                MariaDBDatabase uiMariaDBDatabase = uiMariaDBDatabases.isEmpty() ? null : uiMariaDBDatabases.get(0);
+                MariaDBUser uiMariaDBUser = uiMariaDBUsers.isEmpty() ? null : uiMariaDBUsers.get(0);
+                boolean usesMariaDB = CollectionsTools.isAllItemNotNull(uiMariaDBServer, uiMariaDBServerMachine, uiMariaDBDatabase, uiMariaDBUser);
+
+                MongoDBServer uiMongoDBServer = uiMongoDBServers.isEmpty() ? null : uiMongoDBServers.get(0);
+                List<Machine> uiMongoDBMachines = uiMongoDBServer == null ? null
+                        : resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(uiMongoDBServer, LinkTypeConstants.INSTALLED_ON, Machine.class);
+                String uiMongoDBServerMachine = uiMongoDBMachines == null ? null : uiMongoDBMachines.get(0).getName();
+                MongoDBDatabase uiMongoDBDatabase = uiMongoDBDatabases.isEmpty() ? null : uiMongoDBDatabases.get(0);
+                MongoDBUser uiMongoDBUser = uiMongoDBUsers.isEmpty() ? null : uiMongoDBUsers.get(0);
+                boolean usesMongoDB = CollectionsTools.isAllItemNotNull(uiMongoDBServer, uiMongoDBServerMachine, uiMongoDBDatabase, uiMongoDBUser);
+
+                if (!usesMongoDB && !usesMariaDB) {
+                    throw new IllegalUpdateException("You must set MariaDB and/or MongoDB");
+                }
+
                 UnixUser uiUnixUser = uiUnixUsers.get(0);
 
                 InfraUiConfig infraUiConfig = new InfraUiConfig();
@@ -230,11 +252,18 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 infraUiConfig.setBaseUrl((uiIsHttps ? "https://" : "http://") + infraConfig.getUiDomainName());
 
                 infraUiConfig.setCsrfSalt(infraConfig.getUiCsrfSalt());
-                infraUiConfig.setMysqlHostName("127.0.0.1");
-                infraUiConfig.setMysqlPort(3306);
-                infraUiConfig.setMysqlDatabaseName(uiMariaDBDatabase.getName());
-                infraUiConfig.setMysqlDatabaseUserName(uiMariaDBUser.getName());
-                infraUiConfig.setMysqlDatabasePassword(uiMariaDBUser.getPassword());
+
+                if (usesMariaDB) {
+                    infraUiConfig.setMysqlHostName("127.0.0.1");
+                    infraUiConfig.setMysqlPort(3306);
+                    infraUiConfig.setMysqlDatabaseName(uiMariaDBDatabase.getName());
+                    infraUiConfig.setMysqlDatabaseUserName(uiMariaDBUser.getName());
+                    infraUiConfig.setMysqlDatabasePassword(uiMariaDBUser.getPassword());
+                }
+
+                if (usesMongoDB) {
+                    infraUiConfig.setMongoUri("mongodb://" + uiMongoDBUser.getName() + ":" + uiMongoDBUser.getPassword() + "@127.0.0.1:27017/" + uiMongoDBDatabase.getName());
+                }
 
                 infraUiConfig.setMailHost(infraConfig.getMailHost());
                 infraUiConfig.setMailPort(infraConfig.getMailPort());
@@ -298,7 +327,12 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                     uiApplicationDefinition.addBuildStepCommand(downloadPluginsCommand);
                 }
 
-                uiApplicationDefinition.addPortRedirect(3306, uiMariaDBServerMachine, uiMariaDBServer.getName(), DockerContainerEndpoints.MYSQL_TCP);
+                if (usesMariaDB) {
+                    uiApplicationDefinition.addPortRedirect(3306, uiMariaDBServerMachine, uiMariaDBServer.getName(), DockerContainerEndpoints.MYSQL_TCP);
+                }
+                if (usesMongoDB) {
+                    uiApplicationDefinition.addPortRedirect(27017, uiMongoDBServerMachine, uiMongoDBServer.getName(), DockerContainerEndpoints.MONGODB_TCP);
+                }
                 uiApplicationDefinition.addPortEndpoint(8080, DockerContainerEndpoints.HTTP_TCP);
 
                 uiApplicationDefinition.setRunAs(uiUnixUser.getId());
@@ -360,8 +394,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
     private boolean hasAllPropertiesSet(InfraConfig infraConfig, //
             List<WebsiteCertificate> loginWebsiteCertificates, List<MariaDBServer> loginMariaDBServers, List<MariaDBDatabase> loginMariaDBDatabases, List<MariaDBUser> loginMariaDBUsers,
             List<UnixUser> loginUnixUsers, List<Machine> loginMachines, //
-            List<WebsiteCertificate> uiWebsiteCertificates, List<MariaDBServer> uiMariaDBServers, List<MariaDBDatabase> uiMariaDBDatabases, List<MariaDBUser> uiMariaDBUsers,
-            List<UnixUser> uiUnixUsers, List<Machine> uiMachines) {
+            List<WebsiteCertificate> uiWebsiteCertificates, List<UnixUser> uiUnixUsers, List<Machine> uiMachines) {
 
         boolean hasAllPropertiesSet = true;
         hasAllPropertiesSet &= CollectionsTools.isAllItemNotNullOrEmpty( //
@@ -382,17 +415,15 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
         hasAllPropertiesSet &= !loginUnixUsers.isEmpty();
         hasAllPropertiesSet &= !loginMachines.isEmpty();
 
-        hasAllPropertiesSet &= !uiMariaDBServers.isEmpty();
-        hasAllPropertiesSet &= !uiMariaDBDatabases.isEmpty();
-        hasAllPropertiesSet &= !uiMariaDBUsers.isEmpty();
         hasAllPropertiesSet &= !uiUnixUsers.isEmpty();
         hasAllPropertiesSet &= !uiMachines.isEmpty();
 
         return hasAllPropertiesSet;
     }
 
-    private void validateResourcesToUse(IPResourceService resourceService, List<WebsiteCertificate> websiteCertificates, List<MariaDBServer> mariaDBServers, List<MariaDBDatabase> mariaDBDatabases,
-            List<MariaDBUser> mariaDBUsers, List<UnixUser> unixUsers, List<Machine> machines) {
+    private void validateResourcesToUse(IPResourceService resourceService, List<WebsiteCertificate> websiteCertificates, //
+            List<MariaDBServer> mariaDBServers, List<MariaDBDatabase> mariaDBDatabases, List<MariaDBUser> mariaDBUsers, //
+            List<UnixUser> unixUsers, List<Machine> machines) {
 
         // Check the amounts
         if (websiteCertificates.size() > 1) {

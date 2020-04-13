@@ -26,6 +26,11 @@
 			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"logindb\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"logindb\"}"
 		},
 		{
+			"resourceType": "MariaDB Database",
+			"resourceName": "uidb",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"uidb\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"uidb\"}"
+		},
+		{
 			"resourceType": "MariaDB Server",
 			"resourceName": "commonserver",
 			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"commonserver\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Server\",\"resourceName\":\"commonserver\",\"rootPassword\":\"masterqwerty\",\"version\":\"10.3.5-1.1.1-001\"}"
@@ -34,6 +39,11 @@
 			"resourceType": "MariaDB User",
 			"resourceName": "loginuser",
 			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"loginuser\",\"password\":\"qwerty\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"loginuser\"}"
+		},
+		{
+			"resourceType": "MariaDB User",
+			"resourceName": "uiuser",
+			"resourceJson": "{\"description\":\"qwerty\",\"meta\":{},\"name\":\"uiuser\",\"password\":\"qwerty\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"qwerty\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"uiuser\"}"
 		},
 		{
 			"resourceType": "MongoDB Database",
@@ -74,11 +84,6 @@
 			"resourceType": "Unix User",
 			"resourceName": "ui",
 			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":\"/home/ui\",\"id\":72002,\"keepClearPassword\":false,\"meta\":{},\"name\":\"ui\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"/home/ui\",\"resourceEditorName\":\"Unix User\",\"resourceName\":\"ui\",\"shell\":\"/bin/bash\"}"
-		},
-		{
-			"resourceType": "Upgrader Item",
-			"resourceName": "Global",
-			"resourceJson": "{\"applied\":[\"V_2019072401_Refresh_Apache\",\"V_2019111401_Refresh_ApachePhp\",\"V_2019061201_Refresh\",\"V_2019123001_Refresh_ApacheJames\",\"V_2019090401_Refresh_InfraConfig\",\"V_2020011401_Refresh_All_Resources_With_Domains\"],\"meta\":{},\"name\":\"Global\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"Upgrader for Global\",\"resourceEditorName\":null,\"resourceName\":\"Global\"}"
 		},
 		{
 			"resourceType": "Website Certificate",
@@ -141,6 +146,21 @@
 		{
 			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
 			"linkType": "UI_USES",
+			"toResourceTypeAndName": "MariaDB Database/uidb"
+		},
+		{
+			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
+			"linkType": "UI_USES",
+			"toResourceTypeAndName": "MariaDB Server/commonserver"
+		},
+		{
+			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
+			"linkType": "UI_USES",
+			"toResourceTypeAndName": "MariaDB User/uiuser"
+		},
+		{
+			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
+			"linkType": "UI_USES",
 			"toResourceTypeAndName": "MongoDB Database/uidb"
 		},
 		{
@@ -169,6 +189,11 @@
 			"toResourceTypeAndName": "MariaDB Server/commonserver"
 		},
 		{
+			"fromResourceTypeAndName": "MariaDB Database/uidb",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "MariaDB Server/commonserver"
+		},
+		{
 			"fromResourceTypeAndName": "MariaDB Server/commonserver",
 			"linkType": "INSTALLED_ON",
 			"toResourceTypeAndName": "Machine/m1.example.com"
@@ -192,6 +217,21 @@
 			"fromResourceTypeAndName": "MariaDB User/loginuser",
 			"linkType": "CAN_WRITE",
 			"toResourceTypeAndName": "MariaDB Database/logindb"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB User/uiuser",
+			"linkType": "CAN_ADMIN",
+			"toResourceTypeAndName": "MariaDB Database/uidb"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB User/uiuser",
+			"linkType": "CAN_READ",
+			"toResourceTypeAndName": "MariaDB Database/uidb"
+		},
+		{
+			"fromResourceTypeAndName": "MariaDB User/uiuser",
+			"linkType": "CAN_WRITE",
+			"toResourceTypeAndName": "MariaDB Database/uidb"
 		},
 		{
 			"fromResourceTypeAndName": "MongoDB Database/uidb",

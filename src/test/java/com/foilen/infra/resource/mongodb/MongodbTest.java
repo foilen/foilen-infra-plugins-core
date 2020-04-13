@@ -25,6 +25,20 @@ import com.foilen.smalltools.tools.JsonTools;
 
 public class MongodbTest extends AbstractCorePluginTest {
 
+    @Test
+    public void test() {
+        JunitsHelper.dumpImport(getCommonServicesContext(), getInternalServicesContext(), JsonTools.readFromResource("MongodbTest-test-import.json", ResourcesDump.class, getClass()));
+
+        Application myDb = getCommonServicesContext().getResourceService().resourceFindByPk(new Application("my_db")).get();
+        Application myDbManager = getCommonServicesContext().getResourceService().resourceFindByPk(new Application("my_db_manager")).get();
+
+        Map<String, Application> all = new TreeMap<>();
+        all.put("myDb", myDb);
+        all.put("myDbManager", myDbManager);
+
+        AssertTools.assertJsonComparisonWithoutNulls("MongodbTest-test-expected.json", getClass(), all);
+    }
+
     @Test(expected = IllegalUpdateException.class)
     public void test_blacklisted_database_admin() {
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
@@ -51,20 +65,6 @@ public class MongodbTest extends AbstractCorePluginTest {
         ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
         changes.resourceAdd(new MongoDBUser("root", null, "qwerty"));
         getInternalServicesContext().getInternalChangeService().changesExecute(changes);
-    }
-
-    @Test
-    public void test() {
-        JunitsHelper.dumpImport(getCommonServicesContext(), getInternalServicesContext(), JsonTools.readFromResource("MongodbTest-test-import.json", ResourcesDump.class, getClass()));
-
-        Application myDb = getCommonServicesContext().getResourceService().resourceFindByPk(new Application("my_db")).get();
-        Application myDbManager = getCommonServicesContext().getResourceService().resourceFindByPk(new Application("my_db_manager")).get();
-
-        Map<String, Application> all = new TreeMap<>();
-        all.put("myDb", myDb);
-        all.put("myDbManager", myDbManager);
-
-        AssertTools.assertJsonComparisonWithoutNulls("MongodbTest-test-expected.json", getClass(), all);
     }
 
 }

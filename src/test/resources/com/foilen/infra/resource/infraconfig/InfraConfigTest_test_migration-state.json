@@ -48,7 +48,7 @@ max_allowed_packet	= 500M
     \"name\" : \"root\",
     \"password\" : \"masterqwerty\"
   },
-  \"databases\" : [ \"logindb\" ],
+  \"databases\" : [ \"logindb\", \"uidb\" ],
   \"usersToIgnore\" : [ {
     \"name\" : \"root\",
     \"host\" : \"%\"
@@ -59,6 +59,14 @@ max_allowed_packet	= 500M
     \"password\" : \"qwerty\",
     \"databaseGrants\" : [ {
       \"databaseName\" : \"logindb\",
+      \"grants\" : [ \"ALTER\", \"CREATE\", \"CREATE ROUTINE\", \"CREATE TEMPORARY TABLES\", \"CREATE VIEW\", \"DROP\", \"EVENT\", \"INDEX\", \"LOCK TABLES\", \"SHOW VIEW\", \"TRIGGER\", \"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\" ]
+    } ]
+  }, {
+    \"name\" : \"uiuser\",
+    \"host\" : \"%\",
+    \"password\" : \"qwerty\",
+    \"databaseGrants\" : [ {
+      \"databaseName\" : \"uidb\",
       \"grants\" : [ \"ALTER\", \"CREATE\", \"CREATE ROUTINE\", \"CREATE TEMPORARY TABLES\", \"CREATE VIEW\", \"DROP\", \"EVENT\", \"INDEX\", \"LOCK TABLES\", \"SHOW VIEW\", \"TRIGGER\", \"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\" ]
     } ]
   } ]
@@ -369,22 +377,32 @@ max_allowed_packet	= 500M
     \"baseUrl\" : \"https://login.example.com\",
     \"certFile\" : null,
     \"certText\" : \"-----BEGIN CERTIFICATE-----\
-MIIC0zCCAbugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp\
-bi5leGFtcGxlLmNvbTAeFw0xOTA5MDUwMDM2MTNaFw0yMDAyMDUwMTM2MTNaMBwx\
-GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC\
-AQ8AMIIBCgKCAQEAosUdnYmvMIKuXdSRKzIwZae3JProa1dg3WjFCFfRyjbd33kC\
-JiULx485TkqUBaPozVBYnb9wORpVKKZxMraPfFht97tq/2holrbo+SO8iXkdQQKj\
-DQRAhZQRhiTlFIzeSwjiqqRQ+njsA/imOmcAGpHcGVlAWlS/i6Th+H/x8FQw7vkD\
-b4ImATcAtHHtD+lJ6miFpsfWqsyzExiXqUSuEj9NO2DOK6tOI4TnA5y1BkDmceAr\
-ucmKikLUz9T/5cNXR/soV3DzyF+BwbajeunLoqL3kGaNCuCD2wc5J6GMzVBT1EVC\
-IhPolHd4+1vgJN4GepIbEc4x772aAYN1FIDZsQIDAQABoyAwHjAcBgNVHREEFTAT\
-ghFsb2dpbi5leGFtcGxlLmNvbTANBgkqhkiG9w0BAQsFAAOCAQEAbx6L1TZPPmEC\
-oAIWw/k71m6sdxbYp49OhmyBBbann8hUiUL1uefy5JzW9K6Yujzzmp43sFL0UWYv\
-Hhpft/7lMIzq6yZJmfHaECK7QSg0vyznDtoNLgfyKjtoGBCoyn0Vfbb9gQsmxvtM\
-hNfvzkRaKkKbvXrZAIqRfbbaI9pAJlrAbLbG7YPOPJOiP44HIAv7W00Pd9QVsHJo\
-qf11NHMI+37igkm0qvE6zjpoFMs2wsm075KVi2XYUZJUqn9g0cH6qjWGvrtt4CE8\
-LLroBmUAZsYEv+lpNFHDOkZh+dtfy2m+VHuFrlnz6sLfPXpmHotX9czdf1voqtvg\
-W1i+QakCZA==\
+MIIE0zCCArugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp\
+bi5leGFtcGxlLmNvbTAeFw0xODA2MTMyMDEyMjlaFw0xODA3MTMyMDEyMjlaMBwx\
+GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOC\
+Ag8AMIICCgKCAgEAmD6+w8GwggdZtnVa5LTT9cpgITPaOU+pLhNLCweWn+iJueyN\
+c1sVzzbA92gPBDx9+pr4aoJyhF/CMxu5hBygm0I5oNNbFEcGkVELEIfhb9uSNRem\
+r1m7+0ndrbCiP9LjkWhPnPo88hUAq8VyseW34Kdwk9rgB1tsE9beG5ukwJzy6VLo\
+Lcxg5Ts3QWu6EQnJZfzRtdRC8FiOyluMNF12NI5iqiQZ3LOaHNIAHLoZFgdiYnT0\
+L3qiuE15FBRXsq+RDnj9j9uWB0QOt0BFWwoOtuQzO9Q90l1v3+iXXNYafoYPDjyx\
+CGeGJtq6ArZ5MYVbyL5FwkF/1MjH6YSOsgMLjEzMU8lDI+NbXyghlgkdq3BqQT/O\
+1Llm7DCddUcu/CjPF5bU8goEQqrxQSZ1vzA/okPjRfkV9lGHAemTURSONQLaYAtm\
+oEi3Iq7kBC6DvyNeHZzh46ESZp/tBH0qEwqEYtKb0YwxDh+kF68s4sBJMl06S2dZ\
+ewN6y2VPguLNjFkRND2PLTQDlb6E2wR7UWC7p57z9iiqRkV5QoZuUJe9Dwh/Wx32\
+NyE5NO2EpmnLxXknFuLH1DjDfU+TcHTaTI12SOIpFszEiwsoYhHHKJx1PXQG8yt1\
+Po5/D8LABZ4QoP+7yvm21wEBZqd8uPsjJSvXTdGzmRMJLXmsOo78DhgAYHcCAwEA\
+AaMgMB4wHAYDVR0RBBUwE4IRbG9naW4uZXhhbXBsZS5jb20wDQYJKoZIhvcNAQEL\
+BQADggIBADVIPICNmP8XlQkgYRnW2+HMFgSdEmrznic/FZxp5djPtzIIvYNkygrV\
+7KgBujGaM/Lz062o+la1tts8MTNwo1MnxXS200CITvF5KPuWgySQWCbB0W3MVUu6\
+Be4HJ+GGVE4EAPBu7zl9boM77yaB89UPEpqTPFMVcb+2/l5SqZOohl3jR297KCo7\
+zqElIqZ0HQaJ2fg3e3ppCBKTDYpNTkoKy/CLgBZJTHWb8N9u28w6/gSlHKxQafgQ\
+r0sygZPJX9uDraJ6Yq1sWzZ1df2GtBwAeiM81MwW3lXa7s91gqfCu4doZYGJxKYA\
+zGittzgs6mxP0KC+YFLsu9mlR8t+USMnhcXD3F/zS9jY+Fun/A0x5pqbu/gwWcS6\
+ELvA4pcZBsaniV+Kdc/vRPM0+YLMZ+RX7xnNqzaMUO4pKdPZZ2Y9a3qiAlEJtPcX\
+4/TH2J/UxfpDHTIKwNDnBqfE8d5i8mcEHephqI2zU++JHyMx/EMIMf7oQJ5YMmnx\
+btahMD33W123sboJJIcvIDjnMxH0z8IGIltyLARl4BjDKrIy3tj2NleDxUCXl3/4\
+5M65wcaFxjAIbSonGw4Rgtl50U/5MOe7pbrd1bJZrZhMzu0CaZsULlKI0nppog4g\
+4bqT/INCICc3UmtNeyIhE3csWC/UrsOSCqKV8KAVMalJRBKRafqq\
 -----END CERTIFICATE-----\
 \"
   },
@@ -396,10 +414,10 @@ W1i+QakCZA==\
   \"mailPort\" : 25,
   \"mailUsername\" : \"myUser\",
   \"mongoUri\" : \"mongodb://uiuser:qwerty@127.0.0.1:27017/uidb\",
-  \"mysqlDatabaseName\" : null,
-  \"mysqlDatabasePassword\" : null,
-  \"mysqlDatabaseUserName\" : null,
-  \"mysqlHostName\" : null,
+  \"mysqlDatabaseName\" : \"uidb\",
+  \"mysqlDatabasePassword\" : \"qwerty\",
+  \"mysqlDatabaseUserName\" : \"uiuser\",
+  \"mysqlHostName\" : \"127.0.0.1\",
   \"mysqlPort\" : 3306
 }"
           } ]
@@ -431,6 +449,13 @@ W1i+QakCZA==\
         },
         "portsExposed" : { },
         "portsRedirect" : [ {
+          "localPort" : 3306,
+          "machineContainerEndpoint" : "m1.example.com/commonserver/MYSQL_TCP",
+          "toContainerName" : "commonserver",
+          "toEndpoint" : "MYSQL_TCP",
+          "toLocalMachine" : false,
+          "toMachine" : "m1.example.com"
+        }, {
           "localPort" : 27017,
           "machineContainerEndpoint" : "m1.example.com/commonserver_mongo/MONGODB_TCP",
           "toContainerName" : "commonserver_mongo",
@@ -594,50 +619,84 @@ echo Apache service is down
           "assetsRelativePathAndTextContent" : [ {
             "a" : "/certs/login.example.com.pem",
             "b" : "-----BEGIN CERTIFICATE-----
-MIIC0zCCAbugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp
-bi5leGFtcGxlLmNvbTAeFw0xOTA5MDUwMDM2MTNaFw0yMDAyMDUwMTM2MTNaMBwx
-GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC
-AQ8AMIIBCgKCAQEAosUdnYmvMIKuXdSRKzIwZae3JProa1dg3WjFCFfRyjbd33kC
-JiULx485TkqUBaPozVBYnb9wORpVKKZxMraPfFht97tq/2holrbo+SO8iXkdQQKj
-DQRAhZQRhiTlFIzeSwjiqqRQ+njsA/imOmcAGpHcGVlAWlS/i6Th+H/x8FQw7vkD
-b4ImATcAtHHtD+lJ6miFpsfWqsyzExiXqUSuEj9NO2DOK6tOI4TnA5y1BkDmceAr
-ucmKikLUz9T/5cNXR/soV3DzyF+BwbajeunLoqL3kGaNCuCD2wc5J6GMzVBT1EVC
-IhPolHd4+1vgJN4GepIbEc4x772aAYN1FIDZsQIDAQABoyAwHjAcBgNVHREEFTAT
-ghFsb2dpbi5leGFtcGxlLmNvbTANBgkqhkiG9w0BAQsFAAOCAQEAbx6L1TZPPmEC
-oAIWw/k71m6sdxbYp49OhmyBBbann8hUiUL1uefy5JzW9K6Yujzzmp43sFL0UWYv
-Hhpft/7lMIzq6yZJmfHaECK7QSg0vyznDtoNLgfyKjtoGBCoyn0Vfbb9gQsmxvtM
-hNfvzkRaKkKbvXrZAIqRfbbaI9pAJlrAbLbG7YPOPJOiP44HIAv7W00Pd9QVsHJo
-qf11NHMI+37igkm0qvE6zjpoFMs2wsm075KVi2XYUZJUqn9g0cH6qjWGvrtt4CE8
-LLroBmUAZsYEv+lpNFHDOkZh+dtfy2m+VHuFrlnz6sLfPXpmHotX9czdf1voqtvg
-W1i+QakCZA==
+MIIE0zCCArugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp
+bi5leGFtcGxlLmNvbTAeFw0xODA2MTMyMDEyMjlaFw0xODA3MTMyMDEyMjlaMBwx
+GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOC
+Ag8AMIICCgKCAgEAmD6+w8GwggdZtnVa5LTT9cpgITPaOU+pLhNLCweWn+iJueyN
+c1sVzzbA92gPBDx9+pr4aoJyhF/CMxu5hBygm0I5oNNbFEcGkVELEIfhb9uSNRem
+r1m7+0ndrbCiP9LjkWhPnPo88hUAq8VyseW34Kdwk9rgB1tsE9beG5ukwJzy6VLo
+Lcxg5Ts3QWu6EQnJZfzRtdRC8FiOyluMNF12NI5iqiQZ3LOaHNIAHLoZFgdiYnT0
+L3qiuE15FBRXsq+RDnj9j9uWB0QOt0BFWwoOtuQzO9Q90l1v3+iXXNYafoYPDjyx
+CGeGJtq6ArZ5MYVbyL5FwkF/1MjH6YSOsgMLjEzMU8lDI+NbXyghlgkdq3BqQT/O
+1Llm7DCddUcu/CjPF5bU8goEQqrxQSZ1vzA/okPjRfkV9lGHAemTURSONQLaYAtm
+oEi3Iq7kBC6DvyNeHZzh46ESZp/tBH0qEwqEYtKb0YwxDh+kF68s4sBJMl06S2dZ
+ewN6y2VPguLNjFkRND2PLTQDlb6E2wR7UWC7p57z9iiqRkV5QoZuUJe9Dwh/Wx32
+NyE5NO2EpmnLxXknFuLH1DjDfU+TcHTaTI12SOIpFszEiwsoYhHHKJx1PXQG8yt1
+Po5/D8LABZ4QoP+7yvm21wEBZqd8uPsjJSvXTdGzmRMJLXmsOo78DhgAYHcCAwEA
+AaMgMB4wHAYDVR0RBBUwE4IRbG9naW4uZXhhbXBsZS5jb20wDQYJKoZIhvcNAQEL
+BQADggIBADVIPICNmP8XlQkgYRnW2+HMFgSdEmrznic/FZxp5djPtzIIvYNkygrV
+7KgBujGaM/Lz062o+la1tts8MTNwo1MnxXS200CITvF5KPuWgySQWCbB0W3MVUu6
+Be4HJ+GGVE4EAPBu7zl9boM77yaB89UPEpqTPFMVcb+2/l5SqZOohl3jR297KCo7
+zqElIqZ0HQaJ2fg3e3ppCBKTDYpNTkoKy/CLgBZJTHWb8N9u28w6/gSlHKxQafgQ
+r0sygZPJX9uDraJ6Yq1sWzZ1df2GtBwAeiM81MwW3lXa7s91gqfCu4doZYGJxKYA
+zGittzgs6mxP0KC+YFLsu9mlR8t+USMnhcXD3F/zS9jY+Fun/A0x5pqbu/gwWcS6
+ELvA4pcZBsaniV+Kdc/vRPM0+YLMZ+RX7xnNqzaMUO4pKdPZZ2Y9a3qiAlEJtPcX
+4/TH2J/UxfpDHTIKwNDnBqfE8d5i8mcEHephqI2zU++JHyMx/EMIMf7oQJ5YMmnx
+btahMD33W123sboJJIcvIDjnMxH0z8IGIltyLARl4BjDKrIy3tj2NleDxUCXl3/4
+5M65wcaFxjAIbSonGw4Rgtl50U/5MOe7pbrd1bJZrZhMzu0CaZsULlKI0nppog4g
+4bqT/INCICc3UmtNeyIhE3csWC/UrsOSCqKV8KAVMalJRBKRafqq
 -----END CERTIFICATE-----
 
 -----BEGIN RSA PRIVATE KEY-----
-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
+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
 -----END RSA PRIVATE KEY-----
 
 "
@@ -1019,7 +1078,7 @@ backend http_8080_ui.example.com
       "to" : "UnixUser | login | /home/login"
     }, {
       "type" : "LOGIN_USES",
-      "to" : "WebsiteCertificate | login.example.com | e1d7a4a48492b6b13e9695391433f65a9c660f9a, 2019-09-04, 2020-02-04"
+      "to" : "WebsiteCertificate | login.example.com | 3db0fbf94792b7eb21db1652e0566f7d2b5904e9, 2018-06-13, 2018-07-13"
     }, {
       "type" : "MANAGES",
       "to" : "Application | infra_login | Login service"
@@ -1047,6 +1106,15 @@ backend http_8080_ui.example.com
     }, {
       "type" : "UI_USES",
       "to" : "InfraConfigPlugin | https://dl.bintray.com/foilen/maven/com/foilen/foilen-infra-resource-domain/0.1.0/foilen-infra-resource-domain-0.1.0.jar | https://dl.bintray.com/foilen/maven/com/foilen/foilen-infra-resource-domain/0.1.0/foilen-infra-resource-domain-0.1.0.jar"
+    }, {
+      "type" : "UI_USES",
+      "to" : "MariaDBDatabase | uidb | "
+    }, {
+      "type" : "UI_USES",
+      "to" : "MariaDBServer | commonserver | "
+    }, {
+      "type" : "UI_USES",
+      "to" : "MariaDBUser | uiuser | qwerty"
     }, {
       "type" : "UI_USES",
       "to" : "MongoDBDatabase | uidb | "
@@ -1157,6 +1225,22 @@ backend http_8080_ui.example.com
       "resourceName" : "logindb"
     }
   }, {
+    "resource" : "MariaDBDatabase | uidb | ",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "MariaDBServer | commonserver | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "",
+      "meta" : { },
+      "name" : "uidb",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "",
+      "resourceEditorName" : "MariaDB Database",
+      "resourceName" : "uidb"
+    }
+  }, {
     "resource" : "MariaDBServer | commonserver | ",
     "links" : [ {
       "type" : "INSTALLED_ON",
@@ -1202,6 +1286,29 @@ backend http_8080_ui.example.com
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB User",
       "resourceName" : "loginuser"
+    }
+  }, {
+    "resource" : "MariaDBUser | uiuser | qwerty",
+    "links" : [ {
+      "type" : "CAN_ADMIN",
+      "to" : "MariaDBDatabase | uidb | "
+    }, {
+      "type" : "CAN_READ",
+      "to" : "MariaDBDatabase | uidb | "
+    }, {
+      "type" : "CAN_WRITE",
+      "to" : "MariaDBDatabase | uidb | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "qwerty",
+      "meta" : { },
+      "name" : "uiuser",
+      "password" : "qwerty",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "qwerty",
+      "resourceEditorName" : "MariaDB User",
+      "resourceName" : "uiuser"
     }
   }, {
     "resource" : "MongoDBDatabase | uidb | ",
@@ -1368,18 +1475,6 @@ backend http_8080_ui.example.com
       "shell" : "/bin/bash"
     }
   }, {
-    "resource" : "UpgraderItem | Global | Upgrader for Global",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "applied" : [ "V_2019072401_Refresh_Apache", "V_2019111401_Refresh_ApachePhp", "V_2019061201_Refresh", "V_2019123001_Refresh_ApacheJames", "V_2019090401_Refresh_InfraConfig", "V_2020011401_Refresh_All_Resources_With_Domains" ],
-      "meta" : { },
-      "name" : "Global",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "Upgrader for Global",
-      "resourceName" : "Global"
-    }
-  }, {
     "resource" : "UrlRedirection | login.example.com | Redirection to https://login.example.com",
     "links" : [ {
       "type" : "INSTALLED_ON",
@@ -1510,7 +1605,7 @@ backend http_8080_ui.example.com
       "to" : "Application | infra_login | Login service"
     }, {
       "type" : "USES",
-      "to" : "WebsiteCertificate | login.example.com | e1d7a4a48492b6b13e9695391433f65a9c660f9a, 2019-09-04, 2020-02-04"
+      "to" : "WebsiteCertificate | login.example.com | 3db0fbf94792b7eb21db1652e0566f7d2b5904e9, 2018-06-13, 2018-07-13"
     } ],
     "tags" : [ ],
     "content" : {
@@ -1558,7 +1653,7 @@ backend http_8080_ui.example.com
       "resourceName" : "infra_ui"
     }
   }, {
-    "resource" : "WebsiteCertificate | login.example.com | e1d7a4a48492b6b13e9695391433f65a9c660f9a, 2019-09-04, 2020-02-04",
+    "resource" : "WebsiteCertificate | login.example.com | 3db0fbf94792b7eb21db1652e0566f7d2b5904e9, 2018-06-13, 2018-07-13",
     "links" : [ {
       "type" : "MANAGES",
       "to" : "Domain | login.example.com | "
@@ -1566,68 +1661,108 @@ backend http_8080_ui.example.com
     "tags" : [ ],
     "content" : {
       "certificate" : "-----BEGIN CERTIFICATE-----
-MIIC0zCCAbugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp
-bi5leGFtcGxlLmNvbTAeFw0xOTA5MDUwMDM2MTNaFw0yMDAyMDUwMTM2MTNaMBwx
-GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC
-AQ8AMIIBCgKCAQEAosUdnYmvMIKuXdSRKzIwZae3JProa1dg3WjFCFfRyjbd33kC
-JiULx485TkqUBaPozVBYnb9wORpVKKZxMraPfFht97tq/2holrbo+SO8iXkdQQKj
-DQRAhZQRhiTlFIzeSwjiqqRQ+njsA/imOmcAGpHcGVlAWlS/i6Th+H/x8FQw7vkD
-b4ImATcAtHHtD+lJ6miFpsfWqsyzExiXqUSuEj9NO2DOK6tOI4TnA5y1BkDmceAr
-ucmKikLUz9T/5cNXR/soV3DzyF+BwbajeunLoqL3kGaNCuCD2wc5J6GMzVBT1EVC
-IhPolHd4+1vgJN4GepIbEc4x772aAYN1FIDZsQIDAQABoyAwHjAcBgNVHREEFTAT
-ghFsb2dpbi5leGFtcGxlLmNvbTANBgkqhkiG9w0BAQsFAAOCAQEAbx6L1TZPPmEC
-oAIWw/k71m6sdxbYp49OhmyBBbann8hUiUL1uefy5JzW9K6Yujzzmp43sFL0UWYv
-Hhpft/7lMIzq6yZJmfHaECK7QSg0vyznDtoNLgfyKjtoGBCoyn0Vfbb9gQsmxvtM
-hNfvzkRaKkKbvXrZAIqRfbbaI9pAJlrAbLbG7YPOPJOiP44HIAv7W00Pd9QVsHJo
-qf11NHMI+37igkm0qvE6zjpoFMs2wsm075KVi2XYUZJUqn9g0cH6qjWGvrtt4CE8
-LLroBmUAZsYEv+lpNFHDOkZh+dtfy2m+VHuFrlnz6sLfPXpmHotX9czdf1voqtvg
-W1i+QakCZA==
+MIIE0zCCArugAwIBAgIBATANBgkqhkiG9w0BAQsFADAcMRowGAYDVQQDDBFsb2dp
+bi5leGFtcGxlLmNvbTAeFw0xODA2MTMyMDEyMjlaFw0xODA3MTMyMDEyMjlaMBwx
+GjAYBgNVBAMMEWxvZ2luLmV4YW1wbGUuY29tMIICIjANBgkqhkiG9w0BAQEFAAOC
+Ag8AMIICCgKCAgEAmD6+w8GwggdZtnVa5LTT9cpgITPaOU+pLhNLCweWn+iJueyN
+c1sVzzbA92gPBDx9+pr4aoJyhF/CMxu5hBygm0I5oNNbFEcGkVELEIfhb9uSNRem
+r1m7+0ndrbCiP9LjkWhPnPo88hUAq8VyseW34Kdwk9rgB1tsE9beG5ukwJzy6VLo
+Lcxg5Ts3QWu6EQnJZfzRtdRC8FiOyluMNF12NI5iqiQZ3LOaHNIAHLoZFgdiYnT0
+L3qiuE15FBRXsq+RDnj9j9uWB0QOt0BFWwoOtuQzO9Q90l1v3+iXXNYafoYPDjyx
+CGeGJtq6ArZ5MYVbyL5FwkF/1MjH6YSOsgMLjEzMU8lDI+NbXyghlgkdq3BqQT/O
+1Llm7DCddUcu/CjPF5bU8goEQqrxQSZ1vzA/okPjRfkV9lGHAemTURSONQLaYAtm
+oEi3Iq7kBC6DvyNeHZzh46ESZp/tBH0qEwqEYtKb0YwxDh+kF68s4sBJMl06S2dZ
+ewN6y2VPguLNjFkRND2PLTQDlb6E2wR7UWC7p57z9iiqRkV5QoZuUJe9Dwh/Wx32
+NyE5NO2EpmnLxXknFuLH1DjDfU+TcHTaTI12SOIpFszEiwsoYhHHKJx1PXQG8yt1
+Po5/D8LABZ4QoP+7yvm21wEBZqd8uPsjJSvXTdGzmRMJLXmsOo78DhgAYHcCAwEA
+AaMgMB4wHAYDVR0RBBUwE4IRbG9naW4uZXhhbXBsZS5jb20wDQYJKoZIhvcNAQEL
+BQADggIBADVIPICNmP8XlQkgYRnW2+HMFgSdEmrznic/FZxp5djPtzIIvYNkygrV
+7KgBujGaM/Lz062o+la1tts8MTNwo1MnxXS200CITvF5KPuWgySQWCbB0W3MVUu6
+Be4HJ+GGVE4EAPBu7zl9boM77yaB89UPEpqTPFMVcb+2/l5SqZOohl3jR297KCo7
+zqElIqZ0HQaJ2fg3e3ppCBKTDYpNTkoKy/CLgBZJTHWb8N9u28w6/gSlHKxQafgQ
+r0sygZPJX9uDraJ6Yq1sWzZ1df2GtBwAeiM81MwW3lXa7s91gqfCu4doZYGJxKYA
+zGittzgs6mxP0KC+YFLsu9mlR8t+USMnhcXD3F/zS9jY+Fun/A0x5pqbu/gwWcS6
+ELvA4pcZBsaniV+Kdc/vRPM0+YLMZ+RX7xnNqzaMUO4pKdPZZ2Y9a3qiAlEJtPcX
+4/TH2J/UxfpDHTIKwNDnBqfE8d5i8mcEHephqI2zU++JHyMx/EMIMf7oQJ5YMmnx
+btahMD33W123sboJJIcvIDjnMxH0z8IGIltyLARl4BjDKrIy3tj2NleDxUCXl3/4
+5M65wcaFxjAIbSonGw4Rgtl50U/5MOe7pbrd1bJZrZhMzu0CaZsULlKI0nppog4g
+4bqT/INCICc3UmtNeyIhE3csWC/UrsOSCqKV8KAVMalJRBKRafqq
 -----END CERTIFICATE-----
 ",
       "domainNames" : [ "login.example.com" ],
-      "end" : 1580866573000,
+      "end" : 1531512749000,
       "meta" : { },
       "privateKey" : "-----BEGIN RSA PRIVATE KEY-----
-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
+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
 -----END RSA PRIVATE KEY-----
 ",
       "publicKey" : "-----BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAosUdnYmvMIKuXdSRKzIw
-Zae3JProa1dg3WjFCFfRyjbd33kCJiULx485TkqUBaPozVBYnb9wORpVKKZxMraP
-fFht97tq/2holrbo+SO8iXkdQQKjDQRAhZQRhiTlFIzeSwjiqqRQ+njsA/imOmcA
-GpHcGVlAWlS/i6Th+H/x8FQw7vkDb4ImATcAtHHtD+lJ6miFpsfWqsyzExiXqUSu
-Ej9NO2DOK6tOI4TnA5y1BkDmceArucmKikLUz9T/5cNXR/soV3DzyF+BwbajeunL
-oqL3kGaNCuCD2wc5J6GMzVBT1EVCIhPolHd4+1vgJN4GepIbEc4x772aAYN1FIDZ
-sQIDAQAB
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAmD6+w8GwggdZtnVa5LTT
+9cpgITPaOU+pLhNLCweWn+iJueyNc1sVzzbA92gPBDx9+pr4aoJyhF/CMxu5hByg
+m0I5oNNbFEcGkVELEIfhb9uSNRemr1m7+0ndrbCiP9LjkWhPnPo88hUAq8VyseW3
+4Kdwk9rgB1tsE9beG5ukwJzy6VLoLcxg5Ts3QWu6EQnJZfzRtdRC8FiOyluMNF12
+NI5iqiQZ3LOaHNIAHLoZFgdiYnT0L3qiuE15FBRXsq+RDnj9j9uWB0QOt0BFWwoO
+tuQzO9Q90l1v3+iXXNYafoYPDjyxCGeGJtq6ArZ5MYVbyL5FwkF/1MjH6YSOsgML
+jEzMU8lDI+NbXyghlgkdq3BqQT/O1Llm7DCddUcu/CjPF5bU8goEQqrxQSZ1vzA/
+okPjRfkV9lGHAemTURSONQLaYAtmoEi3Iq7kBC6DvyNeHZzh46ESZp/tBH0qEwqE
+YtKb0YwxDh+kF68s4sBJMl06S2dZewN6y2VPguLNjFkRND2PLTQDlb6E2wR7UWC7
+p57z9iiqRkV5QoZuUJe9Dwh/Wx32NyE5NO2EpmnLxXknFuLH1DjDfU+TcHTaTI12
+SOIpFszEiwsoYhHHKJx1PXQG8yt1Po5/D8LABZ4QoP+7yvm21wEBZqd8uPsjJSvX
+TdGzmRMJLXmsOo78DhgAYHcCAwEAAQ==
 -----END PUBLIC KEY-----
 ",
       "resourceCategory" : "NET",
-      "start" : 1567643773000,
-      "thumbprint" : "e1d7a4a48492b6b13e9695391433f65a9c660f9a"
+      "resourceEditorName" : "Self-signed WebsiteCertificate",
+      "start" : 1528920749000,
+      "thumbprint" : "3db0fbf94792b7eb21db1652e0566f7d2b5904e9"
     }
   }, {
     "resource" : "WebsiteCertificate | ui.example.com | 1fed8dd4eea2f20d4f89776eb9b7a67dd7f4a629, 2018-06-13, 2018-07-13",
