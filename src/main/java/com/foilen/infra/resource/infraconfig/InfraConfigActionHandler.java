@@ -262,7 +262,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 }
 
                 if (usesMongoDB) {
-                    infraUiConfig.setMongoUri("mongodb://" + uiMongoDBUser.getName() + ":" + uiMongoDBUser.getPassword() + "@127.0.0.1:27017/" + uiMongoDBDatabase.getName());
+                    infraUiConfig.setMongoUri("mongodb://" + uiMongoDBUser.getName() + ":" + uiMongoDBUser.getPassword() + "@127.0.0.1:27017/" + uiMongoDBDatabase.getName() + "?authSource=admin");
                 }
 
                 infraUiConfig.setMailHost(infraConfig.getMailHost());

@@ -405,7 +405,7 @@ btahMD33W123sboJJIcvIDjnMxH0z8IGIltyLARl4BjDKrIy3tj2NleDxUCXl3/4\
   \"mailPassword\" : \"myPass\",
   \"mailPort\" : 25,
   \"mailUsername\" : \"myUser\",
-  \"mongoUri\" : \"mongodb://uiuser:qwerty@127.0.0.1:27017/uidb\",
+  \"mongoUri\" : \"mongodb://uiuser:qwerty@127.0.0.1:27017/uidb?authSource=admin\",
   \"mysqlDatabaseName\" : null,
   \"mysqlDatabasePassword\" : null,
   \"mysqlDatabaseUserName\" : null,
