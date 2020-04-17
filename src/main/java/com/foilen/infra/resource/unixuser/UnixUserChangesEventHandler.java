@@ -22,8 +22,18 @@ import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.resource.unixuser.helper.UnixUserAvailableIdHelper;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.StringTools;
+import com.google.common.base.Strings;
 
 public class UnixUserChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
+
+    private void assertValidName(String unixUserName) {
+        if (Strings.isNullOrEmpty(unixUserName)) {
+            throw new IllegalUpdateException("You must put a user name");
+        }
+        if (unixUserName.length() > 32) {
+            throw new IllegalUpdateException("Max unix user name length is 32");
+        }
+    }
 
     @Override
     public List<ActionHandler> computeActionsToExecute(CommonServicesContext services, ChangesInTransactionContext changesInTransactionContext) {
@@ -36,14 +46,18 @@ public class UnixUserChangesEventHandler extends AbstractBasics implements Chang
 
                     actions.add((s, changes) -> {
 
-                        logger.info("Processing new UnixUser {}", unixUser.getName());
+                        String unixUserName = unixUser.getName();
+                        logger.info("Processing new UnixUser {}", unixUserName);
+
+                        // Valid name
+                        assertValidName(unixUserName);
 
                         // Unique user name
                         IPResourceService resourceService = services.getResourceService();
                         List<UnixUser> unixUsers = resourceService.resourceFindAll(resourceService.createResourceQuery(UnixUser.class) //
-                                .propertyEquals(UnixUser.PROPERTY_NAME, unixUser.getName()));
+                                .propertyEquals(UnixUser.PROPERTY_NAME, unixUserName));
                         if (unixUsers.size() > 1) {
-                            throw new IllegalUpdateException("Unix User name " + unixUser.getName() + " is already used");
+                            throw new IllegalUpdateException("Unix User name " + unixUserName + " is already used");
                         }
 
                         // Choose the next id
@@ -67,18 +81,22 @@ public class UnixUserChangesEventHandler extends AbstractBasics implements Chang
 
                     actions.add((s, changes) -> {
 
-                        logger.info("Processing update UnixUser {}", unixUser.getName());
+                        String unixUserName = unixUser.getName();
+                        logger.info("Processing update UnixUser {}", unixUserName);
 
                         UnixUser previousResource = (UnixUser) updatedResource.getPrevious();
                         UnixUser newResource = (UnixUser) updatedResource.getNext();
+
+                        // Valid name
+                        assertValidName(newResource.getName());
 
                         // Unique user name
                         if (!StringTools.safeEquals(previousResource.getName(), newResource.getName())) {
                             IPResourceService resourceService = services.getResourceService();
                             List<UnixUser> unixUsers = resourceService.resourceFindAll(resourceService.createResourceQuery(UnixUser.class) //
-                                    .propertyEquals(UnixUser.PROPERTY_NAME, unixUser.getName()));
+                                    .propertyEquals(UnixUser.PROPERTY_NAME, unixUserName));
                             if (unixUsers.size() > 1) {
-                                throw new IllegalUpdateException("Unix User name " + unixUser.getName() + " is already used");
+                                throw new IllegalUpdateException("Unix User name " + unixUserName + " is already used");
                             }
                         }
 

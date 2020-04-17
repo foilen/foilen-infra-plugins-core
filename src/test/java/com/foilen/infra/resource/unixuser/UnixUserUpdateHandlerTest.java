@@ -25,6 +25,32 @@ public class UnixUserUpdateHandlerTest extends AbstractCorePluginTest {
         return resourceService.resourceFind(resourceService.createResourceQuery(UnixUser.class).propertyEquals(UnixUser.PROPERTY_NAME, name)).orElse(null);
     }
 
+    @Test
+    public void testCreating_OK() {
+
+        // User
+        UnixUser unixUser = new UnixUser();
+        unixUser.setName("the_user");
+        unixUser.setPassword("the_password");
+        unixUser.setKeepClearPassword(false);
+
+        // Add
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(unixUser);
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        UnixUser actual = findUnixUser("the_user");
+        Assert.assertNotNull(actual.getId());
+        Assert.assertEquals("the_user", actual.getName());
+        Assert.assertEquals("/home/the_user", actual.getHomeFolder());
+        Assert.assertNull(actual.getPassword());
+        Assert.assertFalse(actual.isKeepClearPassword());
+        Assert.assertNotNull(actual.getHashedPassword());
+        Assert.assertEquals("/bin/bash", actual.getShell());
+
+    }
+
     @Test(expected = IllegalUpdateException.class)
     public void testCreatingLowerId_FAIL() {
 
@@ -32,6 +58,64 @@ public class UnixUserUpdateHandlerTest extends AbstractCorePluginTest {
         UnixUser unixUser = new UnixUser();
         unixUser.setId(60000L);
         unixUser.setName("the_user");
+        unixUser.setPassword("the_password");
+        unixUser.setKeepClearPassword(false);
+
+        // Add
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(unixUser);
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+    }
+
+    @Test
+    public void testCreatingMaxLength_OK() {
+
+        // User
+        UnixUser unixUser = new UnixUser();
+        unixUser.setName("a2345678901234567890123456789012");
+        unixUser.setPassword("the_password");
+        unixUser.setKeepClearPassword(false);
+
+        // Add
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(unixUser);
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        UnixUser actual = findUnixUser("a2345678901234567890123456789012");
+        Assert.assertNotNull(actual.getId());
+        Assert.assertEquals("a2345678901234567890123456789012", actual.getName());
+        Assert.assertEquals("/home/a2345678901234567890123456789012", actual.getHomeFolder());
+        Assert.assertNull(actual.getPassword());
+        Assert.assertFalse(actual.isKeepClearPassword());
+        Assert.assertNotNull(actual.getHashedPassword());
+        Assert.assertEquals("/bin/bash", actual.getShell());
+
+    }
+
+    @Test(expected = IllegalUpdateException.class)
+    public void testCreatingNameTooLong_33_FAIL() {
+
+        // User
+        UnixUser unixUser = new UnixUser();
+        unixUser.setName("a23456789012345678901234567890123");
+        unixUser.setPassword("the_password");
+        unixUser.setKeepClearPassword(false);
+
+        // Add
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(unixUser);
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+    }
+
+    @Test(expected = IllegalUpdateException.class)
+    public void testCreatingNameTooLong_34_FAIL() {
+
+        // User
+        UnixUser unixUser = new UnixUser();
+        unixUser.setName("a234567890123456789012345678901234");
         unixUser.setPassword("the_password");
         unixUser.setKeepClearPassword(false);
 
