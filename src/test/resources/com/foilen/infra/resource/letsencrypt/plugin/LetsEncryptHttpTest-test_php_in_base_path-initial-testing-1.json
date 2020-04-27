@@ -43,7 +43,7 @@
     "copyWhenStartedPathAndContentFiles" : [ ],
     "entrypoint" : null,
     "environments" : { },
-    "executeWhenStartedCommands" : [ "rm -rf /base/.well-known/acme-challenge", "mkdir -p /base/.well-known/acme-challenge", "echo _auth_ > /base/.well-known/acme-challenge/_tok_", "echo Satisfy any > /base/.well-known/acme-challenge/.htaccess" ],
+    "executeWhenStartedCommands" : [ "mkdir -p /base/.well-known/acme-challenge", "find /base/.well-known/acme-challenge -type f -mtime +1 -exec rm -f {} \\; || true", "echo _auth_ > /base/.well-known/acme-challenge/_tok_", "echo Satisfy any > /base/.well-known/acme-challenge/.htaccess" ],
     "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
     "hostToIpMapping" : [ ],
     "portsEndpoint" : {

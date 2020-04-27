@@ -65,8 +65,8 @@ public class LetsEncryptWithFileAttachable extends AttachablePart implements Com
             fileName = challengesPath + "/" + fileName;
             String htAccessFileName = challengesPath + "/.htaccess";
             logger.info("[{}] Full file name: {}", name, fileName);
-            context.getApplicationDefinition().addExecuteWhenStartedCommand("rm -rf " + challengesPath);
             context.getApplicationDefinition().addExecuteWhenStartedCommand("mkdir -p " + challengesPath);
+            context.getApplicationDefinition().addExecuteWhenStartedCommand("find " + challengesPath + " -type f -mtime +1 -exec rm -f {} \\; || true");
             context.getApplicationDefinition().addExecuteWhenStartedCommand("echo " + fileContent + " > " + fileName);
             context.getApplicationDefinition().addExecuteWhenStartedCommand("echo Satisfy any > " + htAccessFileName);
         }
