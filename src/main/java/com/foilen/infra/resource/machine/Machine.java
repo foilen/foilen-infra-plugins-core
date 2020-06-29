@@ -29,6 +29,8 @@ import com.google.common.collect.ComparisonChain;
  */
 public class Machine extends AbstractIPResource implements Comparable<Machine> {
 
+    public static final String RESOURCE_TYPE = "Machine";
+
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_PUBLIC_IP = "publicIp";
 
