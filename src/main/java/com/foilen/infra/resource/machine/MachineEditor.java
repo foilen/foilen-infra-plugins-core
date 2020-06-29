@@ -21,6 +21,7 @@ import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonPageItem;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 import com.foilen.infra.plugin.v1.core.visual.pageItem.LabelPageItem;
+import com.foilen.infra.plugin.v1.core.visual.pageItem.field.HiddenFieldPageItem;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Strings;
 
@@ -60,6 +61,14 @@ public class MachineEditor implements ResourceEditor<Machine> {
         } else {
             pageDefinition.addPageItem(new LabelPageItem().setText(translationService.translate("MachineEditor.nameArg", resource.getName())));
             pageDefinition.addPageItem(new LabelPageItem().setText(translationService.translate("MachineEditor.publicIpArg", resource.getPublicIp())));
+            HiddenFieldPageItem hiddenFieldPageItem = new HiddenFieldPageItem();
+            hiddenFieldPageItem.setFieldName(Machine.PROPERTY_NAME);
+            hiddenFieldPageItem.setFieldValue(resource.getName());
+            pageDefinition.addPageItem(hiddenFieldPageItem);
+            hiddenFieldPageItem = new HiddenFieldPageItem();
+            hiddenFieldPageItem.setFieldName(Machine.PROPERTY_PUBLIC_IP);
+            hiddenFieldPageItem.setFieldValue(resource.getPublicIp());
+            pageDefinition.addPageItem(hiddenFieldPageItem);
         }
 
         return pageDefinition;

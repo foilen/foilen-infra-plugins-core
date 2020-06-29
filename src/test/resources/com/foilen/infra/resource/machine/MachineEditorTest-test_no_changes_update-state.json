@@ -1,0 +1,77 @@
+{
+  "resources" : [ {
+    "resource" : "DnsEntry | test1.node.example.com / A | 192.168.0.11",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | test1.node.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.11",
+      "meta" : { },
+      "mxPriority" : 10,
+      "name" : "test1.node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.11",
+      "resourceName" : "test1.node.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | node.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | node.example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | test1.node.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "node.example.com"
+    }
+  }, {
+    "resource" : "Domain | test1.node.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "test1.node.example.com"
+    }
+  }, {
+    "resource" : "Machine | test1.node.example.com | test1.node.example.com (192.168.0.11)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | test1.node.example.com / A | 192.168.0.11"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | test1.node.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "test1.node.example.com",
+      "publicIp" : "192.168.0.11",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "test1.node.example.com (192.168.0.11)",
+      "resourceName" : "test1.node.example.com"
+    }
+  } ]
+}
