@@ -330,6 +330,57 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | bind9 | /home/bind9"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | config.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | dev.example.com / A | 127.0.0.203"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | example.com / A | 127.0.0.203"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | example.com / MX | mail.example.com (10)"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | example.com / TXT | v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | follow.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | follow.example.com / A | 127.0.0.203"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | h1.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | h2.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | h3.example.com / A | 127.0.0.203"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | login.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | mail.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | ns1.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | ns1.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | ns2.example.com / A | 127.0.0.201"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | ns2.example.com / A | 127.0.0.202"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | www.example.com / A | 127.0.0.203"
     } ],
     "tags" : [ ],
     "content" : {

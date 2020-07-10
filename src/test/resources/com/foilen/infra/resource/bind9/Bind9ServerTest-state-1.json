@@ -19,6 +19,15 @@
     }, {
       "type" : "RUN_AS",
       "to" : "UnixUser | infra-bind | /home/infra-bind"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | ns1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | ns2.example.com / A | 192.168.0.200"
     } ],
     "tags" : [ ],
     "content" : {

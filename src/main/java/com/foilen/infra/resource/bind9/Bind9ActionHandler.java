@@ -122,6 +122,7 @@ public class Bind9ActionHandler extends AbstractBasics implements ActionHandler 
             // Sync links
             CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.INSTALLED_ON, Machine.class, machines);
             CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.RUN_AS, UnixUser.class, unixUsers);
+            CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.USES, DnsEntry.class, dnsEntries);
 
         }
 
