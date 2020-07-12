@@ -18,12 +18,14 @@ import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.ChangesEventHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransactionContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
+import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
 import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.SecureRandomTools;
 import com.foilen.smalltools.tools.StreamTools;
+import com.foilen.smalltools.tools.StringTools;
 import com.google.common.base.Strings;
 
 public class LetsencryptConfigChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
@@ -52,6 +54,12 @@ public class LetsencryptConfigChangesEventHandler extends AbstractBasics impleme
                             return;
                         }
                         LetsencryptConfig resource = o.get();
+
+                        // Ensure there is a single config
+                        List<LetsencryptConfig> all = resourceService.resourceFindAll(resourceService.createResourceQuery(LetsencryptConfig.class));
+                        if (all.stream().anyMatch(it -> !StringTools.safeEquals(it.getName(), name))) {
+                            throw new IllegalUpdateException(services.getTranslationService().translate("error.onlyOneConfig"));
+                        }
 
                         boolean update = false;
                         // accountKeypairPem
