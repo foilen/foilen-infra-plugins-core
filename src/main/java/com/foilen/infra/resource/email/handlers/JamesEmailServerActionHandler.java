@@ -158,11 +158,6 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
             proceed = false;
         }
 
-        if (!jamesEmailServer.getMeta().isEmpty()) {
-            jamesEmailServer.getMeta().clear();
-            changes.resourceUpdate(jamesEmailServer);
-        }
-
         if (proceed) {
 
             UnixUser unixUser = unixUsers.get(0);
