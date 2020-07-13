@@ -15,6 +15,7 @@ import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
+import com.foilen.infra.resource.email.resources.EmailDomain;
 import com.foilen.infra.resource.email.resources.EmailServer;
 import com.foilen.infra.resource.email.resources.JamesEmailServer;
 import com.foilen.infra.resource.machine.Machine;
@@ -72,6 +73,8 @@ public class JamesEmailServerEditor extends SimpleResourceEditor<JamesEmailServe
         simpleResourceEditorDefinition.addResource("certSmtp", "USES_SMTP", WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResource("certImap", "USES_IMAP", WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResource("certPop3", "USES_POP3", WebsiteCertificate.class);
+
+        simpleResourceEditorDefinition.addReverseResources("domains", EmailDomain.class, LinkTypeConstants.INSTALLED_ON);
 
     }
 

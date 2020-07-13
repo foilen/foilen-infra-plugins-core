@@ -14,7 +14,9 @@ import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleR
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
+import com.foilen.infra.resource.email.resources.EmailAccount;
 import com.foilen.infra.resource.email.resources.EmailDomain;
+import com.foilen.infra.resource.email.resources.EmailRedirection;
 import com.foilen.infra.resource.email.resources.EmailRelay;
 import com.foilen.infra.resource.email.resources.EmailServer;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
@@ -52,6 +54,9 @@ public class EmailDomainEditor extends SimpleResourceEditor<EmailDomain> {
         simpleResourceEditorDefinition.addResource("imapCert", "USES_IMAP", WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResource("pop3Cert", "USES_POP3", WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResource("emailRelay", "SEND_THROUGHT", EmailRelay.class);
+
+        simpleResourceEditorDefinition.addReverseResources("accounts", EmailAccount.class, LinkTypeConstants.INSTALLED_ON);
+        simpleResourceEditorDefinition.addReverseResources("redirections", EmailRedirection.class, LinkTypeConstants.INSTALLED_ON);
 
     }
 
