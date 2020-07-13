@@ -11,6 +11,7 @@ package com.foilen.infra.resource.unixuser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
@@ -19,6 +20,7 @@ import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransaction
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
+import com.foilen.infra.plugin.v1.core.service.TranslationService;
 import com.foilen.infra.resource.unixuser.helper.UnixUserAvailableIdHelper;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.StringTools;
@@ -26,12 +28,17 @@ import com.google.common.base.Strings;
 
 public class UnixUserChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
 
-    private void assertValidName(String unixUserName) {
+    private static Pattern alphaNumLowerValidationRegex = Pattern.compile("[a-z0-9\\_\\-]+");
+
+    private void assertValidName(TranslationService translationService, String unixUserName) {
         if (Strings.isNullOrEmpty(unixUserName)) {
             throw new IllegalUpdateException("You must put a user name");
         }
         if (unixUserName.length() > 32) {
             throw new IllegalUpdateException("Max unix user name length is 32");
+        }
+        if (!alphaNumLowerValidationRegex.matcher(unixUserName).matches()) {
+            throw new IllegalUpdateException(translationService.translate("error.nameValid"));
         }
     }
 
@@ -50,7 +57,7 @@ public class UnixUserChangesEventHandler extends AbstractBasics implements Chang
                         logger.info("Processing new UnixUser {}", unixUserName);
 
                         // Valid name
-                        assertValidName(unixUserName);
+                        assertValidName(services.getTranslationService(), unixUserName);
 
                         // Unique user name
                         IPResourceService resourceService = services.getResourceService();
@@ -88,7 +95,7 @@ public class UnixUserChangesEventHandler extends AbstractBasics implements Chang
                         UnixUser newResource = (UnixUser) updatedResource.getNext();
 
                         // Valid name
-                        assertValidName(newResource.getName());
+                        assertValidName(services.getTranslationService(), newResource.getName());
 
                         // Unique user name
                         if (!StringTools.safeEquals(previousResource.getName(), newResource.getName())) {
