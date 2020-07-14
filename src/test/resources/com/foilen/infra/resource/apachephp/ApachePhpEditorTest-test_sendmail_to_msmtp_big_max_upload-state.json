@@ -16,6 +16,7 @@
       "basePath" : "/home/user1/php",
       "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
+      "maxMemoryM" : 6000,
       "maxUploadFilesizeM" : 5000,
       "meta" : { },
       "name" : "my_php",
@@ -99,7 +100,7 @@ upload_max_filesize = 5000M
 post_max_size = 0
 max_file_uploads = 100
 
-memory_limit = 15000M
+memory_limit = 6000M
 "
           }, {
             "a" : "/etc/apache2/sites-enabled/000-default.conf",

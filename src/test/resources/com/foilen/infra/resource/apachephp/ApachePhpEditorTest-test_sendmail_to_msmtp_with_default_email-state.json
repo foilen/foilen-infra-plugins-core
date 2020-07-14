@@ -17,6 +17,7 @@
       "defaultEmailFrom" : "admin@example.com",
       "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
+      "maxMemoryM" : 300,
       "maxUploadFilesizeM" : 100,
       "meta" : { },
       "name" : "my_php",

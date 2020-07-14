@@ -162,11 +162,12 @@ public class ApachePhpChangesEventHandler extends AbstractBasics implements Chan
                             assetsBundle.addAssetResource("/copy-php-conf.sh", "/com/foilen/infra/resource/apachephp/copy-php-conf.sh");
 
                             int maxUploadFilesizeM = apachePhp.getMaxUploadFilesizeM();
+                            int memoryLimit = apachePhp.getMaxMemoryM();
 
                             Map<String, Object> iniConfigModel = new HashMap<>();
                             iniConfigModel.put("defaultEmailFrom", apachePhp.getDefaultEmailFrom());
                             iniConfigModel.put("upload_max_filesize", maxUploadFilesizeM);
-                            iniConfigModel.put("memory_limit", maxUploadFilesizeM * 3);
+                            iniConfigModel.put("memory_limit", memoryLimit);
                             iniConfigModel.put("max_file_uploads", 100);
 
                             assetsBundle.addAssetContent("/99-fcloud.ini", FreemarkerTools.processTemplate("/com/foilen/infra/resource/apachephp/php.ini.ftl", iniConfigModel));

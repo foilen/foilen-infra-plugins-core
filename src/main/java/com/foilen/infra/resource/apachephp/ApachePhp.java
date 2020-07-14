@@ -49,6 +49,7 @@ public class ApachePhp extends AbstractIPResource {
     public static final String PROPERTY_DEFAULT_EMAIL_FROM = "defaultEmailFrom";
     public static final String PROPERTY_LOG_MAX_SIZE_M = "logMaxSizeM";
     public static final String PROPERTY_MAX_UPLOAD_FILESIZE_M = "maxUploadFilesizeM";
+    public static final String PROPERTY_MAX_MEMORY_M = "maxMemoryM";
 
     // Details
     private String name;
@@ -57,6 +58,7 @@ public class ApachePhp extends AbstractIPResource {
     private String defaultEmailFrom;
     private int logMaxSizeM = 100;
     private int maxUploadFilesizeM = 64;
+    private int maxMemoryM = maxUploadFilesizeM * 3;
 
     // Settings
     private String version = "5.5.9-1";
@@ -88,6 +90,10 @@ public class ApachePhp extends AbstractIPResource {
 
     public String getMainSiteRelativePath() {
         return mainSiteRelativePath;
+    }
+
+    public int getMaxMemoryM() {
+        return maxMemoryM;
     }
 
     public int getMaxUploadFilesizeM() {
@@ -131,6 +137,10 @@ public class ApachePhp extends AbstractIPResource {
 
     public void setMainSiteRelativePath(String mainSiteRelativePath) {
         this.mainSiteRelativePath = mainSiteRelativePath;
+    }
+
+    public void setMaxMemoryM(int maxMemoryM) {
+        this.maxMemoryM = maxMemoryM;
     }
 
     public void setMaxUploadFilesizeM(int maxUploadFilesizeM) {

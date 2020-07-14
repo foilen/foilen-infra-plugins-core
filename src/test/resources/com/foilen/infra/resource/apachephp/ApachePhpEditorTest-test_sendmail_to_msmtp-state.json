@@ -16,6 +16,7 @@
       "basePath" : "/home/user1/php",
       "logMaxSizeM" : 10,
       "mainSiteRelativePath" : "/",
+      "maxMemoryM" : 300,
       "maxUploadFilesizeM" : 100,
       "meta" : { },
       "name" : "my_php",

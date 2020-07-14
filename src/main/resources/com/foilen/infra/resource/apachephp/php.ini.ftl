@@ -5,4 +5,4 @@ upload_max_filesize = <#if upload_max_filesize==0>0<#else>${upload_max_filesize?
 post_max_size = 0
 max_file_uploads = ${max_file_uploads?c}
 
-memory_limit = <#if memory_limit==0>-1<#else>${memory_limit?c}M</#if>
+memory_limit = <#if memory_limit <=0 >-1<#else>${memory_limit?c}M</#if>

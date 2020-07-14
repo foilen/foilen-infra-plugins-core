@@ -19,6 +19,7 @@
       "basePath" : "/home/myphp/php",
       "logMaxSizeM" : 100,
       "mainSiteRelativePath" : "/www/",
+      "maxMemoryM" : 192,
       "maxUploadFilesizeM" : 64,
       "meta" : { },
       "name" : "myphp",

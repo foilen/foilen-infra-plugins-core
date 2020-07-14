@@ -60,6 +60,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "100");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_MEMORY_M, "300");
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
         assertEditorNoErrors(null, new ApachePhpEditor(), apachePhpEditorForm);
@@ -91,6 +92,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "5000");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_MEMORY_M, "6000");
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
         assertEditorNoErrors(null, new ApachePhpEditor(), apachePhpEditorForm);
@@ -122,6 +124,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_MEMORY_M, "");
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
         assertEditorNoErrors(null, new ApachePhpEditor(), apachePhpEditorForm);
@@ -153,6 +156,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "0");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_MEMORY_M, "0");
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
         assertEditorNoErrors(null, new ApachePhpEditor(), apachePhpEditorForm);
@@ -184,6 +188,7 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "100");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_MEMORY_M, "300");
         apachePhpEditorForm.put(ApachePhp.PROPERTY_DEFAULT_EMAIL_FROM, "admin@example.com");
         apachePhpEditorForm.put("unixUser", unixUserId);
         apachePhpEditorForm.put("machines", machineId);
