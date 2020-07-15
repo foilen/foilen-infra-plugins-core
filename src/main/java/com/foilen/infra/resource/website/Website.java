@@ -52,8 +52,8 @@ public class Website extends AbstractIPResource implements Comparable<Website> {
     private String name;
     private SortedSet<String> domainNames = new TreeSet<>();
 
-    private boolean isHttps;
-    private boolean isHttpsOriginToHttp;
+    private boolean isHttps = false;
+    private boolean isHttpsOriginToHttp = false;
     private String applicationEndpoint = DockerContainerEndpoints.HTTP_TCP; // Default: HTTP_TCP
 
     public Website() {

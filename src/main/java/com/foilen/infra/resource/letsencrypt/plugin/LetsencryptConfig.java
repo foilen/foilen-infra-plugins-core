@@ -30,7 +30,7 @@ public class LetsencryptConfig extends AbstractIPResource {
     private String accountKeypairPem;
     private String dnsUpdatedSubDomain;
     private String tagName;
-    private boolean isStaging;
+    private boolean isStaging = false;
 
     public LetsencryptConfig() {
     }

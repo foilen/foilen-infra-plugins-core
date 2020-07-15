@@ -11,6 +11,7 @@ package com.foilen.infra.resource.mariadb;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
+import com.foilen.smalltools.tools.SecureRandomTools;
 import com.google.common.collect.ComparisonChain;
 
 /**
@@ -39,7 +40,7 @@ public class MariaDBUser extends AbstractIPResource implements Comparable<MariaD
     private String description;
 
     // Settings
-    private String password;
+    private String password = SecureRandomTools.randomHexString(25);
 
     public MariaDBUser() {
     }

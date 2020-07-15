@@ -30,7 +30,7 @@
       "resourceDescription" : "Apache and PHP application",
       "resourceEditorName" : "Apache PHP",
       "resourceName" : "myphp",
-      "version" : "5.5.9-1"
+      "version" : "7.2.24-3"
     }
   }, {
     "resource" : "ApachePhpFolder | the_uid_1 | /home/myphp/otherphp : inside -> other",
@@ -282,7 +282,7 @@ memory_limit = 192M
         "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
         "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-apache_php:5.5.9-1",
+        "from" : "foilen/fcloud-docker-apache_php:7.2.24-3",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
           "8080" : "HTTP_TCP"

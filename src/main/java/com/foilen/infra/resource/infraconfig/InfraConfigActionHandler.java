@@ -198,6 +198,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 loginWebsite.getDomainNames().clear();
                 loginWebsite.getDomainNames().add(infraConfig.getLoginDomainName());
                 loginWebsite.setHttps(loginIsHttps);
+                loginWebsite.setHttpsOriginToHttp(false);
 
                 ActionsHandlerUtils.addOrUpdate(loginWebsite, changes);
                 desiredManagedWebsites.add(loginWebsite);
@@ -214,6 +215,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 if (loginIsHttps) {
                     UrlRedirection urlRedirection = ActionsHandlerUtils.getOrCreateAnUrlRedirection(resourceService, infraConfig.getLoginDomainName());
                     urlRedirection.setHttpRedirectToUrl("https://" + infraConfig.getLoginDomainName());
+                    urlRedirection.setHttpIsPermanent(false);
 
                     ActionsHandlerUtils.addOrUpdate(urlRedirection, changes);
                     desiredManagedUrlRedirections.add(urlRedirection);
@@ -355,6 +357,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 uiWebsite.getDomainNames().clear();
                 uiWebsite.getDomainNames().add(infraConfig.getUiDomainName());
                 uiWebsite.setHttps(uiIsHttps);
+                uiWebsite.setHttpsOriginToHttp(false);
 
                 ActionsHandlerUtils.addOrUpdate(uiWebsite, changes);
                 desiredManagedWebsites.add(uiWebsite);
@@ -371,6 +374,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 if (uiIsHttps) {
                     UrlRedirection urlRedirection = ActionsHandlerUtils.getOrCreateAnUrlRedirection(resourceService, infraConfig.getUiDomainName());
                     urlRedirection.setHttpRedirectToUrl("https://" + infraConfig.getUiDomainName());
+                    urlRedirection.setHttpIsPermanent(false);
 
                     ActionsHandlerUtils.addOrUpdate(urlRedirection, changes);
                     desiredManagedUrlRedirections.add(urlRedirection);

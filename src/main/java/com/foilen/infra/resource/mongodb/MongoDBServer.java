@@ -40,7 +40,7 @@ public class MongoDBServer extends AbstractIPResource implements Comparable<Mong
     private String description;
 
     // Settings
-    private String version;
+    private String version = "4.2.5-1";
     private String rootPassword;
 
     public MongoDBServer() {

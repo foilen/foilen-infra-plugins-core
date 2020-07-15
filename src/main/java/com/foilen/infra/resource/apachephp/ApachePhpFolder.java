@@ -27,9 +27,9 @@ public class ApachePhpFolder extends AbstractIPResource {
 
     // Details
     private String uid = SecureRandomTools.randomBase64String(10);
-    private String basePath;
+    private String basePath = "/home/xxxx/mine";
     private String relativePath = "/";
-    private String alias;
+    private String alias = "/mine";
 
     public ApachePhpFolder() {
     }

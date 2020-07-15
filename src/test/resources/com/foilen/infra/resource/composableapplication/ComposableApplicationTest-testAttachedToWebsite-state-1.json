@@ -27,7 +27,8 @@
         "runAs" : 71000,
         "services" : [ ],
         "udpPortsExposed" : { },
-        "volumes" : [ ]
+        "volumes" : [ ],
+        "workingDirectory" : "/home/xxxxx/www"
       },
       "description" : "Composable Application",
       "domainNames" : [ ],
@@ -54,6 +55,7 @@
     "content" : {
       "environments" : [ ],
       "from" : "ubuntu:18.04",
+      "mainWorkingDirectory" : "/home/xxxxx/www",
       "meta" : { },
       "name" : "my_app",
       "portsEndpoint" : [ ],

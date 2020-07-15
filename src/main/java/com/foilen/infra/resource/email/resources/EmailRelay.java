@@ -25,7 +25,7 @@ public class EmailRelay extends AbstractIPResource {
     // Details
     private String name;
     private String hostname;
-    private Integer port;
+    private Integer port = 587;
     private String username;
     private String password;
 

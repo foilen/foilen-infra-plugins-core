@@ -96,7 +96,8 @@ defaults
         "runAs" : 71000,
         "services" : [ ],
         "udpPortsExposed" : { },
-        "volumes" : [ ]
+        "volumes" : [ ],
+        "workingDirectory" : "/home/xxxxx/www"
       },
       "description" : "Composable Application",
       "domainNames" : [ ],
@@ -123,6 +124,7 @@ defaults
     "content" : {
       "environments" : [ ],
       "from" : "ubuntu:19.04",
+      "mainWorkingDirectory" : "/home/xxxxx/www",
       "meta" : { },
       "name" : "my_app",
       "portsEndpoint" : [ ],

@@ -59,7 +59,7 @@ public class ComposableApplication extends AbstractIPResource {
     // Single
     private String from = "ubuntu:16.04";
     private String mainCommand;
-    private String mainWorkingDirectory;
+    private String mainWorkingDirectory = "/home/xxxxx/www";
     private SortedSet<String> environments = new TreeSet<>();
     private SortedSet<String> portsExposedTcp = new TreeSet<>();
     private SortedSet<String> portsExposedUdp = new TreeSet<>();

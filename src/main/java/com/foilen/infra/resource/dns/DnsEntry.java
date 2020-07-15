@@ -40,7 +40,7 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
     public static final String PROPERTY_MX_PRIORITY = "mxPriority";
 
     private String name;
-    private DnsEntryType type;
+    private DnsEntryType type = DnsEntryType.A;
     private String details;
 
     private int mxPriority = 10;

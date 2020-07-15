@@ -55,7 +55,7 @@ public class UsageMetricsConfig extends AbstractIPResource {
     // Details
     private String uid = SecureRandomTools.randomBase64String(10);
 
-    private String version;
+    private String version = "1.3.1";
 
     private String hostKeySalt;
     private String mongoDatabase;

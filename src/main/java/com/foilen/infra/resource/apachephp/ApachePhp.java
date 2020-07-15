@@ -53,7 +53,7 @@ public class ApachePhp extends AbstractIPResource {
 
     // Details
     private String name;
-    private String basePath;
+    private String basePath = "/home/xxxxx/www";
     private String mainSiteRelativePath = "/";
     private String defaultEmailFrom;
     private int logMaxSizeM = 100;
@@ -61,7 +61,7 @@ public class ApachePhp extends AbstractIPResource {
     private int maxMemoryM = maxUploadFilesizeM * 3;
 
     // Settings
-    private String version = "5.5.9-1";
+    private String version = "7.2.24-3";
 
     public ApachePhp() {
     }

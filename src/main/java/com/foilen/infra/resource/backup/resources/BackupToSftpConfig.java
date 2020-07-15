@@ -44,7 +44,7 @@ public class BackupToSftpConfig extends AbstractIPResource {
     private String sshUser;
     private String sshPrivateKey;
 
-    private String remotePath;
+    private String remotePath = "/mnt/backup";
 
     private String time = "22 0 * * *";
 

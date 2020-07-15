@@ -45,10 +45,10 @@ public class UrlRedirection extends AbstractIPResource implements Comparable<Url
     private String domainName;
 
     private String httpRedirectToUrl;
-    private boolean httpIsPermanent;
+    private boolean httpIsPermanent = false;
 
     private String httpsRedirectToUrl;
-    private boolean httpsIsPermanent;
+    private boolean httpsIsPermanent = false;
 
     public UrlRedirection() {
     }

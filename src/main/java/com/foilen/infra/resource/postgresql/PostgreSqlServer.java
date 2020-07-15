@@ -41,7 +41,7 @@ public class PostgreSqlServer extends AbstractIPResource implements Comparable<P
     private String description;
 
     // Settings
-    private String version;
+    private String version = "11.4-1";
     private String authMethod = "scram-sha-256";
     private String rootPassword;
 

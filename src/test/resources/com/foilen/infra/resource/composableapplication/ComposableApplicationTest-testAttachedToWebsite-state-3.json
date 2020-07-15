@@ -120,7 +120,8 @@ backend http_8080_site.example.com
         "runAs" : 71000,
         "services" : [ ],
         "udpPortsExposed" : { },
-        "volumes" : [ ]
+        "volumes" : [ ],
+        "workingDirectory" : "/home/xxxxx/www"
       },
       "description" : "Composable Application",
       "domainNames" : [ ],
@@ -147,6 +148,7 @@ backend http_8080_site.example.com
     "content" : {
       "environments" : [ ],
       "from" : "ubuntu:19.04",
+      "mainWorkingDirectory" : "/home/xxxxx/www",
       "meta" : { },
       "name" : "my_app",
       "portsEndpoint" : [ ],
