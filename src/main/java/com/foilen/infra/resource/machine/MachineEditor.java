@@ -59,7 +59,11 @@ public class MachineEditor implements ResourceEditor<Machine> {
             CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "MachineEditor.name", Machine.PROPERTY_NAME);
             CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "MachineEditor.publicIp", Machine.PROPERTY_PUBLIC_IP);
         } else {
-            pageDefinition.addPageItem(new LabelPageItem().setText(translationService.translate("MachineEditor.nameArg", resource.getName())));
+            if (Strings.isNullOrEmpty(resource.getName())) {
+                CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "MachineEditor.name", Machine.PROPERTY_NAME);
+            } else {
+                pageDefinition.addPageItem(new LabelPageItem().setText(translationService.translate("MachineEditor.nameArg", resource.getName())));
+            }
             pageDefinition.addPageItem(new LabelPageItem().setText(translationService.translate("MachineEditor.publicIpArg", resource.getPublicIp())));
             HiddenFieldPageItem hiddenFieldPageItem = new HiddenFieldPageItem();
             hiddenFieldPageItem.setFieldName(Machine.PROPERTY_NAME);
