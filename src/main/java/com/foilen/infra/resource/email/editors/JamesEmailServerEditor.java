@@ -76,7 +76,7 @@ public class JamesEmailServerEditor extends SimpleResourceEditor<JamesEmailServe
         simpleResourceEditorDefinition.addResource("mariaDBDatabase", LinkTypeConstants.USES, MariaDBDatabase.class);
         simpleResourceEditorDefinition.addResource("mariaDBUser", LinkTypeConstants.USES, MariaDBUser.class);
         simpleResourceEditorDefinition.addResource("unixUser", LinkTypeConstants.RUN_AS, UnixUser.class);
-        simpleResourceEditorDefinition.addResources("machines", LinkTypeConstants.INSTALLED_ON, Machine.class);
+        simpleResourceEditorDefinition.addResource("machines", LinkTypeConstants.INSTALLED_ON, Machine.class);
 
         simpleResourceEditorDefinition.addResource("certSmtp", "USES_SMTP", WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResource("certImap", "USES_IMAP", WebsiteCertificate.class);
