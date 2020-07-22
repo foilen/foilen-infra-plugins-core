@@ -9,6 +9,8 @@
  */
 package com.foilen.infra.resource.email.editors;
 
+import java.util.Arrays;
+
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditor;
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditorDefinition;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
@@ -23,6 +25,7 @@ import com.foilen.infra.resource.mariadb.MariaDBDatabase;
 import com.foilen.infra.resource.mariadb.MariaDBUser;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
+import com.foilen.smalltools.tools.StringTools;
 
 public class JamesEmailServerEditor extends SimpleResourceEditor<JamesEmailServer> {
     public static final String EDITOR_NAME = "James Email Server";
@@ -43,25 +46,30 @@ public class JamesEmailServerEditor extends SimpleResourceEditor<JamesEmailServe
             fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
             fieldConfigConsumer.addValidator(CommonValidation::validateEmail);
         });
-        simpleResourceEditorDefinition.addInputText(JamesEmailServer.PROPERTY_DISABLE_BOUNCE_NOTIFY_POSTMASTER, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
-            fieldConfigConsumer.addFormator(value -> "true".equalsIgnoreCase(value) ? "true" : "false");
+
+        simpleResourceEditorDefinition.addSelectOptionsField(JamesEmailServer.PROPERTY_DISABLE_BOUNCE_NOTIFY_POSTMASTER, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
-        simpleResourceEditorDefinition.addInputText(JamesEmailServer.PROPERTY_DISABLE_BOUNCE_NOTIFY_SENDER, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
-            fieldConfigConsumer.addFormator(value -> "true".equalsIgnoreCase(value) ? "true" : "false");
+        simpleResourceEditorDefinition.addSelectOptionsField(JamesEmailServer.PROPERTY_DISABLE_BOUNCE_NOTIFY_SENDER, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
-        simpleResourceEditorDefinition.addInputText(JamesEmailServer.PROPERTY_DISABLE_RELAY_DENIED_NOTIFY_SENDER, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
-            fieldConfigConsumer.addFormator(value -> "true".equalsIgnoreCase(value) ? "true" : "false");
+        simpleResourceEditorDefinition.addSelectOptionsField(JamesEmailServer.PROPERTY_DISABLE_RELAY_DENIED_NOTIFY_SENDER, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
-        simpleResourceEditorDefinition.addInputText(JamesEmailServer.PROPERTY_ENABLE_DEBUG_LOGS, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
-            fieldConfigConsumer.addFormator(value -> "true".equalsIgnoreCase(value) ? "true" : "false");
+        simpleResourceEditorDefinition.addSelectOptionsField(JamesEmailServer.PROPERTY_ENABLE_DEBUG_LOGS, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
-        simpleResourceEditorDefinition.addInputText(JamesEmailServer.PROPERTY_ENABLE_DEBUG_DUMP_MESSAGES_DETAILS, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
-            fieldConfigConsumer.addFormator(value -> "true".equalsIgnoreCase(value) ? "true" : "false");
+        simpleResourceEditorDefinition.addSelectOptionsField(JamesEmailServer.PROPERTY_ENABLE_DEBUG_DUMP_MESSAGES_DETAILS, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
+        });
+        simpleResourceEditorDefinition.addSelectOptionsField(JamesEmailServer.PROPERTY_EXPOSE_PORTS, Arrays.asList("TRUE", "FALSE"), fieldConfig -> {
+            fieldConfig.setConvertFromString(text -> StringTools.safeEquals("TRUE", text));
+            fieldConfig.setConvertToString(value -> ((boolean) value) ? "TRUE" : "FALSE");
         });
 
         simpleResourceEditorDefinition.addResource("mariaDBServer", "ATTACHED", AttachableMariaDB.class);

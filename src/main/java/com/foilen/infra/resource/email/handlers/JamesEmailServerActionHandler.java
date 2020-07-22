@@ -277,12 +277,20 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
 
             // Ports
             applicationDefinition.addPortEndpoint(10025, DockerContainerEndpoints.SMTP_TCP);
-            applicationDefinition.addPortExposed(25, 10025); // SMTP with startTLS
-            applicationDefinition.addPortExposed(465, 10465); // SMTP with TLS
-            applicationDefinition.addPortExposed(587, 10587); // Submission with startTLS
-            applicationDefinition.addPortExposed(110, 10110); // POP3 with startTLS
-            applicationDefinition.addPortExposed(143, 10143); // IMAP with startTLS
-            applicationDefinition.addPortExposed(993, 10993); // IMAP with TLS
+            applicationDefinition.addPortEndpoint(10465, "SMTP_TLS_TCP");
+            applicationDefinition.addPortEndpoint(10587, "SUBMISSION_TCP");
+            applicationDefinition.addPortEndpoint(10110, "POP3_TCP");
+            applicationDefinition.addPortEndpoint(10143, "IMAP_TCP");
+            applicationDefinition.addPortEndpoint(10993, "IMAP_TLS_TCP");
+
+            if (jamesEmailServer.isExposePorts()) {
+                applicationDefinition.addPortExposed(25, 10025); // SMTP with startTLS
+                applicationDefinition.addPortExposed(465, 10465); // SMTP with TLS
+                applicationDefinition.addPortExposed(587, 10587); // Submission with startTLS
+                applicationDefinition.addPortExposed(110, 10110); // POP3 with startTLS
+                applicationDefinition.addPortExposed(143, 10143); // IMAP with startTLS
+                applicationDefinition.addPortExposed(993, 10993); // IMAP with TLS
+            }
 
             ActionsHandlerUtils.addOrUpdate(application, changes);
 

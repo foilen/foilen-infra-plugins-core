@@ -50,6 +50,8 @@ public class JamesEmailServer extends EmailServer {
     public static final String PROPERTY_ENABLE_DEBUG_LOGS = "enableDebuglogs";
     public static final String PROPERTY_ENABLE_DEBUG_DUMP_MESSAGES_DETAILS = "enableDebugDumpMessagesDetails";
 
+    public static final String PROPERTY_EXPOSE_PORTS = "exposePorts";
+
     private String version = "1.0.0";
 
     private boolean disableBounceNotifyPostmaster;
@@ -58,6 +60,8 @@ public class JamesEmailServer extends EmailServer {
 
     private boolean enableDebuglogs;
     private boolean enableDebugDumpMessagesDetails;
+
+    private boolean exposePorts = true;
 
     public JamesEmailServer() {
     }
@@ -101,6 +105,10 @@ public class JamesEmailServer extends EmailServer {
         return enableDebuglogs;
     }
 
+    public boolean isExposePorts() {
+        return exposePorts;
+    }
+
     public void setDisableBounceNotifyPostmaster(boolean disableBounceNotifyPostmaster) {
         this.disableBounceNotifyPostmaster = disableBounceNotifyPostmaster;
     }
@@ -119,6 +127,10 @@ public class JamesEmailServer extends EmailServer {
 
     public void setEnableDebuglogs(boolean enableDebuglogs) {
         this.enableDebuglogs = enableDebuglogs;
+    }
+
+    public void setExposePorts(boolean exposePorts) {
+        this.exposePorts = exposePorts;
     }
 
     public void setVersion(String version) {

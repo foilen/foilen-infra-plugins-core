@@ -1709,7 +1709,12 @@ PRIVATE_KEY
         "from" : "foilen/foilen-email-server:1.0.0",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
-          "10025" : "SMTP_TCP"
+          "10025" : "SMTP_TCP",
+          "10465" : "SMTP_TLS_TCP",
+          "10587" : "SUBMISSION_TCP",
+          "10110" : "POP3_TCP",
+          "10143" : "IMAP_TCP",
+          "10993" : "IMAP_TLS_TCP"
         },
         "portsExposed" : {
           "25" : 10025,
@@ -3596,6 +3601,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "disableRelayDeniedNotifyPostmaster" : false,
       "enableDebugDumpMessagesDetails" : false,
       "enableDebuglogs" : false,
+      "exposePorts" : true,
       "meta" : { },
       "name" : "james_server",
       "postmasterEmail" : "postmaster@example.com",
