@@ -33,8 +33,10 @@ import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.dns.DnsPointer;
 import com.foilen.infra.resource.domain.DomainResourceHelper;
 import com.foilen.infra.resource.machine.Machine;
+import com.foilen.infra.resource.unixuser.SystemUnixUser;
 import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.smalltools.tools.AbstractBasics;
+import com.foilen.smalltools.tools.DirectoryTools;
 import com.foilen.smalltools.tools.StreamTools;
 
 public class ApplicationChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
@@ -210,6 +212,76 @@ public class ApplicationChangesEventHandler extends AbstractBasics implements Ch
                                     throw new IllegalUpdateException("The port " + port + " is exposed by many applications installed on " + machine.getName());
                                 }
                             }
+                        }
+
+                    });
+
+                });
+
+        // Check mounted volumes host path belong to the unix users
+        ChangesEventHandlerResourceStream<Application> allChangedApps = new ChangesEventHandlerResourceStream<>(Application.class);
+        allChangedApps.resourcesAddOfType(changesInTransactionContext.getLastAddedResources());
+        allChangedApps.resourcesAddOfType(changesInTransactionContext.getLastRefreshedResources());
+        allChangedApps.resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources());
+        allChangedApps.linksAddFromAndTo(changesInTransactionContext.getLastAddedLinks());
+        allChangedApps.linksAddFromAndTo(changesInTransactionContext.getLastDeletedLinks());
+
+        allChangedApps.getResourcesStream() //
+                .map(Application::getName) //
+                .sorted().distinct() //
+                .forEach(applicationName -> {
+
+                    actions.add((s, changes) -> {
+
+                        IPResourceService resourceService = s.getResourceService();
+
+                        logger.info("Check mounted volumes for Application {} are allowed", applicationName);
+                        Optional<Application> applicationOptional = resourceService.resourceFindByPk(new Application(applicationName));
+                        if (applicationOptional.isEmpty()) {
+                            logger.info("Application {} doesn't exist. Skipping");
+                            return;
+                        }
+
+                        Application application = applicationOptional.get();
+
+                        List<String> hostFolders = application.getApplicationDefinition().getVolumes().stream() //
+                                .filter(it -> it.getHostFolder() != null) //
+                                .map(it -> it.getHostFolder()) //
+                                .sorted().distinct() //
+                                .collect(Collectors.toList());
+
+                        if (!hostFolders.isEmpty()) {
+                            // Get the unix user
+                            logger.info("There are hosts folders. Getting the unix user that is running it");
+                            List<UnixUser> unixUsers = resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(application, LinkTypeConstants.RUN_AS, UnixUser.class);
+                            if (unixUsers.isEmpty()) {
+                                logger.info("There are no unix user running it. Skipping");
+                                return;
+                            }
+
+                            UnixUser unixUser = unixUsers.get(0);
+                            String homeFolder = unixUser.getHomeFolder();
+                            if (homeFolder != null) {
+                                homeFolder = DirectoryTools.pathTrailingSlash(homeFolder);
+                            }
+                            logger.info("Unix User - name: {}, id: {}, home: {}", unixUser.getName(), unixUser.getId(), homeFolder);
+
+                            // Check if System user
+                            if (unixUser instanceof SystemUnixUser) {
+                                logger.info("The unix user is of type System. Skipping");
+                                return;
+                            }
+
+                            // Check all hostFolders are valid
+                            for (String hostFolder : hostFolders) {
+                                hostFolder = DirectoryTools.pathTrailingSlash(hostFolder);
+                                boolean ok = hostFolder.startsWith(homeFolder);
+                                logger.info("Host Folder {} : OK? {}", hostFolder, ok);
+                                if (!ok) {
+                                    throw new IllegalUpdateException("All mounted host volumes must be under the UnixUser");
+                                }
+                            }
+
                         }
 
                     });

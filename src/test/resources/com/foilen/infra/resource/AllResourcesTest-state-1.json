@@ -2147,8 +2147,8 @@ max_allowed_packet	= 500M
         "services" : [ ],
         "udpPortsExposed" : { },
         "volumes" : [ {
-          "containerFsFolder" : "/home/ticket",
-          "hostFolder" : "/home/ticket",
+          "containerFsFolder" : "/home/ticket-java",
+          "hostFolder" : "/home/ticket-java",
           "readOnly" : false
         } ],
         "workingDirectory" : "/home/ticket/app/"
@@ -2607,17 +2607,17 @@ memory_limit = 192M
       "resourceName" : "ticket_db"
     }
   }, {
-    "resource" : "AttachableVolume | /home/ticket -> /home/ticket | /home/ticket -> /home/ticket",
+    "resource" : "AttachableVolume | /home/ticket-java -> /home/ticket-java | /home/ticket-java -> /home/ticket-java",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
-      "containerFsFolder" : "/home/ticket",
-      "hostFolder" : "/home/ticket",
+      "containerFsFolder" : "/home/ticket-java",
+      "hostFolder" : "/home/ticket-java",
       "meta" : { },
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/ticket -> /home/ticket",
+      "resourceDescription" : "/home/ticket-java -> /home/ticket-java",
       "resourceEditorName" : "Attachable Volume Folder",
-      "resourceName" : "/home/ticket -> /home/ticket",
+      "resourceName" : "/home/ticket-java -> /home/ticket-java",
       "uid" : "AVJ+HjlL4w"
     }
   }, {
@@ -2710,7 +2710,7 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "to" : "AttachableMongoDB | ticket_db | Local infra to a MongoDB Database"
     }, {
       "type" : "ATTACHED",
-      "to" : "AttachableVolume | /home/ticket -> /home/ticket | /home/ticket -> /home/ticket"
+      "to" : "AttachableVolume | /home/ticket-java -> /home/ticket-java | /home/ticket-java -> /home/ticket-java"
     }, {
       "type" : "INSTALLED_ON",
       "to" : "Machine | h3.example.com | h3.example.com (127.0.0.203)"

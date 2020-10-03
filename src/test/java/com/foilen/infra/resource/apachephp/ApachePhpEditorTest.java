@@ -16,6 +16,7 @@ import org.junit.Test;
 
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
+import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.core.service.internal.InternalChangeService;
 import com.foilen.infra.resource.machine.Machine;
@@ -36,6 +37,35 @@ public class ApachePhpEditorTest extends AbstractCorePluginTest {
         return resourceService.resourceFind(resourceService.createResourceQuery(UnixUser.class) //
                 .propertyEquals(UnixUser.PROPERTY_NAME, name)) //
                 .get();
+    }
+
+    @Test
+    public void test_outside_unix_user_FAIL() {
+
+        // Create fake data
+        IPResourceService resourceService = getCommonServicesContext().getResourceService();
+        InternalChangeService internalChangeService = getInternalServicesContext().getInternalChangeService();
+
+        ChangesContext changes = new ChangesContext(resourceService);
+        changes.resourceAdd(new Machine("test1.node.example.com", "192.168.0.11"));
+        changes.resourceAdd(new UnixUser(null, "user1", "/home/user1", null, null));
+        internalChangeService.changesExecute(changes);
+        String machineId = String.valueOf(findMachineByName("test1.node.example.com").getInternalId());
+        String unixUserId = String.valueOf(findUnixUserByName("user1").getInternalId());
+
+        // ApachePhpEditor
+        Map<String, String> apachePhpEditorForm = new HashMap<>();
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_NAME, "my_php");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_BASE_PATH, "/home/user2/php");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAIN_SITE_RELATIVE_PATH, "/");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_VERSION, "7.2.10-3");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_LOG_MAX_SIZE_M, "10");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_UPLOAD_FILESIZE_M, "100");
+        apachePhpEditorForm.put(ApachePhp.PROPERTY_MAX_MEMORY_M, "300");
+        apachePhpEditorForm.put("unixUser", unixUserId);
+        apachePhpEditorForm.put("machines", machineId);
+        assertEditorWithException(null, new ApachePhpEditor(), apachePhpEditorForm, new IllegalUpdateException("All mounted host volumes must be under the UnixUser"));
+
     }
 
     @Test
