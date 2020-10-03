@@ -10,8 +10,6 @@
 package com.foilen.infra.resource.email.resources;
 
 import com.foilen.infra.resource.application.Application;
-import com.foilen.infra.resource.composableapplication.AttachablePart;
-import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mariadb.MariaDBDatabase;
 import com.foilen.infra.resource.mariadb.MariaDBUser;
@@ -29,7 +27,6 @@ import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
  * <li>{@link WebsiteCertificate}: (1) USES_SMTP - Needed for TLS.</li>
  * <li>{@link WebsiteCertificate}: (1) USES_IMAP - Needed for TLS.</li>
  * <li>{@link WebsiteCertificate}: (1) USES_POP3 - Needed for TLS.</li>
- * <li>{@link AttachablePart}: (optional / many) ATTACHED - The parts to attach (at least one {@link AttachableMariaDB})</li>
  * </ul>
  *
  * Manages:
