@@ -47,6 +47,7 @@ dependencies {
   
   compileOnly "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
   
+  testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.3'
   testCompile "com.foilen:foilen-infra-system-core-system-junits:$foilenInfraSystemVersion"
   testCompile "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
   testCompileOnly 'junit:junit:4.12'
