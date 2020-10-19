@@ -278,7 +278,7 @@ public class MongoDBChangesEventHandler extends AbstractBasics implements Change
                             }
 
                             // Manage Application
-                            {
+                            if (!machines.isEmpty()) {
 
                                 Application application = ActionsHandlerUtils.getOrCreateAnApplication(resourceService, serverName + "_manager");
                                 desiredManageApplications.add(application);

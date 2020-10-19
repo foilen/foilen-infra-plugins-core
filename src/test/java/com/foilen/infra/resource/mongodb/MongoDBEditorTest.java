@@ -66,4 +66,30 @@ public class MongoDBEditorTest extends AbstractCorePluginTest {
 
     }
 
+    @Test
+    public void test_notInstalled() {
+
+        // Create fake data
+        IPResourceService resourceService = getCommonServicesContext().getResourceService();
+        InternalChangeService internalChangeService = getInternalServicesContext().getInternalChangeService();
+
+        ChangesContext changes = new ChangesContext(resourceService);
+        changes.resourceAdd(new Machine("test1.node.example.com", "192.168.0.11"));
+        changes.resourceAdd(new UnixUser(null, "user1", "/home/user1", null, null));
+        internalChangeService.changesExecute(changes);
+        String unixUserId = String.valueOf(findUnixUserByName("user1").getInternalId());
+
+        // MongoDBServerEditor
+        Map<String, String> mongoDBServerEditorForm = new HashMap<>();
+        mongoDBServerEditorForm.put(MongoDBServer.PROPERTY_NAME, "user_db");
+        mongoDBServerEditorForm.put(MongoDBServer.PROPERTY_VERSION, "4.0.4-1");
+        mongoDBServerEditorForm.put(MongoDBServer.PROPERTY_ROOT_PASSWORD, "abc");
+        mongoDBServerEditorForm.put("unixUser", unixUserId);
+        assertEditorNoErrors(null, new MongoDBServerEditor(), mongoDBServerEditorForm);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "MongoDBEditorTest-test_notInstalled-state-1.json", getClass(), true);
+
+    }
+
 }
