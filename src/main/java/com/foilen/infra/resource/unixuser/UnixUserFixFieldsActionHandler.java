@@ -59,9 +59,14 @@ public class UnixUserFixFieldsActionHandler extends AbstractBasics implements Ac
         }
 
         // Set home folder
+        String expectedHomeFolder = "/home/" + unixUser.getName();
         if (unixUser.getHomeFolder() == null) {
-            unixUser.setHomeFolder("/home/" + unixUser.getName());
+            unixUser.setHomeFolder(expectedHomeFolder);
             changes.resourceUpdate(unixUser);
+        } else {
+            if (!(unixUser instanceof SystemUnixUser) && !StringTools.safeEquals(expectedHomeFolder, unixUser.getHomeFolder())) {
+                throw new IllegalUpdateException("Expected home folder is " + expectedHomeFolder);
+            }
         }
 
         // Set Shell

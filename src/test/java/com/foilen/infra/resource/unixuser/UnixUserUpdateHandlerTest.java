@@ -52,6 +52,50 @@ public class UnixUserUpdateHandlerTest extends AbstractCorePluginTest {
     }
 
     @Test(expected = IllegalUpdateException.class)
+    public void testCreatingBadHome_FAIL() {
+
+        // User
+        UnixUser unixUser = new UnixUser();
+        unixUser.setName("the_user");
+        unixUser.setPassword("the_password");
+        unixUser.setHomeFolder("/home/other");
+        unixUser.setKeepClearPassword(false);
+
+        // Add
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(unixUser);
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+    }
+
+    @Test
+    public void testCreatingGoodHome_OK() {
+
+        // User
+        UnixUser unixUser = new UnixUser();
+        unixUser.setName("the_user");
+        unixUser.setPassword("the_password");
+        unixUser.setHomeFolder("/home/the_user");
+        unixUser.setKeepClearPassword(false);
+
+        // Add
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(unixUser);
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        UnixUser actual = findUnixUser("the_user");
+        Assert.assertNotNull(actual.getId());
+        Assert.assertEquals("the_user", actual.getName());
+        Assert.assertEquals("/home/the_user", actual.getHomeFolder());
+        Assert.assertNull(actual.getPassword());
+        Assert.assertFalse(actual.isKeepClearPassword());
+        Assert.assertNotNull(actual.getHashedPassword());
+        Assert.assertEquals("/bin/bash", actual.getShell());
+
+    }
+
+    @Test(expected = IllegalUpdateException.class)
     public void testCreatingLowerId_FAIL() {
 
         // User
