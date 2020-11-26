@@ -641,7 +641,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceEditorName" : "Email Account",
       "resourceName" : "a1",
       "sha512Password" : "0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8",
-      "uid" : "73UEG0v7nw"
+      "uid" : "699e592fa5e1bea7f7d37748b6aa2c81"
     }
   }, {
     "resource" : "EmailAccount | a2 | Email Account",
@@ -658,7 +658,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceEditorName" : "Email Account",
       "resourceName" : "a2",
       "sha512Password" : "0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8",
-      "uid" : "GOAFqspNow"
+      "uid" : "a286c109c16eaf756b463da9a8c6fdce"
     }
   }, {
     "resource" : "EmailAccount | a3 | Email Account",
@@ -675,7 +675,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceEditorName" : "Email Account",
       "resourceName" : "a3",
       "sha512Password" : "0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8",
-      "uid" : "pIxmZ6dZ5A"
+      "uid" : "78001238fd07c70fa060c7674fa18fdf"
     }
   }, {
     "resource" : "EmailAccount | a4 | Email Account",
@@ -692,7 +692,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceEditorName" : "Email Account",
       "resourceName" : "a4",
       "sha512Password" : "0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8",
-      "uid" : "mLP4pstR/A"
+      "uid" : "7712f52736f87909f62e9fc6ecfe4c23"
     }
   }, {
     "resource" : "EmailAccount | any | Email Account",
@@ -709,7 +709,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceEditorName" : "Email Account",
       "resourceName" : "any",
       "sha512Password" : "0dd3e512642c97ca3f747f9a76e374fbda73f9292823c0313be9d78add7cdd8f72235af0c553dd26797e78e1854edee0ae002f8aba074b066dfce1af114e32f8",
-      "uid" : "ca/d4iPS1Q"
+      "uid" : "563e8fb341aa11669a81385d6481578e"
     }
   }, {
     "resource" : "EmailDomain | example.com | Email Domain",
@@ -759,7 +759,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceDescription" : "Redirect to: any@example.com",
       "resourceEditorName" : "Email Redirection",
       "resourceName" : "",
-      "uid" : "X9jXEYBc4Q"
+      "uid" : "66374899f1357cacb850d52dc1ef43d3"
     }
   }, {
     "resource" : "EmailRedirection | r1 | Redirect to: a1@example.com, a2@example.com",
@@ -776,7 +776,7 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceDescription" : "Redirect to: a1@example.com, a2@example.com",
       "resourceEditorName" : "Email Redirection",
       "resourceName" : "r1",
-      "uid" : "rbXfHd5YsA"
+      "uid" : "f2591471d8a0904ea1fa6302a811527b"
     }
   }, {
     "resource" : "EmailRelay | example-relay | relay.example.com:587 AAA",
@@ -874,7 +874,8 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Database",
-      "resourceName" : "db_database_email"
+      "resourceName" : "db_database_email",
+      "uid" : "5b9e89cbb67ef8cb498b8f1aeafd26b0"
     }
   }, {
     "resource" : "MariaDBServer | db_server_email | ",
@@ -921,7 +922,8 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB User",
-      "resourceName" : "db_user_email"
+      "resourceName" : "db_user_email",
+      "uid" : "8894ef5ee19cbd0e3d4702ee36ee66ec"
     }
   }, {
     "resource" : "UnixUser | james | /home/james",

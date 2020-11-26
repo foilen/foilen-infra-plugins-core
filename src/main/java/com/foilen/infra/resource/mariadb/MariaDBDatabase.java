@@ -11,6 +11,7 @@ package com.foilen.infra.resource.mariadb;
 
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
+import com.foilen.smalltools.tools.SecureRandomTools;
 import com.google.common.collect.ComparisonChain;
 
 /**
@@ -24,14 +25,20 @@ public class MariaDBDatabase extends AbstractIPResource implements Comparable<Ma
 
     public static final String RESOURCE_TYPE = "MariaDB Database";
 
+    public static final String PROPERTY_UID = "uid";
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_DESCRIPTION = "description";
 
     // Basics
+    private String uid = SecureRandomTools.randomBase64String(10);
     private String name;
     private String description;
 
     public MariaDBDatabase() {
+    }
+
+    public MariaDBDatabase(String name) {
+        this.name = name;
     }
 
     public MariaDBDatabase(String name, String description) {
@@ -69,12 +76,20 @@ public class MariaDBDatabase extends AbstractIPResource implements Comparable<Ma
         return name;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
 }

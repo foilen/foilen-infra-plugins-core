@@ -39,14 +39,14 @@ public class FoilenMariaDBPluginDefinitionProvider implements IPPluginDefinition
                 ));
 
         pluginDefinitionV1.addCustomResource(MariaDBDatabase.class, MariaDBDatabase.RESOURCE_TYPE, //
-                Arrays.asList(MariaDBDatabase.PROPERTY_NAME), //
+                Arrays.asList(MariaDBDatabase.PROPERTY_UID), //
                 Arrays.asList( //
                         MariaDBDatabase.PROPERTY_NAME, //
                         MariaDBDatabase.PROPERTY_DESCRIPTION //
                 ));
 
         pluginDefinitionV1.addCustomResource(MariaDBUser.class, MariaDBUser.RESOURCE_TYPE, //
-                Arrays.asList(MariaDBUser.PROPERTY_NAME), //
+                Arrays.asList(MariaDBUser.PROPERTY_UID), //
                 Arrays.asList( //
                         MariaDBUser.PROPERTY_NAME, //
                         MariaDBUser.PROPERTY_DESCRIPTION //

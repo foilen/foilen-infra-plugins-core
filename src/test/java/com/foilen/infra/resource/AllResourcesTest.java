@@ -133,6 +133,7 @@ public class AllResourcesTest extends AbstractCorePluginTest {
         getInternalServicesContext().getInternalChangeService().changesExecute(changes);
 
         removeBinaryFiles();
+        unrandomizeUids();
     }
 
     private <T extends IPResource> void process(Class<T> type, Consumer<T> consumer) {

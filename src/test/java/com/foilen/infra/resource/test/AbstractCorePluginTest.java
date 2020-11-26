@@ -9,7 +9,14 @@
  */
 package com.foilen.infra.resource.test;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Assert;
 import org.junit.Before;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.InvalidPropertyException;
 
 import com.foilen.infra.plugin.core.system.common.service.IPPluginServiceImpl;
 import com.foilen.infra.plugin.core.system.common.service.MessagingServiceLoggerImpl;
@@ -23,6 +30,7 @@ import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.TimerEventHandler;
 import com.foilen.infra.plugin.v1.core.service.TimerService;
 import com.foilen.infra.plugin.v1.core.service.TranslationService;
+import com.foilen.smalltools.hash.HashMd5sum;
 
 public class AbstractCorePluginTest extends AbstractIPPluginTest {
 
@@ -67,6 +75,23 @@ public class AbstractCorePluginTest extends AbstractIPPluginTest {
 
         InfraPluginCommonInit.init(commonServicesContext, internalServicesContext);
 
+    }
+
+    protected void unrandomizeUids() {
+        Set<String> allUids = new HashSet<>();
+        resourceServicesInMemoryImpl.getResources().forEach(r -> {
+            try {
+                BeanWrapper wrapper = new BeanWrapperImpl(r);
+                Object normalUid = wrapper.getPropertyValue("uid");
+                if (normalUid != null) {
+                    String hashUid = HashMd5sum.hashString(r.getClass() + r.getResourceName() + r.getResourceDescription());
+                    Assert.assertTrue("The generated uid is not unique. Ensure you have a different description if you have the same name", allUids.add(hashUid));
+                    wrapper.setPropertyValue("uid", hashUid);
+                }
+            } catch (InvalidPropertyException e) {
+                // No UID value
+            }
+        });
     }
 
 }

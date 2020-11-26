@@ -1222,7 +1222,8 @@ backend http_8080_ui.example.com
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Database",
-      "resourceName" : "logindb"
+      "resourceName" : "logindb",
+      "uid" : "c5a49cee7466e8d7b1bd689f071800a1"
     }
   }, {
     "resource" : "MariaDBDatabase | uidb | ",
@@ -1238,7 +1239,8 @@ backend http_8080_ui.example.com
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Database",
-      "resourceName" : "uidb"
+      "resourceName" : "uidb",
+      "uid" : "9b1b04a0689c6991e2cbfd826fc63e17"
     }
   }, {
     "resource" : "MariaDBServer | commonserver | ",
@@ -1285,7 +1287,8 @@ backend http_8080_ui.example.com
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB User",
-      "resourceName" : "loginuser"
+      "resourceName" : "loginuser",
+      "uid" : "c0597c3b84d2803921ef9794c8888c8a"
     }
   }, {
     "resource" : "MariaDBUser | uiuser | qwerty",
@@ -1308,7 +1311,8 @@ backend http_8080_ui.example.com
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "qwerty",
       "resourceEditorName" : "MariaDB User",
-      "resourceName" : "uiuser"
+      "resourceName" : "uiuser",
+      "uid" : "d490fa3908bdf1aad9c7633b61480361"
     }
   }, {
     "resource" : "MongoDBDatabase | uidb | ",

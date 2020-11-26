@@ -42,6 +42,7 @@ public class InfraConfigTest extends AbstractCorePluginTest {
                 });
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "InfraConfigTest_test_basic-state.json", getClass(), true);
 
     }
@@ -59,6 +60,7 @@ public class InfraConfigTest extends AbstractCorePluginTest {
                 .resourceUpdate(websiteCertificate, newWebsiteCertificate));
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "test_basic_update_login_cert-after-cert-update-state.json", getClass(), true);
 
     }
@@ -83,6 +85,7 @@ public class InfraConfigTest extends AbstractCorePluginTest {
         getInternalServicesContext().getInternalChangeService().changesExecute(changes);
 
         // Check
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "InfraConfigTest_test_basic_update_plugin_url-state.json", getClass(), true);
     }
 
@@ -104,6 +107,7 @@ public class InfraConfigTest extends AbstractCorePluginTest {
                 });
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "InfraConfigTest_test_migration-state.json", getClass(), true);
 
     }

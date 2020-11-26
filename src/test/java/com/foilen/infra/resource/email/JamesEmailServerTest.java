@@ -34,6 +34,7 @@ public class JamesEmailServerTest extends AbstractCorePluginTest {
         JunitsHelper.dumpImport(getCommonServicesContext(), getInternalServicesContext(), resourcesDump);
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "JamesEmailServerTest_test_basic-state-allSameHost.json", getClass(), true);
 
         // Change for all different hosts
@@ -67,6 +68,7 @@ public class JamesEmailServerTest extends AbstractCorePluginTest {
         getInternalServicesContext().getInternalChangeService().changesExecute(changes);
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "JamesEmailServerTest_test_basic_debug_mode-state-allSameHost.json", getClass(), true);
 
         // Change for all different hosts

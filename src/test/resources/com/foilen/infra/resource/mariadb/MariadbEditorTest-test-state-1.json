@@ -198,7 +198,8 @@ max_allowed_packet	= 500M
       "name" : "wordpress",
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
-      "resourceName" : "wordpress"
+      "resourceName" : "wordpress",
+      "uid" : "d2dd66a58d22ff4273c2a3cb4dfd24d7"
     }
   }, {
     "resource" : "MariaDBServer | user_db | null",
@@ -243,7 +244,8 @@ max_allowed_packet	= 500M
       "password" : "123",
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
-      "resourceName" : "wp_user"
+      "resourceName" : "wp_user",
+      "uid" : "06415bf2734bc29bcf4b76b028934d2a"
     }
   }, {
     "resource" : "UnixUser | user1 | /home/user1",

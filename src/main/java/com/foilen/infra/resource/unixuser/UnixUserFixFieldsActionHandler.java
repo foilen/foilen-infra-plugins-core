@@ -47,12 +47,14 @@ public class UnixUserFixFieldsActionHandler extends AbstractBasics implements Ac
                 }
             }
             if (updateHash) {
+                logger.info("Updating the hashed password");
                 unixUser.setHashedPassword(Sha2Crypt.sha512Crypt(unixUser.getPassword().getBytes(CharsetTools.UTF_8)));
                 changes.resourceUpdate(unixUser);
             }
 
             // Clear the password if desired
             if (!unixUser.isKeepClearPassword()) {
+                logger.info("Remove the clear password");
                 unixUser.setPassword(null);
                 changes.resourceUpdate(unixUser);
             }
@@ -61,6 +63,7 @@ public class UnixUserFixFieldsActionHandler extends AbstractBasics implements Ac
         // Set home folder
         String expectedHomeFolder = "/home/" + unixUser.getName();
         if (unixUser.getHomeFolder() == null) {
+            logger.info("Setting home folder to {}", expectedHomeFolder);
             unixUser.setHomeFolder(expectedHomeFolder);
             changes.resourceUpdate(unixUser);
         } else {
@@ -72,6 +75,7 @@ public class UnixUserFixFieldsActionHandler extends AbstractBasics implements Ac
         // Set Shell
         if (unixUser.getShell() == null) {
             unixUser.setShell("/bin/bash");
+            logger.info("Setting shell to {}", unixUser.getShell());
             changes.resourceUpdate(unixUser);
         }
 

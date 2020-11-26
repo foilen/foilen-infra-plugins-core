@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
@@ -99,6 +100,28 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
         dbStream.linksAddTo(changesInTransactionContext.getLastAddedLinks(), new String[] { MariaDBUser.LINK_TYPE_ADMIN, MariaDBUser.LINK_TYPE_READ, MariaDBUser.LINK_TYPE_WRITE });
         dbStream.linksAddTo(changesInTransactionContext.getLastDeletedLinks(), new String[] { MariaDBUser.LINK_TYPE_ADMIN, MariaDBUser.LINK_TYPE_READ, MariaDBUser.LINK_TYPE_WRITE });
         dbStream.sortedAndDistinct();
+        dbStream.getResourcesStream() //
+                .forEach(database -> {
+                    actions.add((s, changes) -> {
+                        // Validation - Unique users names
+                        Map<String, String> uidByUserName = new HashMap<>();
+
+                        Consumer<MariaDBUser> validateUserNamesAndUids = user -> {
+                            String previousUid = uidByUserName.put(user.getName(), user.getUid());
+                            if (previousUid != null && !previousUid.equals(user.getUid())) {
+                                throw new IllegalUpdateException("That database user name " + user.getName() + " is already used on that database");
+                            }
+                        };
+
+                        services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(MariaDBUser.class, MariaDBUser.LINK_TYPE_ADMIN, database) //
+                                .forEach(validateUserNamesAndUids);
+                        services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(MariaDBUser.class, MariaDBUser.LINK_TYPE_READ, database) //
+                                .forEach(validateUserNamesAndUids);
+                        services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(MariaDBUser.class, MariaDBUser.LINK_TYPE_WRITE, database) //
+                                .forEach(validateUserNamesAndUids);
+
+                    });
+                });
 
         // Server
         ChangesEventHandlerResourceStream<MariaDBServer> serversStream = dbStream.streamFromResourceAndLinkTypeAndToResourceClass(services, LinkTypeConstants.INSTALLED_ON, MariaDBServer.class);
@@ -107,6 +130,14 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
         serversStream.resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources());
         serversStream.linksAddFromAndTo(changesInTransactionContext.getLastAddedLinks());
         serversStream.linksAddFromAndTo(changesInTransactionContext.getLastDeletedLinks());
+
+        // Unix user that changed
+        ChangesEventHandlerResourceStream<UnixUser> unixUserStream = new ChangesEventHandlerResourceStream<>(UnixUser.class);
+        unixUserStream.resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources());
+        unixUserStream.getResourcesStream() //
+                .forEach(unixUser -> {
+                    serversStream.resourcesAdd(services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(MariaDBServer.class, LinkTypeConstants.RUN_AS, unixUser));
+                });
 
         serversStream.getResourcesStream() //
                 .map(it -> it.getName()) //
@@ -146,10 +177,24 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
 
                         Map<String, MysqlManagerConfigPermission> userConfigByName = new HashMap<>();
 
+                        // All databases
+                        Map<String, String> uidByDatabaseName = new HashMap<>();
+
+                        Consumer<MariaDBDatabase> validateDatabaseNamesAndUids = database -> {
+                            String previousUid = uidByDatabaseName.put(database.getName(), database.getUid());
+                            if (previousUid != null && !previousUid.equals(database.getUid())) {
+                                throw new IllegalUpdateException("That database name " + database.getName() + " is already used on that server");
+                            }
+                        };
+
                         services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(MariaDBDatabase.class, LinkTypeConstants.INSTALLED_ON, server).forEach(mariaDBDatabase -> {
+
                             String databaseName = mariaDBDatabase.getName();
                             logger.debug("[{}] Has database {}", serverName, databaseName);
                             mysqlManagerConfig.getDatabases().add(databaseName);
+
+                            // Validate
+                            validateDatabaseNamesAndUids.accept(mariaDBDatabase);
 
                             // ADMIN
                             services.getResourceService().linkFindAllByFromResourceClassAndLinkTypeAndToResource(MariaDBUser.class, MariaDBUser.LINK_TYPE_ADMIN, mariaDBDatabase)

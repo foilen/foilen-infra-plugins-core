@@ -1154,7 +1154,8 @@ backend http_8080_ui.example.com
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Database",
-      "resourceName" : "logindb"
+      "resourceName" : "logindb",
+      "uid" : "c5a49cee7466e8d7b1bd689f071800a1"
     }
   }, {
     "resource" : "MariaDBServer | commonserver | ",
@@ -1201,7 +1202,8 @@ backend http_8080_ui.example.com
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB User",
-      "resourceName" : "loginuser"
+      "resourceName" : "loginuser",
+      "uid" : "c0597c3b84d2803921ef9794c8888c8a"
     }
   }, {
     "resource" : "MongoDBDatabase | uidb | ",

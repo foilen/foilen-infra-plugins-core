@@ -206,7 +206,8 @@ max_allowed_packet	= 500M
       "name" : "joomla",
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
-      "resourceName" : "joomla"
+      "resourceName" : "joomla",
+      "uid" : "7c5a10eff8e24b51e248d4959186adec"
     }
   }, {
     "resource" : "MariaDBDatabase | wordpress | null",
@@ -221,7 +222,8 @@ max_allowed_packet	= 500M
       "name" : "wordpress",
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
-      "resourceName" : "wordpress"
+      "resourceName" : "wordpress",
+      "uid" : "d2dd66a58d22ff4273c2a3cb4dfd24d7"
     }
   }, {
     "resource" : "MariaDBServer | user_db | null",
@@ -266,7 +268,8 @@ max_allowed_packet	= 500M
       "password" : "123",
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
-      "resourceName" : "joomla_user"
+      "resourceName" : "joomla_user",
+      "uid" : "ba15acafe9ace3cef86de28aa116e4ba"
     }
   }, {
     "resource" : "MariaDBUser | wp_user | null",
@@ -288,7 +291,8 @@ max_allowed_packet	= 500M
       "password" : "123",
       "resourceCategory" : "DATABASE",
       "resourceDescription" : "null",
-      "resourceName" : "wp_user"
+      "resourceName" : "wp_user",
+      "uid" : "06415bf2734bc29bcf4b76b028934d2a"
     }
   }, {
     "resource" : "UnixUser | user1 | /home/user1",

@@ -31,11 +31,13 @@ public class MariaDBUser extends AbstractIPResource implements Comparable<MariaD
     public static final String LINK_TYPE_READ = "CAN_READ";
     public static final String LINK_TYPE_WRITE = "CAN_WRITE";
 
+    public static final String PROPERTY_UID = "uid";
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_DESCRIPTION = "description";
     public static final String PROPERTY_PASSWORD = "password";
 
     // Basics
+    private String uid = SecureRandomTools.randomBase64String(10);
     private String name;
     private String description;
 
@@ -43,6 +45,10 @@ public class MariaDBUser extends AbstractIPResource implements Comparable<MariaD
     private String password = SecureRandomTools.randomHexString(25);
 
     public MariaDBUser() {
+    }
+
+    public MariaDBUser(String name) {
+        this.name = name;
     }
 
     public MariaDBUser(String name, String description, String password) {
@@ -85,6 +91,10 @@ public class MariaDBUser extends AbstractIPResource implements Comparable<MariaD
         return name;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -95,6 +105,10 @@ public class MariaDBUser extends AbstractIPResource implements Comparable<MariaD
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
 }

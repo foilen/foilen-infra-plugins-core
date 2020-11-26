@@ -93,6 +93,7 @@ public class MariadbEditorTest extends AbstractCorePluginTest {
         assertEditorNoErrors(null, new MariaDBUserEditor(), mariaDBUserEditorForm);
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "MariadbEditorTest-test-state-1.json", getClass(), true);
 
         // MariaDBDatabaseEditor
@@ -112,6 +113,7 @@ public class MariadbEditorTest extends AbstractCorePluginTest {
         assertEditorNoErrors(null, new MariaDBUserEditor(), mariaDBUserEditorForm);
 
         // Assert
+        unrandomizeUids();
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "MariadbEditorTest-test-state-2.json", getClass(), true);
     }
 
