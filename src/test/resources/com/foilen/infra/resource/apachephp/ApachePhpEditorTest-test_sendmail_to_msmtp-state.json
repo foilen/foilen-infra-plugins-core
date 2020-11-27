@@ -174,13 +174,6 @@ memory_limit = 300M
           "ownerId" : 70000,
           "permissions" : "770",
           "readOnly" : false
-        }, {
-          "containerFsFolder" : "/var/log/supervisor",
-          "groupId" : 70000,
-          "hostFolder" : "/home/user1/apache_php/my_php/log/supervisor",
-          "ownerId" : 70000,
-          "permissions" : "770",
-          "readOnly" : false
         } ]
       },
       "description" : "Apache and PHP application",

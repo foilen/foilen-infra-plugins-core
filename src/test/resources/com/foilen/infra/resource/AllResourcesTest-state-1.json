@@ -2323,13 +2323,6 @@ memory_limit = 192M
           "ownerId" : 71012,
           "permissions" : "770",
           "readOnly" : false
-        }, {
-          "containerFsFolder" : "/var/log/supervisor",
-          "groupId" : 71012,
-          "hostFolder" : "/home/shop_wp/apache_php/wordpress/log/supervisor",
-          "ownerId" : 71012,
-          "permissions" : "770",
-          "readOnly" : false
         } ]
       },
       "description" : "Apache and PHP application",
@@ -2508,13 +2501,6 @@ memory_limit = 192M
           "containerFsFolder" : "/var/log/apache2",
           "groupId" : 71012,
           "hostFolder" : "/home/shop_wp/apache_php/wordpress_dev/log/apache2",
-          "ownerId" : 71012,
-          "permissions" : "770",
-          "readOnly" : false
-        }, {
-          "containerFsFolder" : "/var/log/supervisor",
-          "groupId" : 71012,
-          "hostFolder" : "/home/shop_wp/apache_php/wordpress_dev/log/supervisor",
           "ownerId" : 71012,
           "permissions" : "770",
           "readOnly" : false

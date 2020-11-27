@@ -226,7 +226,6 @@ public class ApachePhpChangesEventHandler extends AbstractBasics implements Chan
                             // Log folder
                             String baseFolder = unixUser.getHomeFolder() + "/apache_php/" + apachePhp.getName();
                             applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder + "/log/apache2", "/var/log/apache2", unixUser.getId(), unixUser.getId(), "770"));
-                            applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder + "/log/supervisor", "/var/log/supervisor", unixUser.getId(), unixUser.getId(), "770"));
 
                             // Enable modules
                             applicationDefinition.addBuildStepCommand("/usr/sbin/a2enmod rewrite");
