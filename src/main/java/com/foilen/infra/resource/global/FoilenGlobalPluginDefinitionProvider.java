@@ -25,6 +25,7 @@ import com.foilen.infra.resource.global.upgrader.V_2020011401_Refresh_All_Resour
 import com.foilen.infra.resource.global.upgrader.V_2020071401_ApachePhp_Set_Memory_Limit;
 import com.foilen.infra.resource.global.upgrader.V_2020111101_MariaDB_GenerateUids;
 import com.foilen.infra.resource.global.upgrader.V_2020112601_Refresh_Apache;
+import com.foilen.infra.resource.global.upgrader.V_2020112602_Refresh_MongoDB;
 import com.foilen.smalltools.tools.ResourceTools;
 
 public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionProvider {
@@ -65,7 +66,8 @@ public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionP
                 new V_2020011401_Refresh_All_Resources_With_Domains(), //
                 new V_2020071401_ApachePhp_Set_Memory_Limit(), //
                 new V_2020111101_MariaDB_GenerateUids(), //
-                new V_2020112601_Refresh_Apache() //
+                new V_2020112601_Refresh_Apache(), //
+                new V_2020112602_Refresh_MongoDB() //
         );
     }
 

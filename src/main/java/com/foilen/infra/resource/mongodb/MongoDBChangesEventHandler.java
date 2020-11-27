@@ -295,15 +295,6 @@ public class MongoDBChangesEventHandler extends AbstractBasics implements Change
 
                                 applicationDefinition.setRunAs(unixUser.getId());
 
-                                // Add needed applications
-                                StringBuilder aptInstallCommand = new StringBuilder();
-                                aptInstallCommand.append("export TERM=dumb ; export DEBIAN_FRONTEND=noninteractive ; apt-get update && apt-get install -y");
-                                Arrays.asList("haproxy", "supervisor").forEach(p -> {
-                                    aptInstallCommand.append(" ").append(p);
-                                });
-                                aptInstallCommand.append(" && apt-get clean && rm -rf /var/lib/apt/lists/*");
-                                applicationDefinition.addBuildStepCommand(aptInstallCommand.toString());
-
                                 // Save the config
                                 applicationDefinition.addCopyWhenStartedContent("/manager-config.json", JsonTools.prettyPrint(managerConfig));
 
