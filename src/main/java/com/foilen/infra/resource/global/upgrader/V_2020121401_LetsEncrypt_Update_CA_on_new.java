@@ -36,7 +36,7 @@ public class V_2020121401_LetsEncrypt_Update_CA_on_new extends AbstractPluginUpg
         List<WebsiteCertificate> certificatesToUpdate = resourceService.resourceFindAll( //
                 resourceService.createResourceQuery(WebsiteCertificate.class) //
                         .addEditorEquals(LetsEncryptWebsiteCertificateEditor.EDITOR_NAME) //
-                        .propertyLesserAndEquals(WebsiteCertificate.PROPERTY_START, DateTools.addDate(new Date(), Calendar.WEEK_OF_YEAR, 3) //
+                        .propertyGreaterAndEquals(WebsiteCertificate.PROPERTY_START, DateTools.addDate(new Date(), Calendar.WEEK_OF_YEAR, 3) //
                         ));
 
         certificatesToUpdate.forEach(websiteCertificate -> {
