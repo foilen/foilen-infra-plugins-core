@@ -1,0 +1,361 @@
+{
+  "resources" : [ {
+    "resource" : "Application | mariadb | my db",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m2.example.com | m2.example.com (127.0.100.2)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_mariadb | /home/my_mariadb"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 3,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/newPass",
+            "b" : "qwerty"
+          }, {
+            "a" : "/newPass.cnf",
+            "b" : "[client]
+password=qwerty"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ {
+          "a" : "_assets/2",
+          "b" : "[mysqld]
+max_allowed_packet	= 500M
+"
+        } ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "_assets/2 /etc/mysql/conf.d/zInfra.cnf",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "mysql",
+          "b" : 71001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ {
+          "a" : "/manager-config.json",
+          "b" : "{
+  \"admin\" : {
+    \"name\" : \"root\",
+    \"password\" : \"qwerty\"
+  },
+  \"databases\" : [ ],
+  \"usersToIgnore\" : [ {
+    \"name\" : \"root\",
+    \"host\" : \"%\"
+  } ],
+  \"usersPermissions\" : [ ]
+}"
+        } ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ "/mariadb-update-manager.sh" ],
+        "from" : "foilen/fcloud-docker-mariadb:10.3.5-1.1.1-001",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "3306" : "MYSQL_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 71001,
+        "services" : [ {
+          "command" : "/mariadb-start.sh",
+          "name" : "app"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lib/mysql",
+          "groupId" : 71001,
+          "hostFolder" : "/home/my_mariadb/mysql/mariadb/data",
+          "ownerId" : 71001,
+          "permissions" : "770",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/run/mysqld/",
+          "groupId" : 71001,
+          "hostFolder" : "/home/my_mariadb/mysql/mariadb/run",
+          "ownerId" : 71001,
+          "permissions" : "770",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/volumes/config/",
+          "groupId" : 71001,
+          "hostFolder" : "/home/my_mariadb/mysql/mariadb/config",
+          "ownerId" : 71001,
+          "permissions" : "770",
+          "readOnly" : false
+        } ]
+      },
+      "description" : "my db",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "mariadb",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "my db",
+      "resourceName" : "mariadb"
+    }
+  }, {
+    "resource" : "Application | my_app | Composable Application",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_user | /home/my_user"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ ],
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "ubuntu:16.04",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ {
+          "localPort" : 55,
+          "machineContainerEndpoint" : "m2.example.com/mariadb/MYSQL_TCP",
+          "toContainerName" : "mariadb",
+          "toEndpoint" : "MYSQL_TCP",
+          "toLocalMachine" : false,
+          "toMachine" : "m2.example.com"
+        } ],
+        "runAs" : 71000,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ],
+        "workingDirectory" : "/home/xxxxx/www"
+      },
+      "description" : "Composable Application",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "my_app",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Composable Application",
+      "resourceName" : "my_app"
+    }
+  }, {
+    "resource" : "AttachablePortRedirect | my_port_redirect | Local infra to an Application",
+    "links" : [ {
+      "type" : "POINTS_TO",
+      "to" : "Application | mariadb | my db"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "localPort" : 55,
+      "meta" : { },
+      "name" : "my_port_redirect",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "Local infra to an Application",
+      "resourceName" : "my_port_redirect",
+      "toEndpoint" : "MYSQL_TCP"
+    }
+  }, {
+    "resource" : "ComposableApplication | my_app | Composable Application",
+    "links" : [ {
+      "type" : "ATTACHED",
+      "to" : "AttachablePortRedirect | my_port_redirect | Local infra to an Application"
+    }, {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com (127.0.100.1)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | my_app | Composable Application"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_user | /home/my_user"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "environments" : [ ],
+      "from" : "ubuntu:16.04",
+      "mainWorkingDirectory" : "/home/xxxxx/www",
+      "meta" : { },
+      "name" : "my_app",
+      "portsEndpoint" : [ ],
+      "portsExposedTcp" : [ ],
+      "portsExposedUdp" : [ ],
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Composable Application",
+      "resourceName" : "my_app"
+    }
+  }, {
+    "resource" : "DnsEntry | m1.example.com / A | 127.0.100.1",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.100.1",
+      "meta" : { },
+      "mxPriority" : 10,
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.100.1",
+      "resourceName" : "m1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | m2.example.com / A | 127.0.100.2",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | m2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "127.0.100.2",
+      "meta" : { },
+      "mxPriority" : 10,
+      "name" : "m2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "127.0.100.2",
+      "resourceName" : "m2.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | m1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "Domain | m2.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m2.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "m2.example.com"
+    }
+  }, {
+    "resource" : "Machine | m1.example.com | m1.example.com (127.0.100.1)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | m1.example.com / A | 127.0.100.1"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m1.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m1.example.com",
+      "publicIp" : "127.0.100.1",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "m1.example.com (127.0.100.1)",
+      "resourceName" : "m1.example.com"
+    }
+  }, {
+    "resource" : "Machine | m2.example.com | m2.example.com (127.0.100.2)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | m2.example.com / A | 127.0.100.2"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | m2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "m2.example.com",
+      "publicIp" : "127.0.100.2",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "m2.example.com (127.0.100.2)",
+      "resourceName" : "m2.example.com"
+    }
+  }, {
+    "resource" : "MariaDBServer | mariadb | my db",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m2.example.com | m2.example.com (127.0.100.2)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | mariadb | my db"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | my_mariadb | /home/my_mariadb"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "my db",
+      "meta" : { },
+      "name" : "mariadb",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "my db",
+      "resourceName" : "mariadb",
+      "rootPassword" : "qwerty",
+      "version" : "10.3.5-1.1.1-001"
+    }
+  }, {
+    "resource" : "UnixUser | my_mariadb | /home/my_mariadb",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/my_mariadb",
+      "id" : 71001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "my_mariadb",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/my_mariadb",
+      "resourceName" : "my_mariadb",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | my_user | /home/my_user",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/my_user",
+      "id" : 71000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "my_user",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/my_user",
+      "resourceName" : "my_user",
+      "shell" : "/bin/bash"
+    }
+  } ]
+}

@@ -16,11 +16,13 @@ import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransaction
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerResourceStream;
 import com.foilen.infra.plugin.v1.model.resource.IPResource;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
+import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.composableapplication.AttachablePart;
 import com.foilen.infra.resource.composableapplication.ComposableApplication;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeId;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMongoDB;
+import com.foilen.infra.resource.composableapplication.parts.AttachablePortRedirect;
 import com.foilen.infra.resource.composableapplication.parts.AttachablePostgreSql;
 import com.foilen.infra.resource.composableapplication.parts.AttachableService;
 import com.foilen.infra.resource.email.resources.AttachableEmailRelayToMsmtpConfigFile;
@@ -72,6 +74,14 @@ public class AttachablePartUpdatedUtils {
         // AttachableContainerUserToChangeId (if USES unixUser changes)
         resourceStream.resourcesAdd(updatedUnixUser //
                 .streamFromResourceClassAndLinkType(services, AttachableContainerUserToChangeId.class, LinkTypeConstants.USES) //
+                .streamFromResourceClassAndLinkType(services, resourceType, ComposableApplication.LINK_TYPE_ATTACHED) //
+        );
+
+        // AttachablePortRedirect (if INSTALLED_ON machine changes)
+        resourceStream.resourcesAdd(new ChangesEventHandlerResourceStream<>(Application.class) //
+                .linksAddFrom(changesInTransactionContext.getLastAddedLinks(), LinkTypeConstants.INSTALLED_ON, Machine.class) //
+                .linksAddFrom(changesInTransactionContext.getLastDeletedLinks(), LinkTypeConstants.INSTALLED_ON, Machine.class) //
+                .streamFromResourceClassAndLinkType(services, AttachablePortRedirect.class, LinkTypeConstants.POINTS_TO) //
                 .streamFromResourceClassAndLinkType(services, resourceType, ComposableApplication.LINK_TYPE_ATTACHED) //
         );
 

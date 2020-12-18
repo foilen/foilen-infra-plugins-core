@@ -14,9 +14,11 @@ import org.junit.Test;
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.service.internal.InternalChangeService;
+import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
+import com.foilen.infra.resource.composableapplication.parts.AttachablePortRedirect;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.mariadb.MariaDBServer;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
@@ -135,6 +137,62 @@ public class ComposableApplicationTest extends AbstractCorePluginTest {
 
         // Assert
         JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedToWebsite-state-4.json", getClass(), true);
+
+    }
+
+    @Test
+    public void testAttachedWithPortRedirect() {
+
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+
+        UnixUser appUnixUser = new UnixUser(71000L, "my_user", null, null);
+        changes.resourceAdd(appUnixUser);
+        UnixUser mariadbUnixUser = new UnixUser(71001L, "my_mariadb", null, null);
+        changes.resourceAdd(mariadbUnixUser);
+
+        Machine machine1 = new Machine("m1.example.com", "127.0.100.1");
+        changes.resourceAdd(machine1);
+        Machine machine2 = new Machine("m2.example.com", "127.0.100.2");
+        changes.resourceAdd(machine2);
+
+        MariaDBServer mariaDBServer = new MariaDBServer("mariadb", "my db", "qwerty");
+        changes.resourceAdd(mariaDBServer);
+        changes.linkAdd(mariaDBServer, LinkTypeConstants.RUN_AS, mariadbUnixUser);
+        changes.linkAdd(mariaDBServer, LinkTypeConstants.INSTALLED_ON, machine1);
+
+        AttachablePortRedirect attachablePortRedirect = new AttachablePortRedirect("my_port_redirect", 55, DockerContainerEndpoints.MYSQL_TCP);
+        changes.resourceAdd(attachablePortRedirect);
+
+        ComposableApplication composableApplication = new ComposableApplication("my_app");
+        changes.resourceAdd(composableApplication);
+        changes.linkAdd(composableApplication, LinkTypeConstants.RUN_AS, appUnixUser);
+        changes.linkAdd(composableApplication, LinkTypeConstants.INSTALLED_ON, machine1);
+        changes.linkAdd(composableApplication, ComposableApplication.LINK_TYPE_ATTACHED, attachablePortRedirect);
+
+        // Execute the changes
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Point to the MariaDB Application
+        Application mariadbApplication = getCommonServicesContext().getResourceService()
+                .linkFindAllByFromResourceAndLinkTypeAndToResourceClass(mariaDBServer, LinkTypeConstants.MANAGES, Application.class).get(0);
+        changes.linkAdd(attachablePortRedirect, LinkTypeConstants.POINTS_TO, mariadbApplication);
+
+        // Execute the changes
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedWithPortRedirect-state-1.json", getClass(), true);
+
+        // Change the attached MariaDB machine
+        changes.clear();
+        changes.linkDelete(mariaDBServer, LinkTypeConstants.INSTALLED_ON, machine1);
+        changes.linkAdd(mariaDBServer, LinkTypeConstants.INSTALLED_ON, machine2);
+
+        // Execute the changes
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "ComposableApplicationTest-testAttachedWithPortRedirect-state-2.json", getClass(), true);
 
     }
 

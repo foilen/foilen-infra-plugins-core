@@ -26,6 +26,8 @@ import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDBEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMongoDB;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMongoDBEditor;
+import com.foilen.infra.resource.composableapplication.parts.AttachablePortRedirect;
+import com.foilen.infra.resource.composableapplication.parts.AttachablePortRedirectEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachablePostgreSql;
 import com.foilen.infra.resource.composableapplication.parts.AttachablePostgreSqlEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableService;
@@ -65,6 +67,9 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addCustomResource(AttachableMongoDB.class, AttachableMongoDB.RESOURCE_TYPE, //
                 Arrays.asList(AttachableMongoDB.PROPERTY_NAME), //
                 Collections.emptyList());
+        pluginDefinition.addCustomResource(AttachablePortRedirect.class, AttachablePortRedirect.RESOURCE_TYPE, //
+                Arrays.asList(AttachablePortRedirect.PROPERTY_NAME), //
+                Collections.emptyList());
         pluginDefinition.addCustomResource(AttachablePostgreSql.class, AttachablePostgreSql.RESOURCE_TYPE, //
                 Arrays.asList(AttachablePostgreSql.PROPERTY_NAME), //
                 Collections.emptyList());
@@ -84,6 +89,7 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addResourceEditor(new AttachableCronJobEditor(), AttachableCronJobEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableMariaDBEditor(), AttachableMariaDBEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableMongoDBEditor(), AttachableMongoDBEditor.EDITOR_NAME);
+        pluginDefinition.addResourceEditor(new AttachablePortRedirectEditor(), AttachablePortRedirectEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachablePostgreSqlEditor(), AttachablePostgreSqlEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableServiceEditor(), AttachableServiceEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableVolumeEditor(), AttachableVolumeEditor.EDITOR_NAME);
