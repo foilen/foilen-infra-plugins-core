@@ -6,14 +6,21 @@ buildscript {
 }
 
 plugins {
- id "com.github.johnrengelman.shadow" version "5.2.0"
-  id "com.jfrog.bintray" version "1.8.4"
+  id "com.github.johnrengelman.shadow" version "$shadowVersion"
+  id "com.jfrog.bintray" version "$bintrayVersion"
+  id 'io.spring.dependency-management' version "$springDependencyManagementVersion"
 }
 
 apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
+	}
+}
 
 group = 'com.foilen'
 version = System.getenv('VERSION')?:'master-SNAPSHOT'
@@ -47,13 +54,13 @@ dependencies {
   
   compileOnly "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
   
-  testRuntimeOnly 'ch.qos.logback:logback-classic:1.2.3'
+  testRuntimeOnly 'ch.qos.logback:logback-classic'
   testCompile "com.foilen:foilen-infra-system-core-system-junits:$foilenInfraSystemVersion"
   testCompile "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
-  testCompileOnly 'junit:junit:4.12'
-  testCompile 'org.freemarker:freemarker:2.3.23'
-  testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-  testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junitVersion"
+  testCompileOnly 'junit:junit'
+  testCompile 'org.freemarker:freemarker'
+  testImplementation "org.junit.jupiter:junit-jupiter-api"
+  testRuntimeOnly "org.junit.vintage:junit-vintage-engine"
 }
 
 test {
