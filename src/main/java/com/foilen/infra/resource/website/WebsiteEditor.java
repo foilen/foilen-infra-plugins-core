@@ -29,10 +29,8 @@ public class WebsiteEditor extends SimpleResourceEditor<Website> {
     @Override
     protected void getDefinition(SimpleResourceEditorDefinition simpleResourceEditorDefinition) {
         simpleResourceEditorDefinition.addInputText(Website.PROPERTY_NAME, fieldConfigConsumer -> {
-            fieldConfigConsumer.addFormator(CommonFormatting::toLowerCase);
             fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
             fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
-            fieldConfigConsumer.addValidator(CommonValidation::validateAlphaNumLower);
         });
 
         simpleResourceEditorDefinition.addListInputText(Website.PROPERTY_DOMAIN_NAMES, fieldConfigConsumer -> {

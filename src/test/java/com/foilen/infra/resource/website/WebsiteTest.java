@@ -10,6 +10,9 @@
 package com.foilen.infra.resource.website;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeSet;
 
 import org.junit.Test;
@@ -17,13 +20,16 @@ import org.junit.Test;
 import com.foilen.infra.plugin.core.system.junits.JunitsHelper;
 import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.model.docker.DockerContainerEndpoints;
+import com.foilen.infra.plugin.v1.model.resource.IPResource;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.application.Application;
 import com.foilen.infra.resource.machine.Machine;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
 import com.foilen.infra.resource.unixuser.UnixUser;
+import com.foilen.infra.resource.urlredirection.UrlRedirection;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
 import com.foilen.smalltools.tools.DateTools;
+import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Joiner;
 
 public class WebsiteTest extends AbstractCorePluginTest {
@@ -36,6 +42,49 @@ public class WebsiteTest extends AbstractCorePluginTest {
         websiteCertificate.setEnd(DateTools.parseDateOnly("2050-01-01"));
         websiteCertificate.setCertificate(certificate);
         return websiteCertificate;
+    }
+
+    @Test
+    public void testEditingWebsiteForUrlRedirection() {
+        // Create resources
+        Machine machine = new Machine("h1.example.com", "192.168.0.200");
+        UnixUser infraUrlUnixUser = new UnixUser(70000L, "infra_url_redirection", "/home/infra_url_redirection", null, null);
+        UnixUser unixUser = new UnixUser(72000L, "myapp", "/home/myapp", null, null);
+        UrlRedirection urlRedirection = new UrlRedirection();
+        urlRedirection.setDomainName("myapp.example.com");
+        urlRedirection.setHttpRedirectToUrl("https://google.com");
+
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+        changes.resourceAdd(machine);
+        changes.resourceAdd(infraUrlUnixUser);
+        changes.resourceAdd(unixUser);
+        changes.resourceAdd(urlRedirection);
+
+        // Create links
+        changes.linkAdd(urlRedirection, LinkTypeConstants.INSTALLED_ON, machine);
+
+        // Execute
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "WebsiteTest-testEditingWebsiteForUrlRedirection-state.json", getClass(), true);
+
+        // Edit the website
+        Website website = getCommonServicesContext().getResourceService().resourceFindByPk(new Website("HTTP Redirection of myapp.example.com")).get();
+        List<Tuple2<String, ? extends IPResource>> links = getCommonServicesContext().getResourceService().linkFindAllByFromResource(website);
+        Map<String, String> formValues = new HashMap<>();
+        formValues.put(Website.PROPERTY_NAME, website.getName());
+        formValues.put(Website.PROPERTY_DOMAIN_NAMES + "[0]", website.getDomainNames().first());
+        formValues.put(Website.PROPERTY_IS_HTTPS, website.isHttps() ? "TRUE" : "FALSE");
+        formValues.put(Website.PROPERTY_IS_HTTPS_ORIGIN_TO_HTTP, website.isHttpsOriginToHttp() ? "TRUE" : "FALSE");
+        formValues.put(Website.PROPERTY_APPLICATION_ENDPOINT, website.getApplicationEndpoint());
+        formValues.put("applications", links.stream().filter(l -> LinkTypeConstants.POINTS_TO.equals(l.getA())).findAny().get().getB().getInternalId());
+        formValues.put("machines", links.stream().filter(l -> LinkTypeConstants.INSTALLED_ON.equals(l.getA())).findAny().get().getB().getInternalId());
+
+        assertEditorNoErrors(website.getInternalId(), new WebsiteEditor(), formValues);
+
+        // Assert
+        JunitsHelper.assertState(getCommonServicesContext(), getInternalServicesContext(), "WebsiteTest-testEditingWebsiteForUrlRedirection-state.json", getClass(), true);
     }
 
     @Test

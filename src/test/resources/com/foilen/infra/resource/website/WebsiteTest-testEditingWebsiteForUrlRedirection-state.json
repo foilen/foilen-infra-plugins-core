@@ -1,0 +1,426 @@
+{
+  "resources" : [ {
+    "resource" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/etc/apache2/ports.conf",
+            "b" : "Listen 8080
+"
+          }, {
+            "a" : "/apache-start.sh",
+            "b" : "#!/bin/bash
+
+set -e
+source /etc/apache2/envvars
+/usr/sbin/apache2ctl start
+
+until [ -f /var/run/apache2/apache2.pid ]
+do
+	echo Waiting for /var/run/apache2/apache2.pid
+	sleep 1
+done
+
+APP_PID=$(cat /var/run/apache2/apache2.pid)
+while [ -e /proc/$APP_PID ]; do sleep 5; done
+
+echo Apache service is down
+"
+          }, {
+            "a" : "/etc/apache2/sites-enabled/000-default.conf",
+            "b" : "<VirtualHost *>
+    ServerName myapp.example.com
+    ServerAlias myapp.example.com
+    
+    ErrorLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/myapp.example.com-error.log 10M\"
+    CustomLog \"|/usr/bin/rotatelogs -n 1 /var/log/apache2/myapp.example.com-access.log 10M\" combined
+    
+    RewriteEngine On
+    RewriteRule /(.*) https://google.com/$1 [R,L]
+</VirtualHost>
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        }, {
+          "step" : "chmod 644 /etc/apache2/ports.conf ; chmod 755 /apache-start.sh",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chmod -R 777 /var/log",
+          "type" : "COMMAND"
+        }, {
+          "step" : "chown www-data:www-data /var/run/apache2",
+          "type" : "COMMAND"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "www-data",
+          "b" : 70000
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-apache_php:7.2.19-2",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : {
+          "8080" : "HTTP_TCP"
+        },
+        "portsExposed" : { },
+        "portsRedirect" : [ ],
+        "runAs" : 70000,
+        "services" : [ {
+          "command" : "/apache-start.sh",
+          "name" : "apache"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ {
+          "containerFsFolder" : "/var/lock/apache2",
+          "groupId" : 70000,
+          "ownerId" : 70000,
+          "permissions" : "755",
+          "readOnly" : false
+        }, {
+          "containerFsFolder" : "/var/log/apache2",
+          "groupId" : 70000,
+          "ownerId" : 70000,
+          "permissions" : "755",
+          "readOnly" : false
+        } ]
+      },
+      "description" : "Apache HTTP URL redirections for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_url_redirection_http-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Apache HTTP URL redirections for h1.example.com",
+      "resourceName" : "infra_url_redirection_http-h1_example_com"
+    }
+  }, {
+    "resource" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 2,
+        "assetsBundles" : [ {
+          "assetsFolderPath" : "_assets_1/",
+          "assetsRelativePathAndBinaryContent" : [ ],
+          "assetsRelativePathAndTextContent" : [ {
+            "a" : "/haproxy.cfg",
+            "b" : "global
+  user haproxy
+  group haproxy
+  tune.ssl.default-dh-param 1024
+
+defaults
+  timeout connect 5000
+  timeout client 600000
+  timeout server 600000
+  timeout tunnel 600000
+
+frontend port_8080
+  mode http
+  option forwardfor
+  option http-server-close
+  bind *:8080
+  reqadd X-Forwarded-Proto:\\ http
+
+  acl http_8080_myapp.example.com hdr(host) -i myapp.example.com
+
+  use_backend http_8080_myapp.example.com if http_8080_myapp.example.com
+
+backend http_8080_myapp.example.com
+  option httpclose
+  option forwardfor
+  mode http
+  server http_8080_myapp.example.com_1 127.0.0.1:10000 check
+
+"
+          } ]
+        } ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ {
+          "step" : "_assets_1/ /",
+          "type" : "COPY"
+        } ],
+        "containerUsersToChangeId" : [ {
+          "a" : "haproxy",
+          "b" : 70001
+        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-haproxy:1.6.3-002",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : {
+          "80" : 8080,
+          "443" : 4433
+        },
+        "portsRedirect" : [ {
+          "localPort" : 10000,
+          "machineContainerEndpoint" : "localhost/infra_url_redirection_http-h1_example_com/HTTP_TCP",
+          "toContainerName" : "infra_url_redirection_http-h1_example_com",
+          "toEndpoint" : "HTTP_TCP",
+          "toLocalMachine" : true,
+          "toMachine" : "localhost"
+        } ],
+        "runAs" : 70001,
+        "services" : [ {
+          "command" : "/usr/sbin/haproxy -f /haproxy.cfg",
+          "name" : "haproxy"
+        } ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "Web HA Proxy for h1.example.com",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_web-h1_example_com",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "Web HA Proxy for h1.example.com",
+      "resourceName" : "infra_web-h1_example_com"
+    }
+  }, {
+    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "mxPriority" : 10,
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "h1.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsEntry | myapp.example.com / A | 192.168.0.200",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "192.168.0.200",
+      "meta" : { },
+      "mxPriority" : 10,
+      "name" : "myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "192.168.0.200",
+      "resourceName" : "myapp.example.com / A",
+      "type" : "A"
+    }
+  }, {
+    "resource" : "DnsPointer | myapp.example.com | myapp.example.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | myapp.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp.example.com",
+      "resourceName" : "myapp.example.com"
+    }
+  }, {
+    "resource" : "Domain | example.com | ",
+    "links" : [ {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | h1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | myapp.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "example.com"
+    }
+  }, {
+    "resource" : "Domain | h1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "Domain | myapp.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "myapp.example.com"
+    }
+  }, {
+    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | infra_web-h1_example_com | Web HA Proxy for h1.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | h1.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "h1.example.com",
+      "publicIp" : "192.168.0.200",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "h1.example.com (192.168.0.200)",
+      "resourceName" : "h1.example.com"
+    }
+  }, {
+    "resource" : "UnixUser | infra_url_redirection | /home/infra_url_redirection",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_url_redirection",
+      "id" : 70000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_url_redirection",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_url_redirection",
+      "resourceName" : "infra_url_redirection",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | infra_web | /home/infra_web",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/infra_web",
+      "id" : 70001,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "infra_web",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/infra_web",
+      "resourceName" : "infra_web",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UnixUser | myapp | /home/myapp",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "homeFolder" : "/home/myapp",
+      "id" : 72000,
+      "keepClearPassword" : false,
+      "meta" : { },
+      "name" : "myapp",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "/home/myapp",
+      "resourceName" : "myapp",
+      "shell" : "/bin/bash"
+    }
+  }, {
+    "resource" : "UrlRedirection | myapp.example.com | Redirection to https://google.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_url_redirection | /home/infra_url_redirection"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Website | HTTP Redirection of myapp.example.com | myapp.example.com"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "domainName" : "myapp.example.com",
+      "httpIsPermanent" : false,
+      "httpRedirectToUrl" : "https://google.com",
+      "httpsIsPermanent" : false,
+      "meta" : { },
+      "resourceCategory" : "NET",
+      "resourceDescription" : "Redirection to https://google.com",
+      "resourceName" : "myapp.example.com"
+    }
+  }, {
+    "resource" : "Website | HTTP Redirection of myapp.example.com | myapp.example.com",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "DnsPointer | myapp.example.com | myapp.example.com"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Domain | myapp.example.com | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "UnixUser | infra_web | /home/infra_web"
+    }, {
+      "type" : "POINTS_TO",
+      "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationEndpoint" : "HTTP_TCP",
+      "domainNames" : [ "myapp.example.com" ],
+      "https" : false,
+      "httpsOriginToHttp" : false,
+      "meta" : { },
+      "name" : "HTTP Redirection of myapp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "myapp.example.com",
+      "resourceName" : "HTTP Redirection of myapp.example.com"
+    }
+  } ]
+}
