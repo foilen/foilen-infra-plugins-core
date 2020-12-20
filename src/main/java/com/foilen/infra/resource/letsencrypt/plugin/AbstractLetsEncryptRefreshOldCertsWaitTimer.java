@@ -26,25 +26,4 @@ public abstract class AbstractLetsEncryptRefreshOldCertsWaitTimer extends Abstra
         this.letsencryptHelper = letsencryptHelper;
     }
 
-    protected String getAllMessages(Throwable e) {
-
-        StringBuilder messages = new StringBuilder();
-
-        boolean first = true;
-        while (e != null) {
-            if (first) {
-                first = true;
-            } else {
-                messages.append(" ; ");
-            }
-            if (e.getMessage() != null) {
-                messages.append(messages);
-            }
-
-            e = e.getCause();
-        }
-
-        return messages.toString();
-    }
-
 }

@@ -20,6 +20,7 @@ import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,7 @@ import com.foilen.infra.resource.letsencrypt.acme.AcmeServiceImpl;
 import com.foilen.infra.resource.letsencrypt.acme.LetsencryptException;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
 import com.foilen.smalltools.tools.AbstractBasics;
+import com.foilen.smalltools.tools.DateTools;
 import com.foilen.smalltools.tools.SecureRandomTools;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Joiner;
@@ -145,6 +147,14 @@ public class LetsencryptHelperImpl extends AbstractBasics implements Letsencrypt
             throw new IllegalUpdateException("The LetsencryptConfig does not have a tag name");
         }
 
+        // Remove certs that recently failed
+        certificatesToUpdate.removeIf(websiteCertificate -> recentlyFailed(websiteCertificate));
+
+        if (certificatesToUpdate.isEmpty()) {
+            logger.info("No certs to update");
+            return;
+        }
+
         logger.info("Will update certificates: {}", certificatesToUpdate.stream().flatMap(it -> it.getDomainNames().stream()).sorted().collect(Collectors.toList()));
         AcmeService acmeService = _acmeServiceGenerator.apply(config);
 
@@ -160,7 +170,7 @@ public class LetsencryptHelperImpl extends AbstractBasics implements Letsencrypt
             logger.info("Certificate {} has {} files attachables", certificate.getResourceName(), letsencryptWithFileAttachables.size());
 
             if (letsencryptWithFileAttachables.isEmpty()) {
-                logger.info("Certificate {} uses domain validation", certificate.getResourceName());
+                logger.info("Certificate {} uses DNS validation", certificate.getResourceName());
                 String domain = certificate.getDomainNames().stream().findFirst().get();
                 Tuple2<Order, Dns01Challenge> orderAndDnsChallenge;
                 try {
@@ -179,13 +189,19 @@ public class LetsencryptHelperImpl extends AbstractBasics implements Letsencrypt
                     }
                 } catch (LetsencryptException e) {
                     logger.error("Cannot get the challenge for domain {}", domain, e);
-                    domainsWithoutChallenge.add(domain + " : " + e.getMessage());
+                    domainsWithoutChallenge.add(domain + " : " + getAllMessages(e));
                 } catch (Exception e) {
                     logger.error("Unexpected failure while getting the challenge for domain {}", domain, e);
-                    domainsWithoutChallenge.add(domain + " : " + e.getMessage());
+                    domainsWithoutChallenge.add(domain + " : " + getAllMessages(e));
                 }
             } else {
                 logger.info("Certificate {} uses http validation", certificate.getResourceName());
+
+                // Skip if already started
+                if (letsencryptWithFileAttachables.stream().anyMatch(it -> recentlyStarted(it))) {
+                    logger.info("Recently started. Skipping", certificate.getResourceName());
+                    continue;
+                }
 
                 String domain = certificate.getDomainNames().stream().findFirst().get();
                 Tuple2<Order, Http01Challenge> orderAndHttpChallenge;
@@ -199,25 +215,28 @@ public class LetsencryptHelperImpl extends AbstractBasics implements Letsencrypt
                     letsencryptWithFileAttachables.forEach(a -> {
                         a.getMeta().put(LetsEncryptWithFileAttachable.META_FILE_NAME, fileName);
                         a.getMeta().put(LetsEncryptWithFileAttachable.META_FILE_CONTENT, fileContent);
+                        a.getMeta().put(LetsEncryptWithFileAttachable.META_LAST_START, String.valueOf(System.currentTimeMillis()));
                         changes.resourceUpdate(a);
                     });
 
                     // Start the timer
-                    String url = "https://" + domain + "/.well-known/acme-challenge/" + fileName;
-                    logger.info("Start the Waiting for the HTTP: {}", domain);
-                    services.getTimerService().timerAdd(new TimerEventContext(new LetsEncryptRefreshOldCertsWaitHttpTimer(acmeService, this, domain, orderAndHttpChallenge, url, certificate), //
-                            "Let Encrypt - Complete - Wait URL", //
-                            Calendar.SECOND, //
-                            10, //
-                            true, //
-                            false));
+                    String url = "http://" + domain + "/.well-known/acme-challenge/" + fileName;
+                    logger.info("Start the Waiting for the HTTP: {} ; url: {} ; content: {}", domain, url, fileContent);
+                    services.getTimerService()
+                            .timerAdd(new TimerEventContext(
+                                    new LetsEncryptRefreshOldCertsWaitHttpTimer(acmeService, this, domain, orderAndHttpChallenge.getA(), orderAndHttpChallenge.getB(), url, certificate), //
+                                    "Let Encrypt - Complete - Wait URL", //
+                                    Calendar.SECOND, //
+                                    10, //
+                                    true, //
+                                    false));
 
                 } catch (LetsencryptException e) {
                     logger.error("Cannot get the challenge for domain {}", domain, e);
-                    domainsWithoutChallenge.add(domain + " : " + e.getMessage());
+                    domainsWithoutChallenge.add(domain + " : " + getAllMessages(e));
                 } catch (Exception e) {
                     logger.error("Unexpected failure while getting the challenge for domain {}", domain, e);
-                    domainsWithoutChallenge.add(domain + " : " + e.getMessage());
+                    domainsWithoutChallenge.add(domain + " : " + getAllMessages(e));
                 }
             }
         }
@@ -247,6 +266,66 @@ public class LetsencryptHelperImpl extends AbstractBasics implements Letsencrypt
 
         }
 
+        logger.info("Done creating the challenges");
+
+    }
+
+    @Override
+    public String getAllMessages(Throwable e) {
+
+        StringBuilder messages = new StringBuilder();
+
+        boolean first = true;
+        while (e != null) {
+            if (first) {
+                first = true;
+            } else {
+                messages.append(" ; ");
+            }
+            if (e.getMessage() != null) {
+                messages.append(e.getMessage());
+            }
+
+            e = e.getCause();
+        }
+
+        return messages.toString();
+    }
+
+    @Override
+    public boolean recentlyFailed(WebsiteCertificate websiteCertificate) {
+        long beforeTime = System.currentTimeMillis() - 6 * 60 * 60000; // 6 hours for 4 times a day
+        String value = websiteCertificate.getMeta().get(LetsencryptHelper.LAST_FAILURE);
+        if (value != null) {
+            try {
+                long lastFailure = Long.valueOf(value);
+                boolean recentlyFailed = lastFailure > beforeTime;
+                if (recentlyFailed) {
+                    logger.info("{} recently failed. On {}", websiteCertificate.getDomainNames(), DateTools.formatFull(new Date(lastFailure)));
+                }
+                return recentlyFailed;
+            } catch (Exception e) {
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean recentlyStarted(LetsEncryptWithFileAttachable letsEncryptWithFileAttachable) {
+        long beforeTime = System.currentTimeMillis() - 10 * 60000;
+        String value = letsEncryptWithFileAttachable.getMeta().get(LetsEncryptWithFileAttachable.META_LAST_START);
+        if (value != null) {
+            try {
+                long lastStart = Long.valueOf(value);
+                boolean recentlyStarted = lastStart > beforeTime;
+                if (recentlyStarted) {
+                    logger.info("{} recently started. On {}", letsEncryptWithFileAttachable.getName(), DateTools.formatFull(new Date(lastStart)));
+                }
+                return recentlyStarted;
+            } catch (Exception e) {
+            }
+        }
+        return false;
     }
 
 }

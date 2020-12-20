@@ -11,9 +11,9 @@ package com.foilen.infra.resource.letsencrypt.plugin;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.shredzone.acme4j.Order;
 import org.shredzone.acme4j.challenge.Http01Challenge;
@@ -24,6 +24,7 @@ import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.TimerEventContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.TimerEventHandler;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
+import com.foilen.infra.plugin.v1.model.resource.IPResource;
 import com.foilen.infra.resource.letsencrypt.acme.AcmeService;
 import com.foilen.infra.resource.letsencrypt.acme.LetsencryptException;
 import com.foilen.infra.resource.webcertificate.WebsiteCertificate;
@@ -33,6 +34,7 @@ import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSATools;
 import com.foilen.smalltools.tools.DateTools;
+import com.foilen.smalltools.tools.JsonTools;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Joiner;
 
@@ -40,7 +42,8 @@ public class LetsEncryptRefreshOldCertsWaitHttpTimer extends AbstractLetsEncrypt
 
     private String domain;
 
-    private Tuple2<Order, Http01Challenge> challenge;
+    private Order order;
+    private Http01Challenge challenge;
 
     private String url;
 
@@ -48,10 +51,11 @@ public class LetsEncryptRefreshOldCertsWaitHttpTimer extends AbstractLetsEncrypt
 
     private Date expiration;
 
-    public LetsEncryptRefreshOldCertsWaitHttpTimer(AcmeService acmeService, LetsencryptHelper letsencryptHelper, String domain, Tuple2<Order, Http01Challenge> challenge, String url,
+    public LetsEncryptRefreshOldCertsWaitHttpTimer(AcmeService acmeService, LetsencryptHelper letsencryptHelper, String domain, Order order, Http01Challenge challenge, String url,
             WebsiteCertificate websiteCertificate) {
         super(acmeService, letsencryptHelper);
         this.domain = domain;
+        this.order = order;
         this.challenge = challenge;
         this.url = url;
         this.websiteCertificate = websiteCertificate;
@@ -72,11 +76,18 @@ public class LetsEncryptRefreshOldCertsWaitHttpTimer extends AbstractLetsEncrypt
                 // Check if expired
                 if (DateTools.isAfter(new Date(), expiration)) {
                     logger.info("Url {} not present. No more waiting because it expired", url, e);
+
+                    services.getMessagingService().alertingWarn("Let's Encrypt - Domains Couldn't get certificate (HTTP)", domain + " : Cannot get url: " + letsencryptHelper.getAllMessages(e));
+
+                    // Update meta as failure
+                    websiteCertificate.getMeta().put(LetsencryptHelper.LAST_FAILURE, String.valueOf(System.currentTimeMillis()));
+                    changes.resourceUpdate(websiteCertificate);
+
                     return;
                 }
 
                 // Wait 10 seconds
-                logger.info("Url {} not present. Waiting 10 seconds", url, e);
+                logger.info("Url {} not present. Waiting 10 seconds . Error: {}", url, letsencryptHelper.getAllMessages(e));
                 services.getTimerService().timerAdd(new TimerEventContext(this, //
                         "Let Encrypt - Complete - Wait URL", //
                         Calendar.SECOND, //
@@ -88,27 +99,35 @@ public class LetsEncryptRefreshOldCertsWaitHttpTimer extends AbstractLetsEncrypt
 
             logger.info("Url {} found", url);
 
+            // Get the current certificate
+            IPResourceService resourceService = services.getResourceService();
+            Optional<IPResource> oWebsite = resourceService.resourceFind(websiteCertificate.getInternalId());
+            if (oWebsite.isEmpty()) {
+                logger.error("The certificate does not exist anymore. Exit");
+                return;
+            }
+            websiteCertificate = (WebsiteCertificate) oWebsite.get();
+
+            // Check that it didn't recently failed
+            if (letsencryptHelper.recentlyFailed(websiteCertificate)) {
+                logger.warn("The certificate recently failed. Exit");
+                return;
+            }
+
             // Complete the challenges
             logger.info("Complete challenges");
-            IPResourceService resourceService = services.getResourceService();
             List<String> failures = new ArrayList<>();
             try {
-                logger.info("Complete the challenge for certificate: {}", domain);
-                acmeService.challengeComplete(challenge.getB());
+                logger.info("Complete the challenge for certificate: {} ; auth: {}", domain, challenge.getAuthorization());
+                acmeService.challengeComplete(challenge);
             } catch (LetsencryptException e) {
                 // Challenge failed
-                logger.info("Failed the challenge for certificate: {}", domain);
-                failures.add(domain + " : " + getAllMessages(e));
+                logger.info("Failed the challenge for certificate: {} ; challenge : {}", domain, JsonTools.compactPrintWithoutNulls(challenge));
+                failures.add(domain + " : " + letsencryptHelper.getAllMessages(e));
 
                 // Update meta as failure
-                resourceService.resourceFindAll( //
-                        resourceService.createResourceQuery(WebsiteCertificate.class) //
-                                .addEditorEquals(LetsEncryptWebsiteCertificateEditor.EDITOR_NAME) //
-                                .propertyEquals(WebsiteCertificate.PROPERTY_DOMAIN_NAMES, Collections.singleton(domain))) //
-                        .forEach(websiteCertificate -> {
-                            websiteCertificate.getMeta().put(LetsencryptHelper.LAST_FAILURE, String.valueOf(System.currentTimeMillis()));
-                            changes.resourceUpdate(websiteCertificate);
-                        });
+                websiteCertificate.getMeta().put(LetsencryptHelper.LAST_FAILURE, String.valueOf(System.currentTimeMillis()));
+                changes.resourceUpdate(websiteCertificate);
 
             }
 
@@ -126,7 +145,7 @@ public class LetsEncryptRefreshOldCertsWaitHttpTimer extends AbstractLetsEncrypt
                     logger.info("Getting certificate for: {}", domain);
                     csrb.sign(RSATools.createKeyPair(asymmetricKeys));
                     byte[] csr = csrb.getEncoded();
-                    RSACertificate certificate = acmeService.requestCertificate(challenge.getA(), csr);
+                    RSACertificate certificate = acmeService.requestCertificate(order, csr);
                     certificate.setKeysForSigning(asymmetricKeys);
                     keysAndCerts.add(new Tuple2<>(asymmetricKeys, certificate));
 
@@ -135,19 +154,19 @@ public class LetsEncryptRefreshOldCertsWaitHttpTimer extends AbstractLetsEncrypt
                 } catch (Exception e) {
                     // Cert creation failed
                     logger.info("Failed to retrieve the certificate for: {}", domain);
-                    failures.add(domain + " : " + getAllMessages(e));
+                    failures.add(domain + " : " + letsencryptHelper.getAllMessages(e));
                 }
             }
 
             if (!failures.isEmpty()) {
-                services.getMessagingService().alertingWarn("Let's Encrypt - Domains Couldn't get certificate", Joiner.on('\n').join(failures));
+                services.getMessagingService().alertingWarn("Let's Encrypt - Domains Couldn't get certificate (HTTP)", Joiner.on('\n').join(failures));
             }
             if (!successes.isEmpty()) {
-                services.getMessagingService().alertingInfo("Let's Encrypt - Domains that got a new certificate", Joiner.on('\n').join(successes));
+                services.getMessagingService().alertingInfo("Let's Encrypt - Domains that got a new certificate (HTTP)", Joiner.on('\n').join(successes));
             }
 
             // Update the certificates
-            logger.info("Update the certificates in the system");
+            logger.info("Update {} certificates in the system", keysAndCerts.size());
             for (Tuple2<AsymmetricKeys, RSACertificate> entry : keysAndCerts) {
                 RSACertificate rsaCertificate = entry.getB();
                 WebsiteCertificate newCert = CertificateHelper.toWebsiteCertificate(CA_CERTIFICATE_TEXT, rsaCertificate);

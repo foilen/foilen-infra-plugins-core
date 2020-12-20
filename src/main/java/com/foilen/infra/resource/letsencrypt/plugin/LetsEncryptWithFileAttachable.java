@@ -35,6 +35,7 @@ public class LetsEncryptWithFileAttachable extends AttachablePart implements Com
 
     public static final String META_FILE_NAME = "file_name";
     public static final String META_FILE_CONTENT = "file_content";
+    public static final String META_LAST_START = "last_start";
 
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_BASE_PATH = "basePath";

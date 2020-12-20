@@ -34,6 +34,7 @@ import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
 import com.foilen.smalltools.crypt.spongycastle.cert.RSATools;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.AssertTools;
+import com.foilen.smalltools.tools.JsonTools;
 import com.foilen.smalltools.tools.ThreadTools;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Joiner;
@@ -71,13 +72,13 @@ public class AcmeServiceImpl extends AbstractBasics implements AcmeService {
             challenge.trigger();
         } catch (AcmeException e) {
             logger.error("Problem triggering the challenge", e);
-            throw new LetsencryptException("Problem triggering the challenge: " + challenge.getError().getDetail(), e);
+            throw new LetsencryptException("Problem triggering the challenge: " + getChallengeErrorDetails(challenge), e);
         }
 
         // Wait until completed
         while (challenge.getStatus() != Status.VALID) {
             if (challenge.getStatus() == Status.INVALID) {
-                throw new LetsencryptException("The challenge failed: " + challenge.getError().getDetail());
+                throw new LetsencryptException("The challenge failed: " + getChallengeErrorDetails(challenge));
             }
             ThreadTools.sleep(5 * 1000); // 5 secs
             try {
@@ -85,7 +86,7 @@ public class AcmeServiceImpl extends AbstractBasics implements AcmeService {
                 challenge.update();
             } catch (AcmeException e) {
                 logger.error("Problem updating the challenge status", e);
-                throw new LetsencryptException("Problem updating the challenge status: " + challenge.getError().getDetail(), e);
+                throw new LetsencryptException("Problem updating the challenge status: " + getChallengeErrorDetails(challenge), e);
             }
             logger.info("Current status: {}", challenge.getStatus());
         }
@@ -148,6 +149,14 @@ public class AcmeServiceImpl extends AbstractBasics implements AcmeService {
         }
 
         return new Tuple2<>(order, challenge);
+    }
+
+    private String getChallengeErrorDetails(Challenge challenge) {
+        logger.info("getChallengeErrorDetails: {}", JsonTools.compactPrintWithoutNulls(challenge));
+        if (challenge != null && challenge.getError() != null) {
+            return challenge.getError().getDetail();
+        }
+        return "no details";
     }
 
     private void login() {

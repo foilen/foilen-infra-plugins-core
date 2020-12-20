@@ -105,7 +105,7 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractLetsEncryptR
                 } catch (LetsencryptException e) {
                     // Challenge failed
                     logger.info("Failed the challenge for certificate: {}", domain);
-                    failures.add(domain + " : " + getAllMessages(e));
+                    failures.add(domain + " : " + letsencryptHelper.getAllMessages(e));
 
                     // Update meta as failure
                     resourceService.resourceFindAll( //
@@ -160,15 +160,15 @@ public class LetsEncryptRefreshOldCertsWaitDnsTimer extends AbstractLetsEncryptR
                 } catch (Exception e) {
                     // Cert creation failed
                     logger.info("Failed to retrieve the certificate for: {}", domain);
-                    failures.add(domain + " : " + getAllMessages(e));
+                    failures.add(domain + " : " + letsencryptHelper.getAllMessages(e));
                 }
             }
 
             if (!failures.isEmpty()) {
-                services.getMessagingService().alertingWarn("Let's Encrypt - Domains Couldn't get certificate", Joiner.on('\n').join(failures));
+                services.getMessagingService().alertingWarn("Let's Encrypt - Domains Couldn't get certificate (DNS)", Joiner.on('\n').join(failures));
             }
             if (!successes.isEmpty()) {
-                services.getMessagingService().alertingInfo("Let's Encrypt - Domains that got a new certificate", Joiner.on('\n').join(successes));
+                services.getMessagingService().alertingInfo("Let's Encrypt - Domains that got a new certificate (DNS)", Joiner.on('\n').join(successes));
             }
 
             // Delete the DNS wait entry

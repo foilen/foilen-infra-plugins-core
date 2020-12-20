@@ -33,4 +33,10 @@ public interface LetsencryptHelper {
      */
     void createChallengesAndCreateTimer(CommonServicesContext services, ChangesContext changes, List<WebsiteCertificate> certificatesToUpdate);
 
+    String getAllMessages(Throwable exception);
+
+    boolean recentlyFailed(WebsiteCertificate websiteCertificate);
+
+    boolean recentlyStarted(LetsEncryptWithFileAttachable letsEncryptWithFileAttachable);
+
 }
