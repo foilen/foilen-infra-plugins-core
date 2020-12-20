@@ -70,7 +70,7 @@ test {
 shadowJar {
   configurations = [project.configurations.compile]
   
-  classifier = null
+  archiveClassifier.set(null)
   
   dependencies {
     exclude(dependency('org.slf4j:slf4j-api:1.7.26'))
