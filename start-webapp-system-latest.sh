@@ -13,7 +13,7 @@ mkdir -p $FOLDER_PLUGINS_JARS
 
 # Create release
 ./create-local-release-no-tests.sh
-cp build/libs/foilen-infra-plugins-core-master-SNAPSHOT.jar $FOLDER_PLUGINS_JARS
+cp build/libs/foilen-infra-plugins-core-*.jar $FOLDER_PLUGINS_JARS
 
 # Start webapp
 docker run -ti \
@@ -21,6 +21,6 @@ docker run -ti \
   --env PLUGINS_JARS=/plugins \
   --user $USER_ID \
   --volume $FOLDER_PLUGINS_JARS:/plugins \
-  --publish 8080:8080 \
+  --publish 8888:8080 \
   foilen/foilen-infra-system-app-test-docker \
   web --debug
