@@ -271,9 +271,11 @@ public class JamesEmailServerActionHandler extends AbstractBasics implements Act
                     });
 
             // Workdir
-            applicationDefinition.addVolume(new IPApplicationDefinitionVolume( //
-                    unixUser.getHomeFolder() + "/_" + jamesEmailServer.getName(), //
-                    "/workDir"));
+            if (unixUser.getHomeFolder() != null) {
+                applicationDefinition.addVolume(new IPApplicationDefinitionVolume( //
+                        unixUser.getHomeFolder() + "/_" + jamesEmailServer.getName(), //
+                        "/workDir"));
+            }
 
             // Ports
             applicationDefinition.addPortEndpoint(10025, DockerContainerEndpoints.SMTP_TCP);

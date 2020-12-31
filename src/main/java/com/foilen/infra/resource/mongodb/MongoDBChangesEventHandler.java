@@ -263,8 +263,10 @@ public class MongoDBChangesEventHandler extends AbstractBasics implements Change
                                 applicationDefinition.setRunAs(unixUser.getId());
 
                                 // Data folder
-                                String baseFolder = unixUser.getHomeFolder() + "/mongodb/" + serverName;
-                                applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder, "/var/lib/mongodb", unixUser.getId(), unixUser.getId(), "770"));
+                                if (unixUser.getHomeFolder() != null) {
+                                    String baseFolder = unixUser.getHomeFolder() + "/mongodb/" + serverName;
+                                    applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder, "/var/lib/mongodb", unixUser.getId(), unixUser.getId(), "770"));
+                                }
 
                                 // Save the root password
                                 String newPass = server.getRootPassword();

@@ -110,8 +110,10 @@ public class PostgreSqlServerChangesEventHandler extends AbstractBasics implemen
                             applicationDefinition.getEnvironments().put("AUTH_METHOD", server.getAuthMethod());
 
                             // Data folder
-                            String baseFolder = unixUser.getHomeFolder() + "/postgresql/" + serverName;
-                            applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder + "/data", "/var/lib/postgresql/data", unixUser.getId(), unixUser.getId(), "770"));
+                            if (unixUser.getHomeFolder() != null) {
+                                String baseFolder = unixUser.getHomeFolder() + "/postgresql/" + serverName;
+                                applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder + "/data", "/var/lib/postgresql/data", unixUser.getId(), unixUser.getId(), "770"));
+                            }
 
                             // Save the root password
                             String newPass = server.getRootPassword();
@@ -122,7 +124,6 @@ public class PostgreSqlServerChangesEventHandler extends AbstractBasics implemen
                             // Sync links
                             CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.INSTALLED_ON, Machine.class, machines);
                             CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.RUN_AS, UnixUser.class, unixUsers);
-
                         }
 
                         CommonResourceLink.syncToLinks(services, changes, server, LinkTypeConstants.MANAGES, Application.class, desiredManageApplications);

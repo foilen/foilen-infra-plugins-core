@@ -79,237 +79,6 @@
       "user" : "dev"
     }
   }, {
-    "resource" : "Application | backup_sftp-h1_example_com | Backup to SFTP for h1.example.com",
-    "links" : [ {
-      "type" : "INSTALLED_ON",
-      "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
-    }, {
-      "type" : "RUN_AS",
-      "to" : "SystemUnixUser | root | /home/root"
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "applicationDefinition" : {
-        "_nextAssetId" : 2,
-        "assetsBundles" : [ ],
-        "assetsPathAndContent" : [ {
-          "a" : "_assets/1",
-          "b" : "-----BEGIN OPENSSH PRIVATE KEY-----\r
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn\r
-NhAAAAAwEAAQAAAQEAxcfq+Q8eINqel0fZSd9sPgieyPjr9IAkd2JJRJdOn2j4ctqxI81o\r
-XSXuCkQv2QLgSrqaljD9cXN5nuIYP9TC7I1yqvJ2HwUEu17wl7Ke0BMxny1qf2uyzAWSqv\r
-LR2svWic5QRVu2TbEycMRkQKysTvajQe8zC3J2+rO0+VvhgKYzFGXk+pIZUdiggKVCpIXm\r
-uTNgnnia32/uh+6Ulh3CsrFIwF0RnJ9qzrE++Hbm9LbqGz9NMLen1IXrmDX7tWveUAt7Ps\r
-GRAa0czjWsyB3XmoJHa+Fnru+YL8PFOOSIllTK6aXwPbnZIUX6IHsZANut8/Fw6ITfbWd1\r
-dJPXbkAtQQAAA8iry4v+q8uL/gAAAAdzc2gtcnNhAAABAQDFx+r5Dx4g2p6XR9lJ32w+CJ\r
-7I+Ov0gCR3YklEl06faPhy2rEjzWhdJe4KRC/ZAuBKupqWMP1xc3me4hg/1MLsjXKq8nYf\r
-BQS7XvCXsp7QEzGfLWp/a7LMBZKq8tHay9aJzlBFW7ZNsTJwxGRArKxO9qNB7zMLcnb6s7\r
-T5W+GApjMUZeT6khlR2KCApUKkhea5M2CeeJrfb+6H7pSWHcKysUjAXRGcn2rOsT74dub0\r
-tuobP00wt6fUheuYNfu1a95QC3s+wZEBrRzONazIHdeagkdr4Weu75gvw8U45IiWVMrppf\r
-A9udkhRfogexkA263z8XDohN9tZ3V0k9duQC1BAAAAAwEAAQAAAQAEfltPV1GW64Co7T/5\r
-lrLt4eJBrK4nuvWZJMmHXmyx4H+slF1r89HINAFpiE0SACe6auzyNqC7gCUmP/rPEHVxTH\r
-FrguC+Ka4G18xdlfhXv+fjtvNxe6/vRL0lVyj/cJwqO17FhKTqtPjxaPTiJ0ou7RmeeOHP\r
-A8XCQmz9MWI5OwMxIHAqcTSvSB1hxSdCZtAyo6HA3UjUQjYNTlA//3kmqFZIIu08JAbO7Q\r
-VaUAspVWvzKRk19dbiUQVMv71q2phzWkhiYP2Wlkj83Ev6j9NNp13lDm546ErQMznp3qcF\r
-sYRBbKIlkvCu+Im5/Ou7fwNi+FePPBnCO0tgrf/mDFeVAAAAgQCsCPffMd2UTxrUKl5PPs\r
-4W5n1MZZcFr5Oc2SekEtSKxoTrh7Uay49afj7dxryxfSiaTZxta94FeRkJPD32/VmPSQMH\r
-Nh0ae+HZfA5+atyrasZ6Gp3jiH43zLUon1vLixNwpmwWMOClYpndcov2v0mG7b2gkN5lb0\r
-hk6vXn92kIUQAAAIEA9OjTYVNBZMu++VtvNbX4+3XQnp3fvwMhyD5VJ1pUO4ppy392kl3l\r
-DMZjzIAJNuyeICEESyCEe0FvyrAyPomGWdGCfSwqJrjF2JOH6QEyFnj8F7jPywSp5C7lpu\r
-pfgZizimVc7c2A/KoJ4FLLFT60qFjlblIFtptpFzPxQmdnVRsAAACBAM68viIw9xvwus6J\r
-WlJ3kG0poD2Iac2rTIx+1YF3qmIrokcD1I2A4Ac3nKhl9s3h1CQjqB4/0K+6eWWLgsPGSQ\r
-LesDy2X7dhgsMWLmTlusc86tdtjdMbnOsbgnYlKOSLuKSWs1WdmJSdiVknfowydv0DHBSK\r
-hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
------END OPENSSH PRIVATE KEY-----"
-        } ],
-        "buildSteps" : [ {
-          "step" : "_assets/1 /id_rsa",
-          "type" : "COPY"
-        } ],
-        "command" : "SSH_HOSTNAME=backup.example.com SSH_PORT=22 SSH_USER=backup REMOTE_PATH=/home/backup/base HOST_NAME=h1.example.com /backup.sh",
-        "containerUsersToChangeId" : [ ],
-        "copyWhenStartedPathAndContentFiles" : [ ],
-        "environments" : { },
-        "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-backup-to-sftp:1.0.0",
-        "hostToIpMapping" : [ ],
-        "portsEndpoint" : { },
-        "portsExposed" : { },
-        "portsRedirect" : [ ],
-        "runAs" : 0,
-        "services" : [ ],
-        "udpPortsExposed" : { },
-        "volumes" : [ {
-          "containerFsFolder" : "/backupRoot",
-          "hostFolder" : "/home",
-          "readOnly" : false
-        } ]
-      },
-      "description" : "Backup to SFTP for h1.example.com",
-      "domainNames" : [ ],
-      "executionCronDetails" : "22 0 * * *",
-      "executionPolicy" : "CRON",
-      "meta" : { },
-      "name" : "backup_sftp-h1_example_com",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "Backup to SFTP for h1.example.com",
-      "resourceName" : "backup_sftp-h1_example_com"
-    }
-  }, {
-    "resource" : "Application | backup_sftp-h2_example_com | Backup to SFTP for h2.example.com",
-    "links" : [ {
-      "type" : "INSTALLED_ON",
-      "to" : "Machine | h2.example.com | h2.example.com (127.0.0.202)"
-    }, {
-      "type" : "RUN_AS",
-      "to" : "SystemUnixUser | root | /home/root"
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "applicationDefinition" : {
-        "_nextAssetId" : 2,
-        "assetsBundles" : [ ],
-        "assetsPathAndContent" : [ {
-          "a" : "_assets/1",
-          "b" : "-----BEGIN OPENSSH PRIVATE KEY-----\r
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn\r
-NhAAAAAwEAAQAAAQEAxcfq+Q8eINqel0fZSd9sPgieyPjr9IAkd2JJRJdOn2j4ctqxI81o\r
-XSXuCkQv2QLgSrqaljD9cXN5nuIYP9TC7I1yqvJ2HwUEu17wl7Ke0BMxny1qf2uyzAWSqv\r
-LR2svWic5QRVu2TbEycMRkQKysTvajQe8zC3J2+rO0+VvhgKYzFGXk+pIZUdiggKVCpIXm\r
-uTNgnnia32/uh+6Ulh3CsrFIwF0RnJ9qzrE++Hbm9LbqGz9NMLen1IXrmDX7tWveUAt7Ps\r
-GRAa0czjWsyB3XmoJHa+Fnru+YL8PFOOSIllTK6aXwPbnZIUX6IHsZANut8/Fw6ITfbWd1\r
-dJPXbkAtQQAAA8iry4v+q8uL/gAAAAdzc2gtcnNhAAABAQDFx+r5Dx4g2p6XR9lJ32w+CJ\r
-7I+Ov0gCR3YklEl06faPhy2rEjzWhdJe4KRC/ZAuBKupqWMP1xc3me4hg/1MLsjXKq8nYf\r
-BQS7XvCXsp7QEzGfLWp/a7LMBZKq8tHay9aJzlBFW7ZNsTJwxGRArKxO9qNB7zMLcnb6s7\r
-T5W+GApjMUZeT6khlR2KCApUKkhea5M2CeeJrfb+6H7pSWHcKysUjAXRGcn2rOsT74dub0\r
-tuobP00wt6fUheuYNfu1a95QC3s+wZEBrRzONazIHdeagkdr4Weu75gvw8U45IiWVMrppf\r
-A9udkhRfogexkA263z8XDohN9tZ3V0k9duQC1BAAAAAwEAAQAAAQAEfltPV1GW64Co7T/5\r
-lrLt4eJBrK4nuvWZJMmHXmyx4H+slF1r89HINAFpiE0SACe6auzyNqC7gCUmP/rPEHVxTH\r
-FrguC+Ka4G18xdlfhXv+fjtvNxe6/vRL0lVyj/cJwqO17FhKTqtPjxaPTiJ0ou7RmeeOHP\r
-A8XCQmz9MWI5OwMxIHAqcTSvSB1hxSdCZtAyo6HA3UjUQjYNTlA//3kmqFZIIu08JAbO7Q\r
-VaUAspVWvzKRk19dbiUQVMv71q2phzWkhiYP2Wlkj83Ev6j9NNp13lDm546ErQMznp3qcF\r
-sYRBbKIlkvCu+Im5/Ou7fwNi+FePPBnCO0tgrf/mDFeVAAAAgQCsCPffMd2UTxrUKl5PPs\r
-4W5n1MZZcFr5Oc2SekEtSKxoTrh7Uay49afj7dxryxfSiaTZxta94FeRkJPD32/VmPSQMH\r
-Nh0ae+HZfA5+atyrasZ6Gp3jiH43zLUon1vLixNwpmwWMOClYpndcov2v0mG7b2gkN5lb0\r
-hk6vXn92kIUQAAAIEA9OjTYVNBZMu++VtvNbX4+3XQnp3fvwMhyD5VJ1pUO4ppy392kl3l\r
-DMZjzIAJNuyeICEESyCEe0FvyrAyPomGWdGCfSwqJrjF2JOH6QEyFnj8F7jPywSp5C7lpu\r
-pfgZizimVc7c2A/KoJ4FLLFT60qFjlblIFtptpFzPxQmdnVRsAAACBAM68viIw9xvwus6J\r
-WlJ3kG0poD2Iac2rTIx+1YF3qmIrokcD1I2A4Ac3nKhl9s3h1CQjqB4/0K+6eWWLgsPGSQ\r
-LesDy2X7dhgsMWLmTlusc86tdtjdMbnOsbgnYlKOSLuKSWs1WdmJSdiVknfowydv0DHBSK\r
-hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
------END OPENSSH PRIVATE KEY-----"
-        } ],
-        "buildSteps" : [ {
-          "step" : "_assets/1 /id_rsa",
-          "type" : "COPY"
-        } ],
-        "command" : "SSH_HOSTNAME=backup.example.com SSH_PORT=22 SSH_USER=backup REMOTE_PATH=/home/backup/base HOST_NAME=h2.example.com /backup.sh",
-        "containerUsersToChangeId" : [ ],
-        "copyWhenStartedPathAndContentFiles" : [ ],
-        "environments" : { },
-        "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-backup-to-sftp:1.0.0",
-        "hostToIpMapping" : [ ],
-        "portsEndpoint" : { },
-        "portsExposed" : { },
-        "portsRedirect" : [ ],
-        "runAs" : 0,
-        "services" : [ ],
-        "udpPortsExposed" : { },
-        "volumes" : [ {
-          "containerFsFolder" : "/backupRoot",
-          "hostFolder" : "/home",
-          "readOnly" : false
-        } ]
-      },
-      "description" : "Backup to SFTP for h2.example.com",
-      "domainNames" : [ ],
-      "executionCronDetails" : "22 0 * * *",
-      "executionPolicy" : "CRON",
-      "meta" : { },
-      "name" : "backup_sftp-h2_example_com",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "Backup to SFTP for h2.example.com",
-      "resourceName" : "backup_sftp-h2_example_com"
-    }
-  }, {
-    "resource" : "Application | backup_sftp-h3_example_com | Backup to SFTP for h3.example.com",
-    "links" : [ {
-      "type" : "INSTALLED_ON",
-      "to" : "Machine | h3.example.com | h3.example.com (127.0.0.203)"
-    }, {
-      "type" : "RUN_AS",
-      "to" : "SystemUnixUser | root | /home/root"
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "applicationDefinition" : {
-        "_nextAssetId" : 2,
-        "assetsBundles" : [ ],
-        "assetsPathAndContent" : [ {
-          "a" : "_assets/1",
-          "b" : "-----BEGIN OPENSSH PRIVATE KEY-----\r
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn\r
-NhAAAAAwEAAQAAAQEAxcfq+Q8eINqel0fZSd9sPgieyPjr9IAkd2JJRJdOn2j4ctqxI81o\r
-XSXuCkQv2QLgSrqaljD9cXN5nuIYP9TC7I1yqvJ2HwUEu17wl7Ke0BMxny1qf2uyzAWSqv\r
-LR2svWic5QRVu2TbEycMRkQKysTvajQe8zC3J2+rO0+VvhgKYzFGXk+pIZUdiggKVCpIXm\r
-uTNgnnia32/uh+6Ulh3CsrFIwF0RnJ9qzrE++Hbm9LbqGz9NMLen1IXrmDX7tWveUAt7Ps\r
-GRAa0czjWsyB3XmoJHa+Fnru+YL8PFOOSIllTK6aXwPbnZIUX6IHsZANut8/Fw6ITfbWd1\r
-dJPXbkAtQQAAA8iry4v+q8uL/gAAAAdzc2gtcnNhAAABAQDFx+r5Dx4g2p6XR9lJ32w+CJ\r
-7I+Ov0gCR3YklEl06faPhy2rEjzWhdJe4KRC/ZAuBKupqWMP1xc3me4hg/1MLsjXKq8nYf\r
-BQS7XvCXsp7QEzGfLWp/a7LMBZKq8tHay9aJzlBFW7ZNsTJwxGRArKxO9qNB7zMLcnb6s7\r
-T5W+GApjMUZeT6khlR2KCApUKkhea5M2CeeJrfb+6H7pSWHcKysUjAXRGcn2rOsT74dub0\r
-tuobP00wt6fUheuYNfu1a95QC3s+wZEBrRzONazIHdeagkdr4Weu75gvw8U45IiWVMrppf\r
-A9udkhRfogexkA263z8XDohN9tZ3V0k9duQC1BAAAAAwEAAQAAAQAEfltPV1GW64Co7T/5\r
-lrLt4eJBrK4nuvWZJMmHXmyx4H+slF1r89HINAFpiE0SACe6auzyNqC7gCUmP/rPEHVxTH\r
-FrguC+Ka4G18xdlfhXv+fjtvNxe6/vRL0lVyj/cJwqO17FhKTqtPjxaPTiJ0ou7RmeeOHP\r
-A8XCQmz9MWI5OwMxIHAqcTSvSB1hxSdCZtAyo6HA3UjUQjYNTlA//3kmqFZIIu08JAbO7Q\r
-VaUAspVWvzKRk19dbiUQVMv71q2phzWkhiYP2Wlkj83Ev6j9NNp13lDm546ErQMznp3qcF\r
-sYRBbKIlkvCu+Im5/Ou7fwNi+FePPBnCO0tgrf/mDFeVAAAAgQCsCPffMd2UTxrUKl5PPs\r
-4W5n1MZZcFr5Oc2SekEtSKxoTrh7Uay49afj7dxryxfSiaTZxta94FeRkJPD32/VmPSQMH\r
-Nh0ae+HZfA5+atyrasZ6Gp3jiH43zLUon1vLixNwpmwWMOClYpndcov2v0mG7b2gkN5lb0\r
-hk6vXn92kIUQAAAIEA9OjTYVNBZMu++VtvNbX4+3XQnp3fvwMhyD5VJ1pUO4ppy392kl3l\r
-DMZjzIAJNuyeICEESyCEe0FvyrAyPomGWdGCfSwqJrjF2JOH6QEyFnj8F7jPywSp5C7lpu\r
-pfgZizimVc7c2A/KoJ4FLLFT60qFjlblIFtptpFzPxQmdnVRsAAACBAM68viIw9xvwus6J\r
-WlJ3kG0poD2Iac2rTIx+1YF3qmIrokcD1I2A4Ac3nKhl9s3h1CQjqB4/0K+6eWWLgsPGSQ\r
-LesDy2X7dhgsMWLmTlusc86tdtjdMbnOsbgnYlKOSLuKSWs1WdmJSdiVknfowydv0DHBSK\r
-hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
------END OPENSSH PRIVATE KEY-----"
-        } ],
-        "buildSteps" : [ {
-          "step" : "_assets/1 /id_rsa",
-          "type" : "COPY"
-        } ],
-        "command" : "SSH_HOSTNAME=backup.example.com SSH_PORT=22 SSH_USER=backup REMOTE_PATH=/home/backup/base HOST_NAME=h3.example.com /backup.sh",
-        "containerUsersToChangeId" : [ ],
-        "copyWhenStartedPathAndContentFiles" : [ ],
-        "environments" : { },
-        "executeWhenStartedCommands" : [ ],
-        "from" : "foilen/fcloud-docker-backup-to-sftp:1.0.0",
-        "hostToIpMapping" : [ ],
-        "portsEndpoint" : { },
-        "portsExposed" : { },
-        "portsRedirect" : [ ],
-        "runAs" : 0,
-        "services" : [ ],
-        "udpPortsExposed" : { },
-        "volumes" : [ {
-          "containerFsFolder" : "/backupRoot",
-          "hostFolder" : "/home",
-          "readOnly" : false
-        } ]
-      },
-      "description" : "Backup to SFTP for h3.example.com",
-      "domainNames" : [ ],
-      "executionCronDetails" : "22 0 * * *",
-      "executionPolicy" : "CRON",
-      "meta" : { },
-      "name" : "backup_sftp-h3_example_com",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "Backup to SFTP for h3.example.com",
-      "resourceName" : "backup_sftp-h3_example_com"
-    }
-  }, {
     "resource" : "Application | dns_server_bind9 | Bind9 Server",
     "links" : [ {
       "type" : "INSTALLED_ON",
@@ -2604,50 +2373,6 @@ memory_limit = 192M
       "uid" : "99b45ec0577ac47e24c9896bb72a7c3f"
     }
   }, {
-    "resource" : "BackupToSftpConfig | 0adac15a1251bf53c370e56a9bde0aab | backup.example.com | backup | /home/backup/base",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "meta" : { },
-      "remotePath" : "/home/backup/base",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "backup.example.com | backup | /home/backup/base",
-      "resourceEditorName" : "Backup To SFTP Config",
-      "resourceName" : "0adac15a1251bf53c370e56a9bde0aab",
-      "sshHostname" : "backup.example.com",
-      "sshPort" : 22,
-      "sshPrivateKey" : "-----BEGIN OPENSSH PRIVATE KEY-----\r
-b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn\r
-NhAAAAAwEAAQAAAQEAxcfq+Q8eINqel0fZSd9sPgieyPjr9IAkd2JJRJdOn2j4ctqxI81o\r
-XSXuCkQv2QLgSrqaljD9cXN5nuIYP9TC7I1yqvJ2HwUEu17wl7Ke0BMxny1qf2uyzAWSqv\r
-LR2svWic5QRVu2TbEycMRkQKysTvajQe8zC3J2+rO0+VvhgKYzFGXk+pIZUdiggKVCpIXm\r
-uTNgnnia32/uh+6Ulh3CsrFIwF0RnJ9qzrE++Hbm9LbqGz9NMLen1IXrmDX7tWveUAt7Ps\r
-GRAa0czjWsyB3XmoJHa+Fnru+YL8PFOOSIllTK6aXwPbnZIUX6IHsZANut8/Fw6ITfbWd1\r
-dJPXbkAtQQAAA8iry4v+q8uL/gAAAAdzc2gtcnNhAAABAQDFx+r5Dx4g2p6XR9lJ32w+CJ\r
-7I+Ov0gCR3YklEl06faPhy2rEjzWhdJe4KRC/ZAuBKupqWMP1xc3me4hg/1MLsjXKq8nYf\r
-BQS7XvCXsp7QEzGfLWp/a7LMBZKq8tHay9aJzlBFW7ZNsTJwxGRArKxO9qNB7zMLcnb6s7\r
-T5W+GApjMUZeT6khlR2KCApUKkhea5M2CeeJrfb+6H7pSWHcKysUjAXRGcn2rOsT74dub0\r
-tuobP00wt6fUheuYNfu1a95QC3s+wZEBrRzONazIHdeagkdr4Weu75gvw8U45IiWVMrppf\r
-A9udkhRfogexkA263z8XDohN9tZ3V0k9duQC1BAAAAAwEAAQAAAQAEfltPV1GW64Co7T/5\r
-lrLt4eJBrK4nuvWZJMmHXmyx4H+slF1r89HINAFpiE0SACe6auzyNqC7gCUmP/rPEHVxTH\r
-FrguC+Ka4G18xdlfhXv+fjtvNxe6/vRL0lVyj/cJwqO17FhKTqtPjxaPTiJ0ou7RmeeOHP\r
-A8XCQmz9MWI5OwMxIHAqcTSvSB1hxSdCZtAyo6HA3UjUQjYNTlA//3kmqFZIIu08JAbO7Q\r
-VaUAspVWvzKRk19dbiUQVMv71q2phzWkhiYP2Wlkj83Ev6j9NNp13lDm546ErQMznp3qcF\r
-sYRBbKIlkvCu+Im5/Ou7fwNi+FePPBnCO0tgrf/mDFeVAAAAgQCsCPffMd2UTxrUKl5PPs\r
-4W5n1MZZcFr5Oc2SekEtSKxoTrh7Uay49afj7dxryxfSiaTZxta94FeRkJPD32/VmPSQMH\r
-Nh0ae+HZfA5+atyrasZ6Gp3jiH43zLUon1vLixNwpmwWMOClYpndcov2v0mG7b2gkN5lb0\r
-hk6vXn92kIUQAAAIEA9OjTYVNBZMu++VtvNbX4+3XQnp3fvwMhyD5VJ1pUO4ppy392kl3l\r
-DMZjzIAJNuyeICEESyCEe0FvyrAyPomGWdGCfSwqJrjF2JOH6QEyFnj8F7jPywSp5C7lpu\r
-pfgZizimVc7c2A/KoJ4FLLFT60qFjlblIFtptpFzPxQmdnVRsAAACBAM68viIw9xvwus6J\r
-WlJ3kG0poD2Iac2rTIx+1YF3qmIrokcD1I2A4Ac3nKhl9s3h1CQjqB4/0K+6eWWLgsPGSQ\r
-LesDy2X7dhgsMWLmTlusc86tdtjdMbnOsbgnYlKOSLuKSWs1WdmJSdiVknfowydv0DHBSK\r
-hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
------END OPENSSH PRIVATE KEY-----",
-      "sshUser" : "backup",
-      "time" : "22 0 * * *",
-      "uid" : "0adac15a1251bf53c370e56a9bde0aab"
-    }
-  }, {
     "resource" : "Bind9Server | dns_server | DNS Server",
     "links" : [ {
       "type" : "INSTALLED_ON",
@@ -3616,9 +3341,6 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "resource" : "Machine | h1.example.com | h1.example.com (127.0.0.201)",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "Application | backup_sftp-h1_example_com | Backup to SFTP for h1.example.com"
-    }, {
-      "type" : "MANAGES",
       "to" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com"
     }, {
       "type" : "MANAGES",
@@ -3644,9 +3366,6 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
     "resource" : "Machine | h2.example.com | h2.example.com (127.0.0.202)",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "Application | backup_sftp-h2_example_com | Backup to SFTP for h2.example.com"
-    }, {
-      "type" : "MANAGES",
       "to" : "DnsEntry | h2.example.com / A | 127.0.0.202"
     }, {
       "type" : "MANAGES",
@@ -3665,9 +3384,6 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
   }, {
     "resource" : "Machine | h3.example.com | h3.example.com (127.0.0.203)",
     "links" : [ {
-      "type" : "MANAGES",
-      "to" : "Application | backup_sftp-h3_example_com | Backup to SFTP for h3.example.com"
-    }, {
       "type" : "MANAGES",
       "to" : "Application | infra_url_redirection_http-h3_example_com | Apache HTTP URL redirections for h3.example.com"
     }, {
@@ -4004,21 +3720,6 @@ hS2TvyqBuxF+d5jTAAAADHNpbW9uQGNhcmJvbgECAwQFBg==\r
       "resourceName" : "gitlab_postgresql",
       "rootPassword" : "ROOT_PASS",
       "version" : "11.1-4"
-    }
-  }, {
-    "resource" : "SystemUnixUser | root | /home/root",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "homeFolder" : "/home/root",
-      "id" : 0,
-      "keepClearPassword" : false,
-      "meta" : { },
-      "name" : "root",
-      "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/root",
-      "resourceName" : "root",
-      "shell" : "/bin/bash"
     }
   }, {
     "resource" : "UnixUser | bind9 | /home/bind9",

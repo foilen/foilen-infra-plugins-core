@@ -248,30 +248,30 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
                         if (unixUsers.size() == 1) {
 
                             UnixUser unixUser = unixUsers.get(0);
+
+                            // Application
+                            Application application = ActionsHandlerUtils.getOrCreateAnApplication(resourceService, serverName);
+                            desiredManageApplications.add(application);
+                            application.setDescription(server.getDescription());
+
+                            IPApplicationDefinition applicationDefinition = new IPApplicationDefinition();
+                            application.setApplicationDefinition(applicationDefinition);
+
+                            applicationDefinition.setFrom("foilen/fcloud-docker-mariadb:" + server.getVersion());
+
+                            applicationDefinition.addService("app", "/mariadb-start.sh");
+                            IPApplicationDefinitionAssetsBundle assetsBundle = applicationDefinition.addAssetsBundle();
+                            applicationDefinition.addContainerUserToChangeId("mysql", unixUser.getId());
+
+                            applicationDefinition.addPortEndpoint(3306, DockerContainerEndpoints.MYSQL_TCP);
+
+                            applicationDefinition.setRunAs(unixUser.getId());
+
+                            // Configuration
+                            applicationDefinition.addAssetResource("/etc/mysql/conf.d/zInfra.cnf", "/com/foilen/infra/resource/mariadb/config.cnf");
+
+                            // Data folder
                             if (unixUser.getHomeFolder() != null) {
-
-                                // Application
-                                Application application = ActionsHandlerUtils.getOrCreateAnApplication(resourceService, serverName);
-                                desiredManageApplications.add(application);
-                                application.setDescription(server.getDescription());
-
-                                IPApplicationDefinition applicationDefinition = new IPApplicationDefinition();
-                                application.setApplicationDefinition(applicationDefinition);
-
-                                applicationDefinition.setFrom("foilen/fcloud-docker-mariadb:" + server.getVersion());
-
-                                applicationDefinition.addService("app", "/mariadb-start.sh");
-                                IPApplicationDefinitionAssetsBundle assetsBundle = applicationDefinition.addAssetsBundle();
-                                applicationDefinition.addContainerUserToChangeId("mysql", unixUser.getId());
-
-                                applicationDefinition.addPortEndpoint(3306, DockerContainerEndpoints.MYSQL_TCP);
-
-                                applicationDefinition.setRunAs(unixUser.getId());
-
-                                // Configuration
-                                applicationDefinition.addAssetResource("/etc/mysql/conf.d/zInfra.cnf", "/com/foilen/infra/resource/mariadb/config.cnf");
-
-                                // Data folder
                                 String baseFolder = unixUser.getHomeFolder() + "/mysql/" + serverName;
                                 applicationDefinition.addVolume(new IPApplicationDefinitionVolume(baseFolder + "/data", "/var/lib/mysql", unixUser.getId(), unixUser.getId(), "770"));
 
@@ -283,17 +283,17 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
                                 String newPass = server.getRootPassword();
                                 assetsBundle.addAssetContent("/newPass", newPass);
                                 assetsBundle.addAssetContent("/newPass.cnf", "[client]\npassword=" + newPass);
-
-                                // Save the database config for the manager
-                                applicationDefinition.addCopyWhenStartedContent("/manager-config.json", JsonTools.prettyPrint(mysqlManagerConfig));
-                                applicationDefinition.addExecuteWhenStartedCommand("/mariadb-update-manager.sh");
-
-                                ActionsHandlerUtils.addOrUpdate(application, changes);
-
-                                // Sync links
-                                CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.INSTALLED_ON, Machine.class, machines);
-                                CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.RUN_AS, UnixUser.class, unixUsers);
                             }
+
+                            // Save the database config for the manager
+                            applicationDefinition.addCopyWhenStartedContent("/manager-config.json", JsonTools.prettyPrint(mysqlManagerConfig));
+                            applicationDefinition.addExecuteWhenStartedCommand("/mariadb-update-manager.sh");
+
+                            ActionsHandlerUtils.addOrUpdate(application, changes);
+
+                            // Sync links
+                            CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.INSTALLED_ON, Machine.class, machines);
+                            CommonResourceLink.syncToLinks(services, changes, application, LinkTypeConstants.RUN_AS, UnixUser.class, unixUsers);
 
                         }
 

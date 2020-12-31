@@ -17,8 +17,6 @@ import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.model.resource.IPResource;
 import com.foilen.infra.resource.apachephp.ApachePhp;
 import com.foilen.infra.resource.application.Application;
-import com.foilen.infra.resource.backup.resources.BackupToGoogleCloudConfig;
-import com.foilen.infra.resource.backup.resources.BackupToSftpConfig;
 import com.foilen.infra.resource.bind9.Bind9Server;
 import com.foilen.infra.resource.composableapplication.ComposableApplication;
 import com.foilen.infra.resource.dns.DnsPointer;
@@ -43,8 +41,6 @@ public class V_2019061201_Refresh extends AbstractPluginUpgraderTask {
         List<Class<? extends IPResource>> resourceTypes = new ArrayList<>();
         resourceTypes.add(ApachePhp.class);
         resourceTypes.add(Application.class);
-        resourceTypes.add(BackupToGoogleCloudConfig.class);
-        resourceTypes.add(BackupToSftpConfig.class);
         resourceTypes.add(Bind9Server.class);
         resourceTypes.add(ComposableApplication.class);
         resourceTypes.add(DnsPointer.class);
