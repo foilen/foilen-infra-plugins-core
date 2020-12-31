@@ -12,6 +12,8 @@ package com.foilen.infra.resource.application.model;
 public enum ExecutionPolicy {
 
     ALWAYS_ON, //
+
+    @Deprecated
     CRON, //
 
 }

@@ -22,6 +22,7 @@ import com.foilen.infra.resource.composableapplication.AttachablePartContext;
  * <li>None</li>
  * </ul>
  */
+@Deprecated
 public class AttachableCronJob extends AttachablePart {
 
     public static final String RESOURCE_TYPE = "Attachable Cron Job";

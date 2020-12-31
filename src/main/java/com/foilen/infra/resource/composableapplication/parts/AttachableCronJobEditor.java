@@ -14,6 +14,7 @@ import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleR
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 
+@Deprecated
 public class AttachableCronJobEditor extends SimpleResourceEditor<AttachableCronJob> {
 
     public static final String EDITOR_NAME = "Attachable Cron Job";

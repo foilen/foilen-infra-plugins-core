@@ -50,7 +50,9 @@ public class Application extends AbstractIPResource implements Comparable<Applic
     private String description;
 
     // Execution
+    @Deprecated
     private ExecutionPolicy executionPolicy = ExecutionPolicy.ALWAYS_ON;
+    @Deprecated
     private String executionCronDetails;
 
     // Details
@@ -91,10 +93,12 @@ public class Application extends AbstractIPResource implements Comparable<Applic
         return domainNames;
     }
 
+    @Deprecated
     public String getExecutionCronDetails() {
         return executionCronDetails;
     }
 
+    @Deprecated
     public ExecutionPolicy getExecutionPolicy() {
         return executionPolicy;
     }
@@ -130,10 +134,12 @@ public class Application extends AbstractIPResource implements Comparable<Applic
         this.domainNames = domainNames;
     }
 
+    @Deprecated
     public void setExecutionCronDetails(String executionCronDetails) {
         this.executionCronDetails = executionCronDetails;
     }
 
+    @Deprecated
     public void setExecutionPolicy(ExecutionPolicy executionPolicy) {
         this.executionPolicy = executionPolicy;
     }

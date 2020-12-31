@@ -28,6 +28,7 @@ import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUti
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonResourceLink;
+import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.dns.DnsPointer;
@@ -38,6 +39,7 @@ import com.foilen.infra.resource.unixuser.UnixUser;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.DirectoryTools;
 import com.foilen.smalltools.tools.StreamTools;
+import com.google.common.base.Joiner;
 
 public class ApplicationChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
 
@@ -287,6 +289,30 @@ public class ApplicationChangesEventHandler extends AbstractBasics implements Ch
                     });
 
                 });
+
+        // Check working directories and commands doesn't have non-path characters
+        List<String> wrongs = new ArrayList<>();
+        allChangedApps.getResourcesStream().forEach(app -> {
+            if (!CommonValidation.validPath(app.getApplicationDefinition().getCommand())) {
+                wrongs.add("Application " + app.getName() + " Main Command");
+            }
+            if (!CommonValidation.validPath(app.getApplicationDefinition().getWorkingDirectory())) {
+                wrongs.add("Application " + app.getName() + " Main Working Directory");
+            }
+            app.getApplicationDefinition().getServices().forEach(appService -> {
+
+                if (!CommonValidation.validPath(appService.getCommand())) {
+                    wrongs.add("Application " + app.getName() + " Service " + appService.getName() + " Command");
+                }
+                if (!CommonValidation.validPath(appService.getWorkingDirectory())) {
+                    wrongs.add("Application " + app.getName() + " Service " + appService.getName() + " Working Directory");
+                }
+
+            });
+        });
+        if (!wrongs.isEmpty()) {
+            throw new IllegalUpdateException("All commands and working directories cannot have non-path characters: " + Joiner.on(",").join(wrongs));
+        }
 
         return actions;
     }
