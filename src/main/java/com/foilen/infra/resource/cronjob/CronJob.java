@@ -37,7 +37,7 @@ public class CronJob extends AbstractIPResource implements Comparable<CronJob> {
     public static final String PROPERTY_WORKING_DIRECTORY = "workingDirectory";
 
     // Details
-    private String uid = SecureRandomTools.randomBase64String(10);
+    private String uid = SecureRandomTools.randomHexString(10);
     private String description;
 
     private String time;
