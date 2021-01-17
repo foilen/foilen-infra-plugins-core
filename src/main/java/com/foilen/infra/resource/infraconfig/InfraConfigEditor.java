@@ -126,9 +126,6 @@ public class InfraConfigEditor extends SimpleResourceEditor<InfraConfig> {
 
         simpleResourceEditorDefinition.addResource("uiWebsiteCertificate", InfraConfig.LINK_TYPE_UI_USES, WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResources("uiMachines", InfraConfig.LINK_TYPE_UI_INSTALLED_ON, Machine.class);
-        simpleResourceEditorDefinition.addResource("uiMariadbServer", InfraConfig.LINK_TYPE_UI_USES, MariaDBServer.class);
-        simpleResourceEditorDefinition.addResource("uiMariadbDatabase", InfraConfig.LINK_TYPE_UI_USES, MariaDBDatabase.class);
-        simpleResourceEditorDefinition.addResource("uiMariadbUser", InfraConfig.LINK_TYPE_UI_USES, MariaDBUser.class);
         simpleResourceEditorDefinition.addResource("uiMongodbServer", InfraConfig.LINK_TYPE_UI_USES, MongoDBServer.class);
         simpleResourceEditorDefinition.addResource("uiMongodbDatabase", InfraConfig.LINK_TYPE_UI_USES, MongoDBDatabase.class);
         simpleResourceEditorDefinition.addResource("uiMongodbUser", InfraConfig.LINK_TYPE_UI_USES, MongoDBUser.class);

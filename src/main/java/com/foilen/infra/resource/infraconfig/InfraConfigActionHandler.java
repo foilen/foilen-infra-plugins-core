@@ -226,14 +226,6 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 }
 
                 // Prepare the UI config
-                MariaDBServer uiMariaDBServer = uiMariaDBServers.isEmpty() ? null : uiMariaDBServers.get(0);
-                List<Machine> uiMariaDBMachines = uiMariaDBServer == null ? Collections.emptyList()
-                        : resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(uiMariaDBServer, LinkTypeConstants.INSTALLED_ON, Machine.class);
-                String uiMariaDBServerMachine = uiMariaDBMachines.isEmpty() ? null : uiMariaDBMachines.get(0).getName();
-                MariaDBDatabase uiMariaDBDatabase = uiMariaDBDatabases.isEmpty() ? null : uiMariaDBDatabases.get(0);
-                MariaDBUser uiMariaDBUser = uiMariaDBUsers.isEmpty() ? null : uiMariaDBUsers.get(0);
-                boolean usesMariaDB = CollectionsTools.isAllItemNotNull(uiMariaDBServer, uiMariaDBServerMachine, uiMariaDBDatabase, uiMariaDBUser);
-
                 MongoDBServer uiMongoDBServer = uiMongoDBServers.isEmpty() ? null : uiMongoDBServers.get(0);
                 List<Machine> uiMongoDBMachines = uiMongoDBServer == null ? null
                         : resourceService.linkFindAllByFromResourceAndLinkTypeAndToResourceClass(uiMongoDBServer, LinkTypeConstants.INSTALLED_ON, Machine.class);
@@ -242,8 +234,8 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                 MongoDBUser uiMongoDBUser = uiMongoDBUsers.isEmpty() ? null : uiMongoDBUsers.get(0);
                 boolean usesMongoDB = CollectionsTools.isAllItemNotNull(uiMongoDBServer, uiMongoDBServerMachine, uiMongoDBDatabase, uiMongoDBUser);
 
-                if (!usesMongoDB && !usesMariaDB) {
-                    throw new IllegalUpdateException("You must set MariaDB and/or MongoDB");
+                if (!usesMongoDB) {
+                    throw new IllegalUpdateException("You must set MongoDB");
                 }
 
                 UnixUser uiUnixUser = uiUnixUsers.get(0);
@@ -255,17 +247,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
 
                 infraUiConfig.setCsrfSalt(infraConfig.getUiCsrfSalt());
 
-                if (usesMariaDB) {
-                    infraUiConfig.setMysqlHostName("127.0.0.1");
-                    infraUiConfig.setMysqlPort(3306);
-                    infraUiConfig.setMysqlDatabaseName(uiMariaDBDatabase.getName());
-                    infraUiConfig.setMysqlDatabaseUserName(uiMariaDBUser.getName());
-                    infraUiConfig.setMysqlDatabasePassword(uiMariaDBUser.getPassword());
-                }
-
-                if (usesMongoDB) {
-                    infraUiConfig.setMongoUri("mongodb://" + uiMongoDBUser.getName() + ":" + uiMongoDBUser.getPassword() + "@127.0.0.1:27017/" + uiMongoDBDatabase.getName() + "?authSource=admin");
-                }
+                infraUiConfig.setMongoUri("mongodb://" + uiMongoDBUser.getName() + ":" + uiMongoDBUser.getPassword() + "@127.0.0.1:27017/" + uiMongoDBDatabase.getName() + "?authSource=admin");
 
                 infraUiConfig.setMailHost(infraConfig.getMailHost());
                 infraUiConfig.setMailPort(infraConfig.getMailPort());
@@ -329,12 +311,7 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                     uiApplicationDefinition.addBuildStepCommand(downloadPluginsCommand);
                 }
 
-                if (usesMariaDB) {
-                    uiApplicationDefinition.addPortRedirect(3306, uiMariaDBServerMachine, uiMariaDBServer.getName(), DockerContainerEndpoints.MYSQL_TCP);
-                }
-                if (usesMongoDB) {
-                    uiApplicationDefinition.addPortRedirect(27017, uiMongoDBServerMachine, uiMongoDBServer.getName(), DockerContainerEndpoints.MONGODB_TCP);
-                }
+                uiApplicationDefinition.addPortRedirect(27017, uiMongoDBServerMachine, uiMongoDBServer.getName(), DockerContainerEndpoints.MONGODB_TCP);
                 uiApplicationDefinition.addPortEndpoint(8080, DockerContainerEndpoints.HTTP_TCP);
 
                 uiApplicationDefinition.setRunAs(uiUnixUser.getId());

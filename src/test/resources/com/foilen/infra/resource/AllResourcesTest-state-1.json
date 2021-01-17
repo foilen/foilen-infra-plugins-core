@@ -567,12 +567,7 @@ max_allowed_packet	= 500M
   \"mailPassword\" : \"\",
   \"mailPort\" : 25,
   \"mailUsername\" : \"\",
-  \"mongoUri\" : null,
-  \"mysqlDatabaseName\" : \"infra_ui\",
-  \"mysqlDatabasePassword\" : \"765432\",
-  \"mysqlDatabaseUserName\" : \"infra_ui\",
-  \"mysqlHostName\" : \"127.0.0.1\",
-  \"mysqlPort\" : 3306
+  \"mongoUri\" : \"mongodb://infra_ui:765432@127.0.0.1:27017/infra_ui?authSource=admin\"
 }"
           } ]
         } ],
@@ -603,10 +598,10 @@ max_allowed_packet	= 500M
         },
         "portsExposed" : { },
         "portsRedirect" : [ {
-          "localPort" : 3306,
-          "machineContainerEndpoint" : "h1.example.com/infra_ui_db/MYSQL_TCP",
+          "localPort" : 27017,
+          "machineContainerEndpoint" : "h1.example.com/infra_ui_db/MONGODB_TCP",
           "toContainerName" : "infra_ui_db",
-          "toEndpoint" : "MYSQL_TCP",
+          "toEndpoint" : "MONGODB_TCP",
           "toLocalMachine" : false,
           "toMachine" : "h1.example.com"
         } ],
@@ -636,98 +631,42 @@ max_allowed_packet	= 500M
     "tags" : [ ],
     "content" : {
       "applicationDefinition" : {
-        "_nextAssetId" : 3,
+        "_nextAssetId" : 2,
         "assetsBundles" : [ {
           "assetsFolderPath" : "_assets_1/",
           "assetsRelativePathAndBinaryContent" : [ ],
           "assetsRelativePathAndTextContent" : [ {
             "a" : "/newPass",
             "b" : "ROOT_PASS"
-          }, {
-            "a" : "/newPass.cnf",
-            "b" : "[client]
-password=ROOT_PASS"
           } ]
         } ],
-        "assetsPathAndContent" : [ {
-          "a" : "_assets/2",
-          "b" : "[mysqld]
-max_allowed_packet	= 500M
-"
-        } ],
+        "assetsPathAndContent" : [ ],
         "buildSteps" : [ {
           "step" : "_assets_1/ /",
           "type" : "COPY"
-        }, {
-          "step" : "_assets/2 /etc/mysql/conf.d/zInfra.cnf",
-          "type" : "COPY"
         } ],
+        "command" : "/mongodb-start.sh",
         "containerUsersToChangeId" : [ {
-          "a" : "mysql",
+          "a" : "mongodb",
           "b" : 71006
         } ],
-        "copyWhenStartedPathAndContentFiles" : [ {
-          "a" : "/manager-config.json",
-          "b" : "{
-  \"admin\" : {
-    \"name\" : \"root\",
-    \"password\" : \"ROOT_PASS\"
-  },
-  \"databases\" : [ \"infra_ui\" ],
-  \"usersToIgnore\" : [ {
-    \"name\" : \"root\",
-    \"host\" : \"localhost\"
-  }, {
-    \"name\" : \"root\",
-    \"host\" : \"%\"
-  }, {
-    \"name\" : \"mariadb.sys\",
-    \"host\" : \"localhost\"
-  } ],
-  \"usersPermissions\" : [ {
-    \"name\" : \"infra_ui\",
-    \"host\" : \"%\",
-    \"password\" : \"765432\",
-    \"databaseGrants\" : [ {
-      \"databaseName\" : \"infra_ui\",
-      \"grants\" : [ \"ALTER\", \"CREATE\", \"CREATE ROUTINE\", \"CREATE TEMPORARY TABLES\", \"CREATE VIEW\", \"DROP\", \"EVENT\", \"INDEX\", \"LOCK TABLES\", \"SHOW VIEW\", \"TRIGGER\", \"SELECT\", \"INSERT\", \"UPDATE\", \"DELETE\" ]
-    } ]
-  } ]
-}"
-        } ],
+        "copyWhenStartedPathAndContentFiles" : [ ],
         "environments" : { },
-        "executeWhenStartedCommands" : [ "/mariadb-update-manager.sh" ],
-        "from" : "foilen/fcloud-docker-mariadb:10.3.5-1.1.1-001",
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/fcloud-docker-mongodb:4.4.3-1",
         "hostToIpMapping" : [ ],
         "portsEndpoint" : {
-          "3306" : "MYSQL_TCP"
+          "27017" : "MONGODB_TCP"
         },
         "portsExposed" : { },
         "portsRedirect" : [ ],
         "runAs" : 71006,
-        "services" : [ {
-          "command" : "/mariadb-start.sh",
-          "name" : "app"
-        } ],
+        "services" : [ ],
         "udpPortsExposed" : { },
         "volumes" : [ {
-          "containerFsFolder" : "/var/lib/mysql",
+          "containerFsFolder" : "/var/lib/mongodb",
           "groupId" : 71006,
-          "hostFolder" : "/home/infra_ui_db/mysql/infra_ui_db/data",
-          "ownerId" : 71006,
-          "permissions" : "770",
-          "readOnly" : false
-        }, {
-          "containerFsFolder" : "/var/run/mysqld/",
-          "groupId" : 71006,
-          "hostFolder" : "/home/infra_ui_db/mysql/infra_ui_db/run",
-          "ownerId" : 71006,
-          "permissions" : "770",
-          "readOnly" : false
-        }, {
-          "containerFsFolder" : "/volumes/config/",
-          "groupId" : 71006,
-          "hostFolder" : "/home/infra_ui_db/mysql/infra_ui_db/config",
+          "hostFolder" : "/home/infra_ui_db/mongodb/infra_ui_db",
           "ownerId" : 71006,
           "permissions" : "770",
           "readOnly" : false
@@ -741,6 +680,91 @@ max_allowed_packet	= 500M
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "",
       "resourceName" : "infra_ui_db"
+    }
+  }, {
+    "resource" : "Application | infra_ui_db_manager | ",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_ui_db | /home/infra_ui_db"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "applicationDefinition" : {
+        "_nextAssetId" : 1,
+        "assetsBundles" : [ ],
+        "assetsPathAndContent" : [ ],
+        "buildSteps" : [ ],
+        "command" : "/app/bin/database-tools mongodb-manage --configFiles /manager-config.json --keepAlive",
+        "containerUsersToChangeId" : [ ],
+        "copyWhenStartedPathAndContentFiles" : [ {
+          "a" : "/manager-config.json",
+          "b" : "{
+  \"connection\" : {
+    \"jdbcUri\" : \"jdbc:mongodb://root:ROOT_PASS@127.0.0.1:27017/\"
+  },
+  \"databases\" : [ \"infra_ui\" ],
+  \"usersToIgnore\" : [ {
+    \"database\" : \"admin\",
+    \"name\" : \"root\"
+  } ],
+  \"globalClusterRoles\" : { },
+  \"globalDatabaseRoles\" : { },
+  \"roleByDatabase\" : {
+    \"infra_ui\" : {
+      \"reader\" : [ {
+        \"collection\" : \"\",
+        \"actions\" : [ \"find\", \"useUUID\", \"viewRole\", \"changeStream\", \"collStats\", \"dbHash\", \"dbStats\", \"indexStats\", \"listCollections\", \"listIndexes\" ]
+      } ],
+      \"admin\" : [ {
+        \"collection\" : \"\",
+        \"actions\" : [ \"enableProfiler\", \"killAnyCursor\", \"storageDetails\", \"compact\", \"validate\" ]
+      } ],
+      \"writer\" : [ {
+        \"collection\" : \"\",
+        \"actions\" : [ \"insert\", \"remove\", \"update\", \"bypassDocumentValidation\", \"createCollection\", \"createIndex\", \"dropCollection\", \"collMod\", \"convertToCapped\", \"dropIndex\", \"reIndex\", \"renameCollectionSameDB\", \"listCollections\", \"listIndexes\" ]
+      } ]
+    }
+  },
+  \"usersPermissions\" : [ {
+    \"database\" : \"admin\",
+    \"name\" : \"infra_ui\",
+    \"password\" : \"765432\",
+    \"rolesByDatabase\" : {
+      \"infra_ui\" : [ \"admin\", \"reader\", \"writer\" ]
+    }
+  } ]
+}"
+        } ],
+        "environments" : { },
+        "executeWhenStartedCommands" : [ ],
+        "from" : "foilen/database-tools:0.4.1",
+        "hostToIpMapping" : [ ],
+        "portsEndpoint" : { },
+        "portsExposed" : { },
+        "portsRedirect" : [ {
+          "localPort" : 27017,
+          "machineContainerEndpoint" : "h1.example.com/infra_ui_db/MONGODB_TCP",
+          "toContainerName" : "infra_ui_db",
+          "toEndpoint" : "MONGODB_TCP",
+          "toLocalMachine" : false,
+          "toMachine" : "h1.example.com"
+        } ],
+        "runAs" : 71006,
+        "services" : [ ],
+        "udpPortsExposed" : { },
+        "volumes" : [ ]
+      },
+      "description" : "",
+      "domainNames" : [ ],
+      "executionPolicy" : "ALWAYS_ON",
+      "meta" : { },
+      "name" : "infra_ui_db_manager",
+      "resourceCategory" : "INFRASTRUCTURE",
+      "resourceDescription" : "",
+      "resourceName" : "infra_ui_db_manager"
     }
   }, {
     "resource" : "Application | infra_url_redirection_http-h1_example_com | Apache HTTP URL redirections for h1.example.com",
@@ -3242,13 +3266,13 @@ memory_limit = 192M
       "to" : "InfraConfigPlugin | https://dl.bintray.com/foilen/maven/com/foilen/foilen-infra-plugins-core/0.6.0/foilen-infra-plugins-core-0.6.0.jar | https://dl.bintray.com/foilen/maven/com/foilen/foilen-infra-plugins-core/0.6.0/foilen-infra-plugins-core-0.6.0.jar"
     }, {
       "type" : "UI_USES",
-      "to" : "MariaDBDatabase | infra_ui | "
+      "to" : "MongoDBDatabase | infra_ui | "
     }, {
       "type" : "UI_USES",
-      "to" : "MariaDBServer | infra_ui_db | "
+      "to" : "MongoDBServer | infra_ui_db | "
     }, {
       "type" : "UI_USES",
-      "to" : "MariaDBUser | infra_ui | "
+      "to" : "MongoDBUser | infra_ui | "
     }, {
       "type" : "UI_USES",
       "to" : "UnixUser | infra_ui | /home/infra_ui"
@@ -3451,23 +3475,6 @@ memory_limit = 192M
       "uid" : "7587c16296f2a1051ebd243fc7f96496"
     }
   }, {
-    "resource" : "MariaDBDatabase | infra_ui | ",
-    "links" : [ {
-      "type" : "INSTALLED_ON",
-      "to" : "MariaDBServer | infra_ui_db | "
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "description" : "",
-      "meta" : { },
-      "name" : "infra_ui",
-      "resourceCategory" : "DATABASE",
-      "resourceDescription" : "",
-      "resourceEditorName" : "MariaDB Database",
-      "resourceName" : "infra_ui",
-      "uid" : "fbea4e477b93cbe3d776c02190935fc1"
-    }
-  }, {
     "resource" : "MariaDBDatabase | james_server | ",
     "links" : [ {
       "type" : "INSTALLED_ON",
@@ -3522,30 +3529,6 @@ memory_limit = 192M
       "resourceDescription" : "",
       "resourceEditorName" : "MariaDB Server",
       "resourceName" : "infra_login_db",
-      "rootPassword" : "ROOT_PASS",
-      "version" : "10.3.5-1.1.1-001"
-    }
-  }, {
-    "resource" : "MariaDBServer | infra_ui_db | ",
-    "links" : [ {
-      "type" : "INSTALLED_ON",
-      "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
-    }, {
-      "type" : "MANAGES",
-      "to" : "Application | infra_ui_db | "
-    }, {
-      "type" : "RUN_AS",
-      "to" : "UnixUser | infra_ui_db | /home/infra_ui_db"
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "description" : "",
-      "meta" : { },
-      "name" : "infra_ui_db",
-      "resourceCategory" : "DATABASE",
-      "resourceDescription" : "",
-      "resourceEditorName" : "MariaDB Server",
-      "resourceName" : "infra_ui_db",
       "rootPassword" : "ROOT_PASS",
       "version" : "10.3.5-1.1.1-001"
     }
@@ -3622,30 +3605,6 @@ memory_limit = 192M
       "uid" : "28eaeca81fae4c1065f1841d7f6d5d4c"
     }
   }, {
-    "resource" : "MariaDBUser | infra_ui | ",
-    "links" : [ {
-      "type" : "CAN_ADMIN",
-      "to" : "MariaDBDatabase | infra_ui | "
-    }, {
-      "type" : "CAN_READ",
-      "to" : "MariaDBDatabase | infra_ui | "
-    }, {
-      "type" : "CAN_WRITE",
-      "to" : "MariaDBDatabase | infra_ui | "
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "description" : "",
-      "meta" : { },
-      "name" : "infra_ui",
-      "password" : "765432",
-      "resourceCategory" : "DATABASE",
-      "resourceDescription" : "",
-      "resourceEditorName" : "MariaDB User",
-      "resourceName" : "infra_ui",
-      "uid" : "e134608aed374d0be46c3d48f603e881"
-    }
-  }, {
     "resource" : "MariaDBUser | james_server | ",
     "links" : [ {
       "type" : "CAN_ADMIN",
@@ -3694,6 +3653,49 @@ memory_limit = 192M
       "uid" : "f89e4b230cde34f73b90f7663b74f7e5"
     }
   }, {
+    "resource" : "MongoDBDatabase | infra_ui | ",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "MongoDBServer | infra_ui_db | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "",
+      "meta" : { },
+      "name" : "infra_ui",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "",
+      "resourceEditorName" : "MongoDB Database",
+      "resourceName" : "infra_ui"
+    }
+  }, {
+    "resource" : "MongoDBServer | infra_ui_db | ",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | h1.example.com | h1.example.com (127.0.0.201)"
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | infra_ui_db | "
+    }, {
+      "type" : "MANAGES",
+      "to" : "Application | infra_ui_db_manager | "
+    }, {
+      "type" : "RUN_AS",
+      "to" : "UnixUser | infra_ui_db | /home/infra_ui_db"
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "",
+      "meta" : { },
+      "name" : "infra_ui_db",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "",
+      "resourceEditorName" : "MongoDB Server",
+      "resourceName" : "infra_ui_db",
+      "rootPassword" : "ROOT_PASS",
+      "version" : "4.4.3-1"
+    }
+  }, {
     "resource" : "MongoDBServer | ticket_db | ",
     "links" : [ {
       "type" : "INSTALLED_ON",
@@ -3719,6 +3721,29 @@ memory_limit = 192M
       "resourceName" : "ticket_db",
       "rootPassword" : "ROOT_PASS",
       "version" : "4.0.4-1"
+    }
+  }, {
+    "resource" : "MongoDBUser | infra_ui | ",
+    "links" : [ {
+      "type" : "CAN_ADMIN",
+      "to" : "MongoDBDatabase | infra_ui | "
+    }, {
+      "type" : "CAN_READ",
+      "to" : "MongoDBDatabase | infra_ui | "
+    }, {
+      "type" : "CAN_WRITE",
+      "to" : "MongoDBDatabase | infra_ui | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "description" : "",
+      "meta" : { },
+      "name" : "infra_ui",
+      "password" : "765432",
+      "resourceCategory" : "DATABASE",
+      "resourceDescription" : "",
+      "resourceEditorName" : "MongoDB User",
+      "resourceName" : "infra_ui"
     }
   }, {
     "resource" : "PostgreSqlServer | gitlab_postgresql | ",

@@ -24,9 +24,6 @@ import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
  * <li>UnixUser: (1) LOGIN_USES - The unix user to RUN_AS.</li>
  * <li>WebsiteCertificate: (optional / 1) UI_USES - The certificate.</li>
  * <li>Machine: (many) UI_INSTALLED_ON - The machine to install the ui service on.</li>
- * <li>MariaDBServer: (1) UI_USES - The database to use (for migration).</li>
- * <li>MariaDBDatabase: (1) UI_USES - The database to use (for migration).</li>
- * <li>MariaDBUser: (1) UI_USES - The database user to use (for migration).</li>
  * <li>MongoDBServer: (1) UI_USES - The database to use.</li>
  * <li>MongoDBDatabase: (1) UI_USES - The database to use.</li>
  * <li>MongoDBUser: (1) UI_USES - The database user to use.</li>

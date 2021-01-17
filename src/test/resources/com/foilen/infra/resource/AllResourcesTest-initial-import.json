@@ -118,32 +118,22 @@
 		{
 			"resourceType": "MariaDB Database",
 			"resourceName": "infra_login",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_login\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"infra_login\"}"
-		},
-		{
-			"resourceType": "MariaDB Database",
-			"resourceName": "infra_ui",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_ui\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"infra_ui\"}"
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_login\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"infra_login\",\"uid\":\"x2f+7eJxaQ\"}"
 		},
 		{
 			"resourceType": "MariaDB Database",
 			"resourceName": "james_server",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"james_server\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"james_server\"}"
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"james_server\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"james_server\",\"uid\":\"7OGQy7M2ig\"}"
 		},
 		{
 			"resourceType": "MariaDB Database",
 			"resourceName": "wordpress",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"wordpress\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"wordpress\"}"
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"wordpress\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Database\",\"resourceName\":\"wordpress\",\"uid\":\"suetl4lTNQ\"}"
 		},
 		{
 			"resourceType": "MariaDB Server",
 			"resourceName": "infra_login_db",
 			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_login_db\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Server\",\"resourceName\":\"infra_login_db\",\"rootPassword\":\"\",\"version\":\"10.3.5-1.1.1-001\"}"
-		},
-		{
-			"resourceType": "MariaDB Server",
-			"resourceName": "infra_ui_db",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_ui_db\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB Server\",\"resourceName\":\"infra_ui_db\",\"rootPassword\":\"\",\"version\":\"10.3.5-1.1.1-001\"}"
 		},
 		{
 			"resourceType": "MariaDB Server",
@@ -158,27 +148,37 @@
 		{
 			"resourceType": "MariaDB User",
 			"resourceName": "infra_login",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_login\",\"password\":\"123456\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"infra_login\"}"
-		},
-		{
-			"resourceType": "MariaDB User",
-			"resourceName": "infra_ui",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_ui\",\"password\":\"765432\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"infra_ui\"}"
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_login\",\"password\":\"123456\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"infra_login\",\"uid\":\"e8cwpktvjw\"}"
 		},
 		{
 			"resourceType": "MariaDB User",
 			"resourceName": "james_server",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"james_server\",\"password\":\"fdgrehgreh\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"james_server\"}"
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"james_server\",\"password\":\"fdgrehgreh\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"james_server\",\"uid\":\"+VGgp+Y3ig\"}"
 		},
 		{
 			"resourceType": "MariaDB User",
 			"resourceName": "shop_wordpress",
-			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"shop_wordpress\",\"password\":\"abcQwerty\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"shop_wordpress\"}"
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"shop_wordpress\",\"password\":\"abcQwerty\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MariaDB User\",\"resourceName\":\"shop_wordpress\",\"uid\":\"rbDBkuBBfA\"}"
+		},
+		{
+			"resourceType": "MongoDB Database",
+			"resourceName": "infra_ui",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_ui\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB Database\",\"resourceName\":\"infra_ui\"}"
+		},
+		{
+			"resourceType": "MongoDB Server",
+			"resourceName": "infra_ui_db",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_ui_db\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB Server\",\"resourceName\":\"infra_ui_db\",\"rootPassword\":\"\",\"version\":\"4.4.3-1\"}"
 		},
 		{
 			"resourceType": "MongoDB Server",
 			"resourceName": "ticket_db",
 			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"ticket_db\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB Server\",\"resourceName\":\"ticket_db\",\"rootPassword\":\"\",\"version\":\"4.0.4-1\"}"
+		},
+		{
+			"resourceType": "MongoDB User",
+			"resourceName": "infra_ui",
+			"resourceJson": "{\"description\":\"\",\"meta\":{},\"name\":\"infra_ui\",\"password\":\"765432\",\"resourceCategory\":\"DATABASE\",\"resourceDescription\":\"\",\"resourceEditorName\":\"MongoDB User\",\"resourceName\":\"infra_ui\"}"
 		},
 		{
 			"resourceType": "PostgreSql Server",
@@ -244,6 +244,11 @@
 			"resourceType": "Unix User",
 			"resourceName": "ticket_db",
 			"resourceJson": "{\"hashedPassword\":null,\"homeFolder\":null,\"id\":70011,\"keepClearPassword\":false,\"meta\":{},\"name\":\"ticket_db\",\"password\":null,\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":null,\"resourceEditorName\":\"Unix User\",\"resourceName\":\"ticket_db\",\"shell\":\"/bin/bash\"}"
+		},
+		{
+			"resourceType": "Upgrader Item",
+			"resourceName": "Global",
+			"resourceJson": "{\"applied\":[\"V_2020071401_ApachePhp_Set_Memory_Limit\",\"V_2020111101_MariaDB_GenerateUids\",\"V_2019072401_Refresh_Apache\",\"V_2019111401_Refresh_ApachePhp\",\"V_2019061201_Refresh\",\"V_2020112601_Refresh_Apache\",\"V_2020121401_LetsEncrypt_Update_CA_on_new\",\"V_2019123001_Refresh_ApacheJames\",\"V_2019090401_Refresh_InfraConfig\",\"V_2020011401_Refresh_All_Resources_With_Domains\",\"V_2020112602_Refresh_MongoDB\"],\"meta\":{},\"name\":\"Global\",\"resourceCategory\":\"INFRASTRUCTURE\",\"resourceDescription\":\"Upgrader for Global\",\"resourceEditorName\":null,\"resourceName\":\"Global\"}"
 		},
 		{
 			"resourceType": "Url Redirection",
@@ -516,17 +521,17 @@
 		{
 			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
 			"linkType": "UI_USES",
-			"toResourceTypeAndName": "MariaDB Database/infra_ui"
+			"toResourceTypeAndName": "MongoDB Database/infra_ui"
 		},
 		{
 			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
 			"linkType": "UI_USES",
-			"toResourceTypeAndName": "MariaDB Server/infra_ui_db"
+			"toResourceTypeAndName": "MongoDB Server/infra_ui_db"
 		},
 		{
 			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
 			"linkType": "UI_USES",
-			"toResourceTypeAndName": "MariaDB User/infra_ui"
+			"toResourceTypeAndName": "MongoDB User/infra_ui"
 		},
 		{
 			"fromResourceTypeAndName": "Infrastructure Configuration/Infrastructure Configuration",
@@ -542,11 +547,6 @@
 			"fromResourceTypeAndName": "MariaDB Database/infra_login",
 			"linkType": "INSTALLED_ON",
 			"toResourceTypeAndName": "MariaDB Server/infra_login_db"
-		},
-		{
-			"fromResourceTypeAndName": "MariaDB Database/infra_ui",
-			"linkType": "INSTALLED_ON",
-			"toResourceTypeAndName": "MariaDB Server/infra_ui_db"
 		},
 		{
 			"fromResourceTypeAndName": "MariaDB Database/james_server",
@@ -567,16 +567,6 @@
 			"fromResourceTypeAndName": "MariaDB Server/infra_login_db",
 			"linkType": "RUN_AS",
 			"toResourceTypeAndName": "Unix User/infra_login_db"
-		},
-		{
-			"fromResourceTypeAndName": "MariaDB Server/infra_ui_db",
-			"linkType": "INSTALLED_ON",
-			"toResourceTypeAndName": "Machine/h1.example.com"
-		},
-		{
-			"fromResourceTypeAndName": "MariaDB Server/infra_ui_db",
-			"linkType": "RUN_AS",
-			"toResourceTypeAndName": "Unix User/infra_ui_db"
 		},
 		{
 			"fromResourceTypeAndName": "MariaDB Server/james_server_db",
@@ -614,21 +604,6 @@
 			"toResourceTypeAndName": "MariaDB Database/infra_login"
 		},
 		{
-			"fromResourceTypeAndName": "MariaDB User/infra_ui",
-			"linkType": "CAN_ADMIN",
-			"toResourceTypeAndName": "MariaDB Database/infra_ui"
-		},
-		{
-			"fromResourceTypeAndName": "MariaDB User/infra_ui",
-			"linkType": "CAN_READ",
-			"toResourceTypeAndName": "MariaDB Database/infra_ui"
-		},
-		{
-			"fromResourceTypeAndName": "MariaDB User/infra_ui",
-			"linkType": "CAN_WRITE",
-			"toResourceTypeAndName": "MariaDB Database/infra_ui"
-		},
-		{
 			"fromResourceTypeAndName": "MariaDB User/james_server",
 			"linkType": "CAN_ADMIN",
 			"toResourceTypeAndName": "MariaDB Database/james_server"
@@ -657,6 +632,21 @@
 			"fromResourceTypeAndName": "MariaDB User/shop_wordpress",
 			"linkType": "CAN_WRITE",
 			"toResourceTypeAndName": "MariaDB Database/wordpress"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Database/infra_ui",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "MongoDB Server/infra_ui_db"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Server/infra_ui_db",
+			"linkType": "INSTALLED_ON",
+			"toResourceTypeAndName": "Machine/h1.example.com"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB Server/infra_ui_db",
+			"linkType": "RUN_AS",
+			"toResourceTypeAndName": "Unix User/infra_ui_db"
 		},
 		{
 			"fromResourceTypeAndName": "MongoDB Server/ticket_db",
@@ -667,6 +657,21 @@
 			"fromResourceTypeAndName": "MongoDB Server/ticket_db",
 			"linkType": "RUN_AS",
 			"toResourceTypeAndName": "Unix User/ticket_db"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/infra_ui",
+			"linkType": "CAN_ADMIN",
+			"toResourceTypeAndName": "MongoDB Database/infra_ui"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/infra_ui",
+			"linkType": "CAN_READ",
+			"toResourceTypeAndName": "MongoDB Database/infra_ui"
+		},
+		{
+			"fromResourceTypeAndName": "MongoDB User/infra_ui",
+			"linkType": "CAN_WRITE",
+			"toResourceTypeAndName": "MongoDB Database/infra_ui"
 		},
 		{
 			"fromResourceTypeAndName": "PostgreSql Server/gitlab_postgresql",

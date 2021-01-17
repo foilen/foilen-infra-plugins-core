@@ -398,12 +398,7 @@ W1i+QakCZA==\
   \"mailPassword\" : \"myPass\",
   \"mailPort\" : 25,
   \"mailUsername\" : \"myUser\",
-  \"mongoUri\" : \"mongodb://uiuser:qwerty@127.0.0.1:27017/uidb?authSource=admin\",
-  \"mysqlDatabaseName\" : null,
-  \"mysqlDatabasePassword\" : null,
-  \"mysqlDatabaseUserName\" : null,
-  \"mysqlHostName\" : null,
-  \"mysqlPort\" : 3306
+  \"mongoUri\" : \"mongodb://uiuser:qwerty@127.0.0.1:27017/uidb?authSource=admin\"
 }"
           } ]
         } ],
