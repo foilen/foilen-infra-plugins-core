@@ -173,7 +173,9 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
                         // Prepare the config
                         MysqlManagerConfig mysqlManagerConfig = new MysqlManagerConfig();
                         mysqlManagerConfig.setAdmin(new MysqlManagerConfigAdmin("root", server.getRootPassword()));
+                        mysqlManagerConfig.getUsersToIgnore().add(new MysqlManagerConfigUser("root", "localhost"));
                         mysqlManagerConfig.getUsersToIgnore().add(new MysqlManagerConfigUser("root", "%"));
+                        mysqlManagerConfig.getUsersToIgnore().add(new MysqlManagerConfigUser("mariadb.sys", "localhost"));
 
                         Map<String, MysqlManagerConfigPermission> userConfigByName = new HashMap<>();
 

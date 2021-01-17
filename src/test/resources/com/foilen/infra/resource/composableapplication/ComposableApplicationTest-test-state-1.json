@@ -51,7 +51,13 @@ max_allowed_packet	= 500M
   \"databases\" : [ ],
   \"usersToIgnore\" : [ {
     \"name\" : \"root\",
+    \"host\" : \"localhost\"
+  }, {
+    \"name\" : \"root\",
     \"host\" : \"%\"
+  }, {
+    \"name\" : \"mariadb.sys\",
+    \"host\" : \"localhost\"
   } ],
   \"usersPermissions\" : [ ]
 }"

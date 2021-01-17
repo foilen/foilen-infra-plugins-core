@@ -466,7 +466,13 @@ max_allowed_packet	= 500M
   \"databases\" : [ \"infra_login\" ],
   \"usersToIgnore\" : [ {
     \"name\" : \"root\",
+    \"host\" : \"localhost\"
+  }, {
+    \"name\" : \"root\",
     \"host\" : \"%\"
+  }, {
+    \"name\" : \"mariadb.sys\",
+    \"host\" : \"localhost\"
   } ],
   \"usersPermissions\" : [ {
     \"name\" : \"infra_login\",
@@ -670,7 +676,13 @@ max_allowed_packet	= 500M
   \"databases\" : [ \"infra_ui\" ],
   \"usersToIgnore\" : [ {
     \"name\" : \"root\",
+    \"host\" : \"localhost\"
+  }, {
+    \"name\" : \"root\",
     \"host\" : \"%\"
+  }, {
+    \"name\" : \"mariadb.sys\",
+    \"host\" : \"localhost\"
   } ],
   \"usersPermissions\" : [ {
     \"name\" : \"infra_ui\",
@@ -1571,7 +1583,13 @@ max_allowed_packet	= 500M
   \"databases\" : [ \"james_server\" ],
   \"usersToIgnore\" : [ {
     \"name\" : \"root\",
+    \"host\" : \"localhost\"
+  }, {
+    \"name\" : \"root\",
     \"host\" : \"%\"
+  }, {
+    \"name\" : \"mariadb.sys\",
+    \"host\" : \"localhost\"
   } ],
   \"usersPermissions\" : [ {
     \"name\" : \"james_server\",
@@ -1683,7 +1701,13 @@ max_allowed_packet	= 500M
   \"databases\" : [ \"wordpress\" ],
   \"usersToIgnore\" : [ {
     \"name\" : \"root\",
+    \"host\" : \"localhost\"
+  }, {
+    \"name\" : \"root\",
     \"host\" : \"%\"
+  }, {
+    \"name\" : \"mariadb.sys\",
+    \"host\" : \"localhost\"
   } ],
   \"usersPermissions\" : [ {
     \"name\" : \"shop_wordpress\",
