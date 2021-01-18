@@ -184,7 +184,6 @@ memory_limit = 300M
       },
       "description" : "Apache and PHP application",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "my_php",
       "resourceCategory" : "INFRASTRUCTURE",

@@ -58,7 +58,6 @@
       },
       "description" : "null",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "user_db",
       "resourceCategory" : "INFRASTRUCTURE",

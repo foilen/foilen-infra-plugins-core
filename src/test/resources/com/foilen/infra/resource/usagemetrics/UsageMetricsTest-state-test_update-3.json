@@ -54,7 +54,6 @@
       },
       "description" : "Database for Usage Metrics",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "mongoUsage",
       "resourceCategory" : "INFRASTRUCTURE",
@@ -117,7 +116,6 @@
       },
       "description" : "Database for Usage Metrics",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "mongoUsage_manager",
       "resourceCategory" : "INFRASTRUCTURE",
@@ -192,7 +190,6 @@
       },
       "description" : "Usage Agent for f1.example.com",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : {
         "usagemetrics" : "true"
       },
@@ -269,7 +266,6 @@
       },
       "description" : "Usage Agent for f2.example.com",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : {
         "usagemetrics" : "true"
       },
@@ -329,7 +325,6 @@
       },
       "description" : "Central",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "usage_central",
       "resourceCategory" : "INFRASTRUCTURE",

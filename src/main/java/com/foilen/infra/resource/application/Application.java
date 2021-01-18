@@ -15,7 +15,6 @@ import java.util.TreeSet;
 import com.foilen.infra.plugin.v1.model.base.IPApplicationDefinition;
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
-import com.foilen.infra.resource.application.model.ExecutionPolicy;
 import com.foilen.infra.resource.dns.DnsPointer;
 import com.foilen.infra.resource.domain.Domain;
 import com.foilen.infra.resource.machine.Machine;
@@ -48,12 +47,6 @@ public class Application extends AbstractIPResource implements Comparable<Applic
     // Application
     private String name;
     private String description;
-
-    // Execution
-    @Deprecated
-    private ExecutionPolicy executionPolicy = ExecutionPolicy.ALWAYS_ON;
-    @Deprecated
-    private String executionCronDetails;
 
     // Details
     private IPApplicationDefinition applicationDefinition = new IPApplicationDefinition();
@@ -93,16 +86,6 @@ public class Application extends AbstractIPResource implements Comparable<Applic
         return domainNames;
     }
 
-    @Deprecated
-    public String getExecutionCronDetails() {
-        return executionCronDetails;
-    }
-
-    @Deprecated
-    public ExecutionPolicy getExecutionPolicy() {
-        return executionPolicy;
-    }
-
     public String getName() {
         return name;
     }
@@ -132,16 +115,6 @@ public class Application extends AbstractIPResource implements Comparable<Applic
 
     public void setDomainNames(SortedSet<String> domainNames) {
         this.domainNames = domainNames;
-    }
-
-    @Deprecated
-    public void setExecutionCronDetails(String executionCronDetails) {
-        this.executionCronDetails = executionCronDetails;
-    }
-
-    @Deprecated
-    public void setExecutionPolicy(ExecutionPolicy executionPolicy) {
-        this.executionPolicy = executionPolicy;
     }
 
     public void setName(String name) {

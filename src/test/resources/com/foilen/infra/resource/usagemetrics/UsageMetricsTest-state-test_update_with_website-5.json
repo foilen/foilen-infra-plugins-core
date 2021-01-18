@@ -85,7 +85,6 @@ backend http_8080_central.example.com
       },
       "description" : "Web HA Proxy for f1.example.com",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "infra_web-f1_example_com",
       "resourceCategory" : "INFRASTRUCTURE",
@@ -147,7 +146,6 @@ backend http_8080_central.example.com
       },
       "description" : "Database for Usage Metrics",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "mongoUsage",
       "resourceCategory" : "INFRASTRUCTURE",
@@ -210,7 +208,6 @@ backend http_8080_central.example.com
       },
       "description" : "Database for Usage Metrics",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "mongoUsage_manager",
       "resourceCategory" : "INFRASTRUCTURE",
@@ -285,7 +282,6 @@ backend http_8080_central.example.com
       },
       "description" : "Usage Agent for f1.example.com",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : {
         "usagemetrics" : "true"
       },
@@ -362,7 +358,6 @@ backend http_8080_central.example.com
       },
       "description" : "Usage Agent for f2.example.com",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : {
         "usagemetrics" : "true"
       },
@@ -439,7 +434,6 @@ backend http_8080_central.example.com
       },
       "description" : "Usage Agent for f3.example.com",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : {
         "usagemetrics" : "true"
       },
@@ -499,7 +493,6 @@ backend http_8080_central.example.com
       },
       "description" : "Central",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "usage_central",
       "resourceCategory" : "INFRASTRUCTURE",

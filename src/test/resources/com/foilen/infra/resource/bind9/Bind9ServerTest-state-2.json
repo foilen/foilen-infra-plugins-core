@@ -126,7 +126,6 @@ ns2 300 A 192.168.0.200
       },
       "description" : "Bind9 Server",
       "domainNames" : [ "ns1.example.com", "ns2.example.com" ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "myDns_bind9",
       "resourceCategory" : "INFRASTRUCTURE",

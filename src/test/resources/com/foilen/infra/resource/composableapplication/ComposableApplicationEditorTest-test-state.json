@@ -36,7 +36,6 @@
       },
       "description" : "Composable Application",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "my_app",
       "resourceCategory" : "INFRASTRUCTURE",

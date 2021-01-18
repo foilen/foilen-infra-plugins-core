@@ -20,8 +20,6 @@ import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstal
 import com.foilen.infra.resource.composableapplication.parts.AttachableAptInstallEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeId;
 import com.foilen.infra.resource.composableapplication.parts.AttachableContainerUserToChangeIdEditor;
-import com.foilen.infra.resource.composableapplication.parts.AttachableCronJob;
-import com.foilen.infra.resource.composableapplication.parts.AttachableCronJobEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDB;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMariaDBEditor;
 import com.foilen.infra.resource.composableapplication.parts.AttachableMongoDB;
@@ -58,9 +56,6 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addCustomResource(AttachableContainerUserToChangeId.class, AttachableContainerUserToChangeId.RESOURCE_TYPE, //
                 Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_UID), //
                 Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_USERNAME_IN_CONTAINER));
-        pluginDefinition.addCustomResource(AttachableCronJob.class, AttachableCronJob.RESOURCE_TYPE, //
-                Arrays.asList(AttachableCronJob.PROPERTY_NAME), //
-                Collections.emptyList());
         pluginDefinition.addCustomResource(AttachableMariaDB.class, AttachableMariaDB.RESOURCE_TYPE, //
                 Arrays.asList(AttachableMariaDB.PROPERTY_NAME), //
                 Collections.emptyList());
@@ -86,7 +81,6 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         pluginDefinition.addResourceEditor(new ComposableApplicationEditor(), ComposableApplicationEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableAptInstallEditor(), AttachableAptInstallEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableContainerUserToChangeIdEditor(), AttachableContainerUserToChangeIdEditor.EDITOR_NAME);
-        pluginDefinition.addResourceEditor(new AttachableCronJobEditor(), AttachableCronJobEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableMariaDBEditor(), AttachableMariaDBEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachableMongoDBEditor(), AttachableMongoDBEditor.EDITOR_NAME);
         pluginDefinition.addResourceEditor(new AttachablePortRedirectEditor(), AttachablePortRedirectEditor.EDITOR_NAME);

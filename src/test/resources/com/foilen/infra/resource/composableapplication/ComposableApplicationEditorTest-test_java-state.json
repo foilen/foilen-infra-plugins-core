@@ -62,7 +62,6 @@
       },
       "description" : "Composable Application",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "my_java_app",
       "resourceCategory" : "INFRASTRUCTURE",

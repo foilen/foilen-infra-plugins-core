@@ -110,7 +110,6 @@ max_allowed_packet	= 500M
       },
       "description" : "null",
       "domainNames" : [ ],
-      "executionPolicy" : "ALWAYS_ON",
       "meta" : { },
       "name" : "user_db",
       "resourceCategory" : "INFRASTRUCTURE",

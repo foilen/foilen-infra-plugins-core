@@ -85,8 +85,6 @@
   },
   "description" : "Apache and PHP application",
   "domainNames" : [ ],
-  "executionCronDetails" : null,
-  "executionPolicy" : "ALWAYS_ON",
   "meta" : { },
   "name" : "testing",
   "resourceCategory" : "INFRASTRUCTURE",

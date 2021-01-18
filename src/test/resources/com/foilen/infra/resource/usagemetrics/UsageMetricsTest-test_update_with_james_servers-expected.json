@@ -64,8 +64,6 @@
   },
   "description" : "Usage Agent for f1.example.com",
   "domainNames" : [ ],
-  "executionCronDetails" : null,
-  "executionPolicy" : "ALWAYS_ON",
   "meta" : {
     "usagemetrics" : "true"
   },
@@ -147,8 +145,6 @@
   },
   "description" : "Usage Agent for f2.example.com",
   "domainNames" : [ ],
-  "executionCronDetails" : null,
-  "executionPolicy" : "ALWAYS_ON",
   "meta" : {
     "usagemetrics" : "true"
   },
