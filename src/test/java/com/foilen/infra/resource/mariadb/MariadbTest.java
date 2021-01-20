@@ -15,6 +15,7 @@ import com.foilen.infra.plugin.v1.core.context.ChangesContext;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.model.resource.LinkTypeConstants;
 import com.foilen.infra.resource.test.AbstractCorePluginTest;
+import com.foilen.smalltools.tools.JsonTools;
 
 public class MariadbTest extends AbstractCorePluginTest {
 
@@ -117,6 +118,69 @@ public class MariadbTest extends AbstractCorePluginTest {
         changes.linkAdd(database1, LinkTypeConstants.INSTALLED_ON, server1);
 
         getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+    }
+
+    @Test(expected = IllegalUpdateException.class)
+    public void test_renaming_2_FAIL() {
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+
+        MariaDBUser user1 = new MariaDBUser("wp");
+        changes.resourceAdd(user1);
+
+        MariaDBDatabase database1 = new MariaDBDatabase("wordpress");
+        changes.resourceAdd(database1);
+
+        changes.linkAdd(user1, MariaDBUser.LINK_TYPE_ADMIN, database1);
+        changes.linkAdd(user1, MariaDBUser.LINK_TYPE_READ, database1);
+        changes.linkAdd(user1, MariaDBUser.LINK_TYPE_WRITE, database1);
+
+        MariaDBServer server1 = new MariaDBServer("server1");
+        changes.resourceAdd(server1);
+
+        changes.linkAdd(database1, LinkTypeConstants.INSTALLED_ON, server1);
+
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Do the renaming
+        changes.clear();
+        server1 = getCommonServicesContext().getResourceService().resourceFindByPk(server1).get();
+        server1.setName("wordpress_newname");
+        changes.resourceUpdate(server1);
+
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+    }
+
+    @Test(expected = IllegalUpdateException.class)
+    public void test_renaming_FAIL() {
+        ChangesContext changes = new ChangesContext(getCommonServicesContext().getResourceService());
+
+        MariaDBUser user1 = new MariaDBUser("wp");
+        changes.resourceAdd(user1);
+
+        MariaDBDatabase database1 = new MariaDBDatabase("wordpress");
+        changes.resourceAdd(database1);
+
+        changes.linkAdd(user1, MariaDBUser.LINK_TYPE_ADMIN, database1);
+        changes.linkAdd(user1, MariaDBUser.LINK_TYPE_READ, database1);
+        changes.linkAdd(user1, MariaDBUser.LINK_TYPE_WRITE, database1);
+
+        MariaDBServer server1 = new MariaDBServer("server1");
+        changes.resourceAdd(server1);
+
+        changes.linkAdd(database1, LinkTypeConstants.INSTALLED_ON, server1);
+
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
+        // Do the renaming
+        changes.clear();
+        server1 = getCommonServicesContext().getResourceService().resourceFindByPk(server1).get();
+        MariaDBServer renamed = JsonTools.clone(server1);
+        renamed.setName("wordpress_newname");
+        changes.resourceUpdate(server1, renamed);
+
+        getInternalServicesContext().getInternalChangeService().changesExecute(changes);
+
     }
 
 }

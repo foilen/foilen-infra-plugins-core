@@ -23,6 +23,7 @@ import com.foilen.infra.plugin.v1.core.eventhandler.ActionHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.ChangesEventHandler;
 import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransactionContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerResourceStream;
+import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.exception.ProblemException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
@@ -44,6 +45,7 @@ import com.foilen.infra.resource.utils.ActionsHandlerUtils;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.JsonTools;
 import com.foilen.smalltools.tools.SecureRandomTools;
+import com.foilen.smalltools.tools.StringTools;
 import com.google.common.base.Strings;
 
 public class MariaDBChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
@@ -130,6 +132,20 @@ public class MariaDBChangesEventHandler extends AbstractBasics implements Change
         serversStream.resourcesAddNextOfType(changesInTransactionContext.getLastUpdatedResources());
         serversStream.linksAddFromAndTo(changesInTransactionContext.getLastAddedLinks());
         serversStream.linksAddFromAndTo(changesInTransactionContext.getLastDeletedLinks());
+
+        // Server - Don't allow renaming
+        ChangesEventHandlerUtils.getNextResourcesOfTypeStream(changesInTransactionContext.getLastUpdatedResources(), MariaDBServer.class) //
+                .forEach(resource -> {
+
+                    MariaDBServer previous = (MariaDBServer) resource.getPrevious();
+                    MariaDBServer next = (MariaDBServer) resource.getNext();
+                    logger.info("Mariadb server. Previous name {} and new name {}", previous.getName(), next.getName());
+
+                    if (!StringTools.safeEquals(previous.getName(), next.getName())) {
+                        throw new IllegalUpdateException("Cannot change the MariaDB Server name");
+                    }
+
+                });
 
         // Unix user that changed
         ChangesEventHandlerResourceStream<UnixUser> unixUserStream = new ChangesEventHandlerResourceStream<>(UnixUser.class);
