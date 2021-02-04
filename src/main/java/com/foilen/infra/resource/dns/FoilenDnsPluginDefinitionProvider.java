@@ -35,17 +35,9 @@ public class FoilenDnsPluginDefinitionProvider implements IPPluginDefinitionProv
                         DnsEntry.PROPERTY_NAME, //
                         DnsEntry.PROPERTY_TYPE, //
                         DnsEntry.PROPERTY_DETAILS //
-                ), //
-                Arrays.asList( //
-                        DnsEntry.PROPERTY_NAME, //
-                        DnsEntry.PROPERTY_TYPE, //
-                        DnsEntry.PROPERTY_DETAILS //
                 ));
 
         pluginDefinitionV1.addCustomResource(DnsPointer.class, DnsPointer.RESOURCE_TYPE, //
-                Arrays.asList( //
-                        DnsPointer.PROPERTY_NAME //
-                ), //
                 Arrays.asList( //
                         DnsPointer.PROPERTY_NAME //
                 ));

@@ -31,11 +31,7 @@ public class FoilenPostgreSqlPluginDefinitionProvider implements IPPluginDefinit
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "PostgreSql", "To manage PostgreSql databases", version);
 
         pluginDefinitionV1.addCustomResource(PostgreSqlServer.class, PostgreSqlServer.RESOURCE_TYPE, //
-                Arrays.asList(PostgreSqlServer.PROPERTY_NAME), //
-                Arrays.asList( //
-                        PostgreSqlServer.PROPERTY_NAME, //
-                        PostgreSqlServer.PROPERTY_DESCRIPTION //
-                ));
+                Arrays.asList(PostgreSqlServer.PROPERTY_NAME));
 
         // Resource editors
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/postgresql/messages");

@@ -31,25 +31,13 @@ public class FoilenMongoDBPluginDefinitionProvider implements IPPluginDefinition
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "MongoDB", "To manage MongoDB databases", version);
 
         pluginDefinitionV1.addCustomResource(MongoDBServer.class, MongoDBServer.RESOURCE_TYPE, //
-                Arrays.asList(MongoDBServer.PROPERTY_NAME), //
-                Arrays.asList( //
-                        MongoDBServer.PROPERTY_NAME, //
-                        MongoDBServer.PROPERTY_DESCRIPTION //
-                ));
+                Arrays.asList(MongoDBServer.PROPERTY_NAME));
 
         pluginDefinitionV1.addCustomResource(MongoDBDatabase.class, MongoDBDatabase.RESOURCE_TYPE, //
-                Arrays.asList(MongoDBDatabase.PROPERTY_NAME), //
-                Arrays.asList( //
-                        MongoDBDatabase.PROPERTY_NAME, //
-                        MongoDBDatabase.PROPERTY_DESCRIPTION //
-                ));
+                Arrays.asList(MongoDBDatabase.PROPERTY_NAME));
 
         pluginDefinitionV1.addCustomResource(MongoDBUser.class, MongoDBUser.RESOURCE_TYPE, //
-                Arrays.asList(MongoDBUser.PROPERTY_NAME), //
-                Arrays.asList( //
-                        MongoDBUser.PROPERTY_NAME, //
-                        MongoDBUser.PROPERTY_DESCRIPTION //
-                ));
+                Arrays.asList(MongoDBUser.PROPERTY_NAME));
 
         // Resource editors
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/mongodb/messages");

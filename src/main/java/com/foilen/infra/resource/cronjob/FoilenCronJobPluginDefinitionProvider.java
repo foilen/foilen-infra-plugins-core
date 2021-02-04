@@ -31,9 +31,7 @@ public class FoilenCronJobPluginDefinitionProvider implements IPPluginDefinition
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "CronJob", "To manage cron jobs", version);
 
         pluginDefinitionV1.addCustomResource(CronJob.class, CronJob.RESOURCE_TYPE, //
-                Arrays.asList(CronJob.PROPERTY_UID), //
-                Arrays.asList( //
-                        CronJob.PROPERTY_UID));
+                Arrays.asList(CronJob.PROPERTY_UID));
 
         // Resource editors
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/cronjob/messages");

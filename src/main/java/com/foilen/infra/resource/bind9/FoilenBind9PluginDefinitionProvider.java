@@ -10,7 +10,6 @@
 package com.foilen.infra.resource.bind9;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionProvider;
 import com.foilen.infra.plugin.v1.core.plugin.IPPluginDefinitionV1;
@@ -30,8 +29,7 @@ public class FoilenBind9PluginDefinitionProvider implements IPPluginDefinitionPr
         IPPluginDefinitionV1 pluginDefinition = new IPPluginDefinitionV1("Foilen", "DNS - Bind9", "A Bind9 DNS server that uses all the DnsEntries", version);
 
         pluginDefinition.addCustomResource(Bind9Server.class, Bind9Server.RESOURCE_TYPE, //
-                Arrays.asList(Bind9Server.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(Bind9Server.PROPERTY_NAME));
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/bind9/messages");

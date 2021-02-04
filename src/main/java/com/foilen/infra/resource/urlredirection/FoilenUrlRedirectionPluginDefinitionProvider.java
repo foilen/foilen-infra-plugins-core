@@ -33,11 +33,6 @@ public class FoilenUrlRedirectionPluginDefinitionProvider implements IPPluginDef
         pluginDefinitionV1.addCustomResource(UrlRedirection.class, UrlRedirection.RESOURCE_TYPE, //
                 Arrays.asList( //
                         UrlRedirection.PROPERTY_DOMAIN_NAME //
-                ), //
-                Arrays.asList( //
-                        UrlRedirection.PROPERTY_DOMAIN_NAME, //
-                        UrlRedirection.PROPERTY_HTTP_REDIRECT_TO_URL, //
-                        UrlRedirection.PROPERTY_HTTPS_REDIRECT_TO_URL //
                 ));
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/urlredirection/messages");

@@ -11,7 +11,6 @@ package com.foilen.infra.resource.letsencrypt.plugin;
 
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
@@ -33,11 +32,9 @@ public class FoilenLetsencryptPluginDefinitionProvider implements IPPluginDefini
         IPPluginDefinitionV1 pluginDefinition = new IPPluginDefinitionV1("Foilen", "Lets Encrypt", "Automatically retrieve letsencrypt certificates", version);
 
         pluginDefinition.addCustomResource(LetsencryptConfig.class, LetsencryptConfig.RESOURCE_TYPE, //
-                Arrays.asList(LetsencryptConfig.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(LetsencryptConfig.PROPERTY_NAME));
         pluginDefinition.addCustomResource(LetsEncryptWithFileAttachable.class, LetsEncryptWithFileAttachable.RESOURCE_TYPE, //
-                Arrays.asList(LetsEncryptWithFileAttachable.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(LetsEncryptWithFileAttachable.PROPERTY_NAME));
 
         pluginDefinition.addTimer(new LetsEncryptRefreshOldCertsBeginTimer(), //
                 LetsEncryptRefreshOldCertsBeginTimer.TIMER_NAME, //

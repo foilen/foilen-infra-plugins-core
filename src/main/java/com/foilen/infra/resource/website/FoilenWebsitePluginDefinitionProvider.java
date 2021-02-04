@@ -33,10 +33,6 @@ public class FoilenWebsitePluginDefinitionProvider implements IPPluginDefinition
         pluginDefinitionV1.addCustomResource(Website.class, Website.RESOURCE_TYPE, //
                 Arrays.asList( //
                         Website.PROPERTY_NAME //
-                ), //
-                Arrays.asList( //
-                        Website.PROPERTY_NAME, //
-                        Website.PROPERTY_DOMAIN_NAMES //
                 ));
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/website/messages");

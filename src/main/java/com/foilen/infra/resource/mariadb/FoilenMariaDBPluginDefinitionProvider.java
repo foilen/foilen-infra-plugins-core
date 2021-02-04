@@ -31,26 +31,13 @@ public class FoilenMariaDBPluginDefinitionProvider implements IPPluginDefinition
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "MariaDB", "To manage MariaDB databases", version);
 
         pluginDefinitionV1.addCustomResource(MariaDBServer.class, MariaDBServer.RESOURCE_TYPE, //
-                Arrays.asList(MariaDBServer.PROPERTY_NAME), //
-                Arrays.asList( //
-                        MariaDBServer.PROPERTY_NAME, //
-                        MariaDBServer.PROPERTY_DESCRIPTION, //
-                        MariaDBServer.PROPERTY_VERSION //
-                ));
+                Arrays.asList(MariaDBServer.PROPERTY_NAME));
 
         pluginDefinitionV1.addCustomResource(MariaDBDatabase.class, MariaDBDatabase.RESOURCE_TYPE, //
-                Arrays.asList(MariaDBDatabase.PROPERTY_UID), //
-                Arrays.asList( //
-                        MariaDBDatabase.PROPERTY_NAME, //
-                        MariaDBDatabase.PROPERTY_DESCRIPTION //
-                ));
+                Arrays.asList(MariaDBDatabase.PROPERTY_UID));
 
         pluginDefinitionV1.addCustomResource(MariaDBUser.class, MariaDBUser.RESOURCE_TYPE, //
-                Arrays.asList(MariaDBUser.PROPERTY_UID), //
-                Arrays.asList( //
-                        MariaDBUser.PROPERTY_NAME, //
-                        MariaDBUser.PROPERTY_DESCRIPTION //
-                ));
+                Arrays.asList(MariaDBUser.PROPERTY_UID));
 
         // Resource editors
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/mariadb/messages");

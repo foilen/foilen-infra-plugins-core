@@ -31,11 +31,9 @@ public class FoilenInfraConfigPluginDefinitionProvider implements IPPluginDefini
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "Infra Config", "To manage infra configuration", version);
 
         pluginDefinitionV1.addCustomResource(InfraConfig.class, InfraConfig.RESOURCE_TYPE, //
-                Arrays.asList(), //
                 Arrays.asList());
         pluginDefinitionV1.addCustomResource(InfraConfigPlugin.class, InfraConfigPlugin.RESOURCE_TYPE, //
-                Arrays.asList(InfraConfigPlugin.PROPERTY_URL), //
-                Arrays.asList());
+                Arrays.asList(InfraConfigPlugin.PROPERTY_URL));
 
         // Resource editors
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/infraconfig/messages");

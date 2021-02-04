@@ -10,7 +10,6 @@
 package com.foilen.infra.resource.apachephp;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
@@ -32,14 +31,11 @@ public class FoilenApachePhpPluginDefinitionProvider implements IPPluginDefiniti
         IPPluginDefinitionV1 pluginDefinition = new IPPluginDefinitionV1("Foilen", "Apache and PHP", "To create web sites", version);
 
         pluginDefinition.addCustomResource(ApachePhp.class, ApachePhp.RESOURCE_TYPE, //
-                Arrays.asList(ApachePhp.PROPERTY_NAME), //
-                Arrays.asList(ApachePhp.PROPERTY_VERSION));
+                Arrays.asList(ApachePhp.PROPERTY_NAME));
         pluginDefinition.addCustomResource(ApachePhpFolder.class, ApachePhpFolder.RESOURCE_TYPE, true, //
-                Arrays.asList(ApachePhpFolder.PROPERTY_UID), //
-                Collections.emptyList());
+                Arrays.asList(ApachePhpFolder.PROPERTY_UID));
         pluginDefinition.addCustomResource(ApachePhpHtPasswd.class, ApachePhpHtPasswd.RESOURCE_TYPE, true, //
-                Arrays.asList(ApachePhpHtPasswd.PROPERTY_UID), //
-                Collections.emptyList());
+                Arrays.asList(ApachePhpHtPasswd.PROPERTY_UID));
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/apachephp/messages");

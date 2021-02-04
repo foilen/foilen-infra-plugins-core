@@ -10,7 +10,6 @@
 package com.foilen.infra.resource.global;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
@@ -43,8 +42,7 @@ public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionP
         IPPluginDefinitionV1 pluginDefinition = new IPPluginDefinitionV1("Foilen", "Global", "Some global handlers", version);
 
         pluginDefinition.addCustomResource(UpgraderItem.class, UpgraderItem.RESOURCE_TYPE, //
-                Arrays.asList(UpgraderItem.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(UpgraderItem.PROPERTY_NAME));
 
         pluginDefinition.addTranslations("/com/foilen/infra/resource/global/messages");
         pluginDefinition.addResourceEditor(new UpgraderItemEditor(), UpgraderItemEditor.EDITOR_NAME);

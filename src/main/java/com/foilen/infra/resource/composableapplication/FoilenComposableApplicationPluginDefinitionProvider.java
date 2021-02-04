@@ -10,7 +10,6 @@
 package com.foilen.infra.resource.composableapplication;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
@@ -48,33 +47,23 @@ public class FoilenComposableApplicationPluginDefinitionProvider implements IPPl
         IPPluginDefinitionV1 pluginDefinition = new IPPluginDefinitionV1("Foilen", "Application - Composable", "A way to create application by attaching parts", version);
 
         pluginDefinition.addCustomResource(ComposableApplication.class, ComposableApplication.RESOURCE_TYPE, //
-                Arrays.asList(ComposableApplication.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(ComposableApplication.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachableAptInstall.class, AttachableAptInstall.RESOURCE_TYPE, //
-                Arrays.asList(AttachableAptInstall.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(AttachableAptInstall.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachableContainerUserToChangeId.class, AttachableContainerUserToChangeId.RESOURCE_TYPE, //
-                Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_UID), //
-                Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_USERNAME_IN_CONTAINER));
+                Arrays.asList(AttachableContainerUserToChangeId.PROPERTY_UID));
         pluginDefinition.addCustomResource(AttachableMariaDB.class, AttachableMariaDB.RESOURCE_TYPE, //
-                Arrays.asList(AttachableMariaDB.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(AttachableMariaDB.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachableMongoDB.class, AttachableMongoDB.RESOURCE_TYPE, //
-                Arrays.asList(AttachableMongoDB.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(AttachableMongoDB.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachablePortRedirect.class, AttachablePortRedirect.RESOURCE_TYPE, //
-                Arrays.asList(AttachablePortRedirect.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(AttachablePortRedirect.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachablePostgreSql.class, AttachablePostgreSql.RESOURCE_TYPE, //
-                Arrays.asList(AttachablePostgreSql.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(AttachablePostgreSql.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachableService.class, AttachableService.RESOURCE_TYPE, //
-                Arrays.asList(AttachableService.PROPERTY_NAME), //
-                Collections.emptyList());
+                Arrays.asList(AttachableService.PROPERTY_NAME));
         pluginDefinition.addCustomResource(AttachableVolume.class, AttachableVolume.RESOURCE_TYPE, true, //
-                Arrays.asList(AttachableVolume.PROPERTY_UID), //
-                Arrays.asList(AttachableVolume.PROPERTY_HOST_FOLDER, AttachableVolume.PROPERTY_CONTAINER_FOLDER) //
-        );
+                Arrays.asList(AttachableVolume.PROPERTY_UID));
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/composableapplication/messages");

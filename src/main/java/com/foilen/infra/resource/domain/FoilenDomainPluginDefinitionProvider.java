@@ -33,9 +33,6 @@ public class FoilenDomainPluginDefinitionProvider implements IPPluginDefinitionP
         pluginDefinitionV1.addCustomResource(Domain.class, Domain.RESOURCE_TYPE, //
                 Arrays.asList( //
                         Domain.PROPERTY_NAME //
-                ), //
-                Arrays.asList( //
-                        Domain.PROPERTY_NAME //
                 ));
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/domain/messages");

@@ -10,7 +10,6 @@
 package com.foilen.infra.resource.usagemetrics;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import com.foilen.infra.plugin.v1.core.context.CommonServicesContext;
 import com.foilen.infra.plugin.v1.core.context.internal.InternalServicesContext;
@@ -35,8 +34,7 @@ public class FoilenUsageMetricsPluginDefinitionProvider implements IPPluginDefin
         IPPluginDefinitionV1 pluginDefinition = new IPPluginDefinitionV1("Foilen", "Usage Metrics", "To manage the usage metrics", version);
 
         pluginDefinition.addCustomResource(UsageMetricsConfig.class, UsageMetricsConfig.RESOURCE_TYPE, //
-                Arrays.asList(UsageMetricsConfig.PROPERTY_UID), //
-                Collections.emptyList());
+                Arrays.asList(UsageMetricsConfig.PROPERTY_UID));
 
         // Resource editors
         pluginDefinition.addTranslations("/com/foilen/infra/resource/usagemetrics/messages");

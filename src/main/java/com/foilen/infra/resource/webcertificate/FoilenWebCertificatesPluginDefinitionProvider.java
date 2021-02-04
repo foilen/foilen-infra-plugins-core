@@ -32,14 +32,7 @@ public class FoilenWebCertificatesPluginDefinitionProvider implements IPPluginDe
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "Web Certificate", "To manage web certificates", version);
 
         pluginDefinitionV1.addCustomResource(WebsiteCertificate.class, WebsiteCertificate.RESOURCE_TYPE, //
-                Arrays.asList(WebsiteCertificate.PROPERTY_THUMBPRINT), //
-                Arrays.asList( //
-                        WebsiteCertificate.PROPERTY_THUMBPRINT, //
-                        WebsiteCertificate.PROPERTY_DOMAIN_NAMES, //
-                        WebsiteCertificate.PROPERTY_CA_CERTIFICATE, //
-                        WebsiteCertificate.PROPERTY_START, //
-                        WebsiteCertificate.PROPERTY_END //
-                ));
+                Arrays.asList(WebsiteCertificate.PROPERTY_THUMBPRINT));
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/webcertificate/messages");
         pluginDefinitionV1.addResourceEditor(new ManualWebsiteCertificateEditor(), ManualWebsiteCertificateEditor.EDITOR_NAME);

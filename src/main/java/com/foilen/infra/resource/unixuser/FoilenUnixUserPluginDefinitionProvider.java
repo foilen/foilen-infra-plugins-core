@@ -32,19 +32,9 @@ public class FoilenUnixUserPluginDefinitionProvider implements IPPluginDefinitio
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "Unix User", "To manage unix users", version);
 
         pluginDefinitionV1.addCustomResource(UnixUser.class, UnixUser.RESOURCE_TYPE, //
-                Arrays.asList(UnixUser.PROPERTY_ID), //
-                Arrays.asList( //
-                        UnixUser.PROPERTY_NAME, //
-                        UnixUser.PROPERTY_HOME_FOLDER, //
-                        UnixUser.PROPERTY_SHELL //
-                ));
+                Arrays.asList(UnixUser.PROPERTY_ID));
         pluginDefinitionV1.addCustomResource(SystemUnixUser.class, SystemUnixUser.RESOURCE_TYPE, //
-                Arrays.asList(UnixUser.PROPERTY_ID), //
-                Arrays.asList( //
-                        UnixUser.PROPERTY_NAME, //
-                        UnixUser.PROPERTY_HOME_FOLDER, //
-                        UnixUser.PROPERTY_SHELL //
-                ));
+                Arrays.asList(UnixUser.PROPERTY_ID));
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/unixuser/messages");
         pluginDefinitionV1.addResourceEditor(new UnixUserEditor(), UnixUserEditor.EDITOR_NAME);

@@ -31,11 +31,7 @@ public class FoilenMachinePluginDefinitionProvider implements IPPluginDefinition
         IPPluginDefinitionV1 pluginDefinitionV1 = new IPPluginDefinitionV1("Foilen", "Machine", "To manage machines", version);
 
         pluginDefinitionV1.addCustomResource(Machine.class, Machine.RESOURCE_TYPE, //
-                Arrays.asList(Machine.PROPERTY_NAME), //
-                Arrays.asList( //
-                        Machine.PROPERTY_NAME, //
-                        Machine.PROPERTY_PUBLIC_IP //
-                ));
+                Arrays.asList(Machine.PROPERTY_NAME));
 
         pluginDefinitionV1.addTranslations("/com/foilen/infra/resource/machine/messages");
         pluginDefinitionV1.addResourceEditor(new MachineEditor(), MachineEditor.EDITOR_NAME);
