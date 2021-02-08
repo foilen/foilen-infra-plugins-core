@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import com.foilen.databasetools.connection.JdbcUriConfigConnection;
 import com.foilen.databasetools.manage.mongodb.MongodbManagerConfig;
@@ -197,6 +198,10 @@ public class MongoDBChangesEventHandler extends AbstractBasics implements Change
                         MongodbManagerConfig managerConfig = new MongodbManagerConfig();
                         managerConfig.setConnection(new JdbcUriConfigConnection().setJdbcUri("jdbc:mongodb://root:" + server.getRootPassword() + "@127.0.0.1:27017/"));
                         managerConfig.setDatabases(new ArrayList<>());
+                        managerConfig.setGlobalClusterRoles(new TreeMap<>());
+                        managerConfig.setGlobalDatabaseRoles(new TreeMap<>());
+                        managerConfig.setRoleByDatabase(new TreeMap<>());
+                        managerConfig.setUsersPermissions(new ArrayList<>());
                         managerConfig.setUsersToIgnore(Arrays.asList(new MongodbManagerConfigUser("admin", "root")));
 
                         Map<String, List<MongodbManagerConfigCollectionPrivilege>> privilegesByRole = new HashMap<>();

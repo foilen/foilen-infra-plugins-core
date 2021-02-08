@@ -23,10 +23,17 @@ export VERSION=$1
 ./step-update-copyrights.sh
 ./step-clean-compile.sh
 ./step-verify-jar.sh
-./step-upload-bintray.sh
+./step-upload-ossrh.sh
 ./step-git-tag.sh
 
 echo ----[ Operation completed successfully ]----
 
 echo
+echo To deploy the new release:
+echo '- go on https://oss.sonatype.org/#stagingRepositories'
+echo '- close it (wait for it to be closed)'
+echo '- release it'
+echo 
+echo Then, can see published items on 
+echo https://repo1.maven.org/maven2/com/foilen/foilen-infra-plugins-core/
 echo You can send the tag: git push --tags

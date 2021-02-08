@@ -1,40 +1,29 @@
-buildscript {
-  repositories {
-    mavenLocal()
-    jcenter()
-  }
-}
-
 plugins {
   id "com.github.johnrengelman.shadow" version "$shadowVersion"
-  id "com.jfrog.bintray" version "$bintrayVersion"
   id 'io.spring.dependency-management' version "$springDependencyManagementVersion"
 }
 
 apply plugin: 'eclipse'
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
-
-dependencyManagement {
-	imports {
-		mavenBom "org.springframework.boot:spring-boot-dependencies:$springBootVersion"
-	}
-}
+apply plugin: 'signing'
 
 group = 'com.foilen'
 version = System.getenv('VERSION')?:'master-SNAPSHOT'
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 repositories {
   mavenLocal()
   mavenCentral()
-  jcenter()
-  maven {
-  	url 'https://dl.bintray.com/foilen/maven'
-  }
 }
 
 sourceCompatibility = 11
+
+dependencyManagement {
+  imports {
+    mavenBom "org.springframework.boot:spring-boot-starter-parent:$springBootVersion"
+  }
+}
 
 eclipse {
   classpath {
@@ -91,25 +80,56 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 
 artifacts {
-  archives sourcesJar
-  archives javadocJar
+  archives javadocJar, sourcesJar
 }
 
-bintray {
-  user = System.getenv('BINTRAY_USER')
-  key = System.getenv('BINTRAY_KEY')
+signing {
+  required { isReleaseVersion && gradle.taskGraph.hasTask(":uploadArchives") }
+  sign configurations.archives
+}
 
-  publish = true
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-  pkg {
-    repo = 'maven'
-    userOrg = 'foilen'
-    name = 'com.foilen:foilen-infra-plugins-core'
-    licenses = ['MIT']
-    vcsUrl = 'https://github.com/foilen/foilen-infra-plugins-core.git'
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: System.getenv('OSSRH_USER'), password: System.getenv('OSSRH_PASS'))
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: System.getenv('OSSRH_USER'), password: System.getenv('OSSRH_PASS'))
+      }
+
+      pom.project {
+        name = "foilen-infra-plugins-core"
+        packaging 'jar'
+        artifactId 'foilen-infra-plugins-core'
+        description 'The basics resources with their validations'
+        url 'https://github.com/foilen/foilen-infra-plugins-core'
+
+        scm {
+          connection = "scm:git:git@github.com:foilen/foilen-infra-plugins-core.git"
+          url = "https://github.com/foilen/foilen-infra-plugins-core"
+        }
+
+        licenses {
+          license {
+            name = "MIT"
+            url = "https://opensource.org/licenses/MIT"
+          }
+        }
+
+        developers {
+          developer {
+            id 'foilen'
+            name 'Simon Levesque'
+            email 'simon@foilen.com'
+          }
+        }
+      }
+    }
   }
-
-  publications = ['MyPublication']
 }
 
 task outputVersion {
@@ -121,16 +141,4 @@ task outputVersion {
 processResources.dependsOn outputVersion
 
 install.dependsOn shadowJar
-bintrayUpload.dependsOn shadowJar
-
-publishing {
-  publications {
-    MyPublication(MavenPublication) {
-      from components.java
-      artifact sourcesJar
-      artifact javadocJar
-      groupId 'com.foilen'
-      artifactId 'foilen-infra-plugins-core'
-    }
-  }
-}
+uploadArchives.dependsOn shadowJar
