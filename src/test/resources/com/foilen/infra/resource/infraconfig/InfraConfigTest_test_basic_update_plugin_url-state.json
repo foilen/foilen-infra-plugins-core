@@ -362,6 +362,10 @@ max_allowed_packet	= 500M
             "b" : "{
   \"baseUrl\" : \"https://ui.example.com\",
   \"csrfSalt\" : \"ZZZYYYXXX\",
+  \"externalJsScripts\" : {
+    \"en\" : [ ],
+    \"fr\" : [ ]
+  },
   \"infiniteLoopTimeoutInMs\" : 120000,
   \"loginConfigDetails\" : {
     \"appId\" : \"infra\",
@@ -1121,6 +1125,8 @@ backend http_8080_ui.example.com
       "uiDebug" : true,
       "uiDomainName" : "ui.example.com",
       "uiEmailFrom" : "fromui@example.com",
+      "uiExternalJsScriptsEn" : [ ],
+      "uiExternalJsScriptsFr" : [ ],
       "uiInfiniteLoopTimeoutInMs" : 120000,
       "uiLoginCookieSignatureSalt" : "WWWVVVUUU",
       "uiVersion" : "0.1.1"

@@ -9,6 +9,10 @@
  */
 package com.foilen.infra.resource.infraconfig.model;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.foilen.infra.plugin.v1.model.infra.InfraLoginConfigDetails;
@@ -41,12 +45,19 @@ public class InfraUiConfig {
     // Security
     private String csrfSalt;
 
+    // Extra
+    private Map<String, List<String>> externalJsScripts = new HashMap<>();
+
     public String getBaseUrl() {
         return baseUrl;
     }
 
     public String getCsrfSalt() {
         return csrfSalt;
+    }
+
+    public Map<String, List<String>> getExternalJsScripts() {
+        return externalJsScripts;
     }
 
     public Long getInfiniteLoopTimeoutInMs() {
@@ -95,6 +106,10 @@ public class InfraUiConfig {
 
     public void setCsrfSalt(String csrfSalt) {
         this.csrfSalt = csrfSalt;
+    }
+
+    public void setExternalJsScripts(Map<String, List<String>> externalJsScripts) {
+        this.externalJsScripts = externalJsScripts;
     }
 
     public void setInfiniteLoopTimeoutInMs(Long infiniteLoopTimeoutInMs) {

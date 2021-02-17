@@ -9,6 +9,9 @@
  */
 package com.foilen.infra.resource.infraconfig;
 
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 import com.foilen.infra.plugin.v1.model.resource.AbstractIPResource;
 import com.foilen.infra.plugin.v1.model.resource.InfraPluginResourceCategory;
 
@@ -70,6 +73,8 @@ public class InfraConfig extends AbstractIPResource {
     public static final String PROPERTY_UI_VERSION = "uiVersion";
     public static final String PROPERTY_UI_DEBUG = "uiDebug";
     public static final String PROPERTY_UI_INFINITE_LOOP_TIMEOUT_IN_MS = "uiInfiniteLoopTimeoutInMs";
+    public static final String PROPERTY_UI_EXTERNAL_JS_SCRIPTS_EN = "uiExternalJsScriptsEn";
+    public static final String PROPERTY_UI_EXTERNAL_JS_SCRIPTS_FR = "uiExternalJsScriptsFr";
 
     // Common
     private String applicationId;
@@ -95,6 +100,8 @@ public class InfraConfig extends AbstractIPResource {
     private String uiVersion;
     private boolean uiDebug;
     private Long uiInfiniteLoopTimeoutInMs = 120000L;
+    private SortedSet<String> uiExternalJsScriptsEn = new TreeSet<>(); // TODO +++ hook
+    private SortedSet<String> uiExternalJsScriptsFr = new TreeSet<>(); // TODO +++ hook
 
     public InfraConfig() {
     }
@@ -172,6 +179,14 @@ public class InfraConfig extends AbstractIPResource {
 
     public String getUiEmailFrom() {
         return uiEmailFrom;
+    }
+
+    public SortedSet<String> getUiExternalJsScriptsEn() {
+        return uiExternalJsScriptsEn;
+    }
+
+    public SortedSet<String> getUiExternalJsScriptsFr() {
+        return uiExternalJsScriptsFr;
     }
 
     public Long getUiInfiniteLoopTimeoutInMs() {
@@ -252,6 +267,14 @@ public class InfraConfig extends AbstractIPResource {
 
     public void setUiEmailFrom(String uiEmailFrom) {
         this.uiEmailFrom = uiEmailFrom;
+    }
+
+    public void setUiExternalJsScriptsEn(SortedSet<String> uiExternalJsScriptsEn) {
+        this.uiExternalJsScriptsEn = uiExternalJsScriptsEn;
+    }
+
+    public void setUiExternalJsScriptsFr(SortedSet<String> uiExternalJsScriptsFr) {
+        this.uiExternalJsScriptsFr = uiExternalJsScriptsFr;
     }
 
     public void setUiInfiniteLoopTimeoutInMs(Long uiInfiniteLoopTimeoutInMs) {

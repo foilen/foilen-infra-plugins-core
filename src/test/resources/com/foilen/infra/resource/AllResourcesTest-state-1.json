@@ -549,6 +549,10 @@ max_allowed_packet	= 500M
             "b" : "{
   \"baseUrl\" : \"https://config.example.com\",
   \"csrfSalt\" : \"EEEFFF\",
+  \"externalJsScripts\" : {
+    \"en\" : [ ],
+    \"fr\" : [ ]
+  },
   \"infiniteLoopTimeoutInMs\" : 120000,
   \"loginConfigDetails\" : {
     \"appId\" : \"jkfdjoiephgiurehgjrhe\",
@@ -3283,6 +3287,8 @@ memory_limit = 192M
       "uiDebug" : false,
       "uiDomainName" : "config.example.com",
       "uiEmailFrom" : "admin@example.com",
+      "uiExternalJsScriptsEn" : [ ],
+      "uiExternalJsScriptsFr" : [ ],
       "uiInfiniteLoopTimeoutInMs" : 120000,
       "uiLoginCookieSignatureSalt" : "GGGHHH",
       "uiVersion" : "0.5.2"

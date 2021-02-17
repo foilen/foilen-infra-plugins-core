@@ -123,6 +123,16 @@ public class InfraConfigEditor extends SimpleResourceEditor<InfraConfig> {
         simpleResourceEditorDefinition.addInputText(InfraConfig.PROPERTY_UI_INFINITE_LOOP_TIMEOUT_IN_MS, fieldConfig -> {
             fieldConfig.addFormator(CommonFormatting::trimSpacesAround);
         });
+        simpleResourceEditorDefinition.addListInputText(InfraConfig.PROPERTY_UI_EXTERNAL_JS_SCRIPTS_EN, fieldConfigConsumer -> {
+            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
+            fieldConfigConsumer.addValidator(CommonValidation::validateUrl);
+        });
+        simpleResourceEditorDefinition.addListInputText(InfraConfig.PROPERTY_UI_EXTERNAL_JS_SCRIPTS_FR, fieldConfigConsumer -> {
+            fieldConfigConsumer.addFormator(CommonFormatting::trimSpacesAround);
+            fieldConfigConsumer.addValidator(CommonValidation::validateNotNullOrEmpty);
+            fieldConfigConsumer.addValidator(CommonValidation::validateUrl);
+        });
 
         simpleResourceEditorDefinition.addResource("uiWebsiteCertificate", InfraConfig.LINK_TYPE_UI_USES, WebsiteCertificate.class);
         simpleResourceEditorDefinition.addResources("uiMachines", InfraConfig.LINK_TYPE_UI_INSTALLED_ON, Machine.class);

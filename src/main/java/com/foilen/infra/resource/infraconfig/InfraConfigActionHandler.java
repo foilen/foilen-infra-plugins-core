@@ -268,6 +268,9 @@ public class InfraConfigActionHandler extends AbstractBasics implements ActionHa
                     loginConfigDetails.setCertText(loginWebsiteCertificates.get(0).getCertificate());
                 }
 
+                infraUiConfig.getExternalJsScripts().put("en", new ArrayList<>(infraConfig.getUiExternalJsScriptsEn()));
+                infraUiConfig.getExternalJsScripts().put("fr", new ArrayList<>(infraConfig.getUiExternalJsScriptsFr()));
+
                 // UI Application
                 Application uiApplication = ActionsHandlerUtils.getOrCreateAnApplication(resourceService, "infra_ui");
                 uiApplication.setDescription("UI service");
