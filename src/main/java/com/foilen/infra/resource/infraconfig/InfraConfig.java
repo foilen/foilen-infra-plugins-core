@@ -100,8 +100,8 @@ public class InfraConfig extends AbstractIPResource {
     private String uiVersion;
     private boolean uiDebug;
     private Long uiInfiniteLoopTimeoutInMs = 120000L;
-    private SortedSet<String> uiExternalJsScriptsEn = new TreeSet<>(); // TODO +++ hook
-    private SortedSet<String> uiExternalJsScriptsFr = new TreeSet<>(); // TODO +++ hook
+    private SortedSet<String> uiExternalJsScriptsEn = new TreeSet<>();
+    private SortedSet<String> uiExternalJsScriptsFr = new TreeSet<>();
 
     public InfraConfig() {
     }
