@@ -81,7 +81,7 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getMxPriority() + " " + bindEntry.getDetails() + ".");
                     break;
                 case TXT:
-                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " \"" + bindEntry.getDetails() + "\"");
+                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + textSingleOrMultiLines(bindEntry.getDetails()));
                     break;
                 default:
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getDetails());
@@ -161,6 +161,32 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
         // Create new
         OutputStream out = new StoreInAssetBundleOnCloseOutputStream(dnsConfigAssetsBundle, baseConfigPath + zoneFilePath);
         return new PrintWriter(out);
+    }
+
+    private String textSingleOrMultiLines(String details) {
+
+        // Single line
+        if (details.length() <= 200) {
+            return '"' + details + '"';
+        }
+
+        // Multi lines
+        StringBuilder lines = new StringBuilder("(");
+
+        boolean first = true;
+        for (int start = 0; start < details.length(); start += 200) {
+            if (first) {
+                first = false;
+                lines.append("\"");
+            } else {
+                lines.append("\n\"");
+            }
+            lines.append(details.substring(start, Math.min(details.length(), start + 200)));
+            lines.append("\"");
+        }
+
+        lines.append(")");
+        return lines.toString();
     }
 
     private void writeHeader(PrintWriter zonePW, String dnsHostName, String dnsAdminEmail, int ttl, String serial, String zone) {
