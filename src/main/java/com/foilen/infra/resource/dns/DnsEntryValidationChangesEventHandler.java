@@ -30,7 +30,7 @@ import com.google.common.base.Strings;
 
 public class DnsEntryValidationChangesEventHandler extends AbstractBasics implements ChangesEventHandler {
 
-    private static Pattern startWithLetterValidationRegex = Pattern.compile("[a-zA-Z].*");
+    private static Pattern startWithLetterOrNumberValidationRegex = Pattern.compile("[a-zA-Z0-9].*");
     private static List<DnsEntryType> typesWithDomain = Arrays.asList(DnsEntryType.A, DnsEntryType.AAAA, DnsEntryType.MX, DnsEntryType.NS);
     private static List<DnsEntryType> strictTypesWithDomain = Arrays.asList(DnsEntryType.A, DnsEntryType.AAAA, DnsEntryType.MX, DnsEntryType.NS);
 
@@ -39,8 +39,8 @@ public class DnsEntryValidationChangesEventHandler extends AbstractBasics implem
             if (typesWithDomain.contains(dnsEntry.getType()) && !DomainValidator.getInstance().isValid(dnsEntry.getName()) && !"localhost".equals(dnsEntry.getName())) {
                 throw new IllegalUpdateException(services.getTranslationService().translate("error.notADomainName"));
             }
-            if (strictTypesWithDomain.contains(dnsEntry.getType()) && !startWithLetterValidationRegex.matcher(dnsEntry.getName()).matches()) {
-                throw new IllegalUpdateException(services.getTranslationService().translate("error.notStartingWithLetter"));
+            if (strictTypesWithDomain.contains(dnsEntry.getType()) && !startWithLetterOrNumberValidationRegex.matcher(dnsEntry.getName()).matches()) {
+                throw new IllegalUpdateException(services.getTranslationService().translate("error.notStartingWithLetterOrNumber"));
             }
             if (dnsEntry.getType() == DnsEntryType.A && !validIp(dnsEntry.getDetails())) {
                 throw new IllegalUpdateException(services.getTranslationService().translate("error.notAnIp"));

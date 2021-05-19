@@ -49,12 +49,13 @@ public class DnsEntryValidationChangesEventHandlerTest extends AbstractCorePlugi
         assertOk(results, new DnsEntry("localhost", DnsEntryType.A, "127.0.0.1"));
         assertOk(results, new DnsEntry("www.example.com", DnsEntryType.A, "127.0.0.1"));
         assertOk(results, new DnsEntry("www.example-example.com", DnsEntryType.A, "127.0.0.1"));
+        assertOk(results, new DnsEntry("10www.example.com", DnsEntryType.A, "127.0.0.1"));
+        assertFail(results, new DnsEntry("!www.example.com", DnsEntryType.A, "127.0.0.1"));
         assertFail(results, new DnsEntry("www.example.com", DnsEntryType.A, "520.0.0.1"));
         assertFail(results, new DnsEntry("db_1.example.com", DnsEntryType.A, "127.0.0.1"));
         assertFail(results, new DnsEntry("db 1.example.com", DnsEntryType.A, "127.0.0.1"));
         assertFail(results, new DnsEntry("www-.example.com", DnsEntryType.A, "127.0.0.1"));
         assertFail(results, new DnsEntry("www.example.com", DnsEntryType.A, "a.b.c.d"));
-        assertFail(results, new DnsEntry("10www.example.com", DnsEntryType.A, "127.0.0.1"));
 
         assertOk(results, new DnsEntry("www.example-example.com", DnsEntryType.CNAME, "www.example.com"));
         assertOk(results, new DnsEntry("8fifehwjkgrewg._domainkey.example.com", DnsEntryType.CNAME, "8fifehwjkgrewg.dkim.amazonses.com"));
@@ -69,10 +70,10 @@ public class DnsEntryValidationChangesEventHandlerTest extends AbstractCorePlugi
 
         assertOk(results, new DnsEntry("example.com", DnsEntryType.MX, "mail.example.com"));
         assertOk(results, new DnsEntry("www.example-example.com", DnsEntryType.MX, "mail.example.com"));
+        assertOk(results, new DnsEntry("www.example.com", DnsEntryType.MX, "mail.example.com"));
         assertFail(results, new DnsEntry("db_1.example.com", DnsEntryType.MX, "mail.example.com"));
         assertFail(results, new DnsEntry("db 1.example.com", DnsEntryType.MX, "mail.example.com"));
         assertFail(results, new DnsEntry("www-.example.com", DnsEntryType.MX, "mail.example.com"));
-        assertFail(results, new DnsEntry("10www.example.com", DnsEntryType.MX, "mail.example.com"));
 
         StringBuilder resultSb = new StringBuilder();
         results.forEach(it -> resultSb.append(it).append("\n"));
