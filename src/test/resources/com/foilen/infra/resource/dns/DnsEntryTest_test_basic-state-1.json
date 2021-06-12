@@ -9,12 +9,14 @@
     "content" : {
       "details" : "hello",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "d0.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "hello",
       "resourceName" : "d0.example.com / TXT",
-      "type" : "TXT"
+      "type" : "TXT",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | d1.example.com / TXT | hello",
@@ -26,12 +28,14 @@
     "content" : {
       "details" : "hello",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "d1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "hello",
       "resourceName" : "d1.example.com / TXT",
-      "type" : "TXT"
+      "type" : "TXT",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | d2.example.com / TXT | hello",
@@ -43,12 +47,14 @@
     "content" : {
       "details" : "hello",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "d2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "hello",
       "resourceName" : "d2.example.com / TXT",
-      "type" : "TXT"
+      "type" : "TXT",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | d3.example.com / TXT | hello",
@@ -60,12 +66,14 @@
     "content" : {
       "details" : "hello",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "d3.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "hello",
       "resourceName" : "d3.example.com / TXT",
-      "type" : "TXT"
+      "type" : "TXT",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | d4.example.com / TXT | hello",
@@ -77,12 +85,14 @@
     "content" : {
       "details" : "hello",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "d4.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "hello",
       "resourceName" : "d4.example.com / TXT",
-      "type" : "TXT"
+      "type" : "TXT",
+      "weight" : 1
     }
   }, {
     "resource" : "Domain | d0.example.com | ",

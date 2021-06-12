@@ -94,20 +94,24 @@ public class Bind9Server extends AbstractIPResource {
         return name;
     }
 
-    public void setAdminEmail(String adminEmail) {
+    public Bind9Server setAdminEmail(String adminEmail) {
         this.adminEmail = adminEmail;
+        return this;
     }
 
-    public void setName(String name) {
+    public Bind9Server setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setNsDomainNames(SortedSet<String> nsDomainNames) {
+    public Bind9Server setNsDomainNames(SortedSet<String> nsDomainNames) {
         this.nsDomainNames = nsDomainNames;
+        return this;
     }
 
-    public void setPort(Integer port) {
+    public Bind9Server setPort(Integer port) {
         this.port = port;
+        return this;
     }
 
 }

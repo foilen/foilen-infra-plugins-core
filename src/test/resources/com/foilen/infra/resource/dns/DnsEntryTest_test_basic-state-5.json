@@ -1,36 +1,36 @@
 {
   "resources" : [ {
-    "resource" : "Application | myDns_bind9 | Bind9 Server",
+    "resource" : "Application | infra_bind_bind9 | Bind9 Server",
     "links" : [ {
       "type" : "INSTALLED_ON",
-      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+      "to" : "Machine | m1.example.com | m1.example.com"
     }, {
       "type" : "MANAGES",
       "to" : "DnsPointer | ns1.example.com | ns1.example.com"
     }, {
       "type" : "MANAGES",
-      "to" : "DnsPointer | ns2.example.com | ns2.example.com"
-    }, {
-      "type" : "MANAGES",
       "to" : "Domain | ns1.example.com | "
     }, {
-      "type" : "MANAGES",
-      "to" : "Domain | ns2.example.com | "
-    }, {
       "type" : "RUN_AS",
-      "to" : "UnixUser | infra-bind | /home/infra-bind"
+      "to" : "UnixUser | infrabind | /home/infrabind"
     }, {
       "type" : "USES",
-      "to" : "DnsEntry | editor.example.com / A | 127.0.0.1"
+      "to" : "DnsEntry | _sip._tls.example.com / SRV | sipdir.online.lync.com"
     }, {
       "type" : "USES",
-      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
+      "to" : "DnsEntry | _sipfederationtls._tcp.example.com / SRV | sipfed.online.lync.com"
     }, {
       "type" : "USES",
-      "to" : "DnsEntry | ns1.example.com / A | 192.168.0.200"
+      "to" : "DnsEntry | d0.example.com / TXT | hello"
     }, {
       "type" : "USES",
-      "to" : "DnsEntry | ns2.example.com / A | 192.168.0.200"
+      "to" : "DnsEntry | d1.example.com / TXT | hello 2"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | d3.example.com / TXT | hello"
+    }, {
+      "type" : "USES",
+      "to" : "DnsEntry | u2.example.com / TXT | hello"
     } ],
     "tags" : [ ],
     "content" : {
@@ -51,10 +51,12 @@
 ;
 
 example.com. 300 NS ns1.example.com.
-editor 300 A 127.0.0.1
-h1 300 A 192.168.0.200
-ns1 300 A 192.168.0.200
-ns2 300 A 192.168.0.200
+_sip._tls 300 SRV 100 1 443 sipdir.online.lync.com.
+_sipfederationtls._tcp 300 SRV 100 1 5061 sipfed.online.lync.com.
+d0 300 TXT \"hello\"
+d1 300 TXT \"hello 2\"
+d3 300 TXT \"hello\"
+u2 300 TXT \"hello\"
 "
           }, {
             "a" : "etc/bind/named.conf.local",
@@ -125,130 +127,161 @@ ns2 300 A 192.168.0.200
         "volumes" : [ ]
       },
       "description" : "Bind9 Server",
-      "domainNames" : [ "ns1.example.com", "ns2.example.com" ],
+      "domainNames" : [ "ns1.example.com" ],
       "meta" : { },
-      "name" : "myDns_bind9",
+      "name" : "infra_bind_bind9",
       "resourceCategory" : "INFRASTRUCTURE",
       "resourceDescription" : "Bind9 Server",
-      "resourceName" : "myDns_bind9"
+      "resourceName" : "infra_bind_bind9"
     }
   }, {
-    "resource" : "Bind9Server | myDns | DNS Server",
+    "resource" : "Bind9Server | infra_bind | DNS Server",
     "links" : [ {
       "type" : "INSTALLED_ON",
-      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+      "to" : "Machine | m1.example.com | m1.example.com"
     }, {
       "type" : "MANAGES",
-      "to" : "Application | myDns_bind9 | Bind9 Server"
+      "to" : "Application | infra_bind_bind9 | Bind9 Server"
     }, {
       "type" : "MANAGES",
       "to" : "Domain | ns1.example.com | "
     }, {
-      "type" : "MANAGES",
-      "to" : "Domain | ns2.example.com | "
-    }, {
       "type" : "RUN_AS",
-      "to" : "UnixUser | infra-bind | /home/infra-bind"
+      "to" : "UnixUser | infrabind | /home/infrabind"
     } ],
     "tags" : [ ],
     "content" : {
       "adminEmail" : "admin@example.com",
       "meta" : { },
-      "name" : "myDns",
-      "nsDomainNames" : [ "ns1.example.com", "ns2.example.com" ],
+      "name" : "infra_bind",
+      "nsDomainNames" : [ "ns1.example.com" ],
       "port" : 53,
       "resourceCategory" : "NET",
       "resourceDescription" : "DNS Server",
-      "resourceEditorName" : "Bind9",
-      "resourceName" : "myDns"
+      "resourceName" : "infra_bind"
     }
   }, {
-    "resource" : "DnsEntry | editor.example.com / A | 127.0.0.1",
+    "resource" : "DnsEntry | _sip._tls.example.com / SRV | sipdir.online.lync.com",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "Domain | editor.example.com | "
+      "to" : "Domain | _sip._tls.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
-      "details" : "127.0.0.1",
+      "details" : "sipdir.online.lync.com",
       "meta" : { },
-      "name" : "editor.example.com",
-      "port" : 0,
-      "priority" : 10,
+      "name" : "_sip._tls.example.com",
+      "port" : 443,
+      "priority" : 100,
       "resourceCategory" : "NET",
-      "resourceDescription" : "127.0.0.1",
-      "resourceName" : "editor.example.com / A",
-      "type" : "A",
+      "resourceDescription" : "sipdir.online.lync.com",
+      "resourceName" : "_sip._tls.example.com / SRV",
+      "type" : "SRV",
       "weight" : 1
     }
   }, {
-    "resource" : "DnsEntry | h1.example.com / A | 192.168.0.200",
+    "resource" : "DnsEntry | _sipfederationtls._tcp.example.com / SRV | sipfed.online.lync.com",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "Domain | h1.example.com | "
+      "to" : "Domain | _sipfederationtls._tcp.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
-      "details" : "192.168.0.200",
+      "details" : "sipfed.online.lync.com",
       "meta" : { },
-      "name" : "h1.example.com",
-      "port" : 0,
-      "priority" : 10,
+      "name" : "_sipfederationtls._tcp.example.com",
+      "port" : 5061,
+      "priority" : 100,
       "resourceCategory" : "NET",
-      "resourceDescription" : "192.168.0.200",
-      "resourceName" : "h1.example.com / A",
-      "type" : "A",
+      "resourceDescription" : "sipfed.online.lync.com",
+      "resourceName" : "_sipfederationtls._tcp.example.com / SRV",
+      "type" : "SRV",
       "weight" : 1
     }
   }, {
-    "resource" : "DnsEntry | ns1.example.com / A | 192.168.0.200",
+    "resource" : "DnsEntry | d0.example.com / TXT | hello",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "Domain | ns1.example.com | "
+      "to" : "Domain | d0.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
-      "details" : "192.168.0.200",
+      "details" : "hello",
       "meta" : { },
-      "name" : "ns1.example.com",
+      "name" : "d0.example.com",
       "port" : 0,
       "priority" : 10,
       "resourceCategory" : "NET",
-      "resourceDescription" : "192.168.0.200",
-      "resourceName" : "ns1.example.com / A",
-      "type" : "A",
+      "resourceDescription" : "hello",
+      "resourceName" : "d0.example.com / TXT",
+      "type" : "TXT",
       "weight" : 1
     }
   }, {
-    "resource" : "DnsEntry | ns2.example.com / A | 192.168.0.200",
+    "resource" : "DnsEntry | d1.example.com / TXT | hello 2",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "Domain | ns2.example.com | "
+      "to" : "Domain | d1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
-      "details" : "192.168.0.200",
+      "details" : "hello 2",
       "meta" : { },
-      "name" : "ns2.example.com",
+      "name" : "d1.example.com",
       "port" : 0,
       "priority" : 10,
       "resourceCategory" : "NET",
-      "resourceDescription" : "192.168.0.200",
-      "resourceName" : "ns2.example.com / A",
-      "type" : "A",
+      "resourceDescription" : "hello 2",
+      "resourceName" : "d1.example.com / TXT",
+      "type" : "TXT",
+      "weight" : 1
+    }
+  }, {
+    "resource" : "DnsEntry | d3.example.com / TXT | hello",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | d3.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "d3.example.com",
+      "port" : 0,
+      "priority" : 10,
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "d3.example.com / TXT",
+      "type" : "TXT",
+      "weight" : 1
+    }
+  }, {
+    "resource" : "DnsEntry | u2.example.com / TXT | hello",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | u2.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "hello",
+      "meta" : { },
+      "name" : "u2.example.com",
+      "port" : 0,
+      "priority" : 10,
+      "resourceCategory" : "NET",
+      "resourceDescription" : "hello",
+      "resourceName" : "u2.example.com / TXT",
+      "type" : "TXT",
       "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | ns1.example.com | ns1.example.com",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "DnsEntry | ns1.example.com / A | 192.168.0.200"
-    }, {
-      "type" : "MANAGES",
       "to" : "Domain | ns1.example.com | "
     }, {
       "type" : "POINTS_TO",
-      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
+      "to" : "Machine | m1.example.com | m1.example.com"
     } ],
     "tags" : [ ],
     "content" : {
@@ -259,50 +292,80 @@ ns2 300 A 192.168.0.200
       "resourceName" : "ns1.example.com"
     }
   }, {
-    "resource" : "DnsPointer | ns2.example.com | ns2.example.com",
-    "links" : [ {
-      "type" : "MANAGES",
-      "to" : "DnsEntry | ns2.example.com / A | 192.168.0.200"
-    }, {
-      "type" : "MANAGES",
-      "to" : "Domain | ns2.example.com | "
-    }, {
-      "type" : "POINTS_TO",
-      "to" : "Machine | h1.example.com | h1.example.com (192.168.0.200)"
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "meta" : { },
-      "name" : "ns2.example.com",
-      "resourceCategory" : "NET",
-      "resourceDescription" : "ns2.example.com",
-      "resourceName" : "ns2.example.com"
-    }
-  }, {
-    "resource" : "Domain | editor.example.com | ",
+    "resource" : "Domain | _sip._tls.example.com | ",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
       "meta" : { },
-      "name" : "editor.example.com",
+      "name" : "_sip._tls.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "",
-      "resourceName" : "editor.example.com"
+      "resourceName" : "_sip._tls.example.com"
+    }
+  }, {
+    "resource" : "Domain | _sipfederationtls._tcp.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "_sipfederationtls._tcp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "_sipfederationtls._tcp.example.com"
+    }
+  }, {
+    "resource" : "Domain | d0.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d0.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d0.example.com"
+    }
+  }, {
+    "resource" : "Domain | d1.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d1.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d1.example.com"
+    }
+  }, {
+    "resource" : "Domain | d3.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "d3.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "d3.example.com"
     }
   }, {
     "resource" : "Domain | example.com | ",
     "links" : [ {
       "type" : "SUBDOMAIN",
-      "to" : "Domain | editor.example.com | "
+      "to" : "Domain | d0.example.com | "
     }, {
       "type" : "SUBDOMAIN",
-      "to" : "Domain | h1.example.com | "
+      "to" : "Domain | d1.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | d3.example.com | "
+    }, {
+      "type" : "SUBDOMAIN",
+      "to" : "Domain | m1.example.com | "
     }, {
       "type" : "SUBDOMAIN",
       "to" : "Domain | ns1.example.com | "
     }, {
       "type" : "SUBDOMAIN",
-      "to" : "Domain | ns2.example.com | "
+      "to" : "Domain | u2.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
@@ -313,15 +376,15 @@ ns2 300 A 192.168.0.200
       "resourceName" : "example.com"
     }
   }, {
-    "resource" : "Domain | h1.example.com | ",
+    "resource" : "Domain | m1.example.com | ",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
       "meta" : { },
-      "name" : "h1.example.com",
+      "name" : "m1.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "",
-      "resourceName" : "h1.example.com"
+      "resourceName" : "m1.example.com"
     }
   }, {
     "resource" : "Domain | ns1.example.com | ",
@@ -335,47 +398,46 @@ ns2 300 A 192.168.0.200
       "resourceName" : "ns1.example.com"
     }
   }, {
-    "resource" : "Domain | ns2.example.com | ",
+    "resource" : "Domain | u2.example.com | ",
     "links" : [ ],
     "tags" : [ ],
     "content" : {
       "meta" : { },
-      "name" : "ns2.example.com",
+      "name" : "u2.example.com",
       "resourceCategory" : "NET",
       "resourceDescription" : "",
-      "resourceName" : "ns2.example.com"
+      "resourceName" : "u2.example.com"
     }
   }, {
-    "resource" : "Machine | h1.example.com | h1.example.com (192.168.0.200)",
+    "resource" : "Machine | m1.example.com | m1.example.com",
     "links" : [ {
       "type" : "MANAGES",
-      "to" : "DnsEntry | h1.example.com / A | 192.168.0.200"
-    }, {
-      "type" : "MANAGES",
-      "to" : "Domain | h1.example.com | "
+      "to" : "Domain | m1.example.com | "
     } ],
     "tags" : [ ],
     "content" : {
       "meta" : { },
-      "name" : "h1.example.com",
-      "publicIp" : "192.168.0.200",
+      "name" : "m1.example.com",
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "h1.example.com (192.168.0.200)",
-      "resourceName" : "h1.example.com"
+      "resourceDescription" : "m1.example.com",
+      "resourceName" : "m1.example.com"
     }
   }, {
-    "resource" : "UnixUser | infra-bind | /home/infra-bind",
-    "links" : [ ],
+    "resource" : "UnixUser | infrabind | /home/infrabind",
+    "links" : [ {
+      "type" : "INSTALLED_ON",
+      "to" : "Machine | m1.example.com | m1.example.com"
+    } ],
     "tags" : [ ],
     "content" : {
-      "homeFolder" : "/home/infra-bind",
+      "homeFolder" : "/home/infrabind",
       "id" : 72000,
       "keepClearPassword" : false,
       "meta" : { },
-      "name" : "infra-bind",
+      "name" : "infrabind",
       "resourceCategory" : "INFRASTRUCTURE",
-      "resourceDescription" : "/home/infra-bind",
-      "resourceName" : "infra-bind",
+      "resourceDescription" : "/home/infrabind",
+      "resourceName" : "infrabind",
       "shell" : "/bin/bash"
     }
   } ]

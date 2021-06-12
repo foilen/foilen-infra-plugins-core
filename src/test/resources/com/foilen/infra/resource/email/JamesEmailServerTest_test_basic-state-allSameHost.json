@@ -519,12 +519,14 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "mail.example.com",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "mail.example.com (10)",
       "resourceName" : "example.com / MX",
-      "type" : "MX"
+      "type" : "MX",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | localhost.foilen-lab.com / A | 127.0.0.1",
@@ -536,12 +538,14 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "localhost.foilen-lab.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
       "resourceName" : "localhost.foilen-lab.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | mail.example.com / A | 127.0.0.1",
@@ -553,12 +557,14 @@ YRm4pixjidd02eMLBpTEi1GGmFw/Gbby2C9N3mxkHl4mpxWsxcsGvWb+a0irwant
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "mail.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
       "resourceName" : "mail.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | mail.example.com | mail.example.com",

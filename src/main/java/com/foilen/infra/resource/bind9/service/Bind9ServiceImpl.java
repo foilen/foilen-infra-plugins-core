@@ -32,8 +32,16 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
     @Override
     public void createBindFilesFromBindEntries(String dnsHostName, String dnsAdminEmail, IPApplicationDefinitionAssetsBundle dnsConfigAssetsBundle, List<BindEntry> bindEntries,
             String containerConfigDir) {
+
         SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMdd");
         String serial = sdf.format(new Date()) + "00";
+
+        String forceSerial = System.getProperty("Bind9ServiceImpl.forceSerial");
+        if (forceSerial != null) {
+            logger.info("Forcing serial to {}", forceSerial);
+            serial = forceSerial;
+        }
+
         createBindFilesFromBindEntries(dnsHostName, dnsAdminEmail, serial, dnsConfigAssetsBundle, bindEntries, containerConfigDir);
     }
 
@@ -78,10 +86,14 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getDetails() + ".");
                     break;
                 case MX:
-                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getMxPriority() + " " + bindEntry.getDetails() + ".");
+                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getPriority() + " " + bindEntry.getDetails() + ".");
                     break;
                 case TXT:
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + textSingleOrMultiLines(bindEntry.getDetails()));
+                    break;
+                case SRV:
+                    zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getPriority() + " " + bindEntry.getWeight() + " " + bindEntry.getPort() + " "
+                            + bindEntry.getDetails() + ".");
                     break;
                 default:
                     zonePW.println(bindEntry.getSubDomain() + " " + TTL + " " + bindEntry.getType() + " " + bindEntry.getDetails());
@@ -104,7 +116,10 @@ public class Bind9ServiceImpl extends AbstractBasics implements Bind9Service {
                 .map(entry -> {
                     String zone = getZoneFromDomain(entry.getName());
                     String subDomain = getSubDomainFromDomain(entry.getName());
-                    return new BindEntry(zone, subDomain, entry.getType(), entry.getDetails()).setMxPriority(entry.getMxPriority());
+                    return new BindEntry(zone, subDomain, entry.getType(), entry.getDetails()) //
+                            .setPriority(entry.getPriority()) //
+                            .setWeight(entry.getWeight()) //
+                            .setPort(entry.getPort());
                 }) //
                 .collect(Collectors.toList());
 

@@ -37,13 +37,17 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
     public static final String PROPERTY_NAME = "name";
     public static final String PROPERTY_TYPE = "type";
     public static final String PROPERTY_DETAILS = "details";
-    public static final String PROPERTY_MX_PRIORITY = "mxPriority";
+    public static final String PROPERTY_PRIORITY = "priority";
+    public static final String PROPERTY_WEIGHT = "weight";
+    public static final String PROPERTY_PORT = "port";
 
     private String name;
     private DnsEntryType type = DnsEntryType.A;
     private String details;
 
-    private int mxPriority = 10;
+    private int priority = 10;
+    private int weight = 1;
+    private int port = 0;
 
     public DnsEntry() {
     }
@@ -70,7 +74,9 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
         cc = cc.compare(name, o.name);
         cc = cc.compare(type, o.type);
         cc = cc.compare(details, o.details);
-        cc = cc.compare(mxPriority, o.mxPriority);
+        cc = cc.compare(priority, o.priority);
+        cc = cc.compare(weight, o.weight);
+        cc = cc.compare(port, o.port);
         return cc.result();
     }
 
@@ -91,19 +97,25 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
         return Objects.equals(name, se.name) //
                 && Objects.equals(type, se.type) //
                 && Objects.equals(details, se.details) //
-                && Objects.equals(mxPriority, se.mxPriority);
+                && Objects.equals(priority, se.priority) //
+                && Objects.equals(weight, se.weight) //
+                && Objects.equals(port, se.port);
     }
 
     public String getDetails() {
         return details;
     }
 
-    public int getMxPriority() {
-        return mxPriority;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     @Override
@@ -114,7 +126,7 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
     @Override
     public String getResourceDescription() {
         if (type == DnsEntryType.MX) {
-            return details + " (" + mxPriority + ")";
+            return details + " (" + priority + ")";
         }
         return details;
     }
@@ -128,25 +140,48 @@ public class DnsEntry extends AbstractIPResource implements Comparable<DnsEntry>
         return type;
     }
 
+    public int getWeight() {
+        return weight;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(details, name, type, mxPriority);
+        return Objects.hash(details, name, type, priority, weight, port);
     }
 
-    public void setDetails(String details) {
+    public DnsEntry setDetails(String details) {
         this.details = details;
+        return this;
     }
 
-    public void setMxPriority(int mxPriority) {
-        this.mxPriority = mxPriority;
+    public DnsEntry setMxPriority(int mxPriority) {
+        this.priority = mxPriority;
+        return this;
     }
 
-    public void setName(String name) {
+    public DnsEntry setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setType(DnsEntryType type) {
+    public DnsEntry setPort(int port) {
+        this.port = port;
+        return this;
+    }
+
+    public DnsEntry setPriority(int priority) {
+        this.priority = priority;
+        return this;
+    }
+
+    public DnsEntry setType(DnsEntryType type) {
         this.type = type;
+        return this;
+    }
+
+    public DnsEntry setWeight(int weight) {
+        this.weight = weight;
+        return this;
     }
 
 }

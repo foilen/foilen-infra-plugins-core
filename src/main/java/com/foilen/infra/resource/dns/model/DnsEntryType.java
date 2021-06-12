@@ -17,5 +17,6 @@ public enum DnsEntryType {
     MX, //
     NS, //
     TXT, //
+    SRV, //
 
 }

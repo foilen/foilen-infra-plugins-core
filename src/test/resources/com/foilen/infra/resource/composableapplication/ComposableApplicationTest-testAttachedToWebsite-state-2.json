@@ -166,12 +166,14 @@ backend http_8080_site.example.com
     "content" : {
       "details" : "127.0.100.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "m1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.100.1",
       "resourceName" : "m1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | site.example.com / A | 127.0.100.1",
@@ -183,12 +185,14 @@ backend http_8080_site.example.com
     "content" : {
       "details" : "127.0.100.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "site.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.100.1",
       "resourceName" : "site.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | site.example.com | site.example.com",

@@ -212,12 +212,14 @@ backend http_8080_myapp.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "h1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | myapp.example.com / A | 192.168.0.200",
@@ -229,12 +231,14 @@ backend http_8080_myapp.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "myapp.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "myapp.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | myapp.example.com | myapp.example.com",

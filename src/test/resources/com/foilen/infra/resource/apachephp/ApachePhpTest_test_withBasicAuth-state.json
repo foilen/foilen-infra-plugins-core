@@ -358,12 +358,14 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "h1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | myphp.example.com / A | 192.168.0.200",
@@ -375,12 +377,14 @@ u2:{SHA}6dcfXufJLW3J6S/9rRe4vUlBj5g="
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "myphp.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "myphp.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | myphp.example.com | myphp.example.com",

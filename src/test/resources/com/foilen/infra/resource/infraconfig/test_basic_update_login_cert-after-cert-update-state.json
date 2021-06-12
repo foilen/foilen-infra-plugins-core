@@ -861,12 +861,14 @@ backend http_8080_ui.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "login.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
       "resourceName" : "login.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | m1.example.com / A | 127.0.0.1",
@@ -878,12 +880,14 @@ backend http_8080_ui.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "m1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
       "resourceName" : "m1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ui.example.com / A | 127.0.0.1",
@@ -895,12 +899,14 @@ backend http_8080_ui.example.com
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ui.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
       "resourceName" : "ui.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | login.example.com | login.example.com",

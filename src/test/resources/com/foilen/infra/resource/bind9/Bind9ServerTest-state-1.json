@@ -40,7 +40,7 @@
             "a" : "etc/bind/pri.example.com",
             "b" : "$TTL 300
 @ IN SOA ns1.example.com. admin.example.com. (
-  1111111100; serial number
+  XXXXXXXXXX; serial number
   3600; refresh [1h]
   600; retry [10m]
   86400; expire [1d]
@@ -168,12 +168,14 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "h1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ns1.example.com / A | 192.168.0.200",
@@ -185,12 +187,14 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ns1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "ns1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ns2.example.com / A | 192.168.0.200",
@@ -202,12 +206,14 @@ ns2 300 A 192.168.0.200
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ns2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "ns2.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | ns1.example.com | ns1.example.com",

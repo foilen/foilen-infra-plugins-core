@@ -36,11 +36,23 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
         resource.setType(DnsEntryType.valueOf(validFormValues.get(DnsEntry.PROPERTY_TYPE)));
         resource.setDetails(validFormValues.get(DnsEntry.PROPERTY_DETAILS));
 
-        String mxPriority = validFormValues.get(DnsEntry.PROPERTY_MX_PRIORITY);
-        if (Strings.isNullOrEmpty(mxPriority)) {
-            resource.setMxPriority(10);
+        String priority = validFormValues.get(DnsEntry.PROPERTY_PRIORITY);
+        if (Strings.isNullOrEmpty(priority)) {
+            resource.setPriority(10);
         } else {
-            resource.setMxPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_MX_PRIORITY)));
+            resource.setPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_PRIORITY)));
+        }
+        String weight = validFormValues.get(DnsEntry.PROPERTY_WEIGHT);
+        if (Strings.isNullOrEmpty(weight)) {
+            resource.setWeight(1);
+        } else {
+            resource.setPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_WEIGHT)));
+        }
+        String port = validFormValues.get(DnsEntry.PROPERTY_PORT);
+        if (Strings.isNullOrEmpty(port)) {
+            resource.setPort(0);
+        } else {
+            resource.setPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_PORT)));
         }
     }
 
@@ -65,13 +77,17 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
         InputTextFieldPageItem namePageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.name", DnsEntry.PROPERTY_NAME);
         SelectOptionsPageItem typePageItem = CommonPageItem.createSelectOptionsField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.type", DnsEntry.PROPERTY_TYPE, DnsEntryType.values());
         InputTextFieldPageItem detailsPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.details", DnsEntry.PROPERTY_DETAILS);
-        InputTextFieldPageItem mxPriorityPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.mxPriority", DnsEntry.PROPERTY_MX_PRIORITY);
+        InputTextFieldPageItem priorityPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.priority", DnsEntry.PROPERTY_PRIORITY);
+        InputTextFieldPageItem weightPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.weight", DnsEntry.PROPERTY_WEIGHT);
+        InputTextFieldPageItem portPageItem = CommonPageItem.createInputTextField(servicesCtx, pageDefinition, "ManualDnsEntryEditor.port", DnsEntry.PROPERTY_PORT);
 
         if (resource != null) {
             namePageItem.setFieldValue(resource.getName());
             typePageItem.setFieldValue(resource.getType().name());
             detailsPageItem.setFieldValue(resource.getDetails());
-            mxPriorityPageItem.setFieldValue(String.valueOf(resource.getMxPriority()));
+            priorityPageItem.setFieldValue(String.valueOf(resource.getPriority()));
+            weightPageItem.setFieldValue(String.valueOf(resource.getWeight()));
+            portPageItem.setFieldValue(String.valueOf(resource.getPort()));
         }
 
         return pageDefinition;
@@ -89,12 +105,28 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
         } catch (Exception e) {
         }
 
-        String mxPriority = rawFormValues.get(DnsEntry.PROPERTY_MX_PRIORITY);
-        if (!Strings.isNullOrEmpty(mxPriority)) {
+        String priority = rawFormValues.get(DnsEntry.PROPERTY_PRIORITY);
+        if (!Strings.isNullOrEmpty(priority)) {
             try {
-                Integer.parseInt(mxPriority);
+                Integer.parseInt(priority);
             } catch (NumberFormatException e) {
-                errors.add(new Tuple2<>(DnsEntry.PROPERTY_MX_PRIORITY, "error.notInteger"));
+                errors.add(new Tuple2<>(DnsEntry.PROPERTY_PRIORITY, "error.notInteger"));
+            }
+        }
+        String weight = rawFormValues.get(DnsEntry.PROPERTY_WEIGHT);
+        if (!Strings.isNullOrEmpty(weight)) {
+            try {
+                Integer.parseInt(weight);
+            } catch (NumberFormatException e) {
+                errors.add(new Tuple2<>(DnsEntry.PROPERTY_WEIGHT, "error.notInteger"));
+            }
+        }
+        String port = rawFormValues.get(DnsEntry.PROPERTY_PORT);
+        if (!Strings.isNullOrEmpty(port)) {
+            try {
+                Integer.parseInt(port);
+            } catch (NumberFormatException e) {
+                errors.add(new Tuple2<>(DnsEntry.PROPERTY_PORT, "error.notInteger"));
             }
         }
         return errors;

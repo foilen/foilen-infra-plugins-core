@@ -417,12 +417,14 @@
     "content" : {
       "details" : "127.0.0.1",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "f1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.1",
       "resourceName" : "f1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | f2.example.com / A | 127.0.0.2",
@@ -434,12 +436,14 @@
     "content" : {
       "details" : "127.0.0.2",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "f2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.2",
       "resourceName" : "f2.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | f3.example.com / A | 127.0.0.3",
@@ -451,12 +455,14 @@
     "content" : {
       "details" : "127.0.0.3",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "f3.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.3",
       "resourceName" : "f3.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "Domain | example.com | ",

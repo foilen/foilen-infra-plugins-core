@@ -26,7 +26,9 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
     private DnsEntryType type;
     private String details;
 
-    private int mxPriority = 10;
+    private int priority = 10;
+    private int weight = 1;
+    private int port = 0;
 
     public BindEntry() {
     }
@@ -45,7 +47,9 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
         cc = cc.compare(subDomain, o.subDomain);
         cc = cc.compare(type, o.type);
         cc = cc.compare(details, o.details);
-        cc = cc.compare(mxPriority, o.mxPriority);
+        cc = cc.compare(priority, o.priority);
+        cc = cc.compare(weight, o.weight);
+        cc = cc.compare(port, o.port);
         return cc.result();
     }
 
@@ -66,7 +70,9 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
         b.append(subDomain, be.subDomain);
         b.append(type, be.type);
         b.append(details, be.details);
-        b.append(mxPriority, be.mxPriority);
+        b.append(priority, be.priority);
+        b.append(weight, be.weight);
+        b.append(port, be.port);
         return b.isEquals();
     }
 
@@ -74,8 +80,12 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
         return details;
     }
 
-    public int getMxPriority() {
-        return mxPriority;
+    public int getPort() {
+        return port;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     public String getSubDomain() {
@@ -84,6 +94,10 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
 
     public DnsEntryType getType() {
         return type;
+    }
+
+    public int getWeight() {
+        return weight;
     }
 
     public String getZone() {
@@ -98,7 +112,9 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
         b.append(subDomain);
         b.append(type);
         b.append(details);
-        b.append(mxPriority);
+        b.append(priority);
+        b.append(weight);
+        b.append(port);
         return b.toHashCode();
     }
 
@@ -107,8 +123,13 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
         return this;
     }
 
-    public BindEntry setMxPriority(int mxPriority) {
-        this.mxPriority = mxPriority;
+    public BindEntry setPort(int port) {
+        this.port = port;
+        return this;
+    }
+
+    public BindEntry setPriority(int priority) {
+        this.priority = priority;
         return this;
     }
 
@@ -119,6 +140,11 @@ public class BindEntry extends AbstractBasics implements Comparable<BindEntry> {
 
     public BindEntry setType(DnsEntryType type) {
         this.type = type;
+        return this;
+    }
+
+    public BindEntry setWeight(int weight) {
+        this.weight = weight;
         return this;
     }
 

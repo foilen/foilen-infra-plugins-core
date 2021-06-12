@@ -404,12 +404,14 @@ backend http_8080_redir2.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "h1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | redir.example.com / A | 192.168.0.200",
@@ -421,12 +423,14 @@ backend http_8080_redir2.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "redir.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "redir.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | redir2.example.com / A | 192.168.0.200",
@@ -438,12 +442,14 @@ backend http_8080_redir2.example.com
     "content" : {
       "details" : "192.168.0.200",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "redir2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "192.168.0.200",
       "resourceName" : "redir2.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | redir.example.com | redir.example.com",

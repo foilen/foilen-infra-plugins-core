@@ -1,5 +1,43 @@
 {
   "resources" : [ {
+    "resource" : "DnsEntry | _sip._tls.example.com / SRV | sipdir.online.lync.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | _sip._tls.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "sipdir.online.lync.com",
+      "meta" : { },
+      "name" : "_sip._tls.example.com",
+      "port" : 443,
+      "priority" : 100,
+      "resourceCategory" : "NET",
+      "resourceDescription" : "sipdir.online.lync.com",
+      "resourceName" : "_sip._tls.example.com / SRV",
+      "type" : "SRV",
+      "weight" : 1
+    }
+  }, {
+    "resource" : "DnsEntry | _sipfederationtls._tcp.example.com / SRV | sipfed.online.lync.com",
+    "links" : [ {
+      "type" : "MANAGES",
+      "to" : "Domain | _sipfederationtls._tcp.example.com | "
+    } ],
+    "tags" : [ ],
+    "content" : {
+      "details" : "sipfed.online.lync.com",
+      "meta" : { },
+      "name" : "_sipfederationtls._tcp.example.com",
+      "port" : 5061,
+      "priority" : 100,
+      "resourceCategory" : "NET",
+      "resourceDescription" : "sipfed.online.lync.com",
+      "resourceName" : "_sipfederationtls._tcp.example.com / SRV",
+      "type" : "SRV",
+      "weight" : 1
+    }
+  }, {
     "resource" : "DnsEntry | d0.example.com / TXT | hello",
     "links" : [ {
       "type" : "MANAGES",
@@ -57,25 +95,6 @@
       "weight" : 1
     }
   }, {
-    "resource" : "DnsEntry | d4.example.com / TXT | hello",
-    "links" : [ {
-      "type" : "MANAGES",
-      "to" : "Domain | d4.example.com | "
-    } ],
-    "tags" : [ ],
-    "content" : {
-      "details" : "hello",
-      "meta" : { },
-      "name" : "d4.example.com",
-      "port" : 0,
-      "priority" : 10,
-      "resourceCategory" : "NET",
-      "resourceDescription" : "hello",
-      "resourceName" : "d4.example.com / TXT",
-      "type" : "TXT",
-      "weight" : 1
-    }
-  }, {
     "resource" : "DnsEntry | u2.example.com / TXT | hello",
     "links" : [ {
       "type" : "MANAGES",
@@ -93,6 +112,28 @@
       "resourceName" : "u2.example.com / TXT",
       "type" : "TXT",
       "weight" : 1
+    }
+  }, {
+    "resource" : "Domain | _sip._tls.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "_sip._tls.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "_sip._tls.example.com"
+    }
+  }, {
+    "resource" : "Domain | _sipfederationtls._tcp.example.com | ",
+    "links" : [ ],
+    "tags" : [ ],
+    "content" : {
+      "meta" : { },
+      "name" : "_sipfederationtls._tcp.example.com",
+      "resourceCategory" : "NET",
+      "resourceDescription" : "",
+      "resourceName" : "_sipfederationtls._tcp.example.com"
     }
   }, {
     "resource" : "Domain | d0.example.com | ",
@@ -128,17 +169,6 @@
       "resourceName" : "d3.example.com"
     }
   }, {
-    "resource" : "Domain | d4.example.com | ",
-    "links" : [ ],
-    "tags" : [ ],
-    "content" : {
-      "meta" : { },
-      "name" : "d4.example.com",
-      "resourceCategory" : "NET",
-      "resourceDescription" : "",
-      "resourceName" : "d4.example.com"
-    }
-  }, {
     "resource" : "Domain | example.com | ",
     "links" : [ {
       "type" : "SUBDOMAIN",
@@ -149,9 +179,6 @@
     }, {
       "type" : "SUBDOMAIN",
       "to" : "Domain | d3.example.com | "
-    }, {
-      "type" : "SUBDOMAIN",
-      "to" : "Domain | d4.example.com | "
     }, {
       "type" : "SUBDOMAIN",
       "to" : "Domain | u2.example.com | "

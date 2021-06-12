@@ -52,6 +52,7 @@ public class AbstractCorePluginTest extends AbstractIPPluginTest {
     public void init() {
 
         System.setProperty("PluginUpgrader.disable", "true");
+        System.setProperty("Bind9ServiceImpl.forceSerial", "XXXXXXXXXX");
 
         TimerService timerService = new TimerService() {
 

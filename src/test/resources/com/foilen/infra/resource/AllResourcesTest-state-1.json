@@ -164,7 +164,7 @@
             "a" : "etc/bind/pri.example.com",
             "b" : "$TTL 300
 @ IN SOA ns1.example.com. admin.example.com. (
-  1111111100; serial number
+  XXXXXXXXXX; serial number
   3600; refresh [1h]
   600; retry [10m]
   86400; expire [1d]
@@ -2487,12 +2487,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "config.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
       "resourceName" : "config.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | dev.example.com / A | 127.0.0.203",
@@ -2504,12 +2506,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "dev.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
       "resourceName" : "dev.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | example.com / A | 127.0.0.203",
@@ -2521,12 +2525,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
       "resourceName" : "example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | example.com / MX | mail.example.com (10)",
@@ -2538,12 +2544,14 @@ memory_limit = 192M
     "content" : {
       "details" : "mail.example.com",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "mail.example.com (10)",
       "resourceName" : "example.com / MX",
-      "type" : "MX"
+      "type" : "MX",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | example.com / TXT | v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
@@ -2555,13 +2563,15 @@ memory_limit = 192M
     "content" : {
       "details" : "v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "v=spf1 include:spf.mandrillapp.com include:amazonses.com include:sendgrid.net a mx ~all",
       "resourceEditorName" : "Manual DnsEntry",
       "resourceName" : "example.com / TXT",
-      "type" : "TXT"
+      "type" : "TXT",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | follow.example.com / A | 127.0.0.202",
@@ -2573,12 +2583,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "follow.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
       "resourceName" : "follow.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | follow.example.com / A | 127.0.0.203",
@@ -2590,12 +2602,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "follow.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
       "resourceName" : "follow.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | h1.example.com / A | 127.0.0.201",
@@ -2607,12 +2621,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
       "resourceName" : "h1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | h2.example.com / A | 127.0.0.202",
@@ -2624,12 +2640,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
       "resourceName" : "h2.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | h3.example.com / A | 127.0.0.203",
@@ -2641,12 +2659,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "h3.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
       "resourceName" : "h3.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | login.example.com / A | 127.0.0.201",
@@ -2658,12 +2678,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "login.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
       "resourceName" : "login.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | mail.example.com / A | 127.0.0.202",
@@ -2675,12 +2697,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "mail.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
       "resourceName" : "mail.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ns1.example.com / A | 127.0.0.201",
@@ -2692,12 +2716,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ns1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
       "resourceName" : "ns1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ns1.example.com / A | 127.0.0.202",
@@ -2709,12 +2735,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ns1.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
       "resourceName" : "ns1.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ns2.example.com / A | 127.0.0.201",
@@ -2726,12 +2754,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.201",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ns2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.201",
       "resourceName" : "ns2.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | ns2.example.com / A | 127.0.0.202",
@@ -2743,12 +2773,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.202",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "ns2.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.202",
       "resourceName" : "ns2.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsEntry | www.example.com / A | 127.0.0.203",
@@ -2760,12 +2792,14 @@ memory_limit = 192M
     "content" : {
       "details" : "127.0.0.203",
       "meta" : { },
-      "mxPriority" : 10,
       "name" : "www.example.com",
+      "port" : 0,
+      "priority" : 10,
       "resourceCategory" : "NET",
       "resourceDescription" : "127.0.0.203",
       "resourceName" : "www.example.com / A",
-      "type" : "A"
+      "type" : "A",
+      "weight" : 1
     }
   }, {
     "resource" : "DnsPointer | config.example.com | config.example.com",
