@@ -40,19 +40,19 @@ public class ManualDnsEntryEditor implements ResourceEditor<DnsEntry> {
         if (Strings.isNullOrEmpty(priority)) {
             resource.setPriority(10);
         } else {
-            resource.setPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_PRIORITY)));
+            resource.setPriority(Integer.valueOf(priority));
         }
         String weight = validFormValues.get(DnsEntry.PROPERTY_WEIGHT);
         if (Strings.isNullOrEmpty(weight)) {
             resource.setWeight(1);
         } else {
-            resource.setPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_WEIGHT)));
+            resource.setWeight(Integer.valueOf(weight));
         }
         String port = validFormValues.get(DnsEntry.PROPERTY_PORT);
         if (Strings.isNullOrEmpty(port)) {
             resource.setPort(0);
         } else {
-            resource.setPriority(Integer.valueOf(validFormValues.get(DnsEntry.PROPERTY_PORT)));
+            resource.setPort(Integer.valueOf(port));
         }
     }
 
