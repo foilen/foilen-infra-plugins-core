@@ -25,7 +25,7 @@ import com.foilen.infra.resource.global.upgrader.V_2020071401_ApachePhp_Set_Memo
 import com.foilen.infra.resource.global.upgrader.V_2020111101_MariaDB_GenerateUids;
 import com.foilen.infra.resource.global.upgrader.V_2020112601_Refresh_Apache;
 import com.foilen.infra.resource.global.upgrader.V_2020112602_Refresh_MongoDB;
-import com.foilen.infra.resource.global.upgrader.V_2020121401_LetsEncrypt_Update_CA_on_new;
+import com.foilen.infra.resource.global.upgrader.V_2021160601_LetsEncrypt_Update_CA;
 import com.foilen.smalltools.tools.ResourceTools;
 
 public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionProvider {
@@ -67,7 +67,7 @@ public class FoilenGlobalPluginDefinitionProvider implements IPPluginDefinitionP
                 new V_2020111101_MariaDB_GenerateUids(), //
                 new V_2020112601_Refresh_Apache(), //
                 new V_2020112602_Refresh_MongoDB(), //
-                new V_2020121401_LetsEncrypt_Update_CA_on_new() //
+                new V_2021160601_LetsEncrypt_Update_CA() //
         );
     }
 

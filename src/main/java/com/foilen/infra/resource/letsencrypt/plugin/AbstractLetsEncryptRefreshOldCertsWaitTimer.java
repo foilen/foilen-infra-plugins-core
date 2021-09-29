@@ -16,7 +16,7 @@ import com.foilen.smalltools.tools.ResourceTools;
 
 public abstract class AbstractLetsEncryptRefreshOldCertsWaitTimer extends AbstractBasics implements TimerEventHandler {
 
-    protected static final String CA_CERTIFICATE_TEXT = ResourceTools.getResourceAsString("/com/foilen/infra/resource/letsencrypt/lets-encrypt-r3-cross-signed.pem");
+    protected static final String CA_CERTIFICATE_TEXT = ResourceTools.getResourceAsString("/com/foilen/infra/resource/letsencrypt/lets-encrypt-r3.pem");
 
     protected AcmeService acmeService;
     protected LetsencryptHelper letsencryptHelper;
