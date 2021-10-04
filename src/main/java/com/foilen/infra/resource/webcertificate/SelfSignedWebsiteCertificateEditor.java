@@ -25,10 +25,10 @@ import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
 import com.foilen.infra.plugin.v1.core.visual.pageItem.LabelPageItem;
 import com.foilen.infra.plugin.v1.core.visual.pageItem.field.InputTextFieldPageItem;
 import com.foilen.infra.resource.webcertificate.helper.CertificateHelper;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
-import com.foilen.smalltools.crypt.spongycastle.cert.CertificateDetails;
-import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.AsymmetricKeys;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.RSACrypt;
+import com.foilen.smalltools.crypt.bouncycastle.cert.CertificateDetails;
+import com.foilen.smalltools.crypt.bouncycastle.cert.RSACertificate;
 import com.foilen.smalltools.tools.DateTools;
 import com.foilen.smalltools.tuple.Tuple2;
 

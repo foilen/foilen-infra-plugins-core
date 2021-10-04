@@ -29,9 +29,9 @@ import org.shredzone.acme4j.challenge.Http01Challenge;
 import org.shredzone.acme4j.exception.AcmeException;
 
 import com.foilen.infra.resource.letsencrypt.plugin.LetsencryptConfig;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
-import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
-import com.foilen.smalltools.crypt.spongycastle.cert.RSATools;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.RSACrypt;
+import com.foilen.smalltools.crypt.bouncycastle.cert.RSACertificate;
+import com.foilen.smalltools.crypt.bouncycastle.cert.RSATools;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.AssertTools;
 import com.foilen.smalltools.tools.JsonTools;

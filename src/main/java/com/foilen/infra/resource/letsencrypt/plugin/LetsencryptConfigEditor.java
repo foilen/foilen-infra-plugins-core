@@ -18,8 +18,8 @@ import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleR
 import com.foilen.infra.plugin.v1.core.visual.editor.simpleresourceditor.SimpleResourceEditorDefinition;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonFormatting;
 import com.foilen.infra.plugin.v1.core.visual.helper.CommonValidation;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.AsymmetricKeys;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.tuple.Tuple2;
 import com.google.common.base.Strings;
 

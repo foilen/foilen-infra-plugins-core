@@ -14,7 +14,7 @@ import org.shredzone.acme4j.challenge.Challenge;
 import org.shredzone.acme4j.challenge.Dns01Challenge;
 import org.shredzone.acme4j.challenge.Http01Challenge;
 
-import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
+import com.foilen.smalltools.crypt.bouncycastle.cert.RSACertificate;
 import com.foilen.smalltools.tuple.Tuple2;
 
 public interface AcmeService {

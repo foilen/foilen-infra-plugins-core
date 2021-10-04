@@ -20,8 +20,8 @@ import com.foilen.infra.plugin.v1.core.eventhandler.changes.ChangesInTransaction
 import com.foilen.infra.plugin.v1.core.eventhandler.utils.ChangesEventHandlerUtils;
 import com.foilen.infra.plugin.v1.core.exception.IllegalUpdateException;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.RSACrypt;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.AsymmetricKeys;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.RSACrypt;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.SecureRandomTools;
 import com.foilen.smalltools.tools.StreamTools;

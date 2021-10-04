@@ -18,9 +18,9 @@ import com.foilen.infra.plugin.v1.core.context.TimerEventContext;
 import com.foilen.infra.plugin.v1.core.eventhandler.TimerEventHandler;
 import com.foilen.infra.plugin.v1.core.service.IPResourceService;
 import com.foilen.infra.resource.webcertificate.helper.CertificateHelper;
-import com.foilen.smalltools.crypt.spongycastle.asymmetric.AsymmetricKeys;
-import com.foilen.smalltools.crypt.spongycastle.cert.CertificateDetails;
-import com.foilen.smalltools.crypt.spongycastle.cert.RSACertificate;
+import com.foilen.smalltools.crypt.bouncycastle.asymmetric.AsymmetricKeys;
+import com.foilen.smalltools.crypt.bouncycastle.cert.CertificateDetails;
+import com.foilen.smalltools.crypt.bouncycastle.cert.RSACertificate;
 import com.foilen.smalltools.tools.AbstractBasics;
 import com.foilen.smalltools.tools.DateTools;
 
