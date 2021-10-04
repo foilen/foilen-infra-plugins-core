@@ -5,8 +5,8 @@ plugins {
 }
 
 apply plugin: 'eclipse'
-apply plugin: 'java'
-apply plugin: 'maven'
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 group = 'com.foilen'
@@ -38,17 +38,17 @@ configurations {
 }
 
 dependencies {
-  compile ("com.foilen:database-tools:$foilenDatabaseToolsVersion") { transitive = false }
-  compile ("org.shredzone.acme4j:acme4j-client:$acme4jVersion")
-  compile ("org.shredzone.acme4j:acme4j-utils:$acme4jVersion")
+  implementation ("com.foilen:database-tools:$foilenDatabaseToolsVersion") { transitive = false }
+  api ("org.shredzone.acme4j:acme4j-client:$acme4jVersion")
+  api ("org.shredzone.acme4j:acme4j-utils:$acme4jVersion")
   
   compileOnly "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
   
   testRuntimeOnly 'ch.qos.logback:logback-classic'
-  testCompile "com.foilen:foilen-infra-system-core-system-junits:$foilenInfraSystemVersion"
-  testCompile "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
-  testCompileOnly 'junit:junit'
-  testCompile 'org.freemarker:freemarker'
+  testImplementation "com.foilen:foilen-infra-system-core-system-junits:$foilenInfraSystemVersion"
+  testImplementation "com.foilen:foilen-infra-system-core-system-memory:$foilenInfraSystemVersion"
+  testImplementation 'junit:junit'
+  testImplementation 'org.freemarker:freemarker'
   testImplementation "org.junit.jupiter:junit-jupiter-api"
   testRuntimeOnly "org.junit.vintage:junit-vintage-engine"
 }
@@ -58,7 +58,6 @@ test {
 }
 
 shadowJar {
-  configurations = [project.configurations.compile]
   
   archiveClassifier.set(null)
   
@@ -70,45 +69,30 @@ shadowJar {
   
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-  classifier = 'sources'
-  from sourceSets.main.allSource
+java {
+  withJavadocJar()
+  withSourcesJar()
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  from javadoc.destinationDir
-}
-
-artifacts {
-  archives javadocJar, sourcesJar
-}
-
-signing {
-  required { isReleaseVersion && gradle.taskGraph.hasTask(":uploadArchives") }
-  sign configurations.archives
-}
-
-uploadArchives {
+publishing {
   repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: System.getenv('OSSRH_USER'), password: System.getenv('OSSRH_PASS'))
+    maven {
+      url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+      credentials {
+        username = System.getenv('OSSRH_USER')
+        password = System.getenv('OSSRH_PASS')
       }
+    }
+  }
 
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: System.getenv('OSSRH_USER'), password: System.getenv('OSSRH_PASS'))
-      }
-
-      pom.project {
+  publications {
+    mavenJava(MavenPublication) {
+      pom {
         name = "foilen-infra-plugins-core"
-        packaging 'jar'
-        artifactId 'foilen-infra-plugins-core'
-        description 'The basics resources with their validations'
-        url 'https://github.com/foilen/foilen-infra-plugins-core'
-
+        description = 'The basics resources with their validations'
+        url = 'https://github.com/foilen/foilen-infra-plugins-core'
+        from components.java
+        
         scm {
           connection = "scm:git:git@github.com:foilen/foilen-infra-plugins-core.git"
           url = "https://github.com/foilen/foilen-infra-plugins-core"
@@ -123,14 +107,21 @@ uploadArchives {
 
         developers {
           developer {
-            id 'foilen'
-            name 'Simon Levesque'
-            email 'simon@foilen.com'
+            id = 'foilen'
+            name = 'Simon Levesque'
+            email = 'simon@foilen.com'
           }
         }
       }
     }
   }
+}
+
+signing {
+  sign publishing.publications.mavenJava
+}
+tasks.withType(Sign) {
+  onlyIf { isReleaseVersion }
 }
 
 task outputVersion {
@@ -141,5 +132,5 @@ task outputVersion {
 }
 processResources.dependsOn outputVersion
 
-install.dependsOn shadowJar
-uploadArchives.dependsOn shadowJar
+publishToMavenLocal.dependsOn shadowJar
+publish.dependsOn shadowJar
